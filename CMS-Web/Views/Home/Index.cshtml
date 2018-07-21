@@ -1,459 +1,518 @@
 ﻿@{
-    Layout = "~/Areas/Clients/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @model CMS_DTO.CMSProduct.ProductViewModels
-@{ 
+@{
     var _ListSlider = Session["SliderSession"] as List<CMS_DTO.CMSSession.SliderSession>;
 }
-<!-- Background Area Start -->
-<section class="slider-area">
-    <div class="slider-wrapper">
-        @if (_ListSlider != null && _ListSlider.Any())
-        {
-            foreach (var item in _ListSlider)
-            {
-                <div class="single-slide" style="background-image: url('@Url.Content(item.ImageUrl)');">
-                    <div class="banner-content">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                                    <div class="text-content-wrapper">
-                                        <div class="text-content text-center">
-                                            <h3 class="pt-70">welcome our Koffee</h3>
-                                            <h1>Live Your Life With Energy</h1>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras suscipit, est non tincidunt auctor, lacus lorem tincidunt est, sed ornare nisi est vel ligula.</p>
-                                            <div class="banner-btn">
-                                                <a class="default-btn" href="javascript:void(0)">
-                                                    <span>Reservation</span>
-                                                </a>
-                                            </div>
+
+    <div id="main">
+        <div id="slider">
+            <div id="slider-container">
+                <script data-cfasync="false" src="/cdn-cgi/scripts/f2bf09f8/cloudflare-static/email-decode.min.js"></script>
+                <script data-cfasync="false" type="text/javascript">var lsjQuery = jQuery;</script>
+                <script data-cfasync="false" type="text/javascript">lsjQuery(document).ready(function () { if (typeof lsjQuery.fn.layerSlider == "undefined") { lsShowNotice('layerslider_1', 'jquery'); } else { lsjQuery("#layerslider_1").layerSlider({ responsiveUnder: 1240, layersContainer: 1060, startInViewport: false, skinsPath: 'https://dreamspa.dttheme.com/wp-content/plugins/LayerSlider/static/skins/' }) } });</script>
+                <div id="layerslider_1" class="ls-wp-container" style="width:100%;height:600px;margin:0 auto;margin-bottom: 0px;">
+                    <div class="ls-slide" data-ls="slidedelay:9000; transition2d: all;">
+                        <img src="https://dreamspa.dttheme.com/wp-content/plugins/LayerSlider/static/img/blank.gif" data-src="https://dreamspa.dttheme.com/wp-content/uploads/2014/06/slider1-bg.jpg"
+                                class="ls-bg" alt="slider1-bg" />
+                        <img class="ls-l" style="top:23px;left:122px;white-space: nowrap;" data-ls="offsetxin:0;durationin:4000;rotateyin:200;transformoriginin:center 50% 0;offsetxout:0;durationout:2000;rotateyout:90;parallaxlevel:1;"
+                                src="https://dreamspa.dttheme.com/wp-content/plugins/LayerSlider/static/img/blank.gif" data-src="https://dreamspa.dttheme.com/wp-content/uploads/2014/06/slider1-lotus.png"
+                                alt="">
+                        <img class="ls-l" style="top:100px;left:-19px;white-space: nowrap;" data-ls="offsetxin:-50;scalexin:3;scaleyin:3;transformoriginin:25% 25% 0;offsetxout:-50;scalexout:0.5;scaleyout:0.5;parallaxlevel:-1;"
+                                src="https://dreamspa.dttheme.com/wp-content/plugins/LayerSlider/static/img/blank.gif" data-src="https://dreamspa.dttheme.com/wp-content/uploads/2014/06/slider1-image.png"
+                                alt="">
+                        <h2 class="ls-l skin" style="top:150px;left:541px;font-family:'Courgette', cursive; font-size:30px; letter-spacing:0px;white-space: nowrap;"
+                            data-ls="offsetxin:50;durationin:2000;delayin:3000;rotateyin:60;transformoriginin:right 50% 0;offsetxout:-50;durationout:2000;rotateyout:-60;transformoriginout:left 50% 0;">
+                            The Essence of Natural beauty
+                        </h2>
+                        <h3 class="ls-l" style="top:205px;left:545px;color:#685e59; font-family:'Open Sans', sans-serif; font-style:italic; font-size:14px; font-weight:normal;white-space: nowrap;"
+                            data-ls="offsetxin:-50;durationin:3000;delayin:3500;rotateyin:-60;transformoriginin:left 50% 0;offsetxout:50;durationout:3000;rotateyout:60;">
+                            Dream Spa - Natural Spa Theme
+                        </h3>
+                    </div>
+                    <div class="ls-slide" data-ls="slidedelay:7000; transition2d: all;">
+                        <img src="https://dreamspa.dttheme.com/wp-content/plugins/LayerSlider/static/img/blank.gif" data-src="https://dreamspa.dttheme.com/wp-content/uploads/2014/06/slider2-bg.jpg"
+                                class="ls-bg" alt="slider2-bg" />
+                        <img class="ls-l" style="top:0px;left:0px;white-space: nowrap;" data-ls="offsetxin:0;offsetyin:100;durationin:1800;scalexin:0.8;scaleyin:0.8;offsetxout:-100;offsetyout:50;"
+                                src="https://dreamspa.dttheme.com/wp-content/plugins/LayerSlider/static/img/blank.gif" data-src="https://dreamspa.dttheme.com/wp-content/uploads/2014/06/slider2-image.png"
+                                alt="">
+                        <h2 class="ls-l" style="top:245px;left:501px;font-family:'Courgette', cursive; color:#9cc64d; font-size:26px; border-bottom:1px solid #d5d3c8; padding:0px 0px 10px; margin:0px 0px 10px; font-weight:normal; letter-spacing:0px;white-space: nowrap;"
+                            data-ls="durationin:1500;delayin:1000;rotatein:20;rotatexin:30;scalexin:1.5;scaleyin:1.5;transformoriginin:left 50% 0;durationout:750;rotateout:20;rotatexout:-30;transformoriginout:left 50% 0;">
+                            a surreal experience
+                        </h2>
+                        <h3 class="ls-l skin" style="top:295px;left:501px;font-weight:300; font-size:30px; text-transform:uppercase; font-family:'Open Sans', sans-serif;white-space: nowrap;"
+                            data-ls="offsetxin:0;durationin:1500;delayin:2000;rotateyin:90;skewxin:60;transformoriginin:25% 50% 0;offsetxout:100;durationout:750;skewxout:60;">
+                            that you will love to surrender
+                        </h3>
+                    </div>
+                    <div class="ls-slide" data-ls=" transition2d: all;">
+                        <img src="https://dreamspa.dttheme.com/wp-content/plugins/LayerSlider/static/img/blank.gif" data-src="https://dreamspa.dttheme.com/wp-content/uploads/2014/06/slider3-bg.jpg"
+                                class="ls-bg" alt="slider3-bg" />
+                        <img class="ls-l" style="top:0px;left:45px;white-space: nowrap;" data-ls="offsetxin:-100;transformoriginin:right 50% 0;transformoriginout:right 50% 0;"
+                                src="https://dreamspa.dttheme.com/wp-content/plugins/LayerSlider/static/img/blank.gif" data-src="https://dreamspa.dttheme.com/wp-content/uploads/2014/06/slider3-image.png"
+                                alt="">
+                        <h2 class="ls-l" style="top:196px;left:505px;font-family:'Courgette', cursive; color:#9cc64d; font-size:26px; border-bottom:1px solid #d5d3c8; padding:0px 0px 10px; margin:0px 0px 10px; font-weight:normal; letter-spacing:0px;white-space: nowrap;"
+                            data-ls="offsetxin:50;delayin:1000;skewxin:-50;offsetxout:-50;durationout:600;">
+                            come and experience the
+                        </h2>
+                        <h3 class="ls-l skin" style="top:244px;left:505px;font-weight:normal; font-size:30px; text-transform:uppercase; font-family:'Open Sans', sans-serif;white-space: nowrap;"
+                            data-ls="offsetxin:-100;delayin:2000;skewxin:-50;offsetxout:100;skewxout:50;">
+                            wellness of life in nature
+                        </h3>
+                        <h4 class="ls-l" style="top:293px;left:505px;color:#685e59; font-family:'Open Sans', sans-serif; font-style:italic; font-size:14px; font-weight:normal;white-space: nowrap;"
+                            data-ls="offsetxin:0;offsetyin:100;delayin:3000;offsetxout:-100;">
+                            Dream Spa - Natural Spa Theme
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section id="primary" class="content-full-width">
+            <div id="post-105" class="post-105 page type-page status-publish hentry">
+                <div class='dt-sc-hr-invisible  '></div>
+                <div class='fullwidth-section ' style="background-repeat:no-repeat;background-position:left top;">
+                    <div class="container">
+                        <div class="border-title aligncenter">
+                            <h2>A Warm Welcome</h2>
+                            <h6>
+                                We at Dream Spa provide various services to the nature of the clients. Wish how you would like to spend
+                                the
+                            </h6>
+                            <h6>time here we can talk and come to a conclusion.</h6>
+                        </div>
+                        <div class='dt-sc-hr-invisible-small  '></div>
+                        <div class='column dt-sc-one-third  space first'>
+                            <div class='dt-sc-ico-content type1 green'>
+                                <div class='icon'>
+                                    <span>
+                                        <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/services-ico1.png' alt='' />
+                                    </span>
+                                </div>
+                                <h2>Ayurveda Spa</h2>
+                                <div class='image'>
+                                    <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/services1.jpg' alt='' title='' />
+                                </div>
+                                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.</p>
+                            </div>
+                        </div>
+                        <div class='column dt-sc-one-third  space '>
+                            <div class='dt-sc-ico-content type1 chocolate'>
+                                <div class='icon'>
+                                    <span>
+                                        <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/services-ico2.png' alt='' />
+                                    </span>
+                                </div>
+                                <h2>Luxury Spa</h2>
+                                <div class='image'>
+                                    <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/services2.jpg' alt='' title='' />
+                                </div>
+                                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.</p>
+                            </div>
+                        </div>
+                        <div class='column dt-sc-one-third  space '>
+                            <div class='dt-sc-ico-content type1 blue'>
+                                <div class='icon'>
+                                    <span>
+                                        <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/services-ico3.png' alt='' />
+                                    </span>
+                                </div>
+                                <h2>Massage Spa</h2>
+                                <div class='image'>
+                                    <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/services3.jpg' alt='' title='' />
+                                </div>
+                                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='dt-sc-hr-invisible-medium  '></div>
+                <div class='fullwidth-section skin-white' style="background-color:#fcfcf7;background-image:url(https://dreamspa.dttheme.com/wp-content/uploads/2014/05/border.png);background-repeat:repeat-x;background-position:left top;padding-top:95px;">
+                    <div class="container">
+                        <div class="border-title aligncenter">
+                            <h2>Popular Procedures</h2>
+                            <h6>These procedures are the best and most loved by our customers.</h6>
+                        </div>
+                        <div class='dt-sc-hr-invisible-small  '></div>
+                        <div class='column dt-sc-one-third  space first'>
+                            <div class="dt-sc-popular-procedures with-image">
+                                <div class="dt-sc-popular-procedures-wrapper">
+                                    <div class="border"></div>
+                                    <div class='image'>
+                                        <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/popular-procedures1.jpg' alt='Aromatheraphy' />
+                                    </div>
+                                    <h2>Aromatheraphy</h2>
+                                    <p>
+                                        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti
+                                        atque corrupti quos dolores et quas molestias provident destiny is about voles.
+                                    </p>
+                                </div>
+                                <a href='#' class='dt-sc-button small'>Read More</a>
+                            </div>
+                        </div>
+                        <div class='column dt-sc-one-third  space '>
+                            <div class="dt-sc-popular-procedures with-image">
+                                <div class="dt-sc-popular-procedures-wrapper">
+                                    <div class="border"></div>
+                                    <div class='image'>
+                                        <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/popular-procedures2.jpg' alt='Skin Care' />
+                                    </div>
+                                    <h2>Skin Care</h2>
+                                    <p>
+                                        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti
+                                        atque corrupti quos dolores et quas molestias provident destiny is about voles.
+                                    </p>
+                                </div>
+                                <a href='#' class='dt-sc-button small'>Read More</a>
+                            </div>
+                        </div>
+                        <div class='column dt-sc-one-third  space '>
+                            <div class="dt-sc-popular-procedures with-image">
+                                <div class="dt-sc-popular-procedures-wrapper">
+                                    <div class="border"></div>
+                                    <div class='image'>
+                                        <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/popular-procedures3.jpg' alt='Herbal Spa' />
+                                    </div>
+                                    <h2>Herbal Spa</h2>
+                                    <p>
+                                        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti
+                                        atque corrupti quos dolores et quas molestias provident destiny is about voles.
+                                    </p>
+                                </div>
+                                <a href='#' class='dt-sc-button small'>Read More</a>
+                            </div>
+                        </div>
+                        <div class='dt-sc-hr-invisible-medium  '></div>
+                        <div class="border-title aligncenter">
+                            <h2>Our Gallery</h2>
+                            <h6>Take a look at our practice and process of defining spa!</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class='column no-space  dt-sc-one-fourth  first'>
+                    <div id='dt_galleries-203' class='dt-gallery gallery no-space'>
+                        <figure>
+                            <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio1.jpg' width='1060' height='795'
+                                    alt='' />
+                            <div class="image-overlay">
+                                <div class="image-overlay-details">
+                                    <h5>
+                                        <a href='https://dreamspa.dttheme.com/dt_galleries/meditation-spa/'>Meditation spa</a>
+                                    </h5>
+                                    <div class="links">
+                                        <a href='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio1.jpg' data-gal='prettyPhoto[gallery]'>
+                                            <span class='fa fa-search-plus'> </span>
+                                        </a>
+                                        <a href='https://dreamspa.dttheme.com/dt_galleries/meditation-spa/'>
+                                            <span class='fa fa-external-link'> </span>
+                                        </a>
+                                        <div class='views'>
+                                            <span class='fa fa-heart'> </span>
+                                            <a href="#" class="likeThis" id="like-203" data-post-id="203">12419</a>
                                         </div>
                                     </div>
                                 </div>
+                                <a class="close-overlay hidden"> x </a>
                             </div>
-                        </div>
+                        </figure>
                     </div>
                 </div>
-            }
-        }
-    </div>
-</section>
-<!-- Background Area End -->
-
-<!-- Contact Info Start -->
-@if (Model.Company != null)
-{
-    <section class="contact-area fix pb-30">
-        <div class="single-contact">
-            <div class="information text-center">
-                <h4><span>Điện thoại : </span>@Model.Company.Phone</h4>
-            </div>
-        </div>
-        <div class="single-contact">
-            <div class="information text-center">
-                <h4><span>Email :</span>@Model.Company.Email</h4>
-            </div>
-        </div>
-        <div class="single-contact">
-            <div class="information text-center">
-                <h4 title="@Model.Company.Address"><span>Địa chỉ :</span>@string.Format("{0}",!string.IsNullOrEmpty(Model.Company.Address) && Model.Company.Address.Length > 26 ? Model.Company.Address.Substring(0,25) + "..." : Model.Company.Address)</h4>
-            </div>
-        </div>
-        <div class="single-contact">
-            <div class="information text-center">
-                <h4><span>Open Hour :</span>8.Am-6.Pm</h4>
-            </div>
-        </div>
-    </section>
-}
-
-<!-- Contact Info End -->
-
-<!-- About Area Start -->
-<section class="about-area pt-70 pb-100">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-sm-6">
-                <div class="about-container">
-                    <div class="about-text">
-                        <h3>About Koffee Shop</h3>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown thing took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, this is remaining essential.</p>
-                        <p>Type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, this is remaining essential.</p>
-                        <a href="about.html" class="default-btn"><span>Read more</span></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-6 hidden-xs">
-                <div class="about-image">
-                    <img src="@Url.Content("~/Images/banner/z1029925499025_787a87bae513ecdbbbc1e0abe096d346.jpg")" style="width:80% !important" />
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- About Area End -->
-
-<!-- Special Area Strat -->
-<section class="special-area bg-light ptb-100">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <div class="section-title text-center">
-                    <h1>Special koffee</h1>
-                    <span><img src="@Url.Content("~/Images/banner/koffee.png")" alt=""></span>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since. </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container-fluid">
-        @if (Model != null && Model.ListCate != null && Model.ListCate.Any())
-        {
-            foreach (var item in Model.ListCate)
-            {
-                <div class="special-item">
-                    <div class="item-content">
-                        @if (string.IsNullOrEmpty(item.ImageURL))
-                        {
-                            <img src="@Url.Content("~/Images/banner/1.jpg")" alt="">
-                        }
-                        else
-                        {
-                            <img src="@Url.Content(item.ImageURL)" alt="">
-                            @*<img src="@Url.Content("~/Uploads/Products/1.jpg")" alt="">*@
-                        }
-                        
-                        <div class="item-hover text-center">
-                            <div class="hover-text">
-                                <h1><a href="javascript:void(0)">@item.CategoryName</a></h1>
-                                <p>@Html.Raw(item.Description)</p>
-                               @* <span class="price">$20.00</span>*@
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
-        }
-    </div>
-</section>
-<!-- Special Area End -->
-
-<!-- Advertise Area Start -->
-<section class="advertise-area bg-1 ptb-100 overlay-1">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="advertise-text text-center">
-                    <h1>Start Your Day With koffee</h1>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Advertise Area End -->
-
-<!-- Menu Area Start -->
-<section class="menu-area ptb-100">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <div class="section-title text-center">
-                    <h1>Our Menu</h1>
-                    <span><img src="@Url.Content("~/Images/banner/koffee.png")" alt=""></span>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since. </p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            @if (Model.ListProduct != null && Model.ListProduct.Any())
-            {
-                foreach (var item in Model.ListProduct)
-                {
-                    <div class="col-md-3 col-sm-4">
-                        <div class="single-menu text-center">
-                            <div class="menu-image">
-                                <span>@item.ProductPrice</span>
-                                <a href="javascript:void(0)">
-                                    @if (string.IsNullOrEmpty(item.ImageURL))
-                                    {
-                                        <img src="@Url.Content("~/Images/banner/s-1.jpg")" />
-                                    }
-                                    else
-                                    {
-                                        <img src="@Url.Content(item.ImageURL)" alt="">
-                                    }
-                                </a>
-                            </div>
-                            <h4><a href="javascript:void(0)">@item.ProductName</a></h4>
-                            <span>@Html.Raw(item.Description) </span>
-                        </div>
-                    </div>
-                }
-            }
-            <div class="col-md-12 text-center menu-btn col-sm-12 col-xs-12">
-                <a href="javascript:void(0)" class="default-btn"><span>View full menu</span></a>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Menu Area End -->
-
- <!-- Event Area Start -->
-<section class="event-area ptb-100 bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="event-text text-center">
-                    <h1>UpComing Event</h1>
-                    <h1 class="event-title">30% Off <span>For First 3  Menu</span></h1>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived </p>
-                    <div class="event-btn">
-                        <a href="javascript:void(0)" class="default-btn"><span>Reservation Now</span></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Event Area End -->
-
-<!-- Team Area Start -->
-<section class="team-area ptb-100">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <div class="section-title text-center">
-                    <h1>Our Team Member</h1>
-                    <span><img src="@Url.Content("~/Images/banner/koffee.png")" alt=""></span>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since. </p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3 col-sm-4">
-                <div class="single-team">
-                    <a href="#"><img src="@Url.Content("~/Images/team/1.jpg")" alt=""></a>
-                    <div class="team-text text-center">
-                        <h4><a href="#">Jesse E. Marshall</a></h4>
-                        <h5>Senior Accountants</h5>
-                        <div class="team-links">
-                            <a href="#"><i class="zmdi zmdi-facebook"></i></a>
-                            <a href="#"><i class="zmdi zmdi-twitter"></i></a>
-                            <a href="#"><i class="zmdi zmdi-dribbble"></i></a>
-                            <a href="#"><i class="zmdi zmdi-pinterest"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-4">
-                <div class="single-team">
-                    <a href="#"><img src="@Url.Content("~/Images/team/2.jpg")" alt=""></a>
-                    <div class="team-text text-center">
-                        <h4><a href="#">John Been Robi</a></h4>
-                        <h5>Catering Assistant</h5>
-                        <div class="team-links">
-                            <a href="#"><i class="zmdi zmdi-facebook"></i></a>
-                            <a href="#"><i class="zmdi zmdi-twitter"></i></a>
-                            <a href="#"><i class="zmdi zmdi-dribbble"></i></a>
-                            <a href="#"><i class="zmdi zmdi-pinterest"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-4">
-                <div class="single-team">
-                    <a href="#"><img src="@Url.Content("~/Images/team/3.jpg")" alt=""></a>
-                    <div class="team-text text-center">
-                        <h4><a href="#">Rosalyn Golay</a></h4>
-                        <h5>Sales Assistant</h5>
-                        <div class="team-links">
-                            <a href="#"><i class="zmdi zmdi-facebook"></i></a>
-                            <a href="#"><i class="zmdi zmdi-twitter"></i></a>
-                            <a href="#"><i class="zmdi zmdi-dribbble"></i></a>
-                            <a href="#"><i class="zmdi zmdi-pinterest"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 hidden-sm">
-                <div class="single-team">
-                    <a href="#"><img src="@Url.Content("~/Images/team/4.jpg")" alt=""></a>
-                    <div class="team-text text-center">
-                        <h4><a href="#"> France Denison </a></h4>
-                        <h5>General Manager</h5>
-                        <div class="team-links">
-                            <a href="#"><i class="zmdi zmdi-facebook"></i></a>
-                            <a href="#"><i class="zmdi zmdi-twitter"></i></a>
-                            <a href="#"><i class="zmdi zmdi-dribbble"></i></a>
-                            <a href="#"><i class="zmdi zmdi-pinterest"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Team Area End -->
-
-<!-- Client Area Start -->
-<section class="client-area bg-2 overlay-1 ptb-100">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-sm-12">
-                <div class="testimonial-carousel">
-                    <div class="single-tesimonial text-center">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley</p>
-                        <div class="client-rating">
-                            <i class="zmdi zmdi-star"></i>
-                            <i class="zmdi zmdi-star"></i>
-                            <i class="zmdi zmdi-star"></i>
-                            <i class="zmdi zmdi-star"></i>
-                            <i class="zmdi zmdi-star-half"></i>
-                        </div>
-                        <h4><a href="#">Wiliam Harry</a></h4>
-                    </div>
-                    <div class="single-tesimonial text-center">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley</p>
-                        <div class="client-rating">
-                            <i class="zmdi zmdi-star"></i>
-                            <i class="zmdi zmdi-star"></i>
-                            <i class="zmdi zmdi-star"></i>
-                            <i class="zmdi zmdi-star"></i>
-                            <i class="zmdi zmdi-star-half"></i>
-                        </div>
-                        <h4><a href="#">John Been Robi</a></h4>
-                    </div>
-                    <div class="single-tesimonial text-center">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley</p>
-                        <div class="client-rating">
-                            <i class="zmdi zmdi-star"></i>
-                            <i class="zmdi zmdi-star"></i>
-                            <i class="zmdi zmdi-star"></i>
-                            <i class="zmdi zmdi-star"></i>
-                            <i class="zmdi zmdi-star-half"></i>
-                        </div>
-                        <h4><a href="#">Rosalyn Golay</a></h4>
-                    </div>
-                    <div class="single-tesimonial text-center">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley</p>
-                        <div class="client-rating">
-                            <i class="zmdi zmdi-star"></i>
-                            <i class="zmdi zmdi-star"></i>
-                            <i class="zmdi zmdi-star"></i>
-                            <i class="zmdi zmdi-star"></i>
-                            <i class="zmdi zmdi-star-half"></i>
-                        </div>
-                        <h4><a href="#">Wiliam Harry</a></h4>
-                    </div>
-                    <div class="single-tesimonial text-center">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley</p>
-                        <div class="client-rating">
-                            <i class="zmdi zmdi-star"></i>
-                            <i class="zmdi zmdi-star"></i>
-                            <i class="zmdi zmdi-star"></i>
-                            <i class="zmdi zmdi-star"></i>
-                            <i class="zmdi zmdi-star-half"></i>
-                        </div>
-                        <h4><a href="#">Jesse E. Marshall</a></h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12">
-                <div class="single-client-container">
-                    <div class="row">
-                        <div class="col-md-4 col-sm-4">
-                            <a class="single-client" href="#">
-                                <span class="client-table-cell">
-                                    <img src="@Url.Content("~/Images/client/1.png")" alt="">
-                                </span>
-                            </a>
-                        </div>
-                        <div class="col-md-4 col-sm-4">
-                            <a class="single-client" href="#">
-                                <span class="client-table-cell">
-                                    <img src="@Url.Content("~/Images/client/2.png")" alt="">
-                                </span>
-                            </a>
-                        </div>
-                        <div class="col-md-4 col-sm-4">
-                            <a class="single-client" href="#">
-                                <span class="client-table-cell">
-                                    <img src="@Url.Content("~/Images/client/3.png")" alt="">
-                                </span>
-                            </a>
-                        </div>
-                        <div class="col-md-4 col-sm-4">
-                            <a class="single-client" href="#">
-                                <span class="client-table-cell">
-                                    <img src="@Url.Content("~/Images/client/4.png")" alt="">
-                                </span>
-                            </a>
-                        </div>
-                        <div class="col-md-4 col-sm-4">
-                            <a class="single-client" href="#">
-                                <span class="client-table-cell">
-                                    <img src="@Url.Content("~/Images/client/5.png")" alt="">
-                                </span>
-                            </a>
-                        </div>
-                        <div class="col-md-4 col-sm-4">
-                            <a class="single-client" href="#">
-                                <span class="client-table-cell">
-                                    <img src="@Url.Content("~/Images/client/6.png")" alt="">
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Client Area End -->
-
-<!-- Blog Area Start -->
-<section class="blog-area ptb-100">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <div class="section-title text-center">
-                    <h1>Our Blog</h1>
-                    <span><img src="@Url.Content("~/Images/banner/koffee.png")" alt=""></span>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since. </p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="blog-carousel">
-                @if (Model.ListNews != null && Model.ListNews.Any())
-                {
-                    foreach (var item in Model.ListNews)
-                    {
-                        <div class="col-xs-12">
-                            <div class="single-blog">
-                                <a href="@Url.Action("NewsDetail", "News", new {id=item.Id })" class="blog-image">
-                                    @if (string.IsNullOrEmpty(item.ImageURL))
-                                    {
-                                        <img src="@Url.Content("~/Images/banner/1.jpg")" alt="">
-                                    }
-                                    else
-                                    {
-                                        <img src="@Url.Content(item.ImageURL)" alt="">
-                                    }
-                                </a>
-                                <div class="blog-text text-center">
-                                    <span>@item.CreatedDate.ToString("dd/MM/yyyy")</span>
-                                    <h4><a href="@Url.Action("NewsDetail", "News", new {id=item.Id })">@item.Title</a></h4>
-                                    <p>@item.Short_Description</p>
-                                    <a href="@Url.Action("NewsDetail", "News", new {id=item.Id })">Xem Thêm</a>
+                <div class='column no-space  dt-sc-one-fourth '>
+                    <div id='dt_galleries-202' class='dt-gallery gallery no-space'>
+                        <figure>
+                            <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio2.jpg' width='1060' height='795'
+                                    alt='' />
+                            <div class="image-overlay">
+                                <div class="image-overlay-details">
+                                    <h5>
+                                        <a href='https://dreamspa.dttheme.com/dt_galleries/spa-bars/'>Spa Bars</a>
+                                    </h5>
+                                    <div class="links">
+                                        <a href='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio2.jpg' data-gal='prettyPhoto[gallery]'>
+                                            <span class='fa fa-search-plus'> </span>
+                                        </a>
+                                        <a href='https://dreamspa.dttheme.com/dt_galleries/spa-bars/'>
+                                            <span class='fa fa-external-link'> </span>
+                                        </a>
+                                        <div class='views'>
+                                            <span class='fa fa-heart'> </span>
+                                            <a href="#" class="likeThis" id="like-202" data-post-id="202">12436</a>
+                                        </div>
+                                    </div>
                                 </div>
+                                <a class="close-overlay hidden"> x </a>
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+                <div class='column no-space  dt-sc-one-fourth '>
+                    <div id='dt_galleries-201' class='dt-gallery gallery no-space'>
+                        <figure>
+                            <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio3.jpg' width='1060' height='795'
+                                    alt='' />
+                            <div class="image-overlay">
+                                <div class="image-overlay-details">
+                                    <h5>
+                                        <a href='https://dreamspa.dttheme.com/dt_galleries/wollen-spa-cloth/'>Wollen Spa Cloth</a>
+                                    </h5>
+                                    <div class="links">
+                                        <a href='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio3.jpg' data-gal='prettyPhoto[gallery]'>
+                                            <span class='fa fa-search-plus'> </span>
+                                        </a>
+                                        <a href='https://dreamspa.dttheme.com/dt_galleries/wollen-spa-cloth/'>
+                                            <span class='fa fa-external-link'> </span>
+                                        </a>
+                                        <div class='views'>
+                                            <span class='fa fa-heart'> </span>
+                                            <a href="#" class="likeThis" id="like-201" data-post-id="201">12404</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="close-overlay hidden"> x </a>
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+                <div class='column no-space  dt-sc-one-fourth '>
+                    <div id='dt_galleries-200' class='dt-gallery gallery no-space'>
+                        <figure>
+                            <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio4.jpg' width='1060' height='795'
+                                    alt='' />
+                            <div class="image-overlay">
+                                <div class="image-overlay-details">
+                                    <h5>
+                                        <a href='https://dreamspa.dttheme.com/dt_galleries/wax-candle-in-coconut-shell/'>Wax Candle</a>
+                                    </h5>
+                                    <div class="links">
+                                        <a href='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio4.jpg' data-gal='prettyPhoto[gallery]'>
+                                            <span class='fa fa-search-plus'> </span>
+                                        </a>
+                                        <a href='https://dreamspa.dttheme.com/dt_galleries/wax-candle-in-coconut-shell/'>
+                                            <span class='fa fa-external-link'> </span>
+                                        </a>
+                                        <div class='views'>
+                                            <span class='fa fa-heart'> </span>
+                                            <a href="#" class="likeThis" id="like-200" data-post-id="200">36</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="close-overlay hidden"> x </a>
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+                <div class='column no-space  dt-sc-one-fourth  first'>
+                    <div id='dt_galleries-199' class='dt-gallery gallery no-space'>
+                        <figure>
+                            <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio5.jpg' width='1060' height='795'
+                                    alt='' />
+                            <div class="image-overlay">
+                                <div class="image-overlay-details">
+                                    <h5>
+                                        <a href='https://dreamspa.dttheme.com/dt_galleries/dry-aroma-petals-for-bath/'>Dry Aroma Petals for Bath</a>
+                                    </h5>
+                                    <div class="links">
+                                        <a href='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio5.jpg' data-gal='prettyPhoto[gallery]'>
+                                            <span class='fa fa-search-plus'> </span>
+                                        </a>
+                                        <a href='https://dreamspa.dttheme.com/dt_galleries/dry-aroma-petals-for-bath/'>
+                                            <span class='fa fa-external-link'> </span>
+                                        </a>
+                                        <div class='views'>
+                                            <span class='fa fa-heart'> </span>
+                                            <a href="#" class="likeThis" id="like-199" data-post-id="199">30</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="close-overlay hidden"> x </a>
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+                <div class='column no-space  dt-sc-one-fourth '>
+                    <div id='dt_galleries-198' class='dt-gallery gallery no-space'>
+                        <figure>
+                            <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio6.jpg' width='1060' height='795'
+                                    alt='' />
+                            <div class="image-overlay">
+                                <div class="image-overlay-details">
+                                    <h5>
+                                        <a href='https://dreamspa.dttheme.com/dt_galleries/spa-green-salt/'>Spa Green Salt</a>
+                                    </h5>
+                                    <div class="links">
+                                        <a href='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio6.jpg' data-gal='prettyPhoto[gallery]'>
+                                            <span class='fa fa-search-plus'> </span>
+                                        </a>
+                                        <a href='https://dreamspa.dttheme.com/dt_galleries/spa-green-salt/'>
+                                            <span class='fa fa-external-link'> </span>
+                                        </a>
+                                        <div class='views'>
+                                            <span class='fa fa-heart'> </span>
+                                            <a href="#" class="likeThis" id="like-198" data-post-id="198">51</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="close-overlay hidden"> x </a>
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+                <div class='column no-space  dt-sc-one-fourth '>
+                    <div id='dt_galleries-197' class='dt-gallery gallery no-space'>
+                        <figure>
+                            <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio7.jpg' width='1060' height='795'
+                                    alt='' />
+                            <div class="image-overlay">
+                                <div class="image-overlay-details">
+                                    <h5>
+                                        <a href='https://dreamspa.dttheme.com/dt_galleries/wooden-mixer/'>Wooden Mixer</a>
+                                    </h5>
+                                    <div class="links">
+                                        <a href='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio7.jpg' data-gal='prettyPhoto[gallery]'>
+                                            <span class='fa fa-search-plus'> </span>
+                                        </a>
+                                        <a href='https://dreamspa.dttheme.com/dt_galleries/wooden-mixer/'>
+                                            <span class='fa fa-external-link'> </span>
+                                        </a>
+                                        <div class='views'>
+                                            <span class='fa fa-heart'> </span>
+                                            <a href="#" class="likeThis" id="like-197" data-post-id="197">34</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="close-overlay hidden"> x </a>
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+                <div class='column no-space  dt-sc-one-fourth '>
+                    <div id='dt_galleries-196' class='dt-gallery gallery no-space'>
+                        <figure>
+                            <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio8.jpg' width='1060' height='795'
+                                    alt='' />
+                            <div class="image-overlay">
+                                <div class="image-overlay-details">
+                                    <h5>
+                                        <a href='https://dreamspa.dttheme.com/dt_galleries/spa-candle/'>Spa Candle</a>
+                                    </h5>
+                                    <div class="links">
+                                        <a href='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio8.jpg' data-gal='prettyPhoto[gallery]'>
+                                            <span class='fa fa-search-plus'> </span>
+                                        </a>
+                                        <a href='https://dreamspa.dttheme.com/dt_galleries/spa-candle/'>
+                                            <span class='fa fa-external-link'> </span>
+                                        </a>
+                                        <div class='views'>
+                                            <span class='fa fa-heart'> </span>
+                                            <a href="#" class="likeThis" id="like-196" data-post-id="196">23</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="close-overlay hidden"> x </a>
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+                </p>
+                <div class='fullwidth-section '>
+                    <div class="container">
+                        <div class='dt-sc-hr-invisible  '></div>
+                        <div class='dt-sc-callout-box with-icon type6 '>
+                            <div class="dt-sc-callout-content">
+                                <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/callout-image.png' alt='' />
+                                <h5>
+                                    We care for your beauty and fitness. DreamSpa will be the best suitable theme for your spa business and
+                                    needs.
+                                </h5>
+                            </div>
+                            <div class="dt-sc-callout-button">
+                                <a href='#' class='dt-sc-button with-icon small' target='_blank'>
+                                    <span>Purchase Theme</span>
+                                    <i class='fa fa-download'></i>
+                                </a>
                             </div>
                         </div>
-                    }
-                }
+                        <div class='dt-sc-hr-invisible  '></div>
+                    </div>
+                </div>
+                <div class='fullwidth-section fullwidth-testimonial' style="background-color:#ffffff;background-repeat:no-repeat;background-position:left top;padding-top:30px;height:205px;">
+                    <div class="container">
+                        <div class='dt-sc-testimonial-carousel-wrapper type2'>
+                            <ul class='dt-sc-testimonial-carousel'>
+                                <li>
+                                    <div class='dt-sc-testimonial'>
+                                        <blockquote>
+                                            <q>
+                                                But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was
+                                                born and I will give you a complete account of the system, and expound the actual teachings of
+                                                the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes,
+                                                or avoids pleasure itself, because it is pleasure.
+                                            </q>
+                                        </blockquote>
+                                        <cite> - John Doe </cite>
+                                        <div class='author'>
+                                            <span>
+                                                <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/testimonial1.jpg' alt='<cite> - John Doe </cite>'
+                                                        title='<cite> - John Doe </cite>' />
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class='dt-sc-testimonial'>
+                                        <blockquote>
+                                            <q>
+                                                But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was
+                                                born and I will give you a complete account of the system, and expound the actual teachings of
+                                                the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes,
+                                                or avoids pleasure itself, because it is pleasure.
+                                            </q>
+                                        </blockquote>
+                                        <cite> - John Doe </cite>
+                                        <div class='author'>
+                                            <span>
+                                                <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/testimonial3.jpg' alt='<cite> - John Doe </cite>'
+                                                        title='<cite> - John Doe </cite>' />
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class='dt-sc-testimonial'>
+                                        <blockquote>
+                                            <q>
+                                                But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was
+                                                born and I will give you a complete account of the system, and expound the actual teachings of
+                                                the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes,
+                                                or avoids pleasure itself, because it is pleasure.
+                                            </q>
+                                        </blockquote>
+                                        <cite> - John Doe </cite>
+                                        <div class='author'>
+                                            <span>
+                                                <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/testimonial2.jpg' alt='<cite> - John Doe </cite>'
+                                                        title='<cite> - John Doe </cite>' />
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="carousel-arrows">
+                                <a href="" class="testimonial-prev">
+                                    <span class="fa fa-angle-left"> </span>
+                                </a>
+                                <a href="" class="testimonial-next">
+                                    <span class="fa fa-angle-right"> </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='dt-sc-hr-invisible-medium  '></div>
+                <div class="container">
+                    <div class="social-bookmark"></div>
+                    <div class="social-share"></div>
+                </div>
             </div>
-        </div>
+        </section>
     </div>
-</section>
-<!-- Blog Area End -->
