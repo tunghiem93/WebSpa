@@ -8,46 +8,31 @@
 <html class="no-js">
 <head>
     <meta charset="utf-8">
-    <script type="text/javascript">window.NREUM || (NREUM = {}), __nr_require = function (e, t, n) { function r(n) { if (!t[n]) { var o = t[n] = { exports: {} }; e[n][0].call(o.exports, function (t) { var o = e[n][1][t]; return r(o || t) }, o, o.exports) } return t[n].exports } if ("function" == typeof __nr_require) return __nr_require; for (var o = 0; o < n.length; o++)r(n[o]); return r }({ 1: [function (e, t, n) { function r() { } function o(e, t, n) { return function () { return i(e, [f.now()].concat(u(arguments)), t ? null : this, n), t ? void 0 : this } } var i = e("handle"), a = e(2), u = e(3), c = e("ee").get("tracer"), f = e("loader"), s = NREUM; "undefined" == typeof window.newrelic && (newrelic = s); var p = ["setPageViewName", "setCustomAttribute", "setErrorHandler", "finished", "addToTrace", "inlineHit", "addRelease"], d = "api-", l = d + "ixn-"; a(p, function (e, t) { s[t] = o(d + t, !0, "api") }), s.addPageAction = o(d + "addPageAction", !0), s.setCurrentRouteName = o(d + "routeName", !0), t.exports = newrelic, s.interaction = function () { return (new r).get() }; var m = r.prototype = { createTracer: function (e, t) { var n = {}, r = this, o = "function" == typeof t; return i(l + "tracer", [f.now(), e, n], r), function () { if (c.emit((o ? "" : "no-") + "fn-start", [f.now(), r, o], n), o) try { return t.apply(this, arguments) } catch (e) { throw c.emit("fn-err", [arguments, this, e], n), e } finally { c.emit("fn-end", [f.now()], n) } } } }; a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","), function (e, t) { m[t] = o(l + t) }), newrelic.noticeError = function (e) { "string" == typeof e && (e = new Error(e)), i("err", [e, f.now()]) } }, {}], 2: [function (e, t, n) { function r(e, t) { var n = [], r = "", i = 0; for (r in e) o.call(e, r) && (n[i] = t(r, e[r]), i += 1); return n } var o = Object.prototype.hasOwnProperty; t.exports = r }, {}], 3: [function (e, t, n) { function r(e, t, n) { t || (t = 0), "undefined" == typeof n && (n = e ? e.length : 0); for (var r = -1, o = n - t || 0, i = Array(o < 0 ? 0 : o); ++r < o;)i[r] = e[t + r]; return i } t.exports = r }, {}], 4: [function (e, t, n) { t.exports = { exists: "undefined" != typeof window.performance && window.performance.timing && "undefined" != typeof window.performance.timing.navigationStart } }, {}], ee: [function (e, t, n) { function r() { } function o(e) { function t(e) { return e && e instanceof r ? e : e ? c(e, u, i) : i() } function n(n, r, o, i) { if (!d.aborted || i) { e && e(n, r, o); for (var a = t(o), u = m(n), c = u.length, f = 0; f < c; f++)u[f].apply(a, r); var p = s[y[n]]; return p && p.push([b, n, r, a]), a } } function l(e, t) { v[e] = m(e).concat(t) } function m(e) { return v[e] || [] } function w(e) { return p[e] = p[e] || o(n) } function g(e, t) { f(e, function (e, n) { t = t || "feature", y[n] = t, t in s || (s[t] = []) }) } var v = {}, y = {}, b = { on: l, emit: n, get: w, listeners: m, context: t, buffer: g, abort: a, aborted: !1 }; return b } function i() { return new r } function a() { (s.api || s.feature) && (d.aborted = !0, s = d.backlog = {}) } var u = "nr@context", c = e("gos"), f = e(2), s = {}, p = {}, d = t.exports = o(); d.backlog = s }, {}], gos: [function (e, t, n) { function r(e, t, n) { if (o.call(e, t)) return e[t]; var r = n(); if (Object.defineProperty && Object.keys) try { return Object.defineProperty(e, t, { value: r, writable: !0, enumerable: !1 }), r } catch (i) { } return e[t] = r, r } var o = Object.prototype.hasOwnProperty; t.exports = r }, {}], handle: [function (e, t, n) { function r(e, t, n, r) { o.buffer([e], r), o.emit(e, t, n) } var o = e("ee").get("handle"); t.exports = r, r.ee = o }, {}], id: [function (e, t, n) { function r(e) { var t = typeof e; return !e || "object" !== t && "function" !== t ? -1 : e === window ? 0 : a(e, i, function () { return o++ }) } var o = 1, i = "nr@id", a = e("gos"); t.exports = r }, {}], loader: [function (e, t, n) { function r() { if (!x++) { var e = h.info = NREUM.info, t = d.getElementsByTagName("script")[0]; if (setTimeout(s.abort, 3e4), !(e && e.licenseKey && e.applicationID && t)) return s.abort(); f(y, function (t, n) { e[t] || (e[t] = n) }), c("mark", ["onload", a() + h.offset], null, "api"); var n = d.createElement("script"); n.src = "https://" + e.agent, t.parentNode.insertBefore(n, t) } } function o() { "complete" === d.readyState && i() } function i() { c("mark", ["domContent", a() + h.offset], null, "api") } function a() { return E.exists && performance.now ? Math.round(performance.now()) : (u = Math.max((new Date).getTime(), u)) - h.offset } var u = (new Date).getTime(), c = e("handle"), f = e(2), s = e("ee"), p = window, d = p.document, l = "addEventListener", m = "attachEvent", w = p.XMLHttpRequest, g = w && w.prototype; NREUM.o = { ST: setTimeout, SI: p.setImmediate, CT: clearTimeout, XHR: w, REQ: p.Request, EV: p.Event, PR: p.Promise, MO: p.MutationObserver }; var v = "" + location, y = { beacon: "bam.nr-data.net", errorBeacon: "bam.nr-data.net", agent: "js-agent.newrelic.com/nr-1071.min.js" }, b = w && g && g[l] && !/CriOS/.test(navigator.userAgent), h = t.exports = { offset: u, now: a, origin: v, features: {}, xhrWrappable: b }; e(1), d[l] ? (d[l]("DOMContentLoaded", i, !1), p[l]("load", r, !1)) : (d[m]("onreadystatechange", o), p[m]("onload", r)), c("mark", ["firstbyte", u], null, "api"); var x = 0, E = e(4) }, {}] }, {}, ["loader"]);</script>
+    <script type="text/javascript">
+        window.NREUM || (NREUM = {}), __nr_require = function (e, t, n) { function r(n) { if (!t[n]) { var o = t[n] = { exports: {} }; e[n][0].call(o.exports, function (t) { var o = e[n][1][t]; return r(o || t) }, o, o.exports) } return t[n].exports } if ("function" == typeof __nr_require) return __nr_require; for (var o = 0; o < n.length; o++)r(n[o]); return r }({ 1: [function (e, t, n) { function r() { } function o(e, t, n) { return function () { return i(e, [f.now()].concat(u(arguments)), t ? null : this, n), t ? void 0 : this } } var i = e("handle"), a = e(2), u = e(3), c = e("ee").get("tracer"), f = e("loader"), s = NREUM; "undefined" == typeof window.newrelic && (newrelic = s); var p = ["setPageViewName", "setCustomAttribute", "setErrorHandler", "finished", "addToTrace", "inlineHit", "addRelease"], d = "api-", l = d + "ixn-"; a(p, function (e, t) { s[t] = o(d + t, !0, "api") }), s.addPageAction = o(d + "addPageAction", !0), s.setCurrentRouteName = o(d + "routeName", !0), t.exports = newrelic, s.interaction = function () { return (new r).get() }; var m = r.prototype = { createTracer: function (e, t) { var n = {}, r = this, o = "function" == typeof t; return i(l + "tracer", [f.now(), e, n], r), function () { if (c.emit((o ? "" : "no-") + "fn-start", [f.now(), r, o], n), o) try { return t.apply(this, arguments) } catch (e) { throw c.emit("fn-err", [arguments, this, e], n), e } finally { c.emit("fn-end", [f.now()], n) } } } }; a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","), function (e, t) { m[t] = o(l + t) }), newrelic.noticeError = function (e) { "string" == typeof e && (e = new Error(e)), i("err", [e, f.now()]) } }, {}], 2: [function (e, t, n) { function r(e, t) { var n = [], r = "", i = 0; for (r in e) o.call(e, r) && (n[i] = t(r, e[r]), i += 1); return n } var o = Object.prototype.hasOwnProperty; t.exports = r }, {}], 3: [function (e, t, n) { function r(e, t, n) { t || (t = 0), "undefined" == typeof n && (n = e ? e.length : 0); for (var r = -1, o = n - t || 0, i = Array(o < 0 ? 0 : o); ++r < o;)i[r] = e[t + r]; return i } t.exports = r }, {}], 4: [function (e, t, n) { t.exports = { exists: "undefined" != typeof window.performance && window.performance.timing && "undefined" != typeof window.performance.timing.navigationStart } }, {}], ee: [function (e, t, n) { function r() { } function o(e) { function t(e) { return e && e instanceof r ? e : e ? c(e, u, i) : i() } function n(n, r, o, i) { if (!d.aborted || i) { e && e(n, r, o); for (var a = t(o), u = m(n), c = u.length, f = 0; f < c; f++)u[f].apply(a, r); var p = s[y[n]]; return p && p.push([b, n, r, a]), a } } function l(e, t) { v[e] = m(e).concat(t) } function m(e) { return v[e] || [] } function w(e) { return p[e] = p[e] || o(n) } function g(e, t) { f(e, function (e, n) { t = t || "feature", y[n] = t, t in s || (s[t] = []) }) } var v = {}, y = {}, b = { on: l, emit: n, get: w, listeners: m, context: t, buffer: g, abort: a, aborted: !1 }; return b } function i() { return new r } function a() { (s.api || s.feature) && (d.aborted = !0, s = d.backlog = {}) } var u = "nr@context", c = e("gos"), f = e(2), s = {}, p = {}, d = t.exports = o(); d.backlog = s }, {}], gos: [function (e, t, n) { function r(e, t, n) { if (o.call(e, t)) return e[t]; var r = n(); if (Object.defineProperty && Object.keys) try { return Object.defineProperty(e, t, { value: r, writable: !0, enumerable: !1 }), r } catch (i) { } return e[t] = r, r } var o = Object.prototype.hasOwnProperty; t.exports = r }, {}], handle: [function (e, t, n) { function r(e, t, n, r) { o.buffer([e], r), o.emit(e, t, n) } var o = e("ee").get("handle"); t.exports = r, r.ee = o }, {}], id: [function (e, t, n) { function r(e) { var t = typeof e; return !e || "object" !== t && "function" !== t ? -1 : e === window ? 0 : a(e, i, function () { return o++ }) } var o = 1, i = "nr@id", a = e("gos"); t.exports = r }, {}], loader: [function (e, t, n) { function r() { if (!x++) { var e = h.info = NREUM.info, t = d.getElementsByTagName("script")[0]; if (setTimeout(s.abort, 3e4), !(e && e.licenseKey && e.applicationID && t)) return s.abort(); f(y, function (t, n) { e[t] || (e[t] = n) }), c("mark", ["onload", a() + h.offset], null, "api"); var n = d.createElement("script"); n.src = "https://" + e.agent, t.parentNode.insertBefore(n, t) } } function o() { "complete" === d.readyState && i() } function i() { c("mark", ["domContent", a() + h.offset], null, "api") } function a() { return E.exists && performance.now ? Math.round(performance.now()) : (u = Math.max((new Date).getTime(), u)) - h.offset } var u = (new Date).getTime(), c = e("handle"), f = e(2), s = e("ee"), p = window, d = p.document, l = "addEventListener", m = "attachEvent", w = p.XMLHttpRequest, g = w && w.prototype; NREUM.o = { ST: setTimeout, SI: p.setImmediate, CT: clearTimeout, XHR: w, REQ: p.Request, EV: p.Event, PR: p.Promise, MO: p.MutationObserver }; var v = "" + location, y = { beacon: "bam.nr-data.net", errorBeacon: "bam.nr-data.net", agent: "js-agent.newrelic.com/nr-1071.min.js" }, b = w && g && g[l] && !/CriOS/.test(navigator.userAgent), h = t.exports = { offset: u, now: a, origin: v, features: {}, xhrWrappable: b }; e(1), d[l] ? (d[l]("DOMContentLoaded", i, !1), p[l]("load", r, !1)) : (d[m]("onreadystatechange", o), p[m]("onload", r)), c("mark", ["firstbyte", u], null, "api"); var x = 0, E = e(4) }, {}] }, {}, ["loader"]);
+    </script>
+
     <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1' />
-    <link type="text/css" media="all" href="https://dreamspa.dttheme.com/wp-content/cache/breeze-minification/css/breeze_de341f499d515bd714f550e8af8fe23a.css"
-          rel="stylesheet" />
-    <link type="text/css" media="all" href="https://dreamspa.dttheme.com/wp-content/cache/breeze-minification/css/breeze_78c385beb21471d90489ae0d8907ddf7.css"
-          rel="stylesheet" />
-    <link type="text/css" media="all" href="https://dreamspa.dttheme.com/wp-content/cache/breeze-minification/css/breeze_41145aabea38ea8e660a38748d735711.css"
-          rel="stylesheet" />
-    <link type="text/css" media="all" href="https://dreamspa.dttheme.com/wp-content/cache/breeze-minification/css/breeze_af1ad77cc43b2a696424140ef49464ee.css"
-          rel="stylesheet" />
-    <link type="text/css" media="all" href="https://dreamspa.dttheme.com/wp-content/cache/breeze-minification/css/breeze_459f58dcaf60c7d20db31bf5982486a2.css"
-          rel="stylesheet" />
-    <link type="text/css" media="all" href="https://dreamspa.dttheme.com/wp-content/cache/breeze-minification/css/breeze_1f14e61002a97ba752a4ca6445a63e12.css"
-          rel="stylesheet" />
-    <link type="text/css" media="all" href="https://dreamspa.dttheme.com/wp-content/cache/breeze-minification/css/breeze_dfd285133d2bdb970e80b01b0e66f1fd.css"
-          rel="stylesheet" />
-    <link type="text/css" media="all" href="https://dreamspa.dttheme.com/wp-content/cache/breeze-minification/css/breeze_8dd2e94b57a3a534132e3b9b373e856a.css"
-          rel="stylesheet" />
-    <link type="text/css" media="all" href="https://dreamspa.dttheme.com/wp-content/cache/breeze-minification/css/breeze_3c7f7c27c4f2843a5389e6e0df6634c5.css"
-          rel="stylesheet" />
-    <link type="text/css" media="all" href="https://dreamspa.dttheme.com/wp-content/cache/breeze-minification/css/breeze_3a978bde2623085d56d8dac3a070d3c3.css"
-          rel="stylesheet" />
-    <link type="text/css" media="all" href="https://dreamspa.dttheme.com/wp-content/cache/breeze-minification/css/breeze_9fbfc2ea8b72528b62f0c01e934b3919.css"
-          rel="stylesheet" />
-    <link type="text/css" media="all" href="https://dreamspa.dttheme.com/wp-content/cache/breeze-minification/css/breeze_89c0d0ed505d7076993a7359c5b884d9.css"
-          rel="stylesheet" />
-    <link type="text/css" media="all" href="https://dreamspa.dttheme.com/wp-content/cache/breeze-minification/css/breeze_9a028f552bdd80cb2b677527a979929c.css"
-          rel="stylesheet" />
-    <link type="text/css" media="all" href="https://dreamspa.dttheme.com/wp-content/cache/breeze-minification/css/breeze_e86adb9977be024d644fa902bf51dc73.css"
-          rel="stylesheet" />
-    <link type="text/css" media="all" href="https://dreamspa.dttheme.com/wp-content/cache/breeze-minification/css/breeze_b7e3adb9109baf8882dc157046b90377.css"
-          rel="stylesheet" />
-    <link type="text/css" media="all" href="https://dreamspa.dttheme.com/wp-content/cache/breeze-minification/css/breeze_52fc7a09c6221c148c7bae2fb89858c5.css"
-          rel="stylesheet" />
-    <link type="text/css" media="all" href="https://dreamspa.dttheme.com/wp-content/cache/breeze-minification/css/breeze_6eb0b9c7193a9efda652a7b9249100d8.css"
-          rel="stylesheet" />
-    <title>Dream Spa wordpress theme for resorts &amp; retreats</title>
-    <link rel="profile" href="https://gmpg.org/xfn/11" />
-    <link rel="pingback" href="https://dreamspa.dttheme.com/xmlrpc.php" />
-    <!--[if lt IE 9]> <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script> <![endif]-->
+    <link href="@Url.Content("~/Content/cache/breeze-minification/css/breeze_de341f499d515bd714f550e8af8fe23a.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/cache/breeze-minification/css/breeze_78c385beb21471d90489ae0d8907ddf7.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/cache/breeze-minification/css/breeze_41145aabea38ea8e660a38748d735711.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/cache/breeze-minification/css/breeze_af1ad77cc43b2a696424140ef49464ee.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/cache/breeze-minification/css/breeze_459f58dcaf60c7d20db31bf5982486a2.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/cache/breeze-minification/css/breeze_1f14e61002a97ba752a4ca6445a63e12.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/cache/breeze-minification/css/breeze_dfd285133d2bdb970e80b01b0e66f1fd.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/cache/breeze-minification/css/breeze_8dd2e94b57a3a534132e3b9b373e856a.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/cache/breeze-minification/css/breeze_3c7f7c27c4f2843a5389e6e0df6634c5.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/cache/breeze-minification/css/breeze_3a978bde2623085d56d8dac3a070d3c3.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/cache/breeze-minification/css/breeze_9fbfc2ea8b72528b62f0c01e934b3919.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/cache/breeze-minification/css/breeze_89c0d0ed505d7076993a7359c5b884d9.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/cache/breeze-minification/css/breeze_9a028f552bdd80cb2b677527a979929c.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/cache/breeze-minification/css/breeze_e86adb9977be024d644fa902bf51dc73.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/cache/breeze-minification/css/breeze_b7e3adb9109baf8882dc157046b90377.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/cache/breeze-minification/css/breeze_52fc7a09c6221c148c7bae2fb89858c5.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/cache/breeze-minification/css/breeze_6eb0b9c7193a9efda652a7b9249100d8.css")" rel="stylesheet" />
+
+    <title>Web Spa salon &amp; beauty</title>
+
     <script type="text/javascript">document.documentElement.className = document.documentElement.className + ' yes-js js_active js'</script>
     <style>
         .wishlist_table .add_to_cart,
@@ -57,13 +42,10 @@
             -webkit-border-radius: 16px;
         }
     </style>
+
     <script type='text/javascript'>
         var mytheme_urls = {
-            theme_base_url: 'https://dreamspa.dttheme.com/wp-content/themes/dreamspa/'
-            , framework_base_url: 'https://dreamspa.dttheme.com/wp-content/themes/dreamspa/framework/'
-            , ajaxurl: 'https://dreamspa.dttheme.com/wp-admin/admin-ajax.php'
-            , url: 'https://dreamspa.dttheme.com'
-            , scroll: 'disable'
+            scroll: 'disable'
             , stickynav: 'enable'
             , mobilestickynav: 'disable'
             , is_admin: ''
@@ -77,7 +59,9 @@
             , phone_validation: 'Please enter Phone No'
             , captcha_validation: 'Please enter captcha'
             , verify_captcha_validation: 'Please verify entered captcha'
-        };</script>
+        };
+    </script>
+
     <link href='https://dreamspa.dttheme.com/wp-content/themes/dreamspa/images/favicon.png' rel='shortcut icon' type='image/x-icon' />
     <link href='https://dreamspa.dttheme.com/wp-content/themes/dreamspa/images/apple-touch-icon.png' rel='apple-touch-icon-precomposed' />
     <link href='https://dreamspa.dttheme.com/wp-content/themes/dreamspa/images/apple-touch-icon-114x114.png' sizes='114x114'
@@ -85,16 +69,17 @@
     <link href='https://dreamspa.dttheme.com/wp-content/themes/dreamspa/images/apple-touch-icon-72x72.png' sizes='72x72' rel='apple-touch-icon-precomposed' />
     <link href='https://dreamspa.dttheme.com/wp-content/themes/dreamspa/images/apple-touch-icon-144x144.png' sizes='144x144'
           rel='apple-touch-icon-precomposed' />
-    <meta name="description" content="Dream Spa WordPress theme for resorts &amp; retreats is an awesome retreat theme most suitable for creating websites of park resorts, spa baths and theme parks." />
+    <meta name="description" content="Web Spa" />
+
     <link rel="canonical" href="https://dreamspa.dttheme.com/" />
     <link rel='dns-prefetch' href='//fonts.googleapis.com' />
     <link rel='dns-prefetch' href='//s.w.org' />
-    <link rel="alternate" type="application/rss+xml" title="Dream Spa &raquo; Feed" href="https://dreamspa.dttheme.com/feed/" />
-    <link rel="alternate" type="application/rss+xml" title="Dream Spa &raquo; Comments Feed" href="https://dreamspa.dttheme.com/comments/feed/" />
-    <link rel="alternate" type="application/rss+xml" title="Dream Spa &raquo; Home Comments Feed" href="https://dreamspa.dttheme.com/home/feed/" />
+
     <script type="text/javascript">
         window._wpemojiSettings = { "baseUrl": "https:\/\/s.w.org\/images\/core\/emoji\/2.4\/72x72\/", "ext": ".png", "svgUrl": "https:\/\/s.w.org\/images\/core\/emoji\/2.4\/svg\/", "svgExt": ".svg", "source": { "concatemoji": "https:\/\/dreamspa.dttheme.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.9.7" } };
-        !function (a, b, c) { function d(a, b) { var c = String.fromCharCode; l.clearRect(0, 0, k.width, k.height), l.fillText(c.apply(this, a), 0, 0); var d = k.toDataURL(); l.clearRect(0, 0, k.width, k.height), l.fillText(c.apply(this, b), 0, 0); var e = k.toDataURL(); return d === e } function e(a) { var b; if (!l || !l.fillText) return !1; switch (l.textBaseline = "top", l.font = "600 32px Arial", a) { case "flag": return !(b = d([55356, 56826, 55356, 56819], [55356, 56826, 8203, 55356, 56819])) && (b = d([55356, 57332, 56128, 56423, 56128, 56418, 56128, 56421, 56128, 56430, 56128, 56423, 56128, 56447], [55356, 57332, 8203, 56128, 56423, 8203, 56128, 56418, 8203, 56128, 56421, 8203, 56128, 56430, 8203, 56128, 56423, 8203, 56128, 56447]), !b); case "emoji": return b = d([55357, 56692, 8205, 9792, 65039], [55357, 56692, 8203, 9792, 65039]), !b }return !1 } function f(a) { var c = b.createElement("script"); c.src = a, c.defer = c.type = "text/javascript", b.getElementsByTagName("head")[0].appendChild(c) } var g, h, i, j, k = b.createElement("canvas"), l = k.getContext && k.getContext("2d"); for (j = Array("flag", "emoji"), c.supports = { everything: !0, everythingExceptFlag: !0 }, i = 0; i < j.length; i++)c.supports[j[i]] = e(j[i]), c.supports.everything = c.supports.everything && c.supports[j[i]], "flag" !== j[i] && (c.supports.everythingExceptFlag = c.supports.everythingExceptFlag && c.supports[j[i]]); c.supports.everythingExceptFlag = c.supports.everythingExceptFlag && !c.supports.flag, c.DOMReady = !1, c.readyCallback = function () { c.DOMReady = !0 }, c.supports.everything || (h = function () { c.readyCallback() }, b.addEventListener ? (b.addEventListener("DOMContentLoaded", h, !1), a.addEventListener("load", h, !1)) : (a.attachEvent("onload", h), b.attachEvent("onreadystatechange", function () { "complete" === b.readyState && c.readyCallback() })), g = c.source || {}, g.concatemoji ? f(g.concatemoji) : g.wpemoji && g.twemoji && (f(g.twemoji), f(g.wpemoji))) }(window, document, window._wpemojiSettings);</script>
+        !function (a, b, c) { function d(a, b) { var c = String.fromCharCode; l.clearRect(0, 0, k.width, k.height), l.fillText(c.apply(this, a), 0, 0); var d = k.toDataURL(); l.clearRect(0, 0, k.width, k.height), l.fillText(c.apply(this, b), 0, 0); var e = k.toDataURL(); return d === e } function e(a) { var b; if (!l || !l.fillText) return !1; switch (l.textBaseline = "top", l.font = "600 32px Arial", a) { case "flag": return !(b = d([55356, 56826, 55356, 56819], [55356, 56826, 8203, 55356, 56819])) && (b = d([55356, 57332, 56128, 56423, 56128, 56418, 56128, 56421, 56128, 56430, 56128, 56423, 56128, 56447], [55356, 57332, 8203, 56128, 56423, 8203, 56128, 56418, 8203, 56128, 56421, 8203, 56128, 56430, 8203, 56128, 56423, 8203, 56128, 56447]), !b); case "emoji": return b = d([55357, 56692, 8205, 9792, 65039], [55357, 56692, 8203, 9792, 65039]), !b }return !1 } function f(a) { var c = b.createElement("script"); c.src = a, c.defer = c.type = "text/javascript", b.getElementsByTagName("head")[0].appendChild(c) } var g, h, i, j, k = b.createElement("canvas"), l = k.getContext && k.getContext("2d"); for (j = Array("flag", "emoji"), c.supports = { everything: !0, everythingExceptFlag: !0 }, i = 0; i < j.length; i++)c.supports[j[i]] = e(j[i]), c.supports.everything = c.supports.everything && c.supports[j[i]], "flag" !== j[i] && (c.supports.everythingExceptFlag = c.supports.everythingExceptFlag && c.supports[j[i]]); c.supports.everythingExceptFlag = c.supports.everythingExceptFlag && !c.supports.flag, c.DOMReady = !1, c.readyCallback = function () { c.DOMReady = !0 }, c.supports.everything || (h = function () { c.readyCallback() }, b.addEventListener ? (b.addEventListener("DOMContentLoaded", h, !1), a.addEventListener("load", h, !1)) : (a.attachEvent("onload", h), b.attachEvent("onreadystatechange", function () { "complete" === b.readyState && c.readyCallback() })), g = c.source || {}, g.concatemoji ? f(g.concatemoji) : g.wpemoji && g.twemoji && (f(g.twemoji), f(g.wpemoji))) }(window, document, window._wpemojiSettings);
+    </script>
+
     <style type="text/css">
         img.wp-smiley,
         img.emoji {
@@ -109,30 +94,24 @@
             padding: 0 !important;
         }
     </style>
-    <link rel='stylesheet' id='ls-google-fonts-css' href='https://fonts.googleapis.com/css?family=Lato:100,300,regular,700,900%7COpen+Sans:300%7CIndie+Flower:regular%7COswald:300,regular,700&#038;subset=latin%2Clatin-ext'
-          type='text/css' media='all' />
-    <!--[if lt IE 9]><link rel='stylesheet' id='ie8-and-down-css'  href='https://dreamspa.dttheme.com/wp-content/themes/dreamspa/css/ie8-and-down.css?ver=4.9.7' type='text/css' media='all' /> <![endif]-->
-    <link rel='stylesheet' id='mytheme-google-fonts-css' href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic%7COpen+Sans+Condensed:300,300italic,700%7CCourgette'
-          type='text/css' media='all' />
-    <!--[if IE]><style type="text/css" media="screen">.team .social-icons li {
-       behavior: url(https://dreamspa.dttheme.com/wp-content/themes/dreamspa/PIE.php);
-              }</style><![endif]-->
-    <script type='text/javascript' src='https://dreamspa.dttheme.com/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script>
-    <script type='text/javascript' src='https://dreamspa.dttheme.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
-    <script type='text/javascript' src='https://dreamspa.dttheme.com/wp-content/plugins/LayerSlider/static/js/greensock.js?ver=1.11.8'></script>
-    <script type='text/javascript' src='https://dreamspa.dttheme.com/wp-content/plugins/LayerSlider/static/js/layerslider.kreaturamedia.jquery.js?ver=5.3.2'></script>
-    <script type='text/javascript' src='https://dreamspa.dttheme.com/wp-content/plugins/LayerSlider/static/js/layerslider.transitions.js?ver=5.3.2'></script>
+
+    <link href="@Url.Content("~/Content/ls-google-fonts-css.css")" id='ls-google-fonts-css' rel="stylesheet" type='text/css' media='all' />
+    <link href="@Url.Content("~/Content/mytheme-google-fonts-css.css")" id='ls-google-fonts-css' rel="stylesheet" type='text/css' media='all' />
+
+    <script type='text/javascript' src="@Url.Content("~/Libraries/plugins/jquery.min.js")"></script>
+    <script type='text/javascript' src="@Url.Content("~/Libraries/plugins/jquery-migrate.min.js")"></script>
+    <script type='text/javascript' src="@Url.Content("~/Scripts/greensock.js")"></script>
+    <script type='text/javascript' src="@Url.Content("~/Scripts/layerslider.kreaturamedia.jquery.js")"></script>
+    <script type='text/javascript' src="@Url.Content("~/Scripts/layerslider.transitions.js")"></script>
+
     <script type='text/javascript'>
         /*  */
         var like_this_ajax_object = { "ajax_url": "https:\/\/dreamspa.dttheme.com\/wp-admin\/admin-ajax.php" };
-        /*  */</script>
-    <script type='text/javascript' src='https://dreamspa.dttheme.com/wp-content/plugins/roses-like-this/likesScript.js?ver=4.9.7'></script>
-    <script type='text/javascript' src='https://dreamspa.dttheme.com/wp-content/themes/dreamspa/framework/js/public/modernizr.min.js?ver=4.9.7'></script>
-    <link rel='https://api.w.org/' href='https://dreamspa.dttheme.com/wp-json/' />
-    <link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://dreamspa.dttheme.com/xmlrpc.php?rsd" />
-    <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://dreamspa.dttheme.com/wp-includes/wlwmanifest.xml" />
-    <meta name="generator" content="WordPress 4.9.7" />
-    <meta name="generator" content="WooCommerce 2.5.5" />
+        /*  */
+    </script>
+    <script type='text/javascript' src="@Url.Content("~/Scripts/likesScript.js")"></script>
+    <script type='text/javascript' src="@Url.Content("~/Scripts/modernizr.min.js")"></script>    
+    
     <link rel='shortlink' href='https://dreamspa.dttheme.com/' />
     <link rel="alternate" type="application/json+oembed" href="https://dreamspa.dttheme.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fdreamspa.dttheme.com%2F" />
     <link rel="alternate" type="text/xml+oembed" href="https://dreamspa.dttheme.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fdreamspa.dttheme.com%2F&#038;format=xml" />
