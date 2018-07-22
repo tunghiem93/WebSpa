@@ -62,8 +62,9 @@ namespace CMS_Web.Areas.Admin.Controllers
             List<SelectListItem> data = new List<SelectListItem>()
             {
                  new SelectListItem() {Text = "Hình ảnh", Value= Commons.EBlogType.Image.ToString("d") },
+                 new SelectListItem() {Text = "Iframe", Value= Commons.EBlogType.Iframe.ToString("d") },
                  new SelectListItem() {Text = "Video", Value= Commons.EBlogType.Video.ToString("d") },
-                 new SelectListItem() {Text = "Mp3", Value= Commons.EBlogType.Mp3.ToString("d") },
+                 new SelectListItem() {Text = "Audio", Value= Commons.EBlogType.Audio.ToString("d") },
             };
             return data;
         }

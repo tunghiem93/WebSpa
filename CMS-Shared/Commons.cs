@@ -36,8 +36,9 @@ namespace CMS_Shared
         public enum EBlogType
         {
             Image = 0,
-            Mp3 = 1,
-            Video = 2
+            Iframe = 1,
+            Video = 2,
+            Audio = 3,
         }
         #endregion
     }
