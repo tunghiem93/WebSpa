@@ -15,6 +15,8 @@ namespace CMS_DTO.CMSNews
     public class CMS_NewsModels : CMS_BaseModel
     {
         public string Id { get; set; }
+        public int Type { get; set; }
+        public string Link { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập tiêu đề bài viết")]
         [MaxLength(150, ErrorMessage = "Tiêu đề bài viết tối đa 150 kí tự")]
         public string Title { get; set; }
@@ -29,10 +31,12 @@ namespace CMS_DTO.CMSNews
         public string UpdatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public string sStatus { get; set; }
+        public List<SelectListItem> ListBlogType { get; set; }
 
         public CMS_NewsModels()
         {
             IsActive = true;
+            ListBlogType = new List<SelectListItem>();
         }
     }
 

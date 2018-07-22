@@ -31,5 +31,14 @@ namespace CMS_Shared
         public static string CompanyTitle = ConfigurationManager.AppSettings["CompanyTitle"];
         public static string HostImage = ConfigurationManager.AppSettings["HostImage"];
         public static string _PublicImages = string.IsNullOrEmpty(ConfigurationManager.AppSettings["PublicImages"]) ? "" : ConfigurationManager.AppSettings["PublicImages"];
+
+        #region Enum
+        public enum EBlogType
+        {
+            Image = 0,
+            Mp3 = 1,
+            Video = 2
+        }
+        #endregion
     }
 }

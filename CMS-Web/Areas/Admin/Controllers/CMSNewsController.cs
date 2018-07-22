@@ -14,7 +14,7 @@ using System.Web.Mvc;
 namespace CMS_Web.Areas.Admin.Controllers
 {
     [NuAuth]
-    public class CMSNewsController : Controller
+    public class CMSNewsController : HQController
     {
         private CMSNewsFactory _factory;
         public CMSNewsController()
@@ -42,6 +42,8 @@ namespace CMS_Web.Areas.Admin.Controllers
         public ActionResult Create()
         {
             CMS_NewsModels model = new CMS_NewsModels();
+            model.ListBlogType = GetListBlogType();
+            model.Type = (byte)Commons.EBlogType.Image;
             return PartialView("_Create", model);
         }
 

@@ -21,6 +21,40 @@
     <fieldset>
         <legend>THÔNG TIN CHUNG</legend>
         <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Tiêu đề</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.TextBoxFor(model => model.Title, new { @class = "form-control", @placeholder = "Tiêu đề", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Title, null, new { @class = "label label-danger" })
+            </div>
+        </div>
+
+        @*Type*@
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12">Thể loại</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.DropDownListFor(model => model.Type,
+                new SelectList(Model.ListBlogType, "Value", "Text", Model.Type), null,
+                new
+                {
+                    @class = "form-control select2_multiple",
+                    @id = "TypeDdl",
+                    @style = "width:100%;",
+                    @onchange = "OnchangeBlogType(this)"
+                })
+                @Html.ValidationMessageFor(model => model.Type, null, new { @class = "label" })
+            </div>
+        </div>
+
+        @*Link*@
+        <div class="form-group" id="idLink">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Link</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.TextBoxFor(model => model.Link, new { @class = "form-control", @placeholder = "Link", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Link, null, new { @class = "label label-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" id="idImage">
             <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Hình</label>
             <div class="col-md-2 col-sm-2 col-xs-12">
                 @if (!string.IsNullOrEmpty(Model.ImageURL))
@@ -38,14 +72,6 @@
                     @Html.TextBoxFor(model => model.PictureUpload, new { @type = "file", @onchange = "PreviewImage(this,\"upload-preview\")", @accept = "*.jpg", @class = "hidden", @id = "urlImage" })
                 </div>
                 @Html.ValidationMessageFor(model => model.PictureUpload, null, new { @class = "label label-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Tiêu đề</label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                @Html.TextBoxFor(model => model.Title, new { @class = "form-control", @placeholder = "Tiêu đề", @autocomplete = "off" })
-                @Html.ValidationMessageFor(model => model.Title, null, new { @class = "label label-danger" })
             </div>
         </div>
 
@@ -75,7 +101,38 @@
 </div>
 <script src="@Url.Content("~/Scripts/InputCustom.js")"></script>
 <script type="text/javascript">
+    $(document).ready(function () {
+        var _type = '@Model.Type';
+        if ('@Model.Type' != null && '@Model.Type' == '@Commons.EBlogType.Image.ToString("d")') {
+            $('#idImage').show();
+            $('#idLink').hide();
+        }
+        else {
+            $('#idImage').hide();
+            $('#idLink').show();
+        }
+
+        $("#TypeDdl").select2({
+            placeholder: "Please choose type",
+            //allowClear: true
+        });
+    });
+
     function showPictureUpload() {
         $('[id=urlImage]').click();
+    }
+
+    function OnchangeBlogType(obj)
+    {
+        var _type = $(obj).val();
+        if (_type != null && _type != '@Commons.EBlogType.Image.ToString("d")')
+        {
+            $('#idImage').hide();
+            $('#idLink').show();
+        }
+        else {
+            $('#idImage').show();
+            $('#idLink').hide();
+        }
     }
 </script>

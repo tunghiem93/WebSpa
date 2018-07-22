@@ -1,4 +1,5 @@
 ﻿using CMS_DTO.CMSBase;
+using CMS_Shared;
 using CMS_Shared.CMSCategories;
 using System;
 using System.Collections.Generic;
@@ -54,6 +55,17 @@ namespace CMS_Web.Areas.Admin.Controllers
             }
 
             return models;
+        }
+
+        public List<SelectListItem> GetListBlogType()
+        {
+            List<SelectListItem> data = new List<SelectListItem>()
+            {
+                 new SelectListItem() {Text = "Hình ảnh", Value= Commons.EBlogType.Image.ToString("d") },
+                 new SelectListItem() {Text = "Video", Value= Commons.EBlogType.Video.ToString("d") },
+                 new SelectListItem() {Text = "Mp3", Value= Commons.EBlogType.Mp3.ToString("d") },
+            };
+            return data;
         }
     }
 }
