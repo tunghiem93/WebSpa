@@ -1,0 +1,172 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model CMS_DTO.CMSNews.CMS_NewsViewModel
+@using CMS_Shared;
+
+<html>
+<body>
+    <div id="main">
+        <section class='title-section'>
+            <div class="title-wrapper">
+                <div class="container">
+                    <div class="border-title aligncenter">
+                        <h1>About our Spa Process</h1>
+                        <h6>We love to write about our experience and our story</h6>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="container">
+            <section id="primary" class="content-full-width">
+                @if (Model.CMS_News != null)
+                {
+                    var item = Model.CMS_News;
+                    <article id="" class="blog-entry blog-single-entry post type-post status-publish format-standard has-post-thumbnail hentry category-therapy tag-lifestyle tag-spa">
+                        <div class="blog-entry-inner">
+                            <div class="entry-meta">
+                                <div class="date">
+                                    <span>
+                                        @Html.Raw(string.Format("{0}", item.UpdatedDate.Day))
+                                        <br> @Html.Raw(string.Format("{0}", item.UpdatedDate.Month))
+                                        <br> @Html.Raw(string.Format("{0}", item.UpdatedDate.Year))
+                                    </span>
+                                </div>
+                                <p class="comments comments">
+                                    <a href="#">
+                                        <span class="fa fa-comments"> </span> 0
+                                    </a>
+                                </p>
+                            </div>
+
+                            <div class="entry-thumb">
+                                @{ if (item.Type == (byte)Commons.EBlogType.Image)
+                                    {
+                                        <a href="javascript:void(0)" title="@item.Title">
+                                            <img width="1060" height="618" src="@item.ImageURL"
+                                                 class="attachment-full size-full wp-post-image" alt="" srcset="@item.ImageURL 1060w, @item.ImageURL 300w, @item.ImageURL 1024w"
+                                                 sizes="(max-width: 1060px) 100vw, 1060px" />
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        if (item.Type == (byte)Commons.EBlogType.Iframe)
+                                        {
+                                            <div class='dt-video-wrap'>
+                                                @Html.Raw(item.Link)
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            if ((item.Type == (byte)Commons.EBlogType.Video))
+                                            {
+                                                <div class='dt-video-wrap'>
+                                                    <div style="width: 640px;" class="wp-video">
+                                                        <video class="wp-video-shortcode" id="video-223-1" width="640" height="360" preload="metadata" controls="controls">
+                                                            <source type="video/mp4" src="@item.Link" />
+                                                            <a href="@Url.Action("BlogDetail", "Blog", new { id=item.Id })">@item.Link</a>
+                                                        </video>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                if (item.Type == (byte)Commons.EBlogType.Audio)
+                                                {
+                                                    <audio class="wp-audio-shortcode" id="" preload="none" style="width: 100%;" controls="controls">
+                                                        <source type="audio/mpeg" src="@item.Link" />
+                                                        <a href="@Url.Action("BlogDetail", "Blog", new { id=item.Id })">@item.Link</a>
+                                                    </audio>
+                                                }
+                                            }
+
+                                        }
+                                    }
+                                }
+                            </div>
+                            <div class="entry-details">
+                                <div class="entry-title">
+                                    <h4>
+                                        <a href="javascript:void(0)" title="About our Spa Process">@item.Title</a>
+                                    </h4>
+                                </div>
+                                <div class="entry-metadata">
+                                    <p class="author">
+                                        <i class="fa fa-user"> </i>
+                                        <a href="javascript:void(0)" title="View all posts by ">@Html.Raw(item.Author)</a>
+                                    </p>
+                                    <span class=""> | </span>
+                                    <p class='tags tags'>
+                                        <i class='fa fa-tags'> </i>
+                                        <a href="javascript:void(0)" rel="tag">@Html.Raw(item.Source)</a>,
+                                        <a href="javascript:void(0)" rel="tag">@Html.Raw("Spa")</a>
+                                    </p>
+                                    <span class='tags'> | </span>
+                                    <p class="category">
+                                        <i class="fa fa-sitemap"> </i>
+                                        <a href="javascript:void(0)" rel="category tag">@Html.Raw(item.Category)</a>
+                                    </p>
+                                </div>
+                                <div class="entry-body">
+                                    <blockquote class='type1' style="margin-bottom: 13px; ">
+                                        <q>
+                                            @Html.Raw(item.Short_Description)
+                                        </q>
+                                    </blockquote>
+
+                                    <div class="author-info">
+                                        @Html.Raw(item.Description)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <div class="commententries" style="background-color: #fff; padding: 15px !important;">
+                        <h3>NO COMMENTS</h3>
+                        
+                    </div>
+                    @*<div class="commententries">
+                <h3>NO COMMENTS</h3>
+                <div id="respond" class="comment-respond">
+                    <h3 id="reply-title" class="comment-reply-title">
+                        GIVE A REPLY
+                        <small>
+                            <a rel="nofollow" id="cancel-comment-reply-link" href="javascript:void(0)" style="display:none;">Cancel reply</a>
+                        </small>
+                    </h3>
+                    <form action="javascript:void(0)" method="post" id="commentform" class="comment-form"
+                          novalidate>
+                        <div class='column dt-sc-one-half first'>
+                            <p>
+                                <input id='author' name='author' type='text' placeholder='Name' required />
+                            </p>
+                            <p>
+                                <input id='email' name='email' type='text' placeholder='Email' required />
+                            </p>
+                        </div>
+                        <p class='column dt-sc-one-half'>
+                            <textarea id='comment' name='comment' cols='5' rows='3' placeholder='Comment'></textarea>
+                        </p>
+                        <p class="form-submit">
+                            <input name="submit" type="submit" id="submit" class="submit" value="Comment" />
+                            <input type='hidden' name='comment_post_ID' value='207' id='comment_post_ID' />
+                            <input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+                        </p>
+                    </form>
+                </div>
+            </div>*@
+                }
+            </section>
+        </div>
+    </div>
+</body>
+</html>
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/f2bf09f8/cloudflare-static/email-decode.min.js"></script>
+
+<script type='text/javascript' src='//dreamspa.dttheme.com/wp-content/plugins/woocommerce/assets/js/frontend/add-to-cart.min.js?ver=2.5.5'></script>
+<script type='text/javascript' src='//dreamspa.dttheme.com/wp-content/plugins/woocommerce/assets/js/jquery-blockui/jquery.blockUI.min.js?ver=2.70'></script>
+<script type='text/javascript' src='//dreamspa.dttheme.com/wp-content/plugins/woocommerce/assets/js/frontend/woocommerce.min.js?ver=2.5.5'></script>
+<script type='text/javascript' src='//dreamspa.dttheme.com/wp-content/plugins/woocommerce/assets/js/jquery-cookie/jquery.cookie.min.js?ver=1.4.1'></script>
+<script type='text/javascript' src='https://dreamspa.dttheme.com/wp-content/plugins/yith-woocommerce-wishlist/assets/js/jquery.selectBox.min.js?ver=1.2.0'></script>

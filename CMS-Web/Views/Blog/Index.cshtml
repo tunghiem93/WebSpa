@@ -21,8 +21,8 @@
                 <div class="social-bookmark"></div>
                 <div class="social-share"></div>
             </div>
-            <div class="dt-sc-clear"></div>
-            <div class='tpl-blog-holder '>
+            <div class="dt-sc-clear" style="padding-bottom: 55px; "></div>
+            <div class='tpl-blog-holder'>
                 @if (Model.ListNewsNew != null && Model.ListNewsNew.Any())
                 {
                     foreach (var item in Model.ListNewsNew)
@@ -41,13 +41,13 @@
                                                 </span>
                                             </div>
                                             <p class="comments">
-                                                <a href="#">
+                                                <a href="javascript:void(0)">
                                                     <span class="fa fa-comments"> </span> 0
                                                 </a>
                                             </p>
                                         </div>
                                         <div class="entry-thumb">
-                                            <a href="#" title="@item.Title">
+                                            <a href="@Url.Action("BlogDetail", "Blog", new { id=item.Id })" title="@item.Title">
                                                 <img width="920" height="536" src="@item.ImageURL"
                                                      class="attachment-blog-one-column size-blog-one-column wp-post-image" alt="" srcset="@item.ImageURL 1060w, @item.ImageURL 300w, @item.ImageURL 1024w"
                                                      sizes="(max-width: 920px) 100vw, 920px" />
@@ -56,24 +56,24 @@
                                         <div class="entry-details">
                                             <div class="entry-title">
                                                 <h4>
-                                                    <a href="#" title="@item.Title">@Html.Raw(item.Title)</a>
+                                                    <a href="javascript:void(0)" title="@item.Title">@Html.Raw(item.Title)</a>
                                                 </h4>
                                             </div>
                                             <div class="entry-metadata">
                                                 <p class="author">
                                                     <i class="fa fa-user"> </i>
-                                                    <a href="#" title="@item.Title">@Html.Raw(item.CreatedBy)</a>
+                                                    <a href="javascript:void(0)" title="@item.Title">@Html.Raw(item.Author)</a>
                                                 </p>
                                                 <span class=""> | </span>
                                                 <p class='tags tags'>
                                                     <i class='fa fa-tags'> </i>
-                                                    <a href="#" rel="tag">lifestyle</a>,
-                                                    <a href="#" rel="tag">Spa</a>
+                                                    <a href="javascript:void(0)" rel="tag">@item.Source</a>,
+                                                    <a href="javascript:void(0)" rel="tag">Spa</a>
                                                 </p>
                                                 <span class='tags'> | </span>
                                                 <p class="category">
-                                                    <i class="fa fa-sitemap"> </i>
-                                                    <a href="#" rel="category tag">Therapy</a>
+                                                    <i class="fa fa-sitemap"></i>
+                                                    <a href="javascript:void(0)" rel="category tag">@item.Category</a>
                                                 </p>
                                             </div>
                                             <div class="entry-body">
@@ -81,7 +81,7 @@
                                                     @Html.Raw(item.Short_Description)
                                                 </p>
                                             </div>
-                                            <a href="#" title="@item.Title" class="dt-sc-button small">
+                                            <a href="@Url.Action("BlogDetail", "Blog", new { id=item.Id })" title="@item.Title" class="dt-sc-button small">
                                                 Read More
                                             </a>
                                         </div>
@@ -105,7 +105,7 @@
                                                     </span>
                                                 </div>
                                                 <p class="comments">
-                                                    <a href="#">
+                                                    <a href="javascript:void(0)">
                                                         <span class="fa fa-comments"> </span> 0
                                                     </a>
                                                 </p>
@@ -118,27 +118,25 @@
                                             <div class="entry-details">
                                                 <div class="entry-title">
                                                     <h4>
-                                                        <a href="#" title="@item.Title">@item.Title</a>
+                                                        <a href="javascript:void(0)" title="@item.Title">@item.Title</a>
                                                     </h4>
                                                 </div>
                                                 <div class="entry-metadata">
                                                     <p class="author">
                                                         <i class="fa fa-user"> </i>
-                                                        <a href="#" title="@item.Title">@item.CreatedBy</a>
+                                                        <a href="javascript:void(0)" title="@item.Title">@item.Author</a>
                                                     </p>
                                                     <span class=""> | </span>
                                                     <p class='tags  tags '>
                                                         <i class='fa fa-tags'> </i>
-                                                        <a href="#" rel="tag">Spa</a>,
-                                                        <a href="#" rel="tag">video</a>,
-                                                        <a href="#" rel="tag">vimeo</a>
+                                                        <a href="javascript:void(0)" rel="tag">Spa</a>,
+                                                        <a href="javascript:void(0)" rel="tag">Iframe</a>,
+                                                        <a href="javascript:void(0)" rel="tag">@item.Source</a>
                                                     </p>
                                                     <span class='tags'> | </span>
                                                     <p class="category">
                                                         <i class="fa fa-sitemap"> </i>
-                                                        <a href="#" rel="category tag">Ayurvedic</a>,
-                                                        <a href="#" rel="category tag">Herbal</a>,
-                                                        <a href="#" rel="category tag">Therapy</a>
+                                                        <a href="javascript:void(0)" rel="category tag">@item.Category</a>
                                                     </p>
                                                 </div>
                                                 <div class="entry-body">
@@ -146,7 +144,7 @@
                                                         @item.Short_Description
                                                     </p>
                                                 </div>
-                                                <a href="#" title="@item.Title"
+                                                <a href="@Url.Action("BlogDetail", "Blog", new { id=item.Id })" title="@item.Title"
                                                    class="dt-sc-button small">Read More</a>
                                             </div>
                                         </div>
@@ -169,7 +167,7 @@
                                                         </span>
                                                     </div>
                                                     <p class="comments ">
-                                                        <a href="#">
+                                                        <a href="javascript:void(0)">
                                                             <span class="fa fa-comments"> </span> 0
                                                         </a>
                                                     </p>
@@ -179,7 +177,7 @@
                                                         <div style="width: 640px;" class="wp-video">
                                                             <video class="wp-video-shortcode" id="video-223-1" width="640" height="360" preload="metadata" controls="controls">
                                                                 <source type="video/mp4" src="@item.Link" />
-                                                                <a href="@item.Link">@item.Link</a>
+                                                                <a href="@Url.Action("BlogDetail", "Blog", new { id=item.Id })">@item.Link</a>
                                                             </video>
                                                         </div>
                                                     </div>
@@ -187,25 +185,25 @@
                                                 <div class="entry-details">
                                                     <div class="entry-title">
                                                         <h4>
-                                                            <a href="#" title="@item.Title">@item.Title</a>
+                                                            <a href="javascript:void(0)" title="@item.Title">@item.Title</a>
                                                         </h4>
                                                     </div>
                                                     <div class="entry-metadata">
                                                         <p class="author ">
                                                             <i class="fa fa-user"> </i>
-                                                            <a href="#" title="@item.Title">@item.CreatedBy</a>
+                                                            <a href="javascript:void(0)" title="@item.Title">@item.Author</a>
                                                         </p>
                                                         <span class=""> | </span>
                                                         <p class='tags tags'>
                                                             <i class='fa fa-tags'> </i>
-                                                            <a href="#" rel="tag">dream</a>,
-                                                            <a href="#" rel="tag">treatment</a>,
-                                                            <a href="#" rel="tag">video</a>
+                                                            <a href="javascript:void(0)" rel="tag">dream</a>,
+                                                            <a href="javascript:void(0)" rel="tag">Video</a>,
+                                                            <a href="javascript:void(0)" rel="tag">@item.Source</a>
                                                         </p>
                                                         <span class='tags'> | </span>
                                                         <p class="category">
                                                             <i class="fa fa-sitemap"> </i>
-                                                            <a href="#" rel="category tag">Uncategorized</a>
+                                                            <a href="javascript:void(0)" rel="category tag">@item.Category</a>
                                                         </p>
                                                     </div>
                                                     <div class="entry-body">
@@ -213,7 +211,7 @@
                                                             @item.Short_Description
                                                         </p>
                                                     </div>
-                                                    <a href="#" title="@item.Title" class="dt-sc-button small">
+                                                    <a href="@Url.Action("BlogDetail", "Blog", new { id=item.Id })" title="@item.Title" class="dt-sc-button small">
                                                         Read More
                                                     </a>
                                                 </div>
@@ -237,7 +235,7 @@
                                                             </span>
                                                         </div>
                                                         <p class="comments ">
-                                                            <a href="#">
+                                                            <a href="javascript:void(0)">
                                                                 <span class="fa fa-comments"> </span> 0
                                                             </a>
                                                         </p>
@@ -245,31 +243,31 @@
                                                     <div class="entry-thumb">
                                                         <audio class="wp-audio-shortcode" id="" preload="none" style="width: 100%;" controls="controls">
                                                             <source type="audio/mpeg" src="@item.Link" />
-                                                            <a href="@item.Link">@item.Link</a>
+                                                            <a href="@Url.Action("BlogDetail", "Blog", new { id=item.Id })">@item.Link</a>
                                                         </audio>
                                                     </div>
                                                     <div class="entry-details">
                                                         <div class="entry-title">
                                                             <h4>
-                                                                <a href="#" title="@item.Title">@item.Title</a>
+                                                                <a href="javascript:void(0)" title="@item.Title">@item.Title</a>
                                                             </h4>
                                                         </div>
                                                         <div class="entry-metadata">
                                                             <p class="author">
                                                                 <i class="fa fa-user"> </i>
-                                                                <a href="#" title="@item.Title">@item.CreatedBy</a>
+                                                                <a href="javascript:void(0)" title="@item.Title">@item.Author</a>
                                                             </p>
                                                             <span class=""> | </span>
                                                             <p class='tags tags'>
                                                                 <i class='fa fa-tags'> </i>
-                                                                <a href="#" rel="tag">Audio</a>,
-                                                                <a href="https://dreamspa.dttheme.com/tag/spa/" rel="tag">Spa</a>
+                                                                <a href="javascript:void(0)" rel="tag">Spa</a>,
+                                                                <a href="javascript:void(0)" rel="tag">Audio</a>
+                                                                <a href="javascript:void(0)" rel="tag">@item.Source</a>
                                                             </p>
                                                             <span class='tags'> | </span>
                                                             <p class="category">
                                                                 <i class="fa fa-sitemap"> </i>
-                                                                <a href="#" rel="category tag">Herbal</a>,
-                                                                <a href="#" rel="category tag">Massage</a>
+                                                                <a href="javascript:void(0)" rel="category tag">@item.Category</a>
                                                             </p>
                                                         </div>
                                                         <div class="entry-body">
@@ -277,7 +275,7 @@
                                                                 @item.Short_Description
                                                             </p>
                                                         </div>
-                                                        <a href="#" title="@item.Title" class="dt-sc-button small">
+                                                        <a href="@Url.Action("BlogDetail", "Blog", new { id=item.Id })" title="@item.Title" class="dt-sc-button small">
                                                             Read More
                                                         </a>
                                                     </div>
