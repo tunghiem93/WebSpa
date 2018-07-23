@@ -64,6 +64,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                 if (!ModelState.IsValid)
                 {
                     Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    model.ListBlogType = GetListBlogType();
                     return PartialView("_Create", model);
                 }
                 if (model.PictureUpload != null && model.PictureUpload.ContentLength > 0)
@@ -76,8 +77,8 @@ namespace CMS_Web.Areas.Admin.Controllers
                     photoByte = imgByte;
                 }
                 var msg = "";
-                model.CreatedBy = "";
-                model.UpdatedBy = "";
+                model.CreatedBy = CurrentUser.Email;
+                model.UpdatedBy = CurrentUser.Email;
                 var result = _factory.CreateOrUpdate(model, ref msg);
                 if (result)
                 {
@@ -110,6 +111,7 @@ namespace CMS_Web.Areas.Admin.Controllers
             var model = GetDetail(Id);
             if (!string.IsNullOrEmpty(model.ImageURL))
                 model.ImageURL = Commons.HostImage +"News/" + model.ImageURL;
+            model.ListBlogType = GetListBlogType();
             return PartialView("_Edit", model);
         }
 
@@ -123,6 +125,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                 if (!ModelState.IsValid)
                 {
                     Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    model.ListBlogType = GetListBlogType();
                     return PartialView("_Edit", model);
                 }
                 if (!string.IsNullOrEmpty(model.ImageURL))
@@ -140,6 +143,8 @@ namespace CMS_Web.Areas.Admin.Controllers
                     photoByte = imgByte;
                 }
                 var msg = "";
+                model.CreatedBy = CurrentUser.Email;
+                model.UpdatedBy = CurrentUser.Email;
                 var result = _factory.CreateOrUpdate(model, ref msg);
                 if (result)
                 {
