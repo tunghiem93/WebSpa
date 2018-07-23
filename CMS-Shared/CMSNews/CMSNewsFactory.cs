@@ -1,6 +1,5 @@
-﻿using CMS_DTO.CMSNews;
-using CMS_Entity;
-using CMS_Entity.Entity;
+﻿using CMS_DataModel.Models;
+using CMS_DTO.CMSNews;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,11 +28,11 @@ namespace CMS_Shared.CMSNews
                                 Title = model.Title,
                                 Short_Description = model.Short_Description,
                                 ImageURL = model.ImageURL,
-                                CreatedBy = model.CreatedBy,
+                                CreatedUser = model.CreatedBy,
                                 CreatedDate = DateTime.Now,
                                 Description = model.Description,
-                                UpdatedBy = model.UpdatedBy,
-                                UpdatedDate = DateTime.Now,
+                                ModifiedUser = model.UpdatedBy,
+                                LastModified = DateTime.Now,
                                 IsActive = model.IsActive
                             };
                             cxt.CMS_News.Add(e);
@@ -47,8 +46,8 @@ namespace CMS_Shared.CMSNews
                                 e.Short_Description = model.Short_Description;
                                 e.ImageURL = model.ImageURL;
                                 e.Description = model.Description;
-                                e.UpdatedBy = model.UpdatedBy;
-                                e.UpdatedDate = DateTime.Now;
+                                e.ModifiedUser = model.UpdatedBy;
+                                e.LastModified = DateTime.Now;
                                 e.IsActive = model.IsActive;
                             }
                         }
@@ -118,12 +117,12 @@ namespace CMS_Shared.CMSNews
                         var o = new CMS_NewsModels
                         {
                             Id = e.Id,
-                            CreatedBy = e.CreatedBy,
+                            CreatedBy = e.CreatedUser,
                             CreatedDate = e.CreatedDate,
                             Description = e.Description,
                             IsActive = e.IsActive,
-                            UpdatedBy = e.UpdatedBy,
-                            UpdatedDate = e.UpdatedDate,
+                            UpdatedBy = e.ModifiedUser,
+                            UpdatedDate = e.LastModified,
                             Title = e.Title,
                             Short_Description = e.Short_Description,
                             ImageURL = e.ImageURL
@@ -149,13 +148,13 @@ namespace CMS_Shared.CMSNews
                                                    Title = x.Title,
                                                    Short_Description = x.Short_Description,
                                                    ImageURL = x.ImageURL,
-                                                   CreatedBy = x.CreatedBy,
+                                                   CreatedBy = x.CreatedUser,
                                                    CreatedDate = x.CreatedDate,
                                                    Description = x.Description,
                                                    IsActive = x.IsActive,
 
-                                                   UpdatedBy = x.UpdatedBy,
-                                                   UpdatedDate = x.UpdatedDate,
+                                                   UpdatedBy = x.ModifiedUser,
+                                                   UpdatedDate = x.LastModified,
                                                }).ToList();
                     return data;
                 }

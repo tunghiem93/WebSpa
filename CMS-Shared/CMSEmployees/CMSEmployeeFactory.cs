@@ -1,6 +1,5 @@
-﻿using CMS_DTO.CMSEmployee;
-using CMS_Entity;
-using CMS_Entity.Entity;
+﻿using CMS_DataModel.Models;
+using CMS_DTO.CMSEmployee;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,41 +24,14 @@ namespace CMS_Shared.CMSEmployees
                             var _Id = Guid.NewGuid().ToString();
                             var e = new CMS_Employee
                             {
-                                Id = _Id,
-                                BirthDate = model.BirthDate,
-                                CreatedBy = model.CreatedBy,
-                                CreatedDate = DateTime.Now,
-                                Employee_Address = model.Employee_Address,
-                                Employee_Email = model.Employee_Email,
-                                Employee_IDCard = model.Employee_IDCard,
-                                Employee_Phone = model.Employee_Phone,
-                                FirstName = model.FirstName,
-                                IsActive = model.IsActive,
-                                LastName = model.LastName,
-                                Password = model.Password,
-                                UpdatedBy = model.UpdatedBy,
-                                UpdatedDate = DateTime.Now,
-                                ImageURL = model.ImageURL
                             };
-                            cxt.CMS_Employees.Add(e);
+                            cxt.CMS_Employee.Add(e);
                         }
                         else
                         {
-                            var e = cxt.CMS_Employees.Find(model.Id);
+                            var e = cxt.CMS_Employee.Find(model.Id);
                             if(e != null)
                             {
-                                e.BirthDate = model.BirthDate;
-                                e.UpdatedBy = model.UpdatedBy;
-                                e.Employee_Address = model.Employee_Address;
-                                e.Employee_Email = model.Employee_Email;
-                                e.Employee_IDCard = model.Employee_IDCard;
-                                e.Employee_Phone = model.Employee_Phone;
-                                e.FirstName = model.FirstName;
-                                e.LastName = model.LastName;
-                                e.IsActive = model.IsActive;
-                                e.Password = model.Password;
-                                e.UpdatedDate = DateTime.Now;
-                                e.ImageURL = model.ImageURL;
                             }
                         }
                         cxt.SaveChanges();
@@ -87,8 +59,6 @@ namespace CMS_Shared.CMSEmployees
             {
                 using (var cxt = new CMS_Context())
                 {
-                    var e = cxt.CMS_Employees.Find(Id);
-                    cxt.CMS_Employees.Remove(e);
                     cxt.SaveChanges();
                 }
             }
@@ -106,25 +76,9 @@ namespace CMS_Shared.CMSEmployees
             {
                 using (var cxt = new CMS_Context())
                 {
-                    var data = cxt.CMS_Employees.Where(x => x.Id.Equals(Id))
+                    var data = cxt.CMS_Employee.Where(x => x.ID.Equals(Id))
                                                 .Select(x => new CMS_EmployeeModels
                                                 {
-                                                    Id = x.Id,
-                                                    BirthDate = x.BirthDate,
-                                                    CreatedBy = x.CreatedBy,
-                                                    CreatedDate = x.CreatedDate,
-                                                    Employee_Address = x.Employee_Address,
-                                                    Employee_Email = x.Employee_Email,
-                                                    Employee_IDCard = x.Employee_IDCard,
-                                                    Employee_Phone = x.Employee_Phone,
-                                                    FirstName = x.FirstName,
-                                                    IsActive = x.IsActive,
-                                                    LastName = x.LastName,
-                                                    Password = x.Password,
-                                                    UpdatedBy = x.UpdatedBy,
-                                                    UpdatedDate = x.UpdatedDate,
-                                                    ImageURL = x.ImageURL,
-                                                    IsSupperAdmin = x.IsSupperAdmin,
                                                 }).FirstOrDefault();
                     return data;
                 }
@@ -139,24 +93,8 @@ namespace CMS_Shared.CMSEmployees
             {
                 using (var cxt = new CMS_Context())
                 {
-                    var data = cxt.CMS_Employees.Select(x => new CMS_EmployeeModels
+                    var data = cxt.CMS_Employee.Select(x => new CMS_EmployeeModels
                                                 {
-                                                    Id = x.Id,
-                                                    BirthDate = x.BirthDate,
-                                                    CreatedBy = x.CreatedBy,
-                                                    CreatedDate = x.CreatedDate,
-                                                    Employee_Address = x.Employee_Address,
-                                                    Employee_Email = x.Employee_Email,
-                                                    Employee_IDCard = x.Employee_IDCard,
-                                                    Employee_Phone = x.Employee_Phone,
-                                                    FirstName = x.FirstName,
-                                                    IsActive = x.IsActive,
-                                                    LastName = x.LastName,
-                                                    Password = x.Password,
-                                                    UpdatedBy = x.UpdatedBy,
-                                                    UpdatedDate = x.UpdatedDate,
-                                                    ImageURL = x.ImageURL,
-                                                    IsSupperAdmin = x.IsSupperAdmin,
                                                 }).ToList();
                     return data;
                 }

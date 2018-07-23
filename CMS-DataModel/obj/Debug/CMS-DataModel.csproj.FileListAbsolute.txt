@@ -1,0 +1,12 @@
+D:\Personal\Source\WebSpa\CMS-DataModel\bin\Debug\CMS-DataModel.pdb
+D:\Personal\Source\WebSpa\CMS-DataModel\bin\Debug\EntityFramework.dll
+D:\Personal\Source\WebSpa\CMS-DataModel\bin\Debug\EntityFramework.SqlServer.dll
+D:\Personal\Source\WebSpa\CMS-DataModel\bin\Debug\EntityFramework.xml
+D:\Personal\Source\WebSpa\CMS-DataModel\bin\Debug\EntityFramework.SqlServer.xml
+D:\Personal\Source\WebSpa\CMS-DataModel\obj\Debug\CMS-DataModel.csprojAssemblyReference.cache
+D:\Personal\Source\WebSpa\CMS-DataModel\obj\Debug\CMS-DataModel.csproj.CoreCompileInputs.cache
+D:\Personal\Source\WebSpa\CMS-DataModel\obj\Debug\CMS-DataModel.csproj.CopyComplete
+D:\Personal\Source\WebSpa\CMS-DataModel\obj\Debug\CMS-DataModel.pdb
+D:\Personal\Source\WebSpa\CMS-DataModel\bin\Debug\CMS-DataModel.dll.config
+D:\Personal\Source\WebSpa\CMS-DataModel\bin\Debug\CMS-DataModel.dll
+D:\Personal\Source\WebSpa\CMS-DataModel\obj\Debug\CMS-DataModel.dll

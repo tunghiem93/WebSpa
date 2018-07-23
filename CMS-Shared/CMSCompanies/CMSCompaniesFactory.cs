@@ -1,6 +1,5 @@
-﻿using CMS_DTO.CMSCompany;
-using CMS_Entity;
-using CMS_Entity.Entity;
+﻿using CMS_DataModel.Models;
+using CMS_DTO.CMSCompany;
 using System;
 using System.Collections.Generic;
 using System.Linq;
