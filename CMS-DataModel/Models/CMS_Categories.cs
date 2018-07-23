@@ -50,13 +50,12 @@ namespace CMS_DataModel.Models
 
         public DateTime LastModified { get; set; }
 
-        [Required]
-        [StringLength(100)]
-        public string ProductType { get; set; }
+        public int ProductTypeCode { get; set; }
 
         public bool IsShowInReservation { get; set; }
 
         public int Sequence { get; set; }
+        public bool IsActive { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMS_Categories> CMS_Categories1 { get; set; }
