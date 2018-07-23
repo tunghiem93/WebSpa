@@ -11,7 +11,6 @@ namespace CMS_DataModel.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CMS_Module()
         {
-            CMS_ModuleOnStore = new HashSet<CMS_ModuleOnStore>();
         }
 
         [StringLength(100)]
@@ -39,8 +38,5 @@ namespace CMS_DataModel.Models
         public DateTime LastModified { get; set; }
 
         public int Code { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CMS_ModuleOnStore> CMS_ModuleOnStore { get; set; }
     }
 }

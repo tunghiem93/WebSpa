@@ -17,7 +17,6 @@ namespace CMS_DataModel.Models
         public virtual DbSet<CMS_Categories> CMS_Categories { get; set; }
         public virtual DbSet<CMS_Companies> CMS_Companies { get; set; }
         public virtual DbSet<CMS_Customer> CMS_Customer { get; set; }
-        public virtual DbSet<CMS_CustomerOnStore> CMS_CustomerOnStore { get; set; }
         public virtual DbSet<CMS_Discount> CMS_Discount { get; set; }
         public virtual DbSet<CMS_Drawer> CMS_Drawer { get; set; }
         public virtual DbSet<CMS_DrawerLog> CMS_DrawerLog { get; set; }
@@ -26,7 +25,6 @@ namespace CMS_DataModel.Models
         public virtual DbSet<CMS_GeneralSetting> CMS_GeneralSetting { get; set; }
         public virtual DbSet<CMS_ImagesLink> CMS_ImagesLink { get; set; }
         public virtual DbSet<CMS_Module> CMS_Module { get; set; }
-        public virtual DbSet<CMS_ModuleOnStore> CMS_ModuleOnStore { get; set; }
         public virtual DbSet<CMS_ModulePermission> CMS_ModulePermission { get; set; }
         public virtual DbSet<CMS_News> CMS_News { get; set; }
         public virtual DbSet<CMS_Order> CMS_Order { get; set; }
@@ -133,11 +131,6 @@ namespace CMS_DataModel.Models
                 .WithRequired(e => e.CMS_GeneralSetting)
                 .HasForeignKey(e => e.SettingID)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<CMS_Module>()
-                .HasMany(e => e.CMS_ModuleOnStore)
-                .WithRequired(e => e.CMS_Module)
-                .HasForeignKey(e => e.ModuleID);
 
             modelBuilder.Entity<CMS_News>()
                 .Property(e => e.ImageURL)
@@ -262,12 +255,6 @@ namespace CMS_DataModel.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<CMS_Store>()
-                .HasMany(e => e.CMS_CustomerOnStore)
-                .WithRequired(e => e.CMS_Store)
-                .HasForeignKey(e => e.StoreID)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<CMS_Store>()
                 .HasMany(e => e.CMS_Discount)
                 .WithRequired(e => e.CMS_Store)
                 .HasForeignKey(e => e.StoreID)
@@ -276,11 +263,6 @@ namespace CMS_DataModel.Models
             modelBuilder.Entity<CMS_Store>()
                 .HasMany(e => e.CMS_EmployeeWorking)
                 .WithOptional(e => e.CMS_Store)
-                .HasForeignKey(e => e.StoreID);
-
-            modelBuilder.Entity<CMS_Store>()
-                .HasMany(e => e.CMS_ModuleOnStore)
-                .WithRequired(e => e.CMS_Store)
                 .HasForeignKey(e => e.StoreID);
 
             modelBuilder.Entity<CMS_Store>()

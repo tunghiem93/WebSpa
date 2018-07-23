@@ -17,6 +17,10 @@ namespace CMS_DataModel.Models
         [StringLength(100)]
         public string ID { get; set; }
 
+        [StringLength(100)]
+        public string StoreID { get; set; }
+
+
         [StringLength(20)]
         public string IC { get; set; }
 
@@ -62,6 +66,13 @@ namespace CMS_DataModel.Models
 
         [StringLength(100)]
         public string OfficeCountry { get; set; }
+
+        public DateTime? LastTransaction { get; set; }
+
+        [StringLength(100)]
+        public string MemberTierID { get; set; }
+
+        public int? Point { get; set; }
 
         public byte Status { get; set; }
 

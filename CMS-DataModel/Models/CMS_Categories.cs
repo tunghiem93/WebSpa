@@ -18,7 +18,6 @@ namespace CMS_DataModel.Models
         [StringLength(100)]
         public string ID { get; set; }
 
-        [Required]
         [StringLength(100)]
         public string StoreID { get; set; }
 
