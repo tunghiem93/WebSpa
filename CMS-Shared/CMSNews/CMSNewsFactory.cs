@@ -12,59 +12,61 @@ namespace CMS_Shared.CMSNews
     {
         public bool CreateOrUpdate(CMS_NewsModels model, ref string msg)
         {
+            NSLog.Logger.Info("NewsCreateOrUpdate", model);
             var Result = true;
             using (var cxt = new CMS_Context())
             {
-                using (var trans = cxt.Database.BeginTransaction())
+                try
                 {
-                    try
+                    if (string.IsNullOrEmpty(model.Id)) /* insert */
                     {
-                        if (string.IsNullOrEmpty(model.Id))
+                        var _Id = Guid.NewGuid().ToString();
+                        var e = new CMS_News
                         {
-                            var _Id = Guid.NewGuid().ToString();
-                            var e = new CMS_News
-                            {
-                                Id = _Id,
-                                Title = model.Title,
-                                Short_Description = model.Short_Description,
-                                ImageURL = model.ImageURL,
-                                CreatedUser = model.CreatedBy,
-                                CreatedDate = DateTime.Now,
-                                Description = model.Description,
-                                ModifiedUser = model.UpdatedBy,
-                                LastModified = DateTime.Now,
-                                IsActive = model.IsActive,
-                                Status = (byte)Commons.EStatus.Actived,
-                            };
-                            cxt.CMS_News.Add(e);
-                        }
-                        else
+                            Id = _Id,
+                            Title = model.Title,
+                            Short_Description = model.Short_Description,
+                            ImageURL = model.ImageURL,
+                            Description = model.Description,
+                            IsActive = model.IsActive,
+                            Author = model.Author,
+                            Category = model.Category,
+                            Source = model.Source,
+                            CreatedUser = model.CreatedBy,
+                            CreatedDate = DateTime.Now,
+                            ModifiedUser = model.UpdatedBy,
+                            LastModified = DateTime.Now,
+                            Status = (byte)Commons.EStatus.Actived,
+                        };
+                        cxt.CMS_News.Add(e);
+                    }
+                    else /* updated */
+                    {
+                        var e = cxt.CMS_News.Find(model.Id);
+                        if (e != null)
                         {
-                            var e = cxt.CMS_News.Find(model.Id);
-                            if (e != null)
-                            {
-                                e.Title = model.Title;
-                                e.Short_Description = model.Short_Description;
-                                e.ImageURL = model.ImageURL;
-                                e.Description = model.Description;
-                                e.ModifiedUser = model.UpdatedBy;
-                                e.LastModified = DateTime.Now;
-                                e.IsActive = model.IsActive;
-                            }
+                            e.Title = model.Title;
+                            e.Short_Description = model.Short_Description;
+                            e.ImageURL = model.ImageURL;
+                            e.Description = model.Description;
+                            e.Author = model.Author;
+                            e.Source = model.Source;
+                            e.Category = model.Category;
+                            e.ModifiedUser = model.UpdatedBy;
+                            e.LastModified = DateTime.Now;
+                            e.IsActive = model.IsActive;
                         }
-                        cxt.SaveChanges();
-                        trans.Commit();
                     }
-                    catch (Exception)
-                    {
-                        Result = false;
-                        msg = "Vui lòng kiểm tra đường truyền";
-                        trans.Rollback();
-                    }
-                    finally
-                    {
-                        cxt.Dispose();
-                    }
+
+                    cxt.SaveChanges();
+                    NSLog.Logger.Info("ResponseNewsCreateOrUpdate", new { Result, msg });
+
+                }
+                catch (Exception ex)
+                {
+                    Result = false;
+                    msg = "Vui lòng kiểm tra đường truyền";
+                    NSLog.Logger.Error("ErrorNewsCreateOrUpdate", ex);
                 }
             }
             return Result;
@@ -72,6 +74,7 @@ namespace CMS_Shared.CMSNews
 
         public bool Delete(string Id, ref string msg)
         {
+            NSLog.Logger.Info("NewsDelete", Id);
             var Result = true;
             using (var cxt = new CMS_Context())
             {
@@ -90,12 +93,15 @@ namespace CMS_Shared.CMSNews
                         {
                             msg = "Vui lòng kiểm tra đường truyền";
                         }
+                        NSLog.Logger.Info("ResponseNewsDelete", new { Result, msg });
+
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
                         Result = false;
                         msg = "Vui lòng kiểm tra đường truyền";
                         trans.Rollback();
+                        NSLog.Logger.Info("ErrorNewsDelete", ex);
                     }
                     finally
                     {
@@ -108,6 +114,8 @@ namespace CMS_Shared.CMSNews
 
         public CMS_NewsModels GetDetail(string Id)
         {
+            NSLog.Logger.Info("NewsGetDetail", Id);
+            CMS_NewsModels ret = null;
             try
             {
                 using (var cxt = new CMS_Context())
@@ -115,52 +123,67 @@ namespace CMS_Shared.CMSNews
                     var e = cxt.CMS_News.Where(x => x.Id.Equals(Id) && x.Status == (byte)Commons.EStatus.Actived).FirstOrDefault();
                     if (e != null)
                     {
-                        var o = new CMS_NewsModels
+                        ret = new CMS_NewsModels
                         {
                             Id = e.Id,
                             CreatedBy = e.CreatedUser,
                             CreatedDate = e.CreatedDate,
                             Description = e.Description,
                             IsActive = e.IsActive,
-                            UpdatedBy = e.ModifiedUser,
-                            UpdatedDate = e.LastModified,
                             Title = e.Title,
                             Short_Description = e.Short_Description,
-                            ImageURL = e.ImageURL
+                            ImageURL = e.ImageURL,
+                            Author = e.Author,
+                            Category = e.Category,
+                            Source = e.Source,
+                            UpdatedBy = e.ModifiedUser,
+                            UpdatedDate = e.LastModified,
                         };
-                        return o;
                     }
                 }
+                NSLog.Logger.Info("ResponseNewsGetDetail", ret);
+
             }
-            catch (Exception ex) { }
-            return null;
+            catch (Exception ex)
+            {
+                NSLog.Logger.Info("ErrorNewsGetDetail", ex);
+            }
+            return ret;
         }
 
         public List<CMS_NewsModels> GetList()
         {
+            NSLog.Logger.Info("NewsGetList");
+            List<CMS_NewsModels> data = null;
             try
             {
                 using (var cxt = new CMS_Context())
                 {
-                    var data = cxt.CMS_News.Where(x=> x.Status == (byte)Commons.EStatus.Actived)
+                    data = cxt.CMS_News.Where(x=> x.Status == (byte)Commons.EStatus.Actived)
                                     .Select(x => new CMS_NewsModels
                                     {
                                         Id = x.Id,
                                         Title = x.Title,
                                         Short_Description = x.Short_Description,
                                         ImageURL = x.ImageURL,
-                                        CreatedBy = x.CreatedUser,
-                                        CreatedDate = x.CreatedDate,
+                                        Author = x.Author,
+                                        Category = x.Category,
+                                        Source = x.Source,
                                         Description = x.Description,
                                         IsActive = x.IsActive,
+                                        CreatedDate = x.CreatedDate,
+                                        CreatedBy = x.CreatedUser,
                                         UpdatedBy = x.ModifiedUser,
                                         UpdatedDate = x.LastModified,
                                     }).ToList();
-                    return data;
                 }
+                NSLog.Logger.Info("ResponseNewsGetList", data);
             }
-            catch (Exception) { }
-            return null;
+            catch (Exception ex)
+            {
+                NSLog.Logger.Info("ErrorNewsGetList", ex);
+            }
+            return data;
         }
     }
 }
