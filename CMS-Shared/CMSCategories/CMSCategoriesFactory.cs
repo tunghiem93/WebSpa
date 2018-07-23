@@ -10,82 +10,173 @@ namespace CMS_Shared.CMSCategories
 {
     public class CMSCategoriesFactory
     {
-        public bool CreateOrUpdate(CMSCategoriesModels model,ref string Id, ref string msg)
+        public bool CreateOrUpdate(CMSCategoriesModels model, ref string Id, ref string msg)
         {
-            var result = true;
+            NSLog.Logger.Info("CateCreateOrUpdate", model);
+            var Result = true;
             using (var cxt = new CMS_Context())
             {
-                using (var beginTran = cxt.Database.BeginTransaction())
+                try
                 {
-                    try
+                    if (string.IsNullOrEmpty(model.Id)) /* insert */
                     {
-                        
-                        beginTran.Commit();
+                        Id = Guid.NewGuid().ToString();
+                        var e = new CMS_Categories
+                        {
+                            ID = Id,
+                            StoreID = model.StoreID,
+                            Name = model.CategoryName,
+                            TotalProducts = 0,
+                            Description = model.Description,
+                            ImageURL = model.ImageURL,
+                            Status = (byte)Commons.EStatus.Actived,
+                            CreatedDate = DateTime.Now,
+                            CreatedUser = model.CreatedBy,
+                            ModifiedUser = model.CreatedBy,
+                            LastModified = DateTime.Now,
+                            ProductTypeCode = model.ProductTypeCode,
+                            IsShowInReservation = model.IsShowInReservation,
+                            Sequence = model.Sequence,
+                            IsActive = model.IsActive,
+                        };
+                        cxt.CMS_Categories.Add(e);
                     }
-                    catch (Exception ex) {
-                        msg = "Lỗi đường truyền mạng";
-                        beginTran.Rollback();
-                        result = false;
+                    else /* updated */
+                    {
+                        var e = cxt.CMS_Categories.Find(model.Id);
+                        if (e != null)
+                        {
+                            e.Name = model.CategoryName;
+                            e.TotalProducts = 0;
+                            e.Description = model.Description;
+                            e.ImageURL = model.ImageURL;
+                            e.ModifiedUser = model.CreatedBy;
+                            e.LastModified = DateTime.Now;
+                            e.ProductTypeCode = model.ProductTypeCode;
+                            e.IsShowInReservation = model.IsShowInReservation;
+                            e.Sequence = model.Sequence;
+                            e.IsActive = model.IsActive;
+                        }
+                        else
+                        {
+                            Result = false;
+                            msg = "Unable to find Category.";
+                        }
                     }
+
+                    cxt.SaveChanges();
+                    NSLog.Logger.Info("ResponseCateCreateOrUpdate", new { Result, msg });
+
+                }
+                catch (Exception ex)
+                {
+                    Result = false;
+                    msg = "Vui lòng kiểm tra đường truyền";
+                    NSLog.Logger.Error("ErrorCateCreateOrUpdate", ex);
                 }
             }
-            return result;
+            return Result;
         }
 
-        public bool Delete(string Id , ref string msg)
+        public bool Delete(string Id, ref string msg)
         {
+            NSLog.Logger.Info("CateDelete", Id);
+
             var result = true;
             try
             {
                 using (var cxt = new CMS_Context())
                 {
                     var e = cxt.CMS_Categories.Find(Id);
-                    cxt.CMS_Categories.Remove(e);
-                    cxt.SaveChanges();
+                    if (e != null)
+                    {
+                        e.Status = (byte)Commons.EStatus.Deleted;
+                        cxt.SaveChanges();
+                    }
+                    else
+                    {
+                        msg = "Unable to find cate.";
+                        result = false;
+                    }
+
+                    NSLog.Logger.Info("ResponseCateDelete", new { result, msg });
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 msg = "Không thể xóa thể loại này";
                 result = false;
+                NSLog.Logger.Error("ErrorCateDelete", ex);
             }
             return result;
         }
 
         public CMSCategoriesModels GetDetail(string Id)
         {
+            NSLog.Logger.Info("CateGetDetail", Id);
+            CMSCategoriesModels ret = null;
+
             try
             {
                 using (var cxt = new CMS_Context())
                 {
                     var data = cxt.CMS_Categories.Select(x => new CMSCategoriesModels
                     {
-                    }).Where(x=>x.Id.Equals(Id)).FirstOrDefault();
-                    
-                    return data;
+                        Id = x.ID,
+                        ParentId = x.ParentID,
+                        CategoryName = x.Name,
+                        StoreID = x.StoreID,
+                        NumberOfProduct = x.TotalProducts ?? 0,
+                        Description = x.Description,
+                        ImageURL = string.IsNullOrEmpty(x.ImageURL) ? "" : Commons._PublicImages + x.ImageURL,
+                        ProductTypeCode = x.ProductTypeCode,
+                        IsShowInReservation = x.IsShowInReservation,
+                        IsActive = x.IsActive,
+                        Sequence = x.Sequence,
+                    }).Where(x => x.Id.Equals(Id)).FirstOrDefault();
+
+                    ret = data;
+
+                    NSLog.Logger.Info("ResponseCateGetDetail", ret);
                 }
             }
-            catch(Exception ex) { }
-            return null;
+            catch (Exception ex)
+            {
+                NSLog.Logger.Error("ErrorCateGetDetail", ex);
+            }
+            return ret;
         }
 
         public List<CMSCategoriesModels> GetList()
         {
+            NSLog.Logger.Info("CateGetList");
+
+            List<CMSCategoriesModels> ret = null;
             try
             {
                 using (var cxt = new CMS_Context())
                 {
                     var data = cxt.CMS_Categories.Select(x => new CMSCategoriesModels
                     {
+                        Id = x.ID,
+                        ParentId = x.ParentID,
+                        CategoryName = x.Name,
+                        StoreID = x.StoreID,
+                        NumberOfProduct = x.TotalProducts ?? 0,
+                        Description = x.Description,
+                        ImageURL = string.IsNullOrEmpty(x.ImageURL) ? "" : Commons._PublicImages + x.ImageURL,
+                        ProductTypeCode = x.ProductTypeCode,
+                        IsShowInReservation = x.IsShowInReservation,
+                        IsActive = x.IsActive,
+                        Sequence = x.Sequence,
                     }).ToList();
 
-                    /* count number of product */
-                    
                     /* response data */
-                    return data;
+                    ret = data;
                 }
-            }catch(Exception ex) { }
-            return null;
+            }
+            catch (Exception ex) { }
+            return ret;
         }
     }
 }

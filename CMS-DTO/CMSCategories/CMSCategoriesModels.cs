@@ -29,7 +29,10 @@ namespace CMS_DTO.CMSCategories
         public string sStatus { get; set; }
         public int NumberOfProduct { get; set; }
         public string ParentId { get; set; }
-        
+        public string StoreID { get; set; }
+        public bool IsShowInReservation { get; set; }
+        public int ProductTypeCode { get; set; }
+        public int Sequence { get; set; }
         public CMSCategoriesModels()
         {
             IsActive = true;

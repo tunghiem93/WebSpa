@@ -37,3 +37,19 @@ D:\My Outsource\Admin\CMS-DTO\obj\Debug\CMS-DTO.csproj.CoreCompileInputs.cache
 D:\My Outsource\Admin\CMS-DTO\obj\Debug\CMS-DTO.csproj.CopyComplete
 D:\My Outsource\Admin\CMS-DTO\obj\Debug\CMS-DTO.dll
 D:\My Outsource\Admin\CMS-DTO\obj\Debug\CMS-DTO.pdb
+D:\Personal\Source\WebSpa\CMS-DTO\bin\Debug\CMS-DTO.dll.config
+D:\Personal\Source\WebSpa\CMS-DTO\bin\Debug\CMS-DTO.dll
+D:\Personal\Source\WebSpa\CMS-DTO\bin\Debug\CMS-DTO.pdb
+D:\Personal\Source\WebSpa\CMS-DTO\bin\Debug\EntityFramework.dll
+D:\Personal\Source\WebSpa\CMS-DTO\bin\Debug\EntityFramework.SqlServer.dll
+D:\Personal\Source\WebSpa\CMS-DTO\bin\Debug\log4net.dll
+D:\Personal\Source\WebSpa\CMS-DTO\bin\Debug\Newtonsoft.Json.dll
+D:\Personal\Source\WebSpa\CMS-DTO\bin\Debug\EntityFramework.xml
+D:\Personal\Source\WebSpa\CMS-DTO\bin\Debug\EntityFramework.SqlServer.xml
+D:\Personal\Source\WebSpa\CMS-DTO\bin\Debug\log4net.xml
+D:\Personal\Source\WebSpa\CMS-DTO\bin\Debug\Newtonsoft.Json.xml
+D:\Personal\Source\WebSpa\CMS-DTO\obj\Debug\CMS-DTO.csprojAssemblyReference.cache
+D:\Personal\Source\WebSpa\CMS-DTO\obj\Debug\CMS-DTO.csproj.CoreCompileInputs.cache
+D:\Personal\Source\WebSpa\CMS-DTO\obj\Debug\CMS-DTO.csproj.CopyComplete
+D:\Personal\Source\WebSpa\CMS-DTO\obj\Debug\CMS-DTO.dll
+D:\Personal\Source\WebSpa\CMS-DTO\obj\Debug\CMS-DTO.pdb
