@@ -1,4 +1,5 @@
-﻿
+﻿@model CMS_DTO.CMSAbout.CMS_AboutViewModels
+@using CMS_Shared;
 <div class="wrapper">
     <div class="inner-wrapper">
         <div id="main">
@@ -32,7 +33,7 @@
                                 </p>
                             </div>
                             <div class='column dt-sc-one-half  space '>
-                                <img class="alignnone size-full wp-image-53" src="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/about-image.png"
+                                <img class="alignnone size-full wp-image-53" src="@Url.Content("~/Images/about/about-image.png")"
                                      alt="about-image" width="535" height="282" />
                             </div>
                             <div class='dt-sc-hr-invisible  '></div>
@@ -186,265 +187,114 @@
                             <div class='dt-sc-hr-invisible  '></div>
                         </div>
                     </div>
-                    <div class='fullwidth-section ' style="background-image:url(https://dreamspa.dttheme.com/wp-content/uploads/2014/05/border.png);background-repeat:repeat-x;background-position:left top;padding-top:95px;padding-bottom:50px;">
+                    <div class='fullwidth-section ' style="background-image:url('@Url.Content("~/Images/border.png")');background-repeat:repeat-x;background-position:left top;padding-top:95px;padding-bottom:50px;">
                         <div class="container">
                             <div class="border-title aligncenter">
                                 <h2>OUR SERVICES</h2>
                                 <h6>Here is a wide range of services we provide</h6>
                             </div>
-                            <div class='column dt-sc-one-third  space first'>
-                                <div class='dt-sc-ico-content type1 green'>
-                                    <div class='icon'>
-                                        <span>
-                                            <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/services-ico1.png' alt='' />
-                                        </span>
+                            @if (Model != null && Model.Categories != null && Model.Categories.Any())
+                            {
+                                string _first = "first";
+                                foreach (var item in Model.Categories)
+                                {
+                                    <div class='column dt-sc-one-third  space @_first'>
+                                        <div class='dt-sc-ico-content type1 green'>
+                                            <div class='icon'>
+                                                <span>
+                                                    <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/services-ico1.png' alt='' />
+                                                </span>
+                                            </div>
+                                            <h2>@item.CategoryName</h2>
+                                            <div class='image'>
+                                                <img src='@item.ImageURL' alt='' title='' />
+                                            </div>
+                                            <p>@item.Description</p>
+                                        </div>
                                     </div>
-                                    <h2>Ayurveda Spa</h2>
-                                    <div class='image'>
-                                        <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/services1.jpg' alt='' title='' />
-                                    </div>
-                                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.</p>
-                                </div>
-                            </div>
-                            <div class='column dt-sc-one-third  space '>
-                                <div class='dt-sc-ico-content type1 chocolate'>
-                                    <div class='icon'>
-                                        <span>
-                                            <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/services-ico2.png' alt='' />
-                                        </span>
-                                    </div>
-                                    <h2>Luxury Spa</h2>
-                                    <div class='image'>
-                                        <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/services2.jpg' alt='' title='' />
-                                    </div>
-                                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.</p>
-                                </div>
-                            </div>
-                            <div class='column dt-sc-one-third  space '>
-                                <div class='dt-sc-ico-content type1 blue'>
-                                    <div class='icon'>
-                                        <span>
-                                            <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/services-ico3.png' alt='' />
-                                        </span>
-                                    </div>
-                                    <h2>Massage Spa</h2>
-                                    <div class='image'>
-                                        <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/services3.jpg' alt='' title='' />
-                                    </div>
-                                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.</p>
-                                </div>
-                            </div>
+                                    _first = "";
+                                }
+                            }
                             <div class='dt-sc-hr-invisible  '></div>
                         </div>
                     </div>
-                    <div class='fullwidth-section ' style="background-image:url(https://dreamspa.dttheme.com/wp-content/uploads/2014/05/border.png);background-repeat:repeat-x;background-position:left top;padding-top:95px;">
+                    <img src="" />
+                    <div class='fullwidth-section ' style="background-image:url('@Url.Content("~/Images/border.png")');background-repeat:repeat-x;background-position:left top;padding-top:95px;">
                         <div class="container">
                             <div class="border-title aligncenter">
                                 <h2>OUR EXPERTS</h2>
                                 <h6>Know our experienced team of spa wellness. Customer satisfaction is their goal.</h6>
                             </div>
                             <div class='dt-sc-hr-invisible-small  '></div>
-                            <div class='column dt-sc-one-fourth  space first'>
-                                <div class='dt-sc-team'>
-                                    <div class="team-details">
-                                        <h5> Camiele James</h5>
-                                        <h6>Herbal Spa Expert</h6>
+                            @if (Model != null && Model.Employees != null && Model.Employees.Any())
+                            {
+                                string _first = "first";
+                                foreach (var item in Model.Employees)
+                                {
+                                    <div class='column dt-sc-one-fourth  space @_first'>
+                                        <div class='dt-sc-team'>
+                                            <div class="team-details">
+                                                <h5> @item.Name</h5>
+                                                <h6>Herbal Spa Expert</h6>
+                                            </div>
+                                            <div class='image'>
+                                                @if (string.IsNullOrEmpty(item.ImageURL))
+                                                {
+                                                    <img src='@Commons._ImageDefault' alt='Please specify image url'
+                                                         title='Please specify image url' />
+                                                }
+                                                else
+                                                {
+                                                    <img src='@item.ImageURL' alt='Please specify image url'
+                                                         title='Please specify image url' />
+                                                }
+                                                
+                                            </div>
+                                            <p>
+                                                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti
+                                                atque corrupti quos dolores et quas molestias provident destiny is about voles.
+                                            </p>
+                                            <ul class='dt-sc-social-icons'>
+                                                <li class='google'>
+                                                    <a href='javascript:void(0)' target='_blank'>
+                                                        <img src="" />
+                                                        <img src='@Url.Content("~/Images/social/google.png")'
+                                                             alt='google' />
+                                                        <img src='@Url.Content("~/Images/social/google1.png")'
+                                                             alt='google' />
+                                                    </a>
+                                                </li>
+                                                <li class='facebook'>
+                                                    <a href='javascript:void(0)' target='_blank'>
+                                                        <img src='@Url.Content("~/Images/social/facebook.png")'
+                                                             alt='facebook' />
+                                                        <img src='@Url.Content("~/Images/social/facebook1.png")'
+                                                             alt='facebook' />
+                                                    </a>
+                                                </li>
+                                                <li class='linkedin'>
+                                                    <a href='javascript:void(0)' target='_blank'>
+                                                        <img src='@Url.Content("~/Images/social/linkedin.png")'
+                                                             alt='linkedin' />
+                                                        <img src='@Url.Content("~/Images/social/linkedin1.png")'
+                                                             alt='linkedin' />
+                                                    </a>
+                                                </li>
+                                                <li class='twitter'>
+                                                    <a href='javascript:void(0)' target='_blank'>
+                                                        <img src='@Url.Content("~/Images/social/twitter.png")'
+                                                             alt='twitter' />
+                                                        <img src='@Url.Content("~/Images/social/twitter1.png")'
+                                                             alt='twitter' />
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <div class='image'>
-                                        <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/team1.jpg' alt='Please specify image url'
-                                             title='Please specify image url' />
-                                    </div>
-                                    <p>
-                                        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti
-                                        atque corrupti quos dolores et quas molestias provident destiny is about voles.
-                                    </p>
-                                    <ul class='dt-sc-social-icons'>
-                                        <li class='google'>
-                                            <a href='#' target='_blank'>
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/hover/google.png'
-                                                     alt='google' />
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/google.png'
-                                                     alt='google' />
-                                            </a>
-                                        </li>
-                                        <li class='facebook'>
-                                            <a href='#' target='_blank'>
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/hover/facebook.png'
-                                                     alt='facebook' />
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/facebook.png'
-                                                     alt='facebook' />
-                                            </a>
-                                        </li>
-                                        <li class='linkedin'>
-                                            <a href='#' target='_blank'>
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/hover/linkedin.png'
-                                                     alt='linkedin' />
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/linkedin.png'
-                                                     alt='linkedin' />
-                                            </a>
-                                        </li>
-                                        <li class='twitter'>
-                                            <a href='#' target='_blank'>
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/hover/twitter.png'
-                                                     alt='twitter' />
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/twitter.png'
-                                                     alt='twitter' />
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class='column dt-sc-one-fourth  space '>
-                                <div class='dt-sc-team'>
-                                    <div class="team-details">
-                                        <h5> Laura Steward</h5>
-                                        <h6> Massage Head</h6>
-                                    </div>
-                                    <div class='image'>
-                                        <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/team2.jpg' alt='Please specify image url'
-                                             title='Please specify image url' />
-                                    </div>
-                                    <p>
-                                        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti
-                                        atque corrupti quos dolores et quas molestias provident destiny is about voles.
-                                    </p>
-                                    <ul class='dt-sc-social-icons'>
-                                        <li class='google'>
-                                            <a href='#' target='_blank'>
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/hover/google.png'
-                                                     alt='google' />
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/google.png'
-                                                     alt='google' />
-                                            </a>
-                                        </li>
-                                        <li class='facebook'>
-                                            <a href='#' target='_blank'>
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/hover/facebook.png'
-                                                     alt='facebook' />
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/facebook.png'
-                                                     alt='facebook' />
-                                            </a>
-                                        </li>
-                                        <li class='linkedin'>
-                                            <a href='#' target='_blank'>
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/hover/linkedin.png'
-                                                     alt='linkedin' />
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/linkedin.png'
-                                                     alt='linkedin' />
-                                            </a>
-                                        </li>
-                                        <li class='twitter'>
-                                            <a href='#' target='_blank'>
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/hover/twitter.png'
-                                                     alt='twitter' />
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/twitter.png'
-                                                     alt='twitter' />
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class='column dt-sc-one-fourth  space '>
-                                <div class='dt-sc-team'>
-                                    <div class="team-details">
-                                        <h5> Jasmine Hanna</h5>
-                                        <h6>Aromatherapy Expert</h6>
-                                    </div>
-                                    <div class='image'>
-                                        <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/team3.jpg' alt='Please specify image url'
-                                             title='Please specify image url' />
-                                    </div>
-                                    <p>
-                                        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti
-                                        atque corrupti quos dolores et quas molestias provident destiny is about voles.
-                                    </p>
-                                    <ul class='dt-sc-social-icons'>
-                                        <li class='google'>
-                                            <a href='#' target='_blank'>
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/hover/google.png'
-                                                     alt='google' />
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/google.png'
-                                                     alt='google' />
-                                            </a>
-                                        </li>
-                                        <li class='facebook'>
-                                            <a href='#' target='_blank'>
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/hover/facebook.png'
-                                                     alt='facebook' />
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/facebook.png'
-                                                     alt='facebook' />
-                                            </a>
-                                        </li>
-                                        <li class='linkedin'>
-                                            <a href='#' target='_blank'>
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/hover/linkedin.png'
-                                                     alt='linkedin' />
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/linkedin.png'
-                                                     alt='linkedin' />
-                                            </a>
-                                        </li>
-                                        <li class='twitter'>
-                                            <a href='#' target='_blank'>
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/hover/twitter.png'
-                                                     alt='twitter' />
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/twitter.png'
-                                                     alt='twitter' />
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class='column dt-sc-one-fourth  space '>
-                                <div class='dt-sc-team'>
-                                    <div class="team-details">
-                                        <h5> Jasmine Hanna</h5>
-                                        <h6>Aromatherapy Expert</h6>
-                                    </div>
-                                    <div class='image'>
-                                        <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/team4.jpg' alt='Please specify image url'
-                                             title='Please specify image url' />
-                                    </div>
-                                    <p>
-                                        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti
-                                        atque corrupti quos dolores et quas molestias provident destiny is about voles.
-                                    </p>
-                                    <ul class='dt-sc-social-icons'>
-                                        <li class='google'>
-                                            <a href='#' target='_blank'>
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/hover/google.png'
-                                                     alt='google' />
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/google.png'
-                                                     alt='google' />
-                                            </a>
-                                        </li>
-                                        <li class='facebook'>
-                                            <a href='#' target='_blank'>
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/hover/facebook.png'
-                                                     alt='facebook' />
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/facebook.png'
-                                                     alt='facebook' />
-                                            </a>
-                                        </li>
-                                        <li class='linkedin'>
-                                            <a href='#' target='_blank'>
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/hover/linkedin.png'
-                                                     alt='linkedin' />
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/linkedin.png'
-                                                     alt='linkedin' />
-                                            </a>
-                                        </li>
-                                        <li class='twitter'>
-                                            <a href='#' target='_blank'>
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/hover/twitter.png'
-                                                     alt='twitter' />
-                                                <img src='https://dreamspa.dttheme.com/wp-content/plugins/designthemes-core-features/shortcodes/images/sociables/twitter.png'
-                                                     alt='twitter' />
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class='dt-sc-hr-invisible  '></div>
+                                    _first = "";
+                                }
+                            }
+                            <div class='dt-sc-hr-invisible' style="float:none !important"></div>
                             <h2>TODAY&#8217;S SPECIAL OFFER</h2>
                             <div class='dt-sc-images-carousel-wrapper' data-min='1' data-max='2' data-width='520'>
                                 <ul class='dt-sc-images-carousel'>

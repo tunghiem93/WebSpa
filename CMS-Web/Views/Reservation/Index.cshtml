@@ -1,6 +1,4 @@
-﻿@{ 
-     Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿@model CMS_DTO.CMSReservation.CMS_ReservationViewModels
 <div class="wrapper">
     <div class="inner-wrapper">
         <div id="main">
@@ -26,20 +24,26 @@
                             <p>Available Services</p>
                             <select name="services" class="dt-select-service">
                                 <option value="">Select</option>
-                                <option value='4652'>Ayurvedic spa</option>
-                                <option value='4275'>Medical</option>
-                                <option value='4274'>Mineral springs spa</option>
-                                <option value='4273'>Waxing</option>
+                                @if (Model != null && Model.Categories != null && Model.Categories.Any())
+                                {
+                                    foreach (var item in Model.Categories)
+                                    {
+                                        <option value='@item.Id'>@item.CategoryName</option>
+                                    }
+                                }
                             </select>
                         </div>
                         <div class="column dt-sc-one-half">
                             <p>Staffs</p>
                             <select name="staff" class="dt-select-staff">
                                 <option value="">Select</option>
-                                <option value='4650'>Paul Gabriella</option>
-                                <option value='4278'>John Andrews</option>
-                                <option value='4277'>William Hanna</option>
-                                <option value='4276'>Joe Emeliah</option>
+                                @if (Model != null && Model.Employees != null && Model.Employees.Any())
+                                {
+                                    foreach (var item in Model.Employees)
+                                    {
+                                        <option value='@item.Id'>@item.Name</option>
+                                    }
+                                }
                             </select>
                         </div>
                         <div class="dt-sc-hr-invisible"></div>

@@ -1,4 +1,6 @@
-﻿<div class="wrapper">
+﻿@model CMS_DTO.CMSGallery.CMS_GalleryViewModels
+
+<div class="wrapper">
     <div class="inner-wrapper">
         <div id="main">
             <section class='title-section'>
@@ -19,330 +21,52 @@
                     </div>
                     <div class="dt-sc-clear"></div>
                     <div class="dt-sc-gallery-container gallery  no-space ">
-                        <div id="dt_galleries-203" class="dt-gallery column dt-sc-one-third  first  no-space ">
-                            <figure>
-                                <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio1.jpg' width='1060' height='795'
-                                     alt='' />
-                                <div class="image-overlay">
-                                    <div class="image-overlay-details">
-                                        <h5>
-                                            <a href="https://dreamspa.dttheme.com/dt_galleries/meditation-spa/" title="Meditation spa">Meditation spa</a>
-                                        </h5>
-                                        <div class="links">
-                                            <a href="https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio1.jpg" data-gal="prettyPhoto[gallery]"
-                                               title="">
-                                                <span class="fa fa-search-plus"> </span>
-                                            </a>
-                                            <a href="https://dreamspa.dttheme.com/dt_galleries/meditation-spa/" title="">
-                                                <span class="fa fa-external-link"> </span>
-                                            </a>
-                                            <div class="views">
-                                                <span class="fa fa-heart"> </span>
-                                                <a href="#" class="likeThis" id="like-203" data-post-id="203">12419</a>
+                        @if (Model != null && Model.Gallerys != null && Model.Gallerys.Any())
+                                    {
+                                        var _first = "first";
+                                        var _index = 1;
+                                        foreach (var item in Model.Gallerys)
+                                        {
+                                <div id="dt_galleries-203" class="dt-gallery column dt-sc-one-third  @_first  no-space ">
+                                    <figure>
+                                        <img src='@item.ImageUrl' width='1060' height='795'
+                                             alt='' />
+                                        <div class="image-overlay">
+                                            <div class="image-overlay-details">
+                                                <h5>
+                                                    <a href="javascript:void(0)" title="Meditation spa">@item.ProductName</a>
+                                                </h5>
+                                                <div class="links">
+                                                    <a href="@item.ImageUrl" data-gal="prettyPhoto[gallery]"
+                                                       title="">
+                                                        <span class="fa fa-search-plus"> </span>
+                                                    </a>
+                                                    <a href="javascript:void(0)" title="">
+                                                        <span class="fa fa-external-link"> </span>
+                                                    </a>
+                                                    @*<div class="views">
+                                                        <span class="fa fa-heart"> </span>
+                                                        <a href="javascript:void(0)" class="likeThis" id="like-203" data-post-id="203">12419</a>
+                                                    </div>*@
+                                                </div>
                                             </div>
+                                            <a href="#" class="close-overlay hidden"> x </a>
                                         </div>
-                                    </div>
-                                    <a href="#" class="close-overlay hidden"> x </a>
+                                    </figure>
                                 </div>
-                            </figure>
-                        </div>
-                        <div id="dt_galleries-202" class="dt-gallery column dt-sc-one-third   no-space ">
-                            <figure>
-                                <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio2.jpg' width='1060' height='795'
-                                     alt='' />
-                                <div class="image-overlay">
-                                    <div class="image-overlay-details">
-                                        <h5>
-                                            <a href="https://dreamspa.dttheme.com/dt_galleries/spa-bars/" title="Spa Bars">Spa Bars</a>
-                                        </h5>
-                                        <div class="links">
-                                            <a href="https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio2.jpg" data-gal="prettyPhoto[gallery]"
-                                               title="">
-                                                <span class="fa fa-search-plus"> </span>
-                                            </a>
-                                            <a href="https://dreamspa.dttheme.com/dt_galleries/spa-bars/" title="">
-                                                <span class="fa fa-external-link"> </span>
-                                            </a>
-                                            <div class="views">
-                                                <span class="fa fa-heart"> </span>
-                                                <a href="#" class="likeThis" id="like-202" data-post-id="202">12436</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="close-overlay hidden"> x </a>
-                                </div>
-                            </figure>
-                        </div>
-                        <div id="dt_galleries-201" class="dt-gallery column dt-sc-one-third   no-space ">
-                            <figure>
-                                <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio3.jpg' width='1060' height='795'
-                                     alt='' />
-                                <div class="image-overlay">
-                                    <div class="image-overlay-details">
-                                        <h5>
-                                            <a href="https://dreamspa.dttheme.com/dt_galleries/wollen-spa-cloth/" title="Wollen Spa Cloth">Wollen Spa Cloth</a>
-                                        </h5>
-                                        <div class="links">
-                                            <a href="https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio3.jpg" data-gal="prettyPhoto[gallery]"
-                                               title="">
-                                                <span class="fa fa-search-plus"> </span>
-                                            </a>
-                                            <a href="https://dreamspa.dttheme.com/dt_galleries/wollen-spa-cloth/" title="">
-                                                <span class="fa fa-external-link"> </span>
-                                            </a>
-                                            <div class="views">
-                                                <span class="fa fa-heart"> </span>
-                                                <a href="#" class="likeThis" id="like-201" data-post-id="201">12404</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="close-overlay hidden"> x </a>
-                                </div>
-                            </figure>
-                        </div>
-                        <div id="dt_galleries-200" class="dt-gallery column dt-sc-one-third  first  no-space ">
-                            <figure>
-                                <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio4.jpg' width='1060' height='795'
-                                     alt='' />
-                                <div class="image-overlay">
-                                    <div class="image-overlay-details">
-                                        <h5>
-                                            <a href="https://dreamspa.dttheme.com/dt_galleries/wax-candle-in-coconut-shell/" title="Wax Candle">Wax Candle</a>
-                                        </h5>
-                                        <div class="links">
-                                            <a href="https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio4.jpg" data-gal="prettyPhoto[gallery]"
-                                               title="">
-                                                <span class="fa fa-search-plus"> </span>
-                                            </a>
-                                            <a href="https://dreamspa.dttheme.com/dt_galleries/wax-candle-in-coconut-shell/" title="">
-                                                <span class="fa fa-external-link"> </span>
-                                            </a>
-                                            <div class="views">
-                                                <span class="fa fa-heart"> </span>
-                                                <a href="#" class="likeThis" id="like-200" data-post-id="200">36</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="close-overlay hidden"> x </a>
-                                </div>
-                            </figure>
-                        </div>
-                        <div id="dt_galleries-199" class="dt-gallery column dt-sc-one-third   no-space ">
-                            <figure>
-                                <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio5.jpg' width='1060' height='795'
-                                     alt='' />
-                                <div class="image-overlay">
-                                    <div class="image-overlay-details">
-                                        <h5>
-                                            <a href="https://dreamspa.dttheme.com/dt_galleries/dry-aroma-petals-for-bath/" title="Dry Aroma Petals for Bath">Dry Aroma Petals for Bath</a>
-                                        </h5>
-                                        <div class="links">
-                                            <a href="https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio5.jpg" data-gal="prettyPhoto[gallery]"
-                                               title="">
-                                                <span class="fa fa-search-plus"> </span>
-                                            </a>
-                                            <a href="https://dreamspa.dttheme.com/dt_galleries/dry-aroma-petals-for-bath/" title="">
-                                                <span class="fa fa-external-link"> </span>
-                                            </a>
-                                            <div class="views">
-                                                <span class="fa fa-heart"> </span>
-                                                <a href="#" class="likeThis" id="like-199" data-post-id="199">30</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="close-overlay hidden"> x </a>
-                                </div>
-                            </figure>
-                        </div>
-                        <div id="dt_galleries-198" class="dt-gallery column dt-sc-one-third   no-space ">
-                            <figure>
-                                <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio6.jpg' width='1060' height='795'
-                                     alt='' />
-                                <div class="image-overlay">
-                                    <div class="image-overlay-details">
-                                        <h5>
-                                            <a href="https://dreamspa.dttheme.com/dt_galleries/spa-green-salt/" title="Spa Green Salt">Spa Green Salt</a>
-                                        </h5>
-                                        <div class="links">
-                                            <a href="https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio6.jpg" data-gal="prettyPhoto[gallery]"
-                                               title="">
-                                                <span class="fa fa-search-plus"> </span>
-                                            </a>
-                                            <a href="https://dreamspa.dttheme.com/dt_galleries/spa-green-salt/" title="">
-                                                <span class="fa fa-external-link"> </span>
-                                            </a>
-                                            <div class="views">
-                                                <span class="fa fa-heart"> </span>
-                                                <a href="#" class="likeThis" id="like-198" data-post-id="198">51</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="close-overlay hidden"> x </a>
-                                </div>
-                            </figure>
-                        </div>
-                        <div id="dt_galleries-197" class="dt-gallery column dt-sc-one-third  first  no-space ">
-                            <figure>
-                                <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio7.jpg' width='1060' height='795'
-                                     alt='' />
-                                <div class="image-overlay">
-                                    <div class="image-overlay-details">
-                                        <h5>
-                                            <a href="https://dreamspa.dttheme.com/dt_galleries/wooden-mixer/" title="Wooden Mixer">Wooden Mixer</a>
-                                        </h5>
-                                        <div class="links">
-                                            <a href="https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio7.jpg" data-gal="prettyPhoto[gallery]"
-                                               title="">
-                                                <span class="fa fa-search-plus"> </span>
-                                            </a>
-                                            <a href="https://dreamspa.dttheme.com/dt_galleries/wooden-mixer/" title="">
-                                                <span class="fa fa-external-link"> </span>
-                                            </a>
-                                            <div class="views">
-                                                <span class="fa fa-heart"> </span>
-                                                <a href="#" class="likeThis" id="like-197" data-post-id="197">34</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="close-overlay hidden"> x </a>
-                                </div>
-                            </figure>
-                        </div>
-                        <div id="dt_galleries-196" class="dt-gallery column dt-sc-one-third   no-space ">
-                            <figure>
-                                <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio8.jpg' width='1060' height='795'
-                                     alt='' />
-                                <div class="image-overlay">
-                                    <div class="image-overlay-details">
-                                        <h5>
-                                            <a href="https://dreamspa.dttheme.com/dt_galleries/spa-candle/" title="Spa Candle">Spa Candle</a>
-                                        </h5>
-                                        <div class="links">
-                                            <a href="https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio8.jpg" data-gal="prettyPhoto[gallery]"
-                                               title="">
-                                                <span class="fa fa-search-plus"> </span>
-                                            </a>
-                                            <a href="https://dreamspa.dttheme.com/dt_galleries/spa-candle/" title="">
-                                                <span class="fa fa-external-link"> </span>
-                                            </a>
-                                            <div class="views">
-                                                <span class="fa fa-heart"> </span>
-                                                <a href="#" class="likeThis" id="like-196" data-post-id="196">23</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="close-overlay hidden"> x </a>
-                                </div>
-                            </figure>
-                        </div>
-                        <div id="dt_galleries-195" class="dt-gallery column dt-sc-one-third   no-space ">
-                            <figure>
-                                <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio10.jpg' width='1060' height='795'
-                                     alt='' />
-                                <div class="image-overlay">
-                                    <div class="image-overlay-details">
-                                        <h5>
-                                            <a href="https://dreamspa.dttheme.com/dt_galleries/spa-decor-set/" title="Spa Decor Set">Spa Decor Set</a>
-                                        </h5>
-                                        <div class="links">
-                                            <a href="https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio10.jpg" data-gal="prettyPhoto[gallery]"
-                                               title="">
-                                                <span class="fa fa-search-plus"> </span>
-                                            </a>
-                                            <a href="https://dreamspa.dttheme.com/dt_galleries/spa-decor-set/" title="">
-                                                <span class="fa fa-external-link"> </span>
-                                            </a>
-                                            <div class="views">
-                                                <span class="fa fa-heart"> </span>
-                                                <a href="#" class="likeThis" id="like-195" data-post-id="195">12</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="close-overlay hidden"> x </a>
-                                </div>
-                            </figure>
-                        </div>
-                        <div id="dt_galleries-204" class="dt-gallery column dt-sc-one-third  first  no-space ">
-                            <figure>
-                                <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio11.jpg' width='1060' height='795'
-                                     alt='' />
-                                <div class="image-overlay">
-                                    <div class="image-overlay-details">
-                                        <h5>
-                                            <a href="https://dreamspa.dttheme.com/dt_galleries/sullamcorper-risus/" title="Sullamcorper risus">Sullamcorper risus</a>
-                                        </h5>
-                                        <div class="links">
-                                            <a href="https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio11.jpg" data-gal="prettyPhoto[gallery]"
-                                               title="">
-                                                <span class="fa fa-search-plus"> </span>
-                                            </a>
-                                            <a href="https://dreamspa.dttheme.com/dt_galleries/sullamcorper-risus/" title="">
-                                                <span class="fa fa-external-link"> </span>
-                                            </a>
-                                            <div class="views">
-                                                <span class="fa fa-heart"> </span>
-                                                <a href="#" class="likeThis" id="like-204" data-post-id="204">11</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="close-overlay hidden"> x </a>
-                                </div>
-                            </figure>
-                        </div>
-                        <div id="dt_galleries-194" class="dt-gallery column dt-sc-one-third   no-space ">
-                            <figure>
-                                <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio12.jpg' width='1060' height='795'
-                                     alt='' />
-                                <div class="image-overlay">
-                                    <div class="image-overlay-details">
-                                        <h5>
-                                            <a href="https://dreamspa.dttheme.com/dt_galleries/sdolor-sit-amet/" title="Sdolor sit amet">Sdolor sit amet</a>
-                                        </h5>
-                                        <div class="links">
-                                            <a href="https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio12.jpg" data-gal="prettyPhoto[gallery]"
-                                               title="">
-                                                <span class="fa fa-search-plus"> </span>
-                                            </a>
-                                            <a href="https://dreamspa.dttheme.com/dt_galleries/sdolor-sit-amet/" title="">
-                                                <span class="fa fa-external-link"> </span>
-                                            </a>
-                                            <div class="views">
-                                                <span class="fa fa-heart"> </span>
-                                                <a href="#" class="likeThis" id="like-194" data-post-id="194">17</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="close-overlay hidden"> x </a>
-                                </div>
-                            </figure>
-                        </div>
-                        <div id="dt_galleries-193" class="dt-gallery column dt-sc-one-third   no-space ">
-                            <figure>
-                                <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio13.jpg' width='1060' height='795'
-                                     alt='' />
-                                <div class="image-overlay">
-                                    <div class="image-overlay-details">
-                                        <h5>
-                                            <a href="https://dreamspa.dttheme.com/dt_galleries/consequat-enim/" title="Consequat enim">Consequat enim</a>
-                                        </h5>
-                                        <div class="links">
-                                            <a href="https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio13.jpg" data-gal="prettyPhoto[gallery]"
-                                               title="">
-                                                <span class="fa fa-search-plus"> </span>
-                                            </a>
-                                            <a href="https://dreamspa.dttheme.com/dt_galleries/consequat-enim/" title="">
-                                                <span class="fa fa-external-link"> </span>
-                                            </a>
-                                            <div class="views">
-                                                <span class="fa fa-heart"> </span>
-                                                <a href="#" class="likeThis" id="like-193" data-post-id="193">8</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="close-overlay hidden"> x </a>
-                                </div>
-                            </figure>
-                        </div>
+                                if (_index == 3)
+                                {
+                                    _first = "first";
+                                    _index = 1;
+                                }
+                                else
+                                {
+                                    _first = "";
+                                    _index = _index + 1;
+                                }
+
+                            }
+                        }
                     </div>
                     <div class="pagination">
                         <div class="prev-post"></div>

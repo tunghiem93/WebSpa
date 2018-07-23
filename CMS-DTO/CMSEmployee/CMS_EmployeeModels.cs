@@ -37,6 +37,7 @@ namespace CMS_DTO.CMSEmployee
         public string sStatus { get; set; }
         public string FullName { get { return this.FirstName + " " + this.LastName; } }
         public bool IsSupperAdmin { get; set; }
+        public string Name { get; set; }
         public CMS_EmployeeModels()
         {
             IsActive = true;
