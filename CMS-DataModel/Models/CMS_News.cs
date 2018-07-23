@@ -25,6 +25,15 @@ namespace CMS_DataModel.Models
         [StringLength(60)]
         public string ImageURL { get; set; }
 
+        [StringLength(250)]
+        public string Author { get; set; }
+
+        [StringLength(250)]
+        public string Source { get; set; }
+
+        [StringLength(250)]
+        public string Category { get; set; }
+
         public bool IsActive { get; set; }
 
         public byte Status { get; set; }

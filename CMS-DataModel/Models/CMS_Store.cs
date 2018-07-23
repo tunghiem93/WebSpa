@@ -15,13 +15,11 @@ namespace CMS_DataModel.Models
             CMS_Categories = new HashSet<CMS_Categories>();
             CMS_CustomerOnStore = new HashSet<CMS_CustomerOnStore>();
             CMS_Discount = new HashSet<CMS_Discount>();
-            CMS_EmployeeOnStore = new HashSet<CMS_EmployeeOnStore>();
             CMS_EmployeeWorking = new HashSet<CMS_EmployeeWorking>();
             CMS_ModuleOnStore = new HashSet<CMS_ModuleOnStore>();
             CMS_ModulePermission = new HashSet<CMS_ModulePermission>();
             CMS_Order = new HashSet<CMS_Order>();
             CMS_Price = new HashSet<CMS_Price>();
-            CMS_ProductOnStore = new HashSet<CMS_ProductOnStore>();
             CMS_Reservation = new HashSet<CMS_Reservation>();
             CMS_Role = new HashSet<CMS_Role>();
             CMS_Season = new HashSet<CMS_Season>();
@@ -106,9 +104,6 @@ namespace CMS_DataModel.Models
         public virtual ICollection<CMS_Discount> CMS_Discount { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CMS_EmployeeOnStore> CMS_EmployeeOnStore { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMS_EmployeeWorking> CMS_EmployeeWorking { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -122,9 +117,6 @@ namespace CMS_DataModel.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMS_Price> CMS_Price { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CMS_ProductOnStore> CMS_ProductOnStore { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMS_Reservation> CMS_Reservation { get; set; }

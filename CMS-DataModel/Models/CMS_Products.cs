@@ -14,12 +14,15 @@ namespace CMS_DataModel.Models
             CMS_ImagesLink = new HashSet<CMS_ImagesLink>();
             CMS_OrderDetail = new HashSet<CMS_OrderDetail>();
             CMS_ProductDetail = new HashSet<CMS_ProductDetail>();
-            CMS_ProductOnStore = new HashSet<CMS_ProductOnStore>();
             CMS_Products1 = new HashSet<CMS_Products>();
         }
 
         [StringLength(100)]
         public string ID { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string StoreID { get; set; }
 
         [Required]
         [StringLength(100)]
@@ -53,6 +56,39 @@ namespace CMS_DataModel.Models
 
         public string ImageURL { get; set; }
 
+
+        public double Cost { get; set; }
+
+        public int? Unit { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string Measure { get; set; }
+
+        public decimal? Quantity { get; set; }
+
+        public int Limit { get; set; }
+
+        public double ExtraPrice { get; set; }
+
+        public bool IsAllowedDiscount { get; set; }
+
+        public bool IsCheckedStock { get; set; }
+
+        public bool IsAllowedOpenPrice { get; set; }
+
+        public bool IsPrintedOnCheck { get; set; }
+
+        public DateTime ExpiredDate { get; set; }
+
+        public bool IsAutoAddToOrder { get; set; }
+
+        public bool IsComingSoon { get; set; }
+
+        public bool IsShowInReservation { get; set; }
+
+        public bool IsRecommend { get; set; }
+
         public byte Status { get; set; }
 
         public DateTime CreatedDate { get; set; }
@@ -77,9 +113,6 @@ namespace CMS_DataModel.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMS_ProductDetail> CMS_ProductDetail { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CMS_ProductOnStore> CMS_ProductOnStore { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMS_Products> CMS_Products1 { get; set; }

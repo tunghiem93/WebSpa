@@ -11,7 +11,6 @@ namespace CMS_DataModel.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CMS_Role()
         {
-            CMS_EmployeeOnStore = new HashSet<CMS_EmployeeOnStore>();
             CMS_ModulePermission = new HashSet<CMS_ModulePermission>();
         }
 
@@ -43,7 +42,6 @@ namespace CMS_DataModel.Models
         public DateTime LastModified { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CMS_EmployeeOnStore> CMS_EmployeeOnStore { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMS_ModulePermission> CMS_ModulePermission { get; set; }

@@ -22,7 +22,6 @@ namespace CMS_DataModel.Models
         public virtual DbSet<CMS_Drawer> CMS_Drawer { get; set; }
         public virtual DbSet<CMS_DrawerLog> CMS_DrawerLog { get; set; }
         public virtual DbSet<CMS_Employee> CMS_Employee { get; set; }
-        public virtual DbSet<CMS_EmployeeOnStore> CMS_EmployeeOnStore { get; set; }
         public virtual DbSet<CMS_EmployeeWorking> CMS_EmployeeWorking { get; set; }
         public virtual DbSet<CMS_GeneralSetting> CMS_GeneralSetting { get; set; }
         public virtual DbSet<CMS_ImagesLink> CMS_ImagesLink { get; set; }
@@ -35,7 +34,6 @@ namespace CMS_DataModel.Models
         public virtual DbSet<CMS_OrderPaid> CMS_OrderPaid { get; set; }
         public virtual DbSet<CMS_Price> CMS_Price { get; set; }
         public virtual DbSet<CMS_ProductDetail> CMS_ProductDetail { get; set; }
-        public virtual DbSet<CMS_ProductOnStore> CMS_ProductOnStore { get; set; }
         public virtual DbSet<CMS_Products> CMS_Products { get; set; }
         public virtual DbSet<CMS_Refund> CMS_Refund { get; set; }
         public virtual DbSet<CMS_RefundDetail> CMS_RefundDetail { get; set; }
@@ -209,11 +207,6 @@ namespace CMS_DataModel.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<CMS_Products>()
-                .HasMany(e => e.CMS_ProductOnStore)
-                .WithRequired(e => e.CMS_Products)
-                .HasForeignKey(e => e.ProductID);
-
-            modelBuilder.Entity<CMS_Products>()
                 .HasMany(e => e.CMS_Products1)
                 .WithRequired(e => e.CMS_Products2)
                 .HasForeignKey(e => e.ParentID);
@@ -229,11 +222,6 @@ namespace CMS_DataModel.Models
                 .WithRequired(e => e.CMS_Reservation)
                 .HasForeignKey(e => e.ReservationID);
 
-            modelBuilder.Entity<CMS_Role>()
-                .HasMany(e => e.CMS_EmployeeOnStore)
-                .WithRequired(e => e.CMS_Role)
-                .HasForeignKey(e => e.RoleID)
-                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<CMS_Role>()
                 .HasMany(e => e.CMS_ModulePermission)
@@ -284,13 +272,7 @@ namespace CMS_DataModel.Models
                 .WithRequired(e => e.CMS_Store)
                 .HasForeignKey(e => e.StoreID)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<CMS_Store>()
-                .HasMany(e => e.CMS_EmployeeOnStore)
-                .WithRequired(e => e.CMS_Store)
-                .HasForeignKey(e => e.StoreID)
-                .WillCascadeOnDelete(false);
-
+            
             modelBuilder.Entity<CMS_Store>()
                 .HasMany(e => e.CMS_EmployeeWorking)
                 .WithOptional(e => e.CMS_Store)
@@ -315,11 +297,6 @@ namespace CMS_DataModel.Models
 
             modelBuilder.Entity<CMS_Store>()
                 .HasMany(e => e.CMS_Price)
-                .WithOptional(e => e.CMS_Store)
-                .HasForeignKey(e => e.StoreID);
-
-            modelBuilder.Entity<CMS_Store>()
-                .HasMany(e => e.CMS_ProductOnStore)
                 .WithOptional(e => e.CMS_Store)
                 .HasForeignKey(e => e.StoreID);
 
