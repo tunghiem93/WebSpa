@@ -33,7 +33,8 @@ namespace CMS_Shared.CMSNews
                                 Description = model.Description,
                                 ModifiedUser = model.UpdatedBy,
                                 LastModified = DateTime.Now,
-                                IsActive = model.IsActive
+                                IsActive = model.IsActive,
+                                Status = (byte)Commons.EStatus.Actived,
                             };
                             cxt.CMS_News.Add(e);
                         }
@@ -81,7 +82,7 @@ namespace CMS_Shared.CMSNews
                         var e = cxt.CMS_News.Find(Id);
                         if (e != null)
                         {
-                            cxt.CMS_News.Remove(e);
+                            e.Status = (byte)Commons.EStatus.Deleted;
                             cxt.SaveChanges();
                             trans.Commit();
                         }
@@ -111,7 +112,7 @@ namespace CMS_Shared.CMSNews
             {
                 using (var cxt = new CMS_Context())
                 {
-                    var e = cxt.CMS_News.Where(x => x.Id.Equals(Id)).FirstOrDefault();
+                    var e = cxt.CMS_News.Where(x => x.Id.Equals(Id) && x.Status == (byte)Commons.EStatus.Actived).FirstOrDefault();
                     if (e != null)
                     {
                         var o = new CMS_NewsModels
@@ -141,21 +142,20 @@ namespace CMS_Shared.CMSNews
             {
                 using (var cxt = new CMS_Context())
                 {
-                    var data = cxt.CMS_News
-                                               .Select(x => new CMS_NewsModels
-                                               {
-                                                   Id = x.Id,
-                                                   Title = x.Title,
-                                                   Short_Description = x.Short_Description,
-                                                   ImageURL = x.ImageURL,
-                                                   CreatedBy = x.CreatedUser,
-                                                   CreatedDate = x.CreatedDate,
-                                                   Description = x.Description,
-                                                   IsActive = x.IsActive,
-
-                                                   UpdatedBy = x.ModifiedUser,
-                                                   UpdatedDate = x.LastModified,
-                                               }).ToList();
+                    var data = cxt.CMS_News.Where(x=> x.Status == (byte)Commons.EStatus.Actived)
+                                    .Select(x => new CMS_NewsModels
+                                    {
+                                        Id = x.Id,
+                                        Title = x.Title,
+                                        Short_Description = x.Short_Description,
+                                        ImageURL = x.ImageURL,
+                                        CreatedBy = x.CreatedUser,
+                                        CreatedDate = x.CreatedDate,
+                                        Description = x.Description,
+                                        IsActive = x.IsActive,
+                                        UpdatedBy = x.ModifiedUser,
+                                        UpdatedDate = x.LastModified,
+                                    }).ToList();
                     return data;
                 }
             }

@@ -40,6 +40,17 @@ namespace CMS_Shared
             Video = 2,
             Audio = 3,
         }
+
+        public enum EStatus
+        {
+            Actived = 1,
+            Deleted = 9,
+        }
+
+        public enum EProductType
+        {
+            Service = 1,
+        }
         #endregion
     }
 }
