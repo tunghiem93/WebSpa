@@ -25,6 +25,12 @@ namespace CMS_DTO.CMSNews
         public string Short_Description { get; set; }
         [AllowHtml]
         public string Description { get; set; }
+        [MaxLength(249, ErrorMessage = "Tên tác giả (tối đa 250 kí tự)")]
+        public string Author { get; set; }
+        [MaxLength(249, ErrorMessage = "Thể loại (tối đa 250 kí tự)")]
+        public string Category { get; set; }
+        [MaxLength(249, ErrorMessage = "Nguồn (tối đa 250 kí tự)")]
+        public string Source { get; set; }
         public bool IsActive { get; set; }
         public string CreatedBy { get; set; }
         public DateTime UpdatedDate { get; set; }
