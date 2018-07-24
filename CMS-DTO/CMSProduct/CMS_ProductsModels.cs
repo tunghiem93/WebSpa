@@ -31,6 +31,7 @@ namespace CMS_DTO.CMSProduct
         public bool IsActive { get; set; }
         [AllowHtml]
         public string Description { get; set; }
+        public string PrintOutText { get; set; }
 
         public string CategoryName { get; set; }
         public string sStatus { get; set; }
@@ -39,6 +40,23 @@ namespace CMS_DTO.CMSProduct
         public byte[] PictureByte { get; set; }
         public string ImageURL { get; set; }
 
+        public int TypeCode { get; set; }
+        public string BarCode { get; set; }
+        public int Unit { get; set; }
+        public string Measure { get; set; }
+        public double Quantity { get; set; }
+        public int Limit { get; set; }
+        public double ExtraPrice { get; set; }
+        public bool IsAllowedDiscount { get; set; }
+        public bool IsCheckedStock { get; set; }
+        public bool IsAllowedOpenPrice { get; set; }
+        public bool IsPrintedOnCheck { get; set; }
+        public DateTime ExpiredDate { get; set; }
+        public bool IsAutoAddToOrder { get; set; }
+        public bool IsComingSoon { get; set; }
+        public bool IsShowInReservation { get; set; }
+        public bool IsRecommend { get; set; }
+        public string StoreID { get; set; }
         public List<CMS_ImagesModels> ListImages { get; set; }
 
         public CMS_ProductsModels()
