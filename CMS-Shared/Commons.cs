@@ -50,6 +50,13 @@ namespace CMS_Shared
         public enum EProductType
         {
             Service = 1,
+            Product = 2,
+        }
+
+        public enum EValueType
+        {
+            Percent = 0,
+            Currency = 1,
         }
         #endregion
     }
