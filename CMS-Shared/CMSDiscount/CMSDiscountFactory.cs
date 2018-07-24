@@ -1,10 +1,10 @@
-﻿using CMS_DTO.CMSCategories;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CMS_DataModel.Models;
+using CMS_DTO.CMSDiscount;
 
 namespace CMS_Shared.CMSDiscount
 {

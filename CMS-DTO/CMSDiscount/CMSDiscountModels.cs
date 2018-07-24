@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-namespace CMS_DTO.CMSCategories
+namespace CMS_DTO.CMSDiscount
 {
     public class CMSDiscountModels : CMS_BaseModel
     {
