@@ -185,5 +185,36 @@ namespace CMS_Shared.CMSCategories
             }
             return result;
         }
+
+        public List<CMS_CategoryViewModels> GetListProductCate()
+        {
+            NSLog.Logger.Info("GetListProductCate");
+            var result = new List<CMS_CategoryViewModels>();
+            try
+            {
+                using (var cxt = new CMS_Context())
+                {
+                    var data = cxt.CMS_Categories.GroupJoin(cxt.CMS_Products,
+                                                            c => c.ID,
+                                                            p => p.CategoryID,
+                                                            (c, p) => new { c, p })
+                                                  .Where(o => o.c.Status != (byte)Commons.EStatus.Deleted && o.c.ProductTypeCode == (int)Commons.EProductType.Product)
+                                                  .Select(o => new CMS_CategoryViewModels
+                                                   {
+                                                       Id = o.c.ID,
+                                                       Name = o.c.Name,
+                                                       ParentId = o.c.ParentID,
+                                                       TotalProduct = o.c.CMS_Products.Count
+                                                   }).ToList();
+                    result = data;
+                    NSLog.Logger.Info("ResponseGetListProductCate", result);
+                }
+            }
+            catch(Exception ex)
+            {
+                NSLog.Logger.Error("ErrorGetListProductCate", ex);
+            }
+            return result;
+        }
     }
 }

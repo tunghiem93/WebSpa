@@ -116,7 +116,7 @@
                                 }
                             </ul>
                             <div class="next-post">
-                                <a href="https://dreamspa.dttheme.com/shop/page/2/">Next</a>
+                                <a href="javascript:void(0)">Next</a>
                             </div>
                         </div>
                     }
@@ -132,9 +132,13 @@
                                 @foreach (var item in Model.Categories)
                                 {
                                     if (item.Children != null && item.Children.Count > 0)
+                                    {
                                         _parent = "cat-parent";
+                                    }
                                     else
+                                    {
                                         _parent = "";
+                                    }
 
                                     <li class="cat-item cat-item-16 @_parent">
                                         <a href="javascript:void(0)">@item.Name</a>
