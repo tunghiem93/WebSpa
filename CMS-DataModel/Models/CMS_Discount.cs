@@ -30,7 +30,7 @@ namespace CMS_DataModel.Models
 
         public double? Value { get; set; }
 
-        public byte? Type { get; set; }
+        public byte? ValueType { get; set; }
 
         public bool? IsAllowOpenValue { get; set; }
 
