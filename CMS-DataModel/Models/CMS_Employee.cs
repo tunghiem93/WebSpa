@@ -70,6 +70,7 @@ namespace CMS_DataModel.Models
         public string Country { get; set; }
 
         public string ImageUrl { get; set; }
+        public bool IsSupperAdmin { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMS_EmployeeWorking> CMS_EmployeeWorking { get; set; }
