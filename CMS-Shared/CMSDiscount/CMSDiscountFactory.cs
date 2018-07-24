@@ -70,7 +70,7 @@ namespace CMS_Shared.CMSDiscount
                 catch (Exception ex)
                 {
                     Result = false;
-                    msg = "Vui lòng kiểm tra đường truyền";
+                    msg = "System Error.";
                     NSLog.Logger.Error("ErrorDiscountCreateOrUpdate", ex);
                 }
             }
@@ -94,7 +94,7 @@ namespace CMS_Shared.CMSDiscount
                     }
                     else
                     {
-                        msg = "Unable to find cate.";
+                        msg = "Unable to find discount.";
                         result = false;
                     }
 
@@ -103,7 +103,7 @@ namespace CMS_Shared.CMSDiscount
             }
             catch (Exception ex)
             {
-                msg = "Không thể xóa thể loại này";
+                msg = "System Error.";
                 result = false;
                 NSLog.Logger.Error("ErrorDiscountDelete", ex);
             }

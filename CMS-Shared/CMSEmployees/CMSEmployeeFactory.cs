@@ -10,97 +10,211 @@ namespace CMS_Shared.CMSEmployees
 {
     public class CMSEmployeeFactory
     {
-        public bool CreateOrUpdate(CMS_EmployeeModels model , ref string msg)
+        public bool CreateOrUpdate(CMS_EmployeeModels model, ref string Id, ref string msg)
         {
-            var result = true;
+            NSLog.Logger.Info("EmployeeCreateOrUpdate", model);
+            var Result = true;
             using (var cxt = new CMS_Context())
             {
-                using (var trans = cxt.Database.BeginTransaction())
+                try
                 {
-                    try
+                    if (string.IsNullOrEmpty(model.Id)) /* insert */
                     {
-                        if(string.IsNullOrEmpty(model.Id))
+                        Id = Guid.NewGuid().ToString();
+                        var e = new CMS_Employee
                         {
-                            var _Id = Guid.NewGuid().ToString();
-                            var e = new CMS_Employee
-                            {
-                            };
-                            cxt.CMS_Employee.Add(e);
+                            ID = Id,
+
+                            Name = model.Name,
+                            Password = model.Password,
+                            IsActive = model.IsActive,
+                            Phone = model.Employee_Phone,
+                            PinCode = model.PinCode,
+                            Gender = model.Gender,
+                            Marital = model.Marital,
+                            HiredDate = model.HiredDate,
+                            BirthDate = model.BirthDate,
+                            Street = model.Street,
+                            City = model.City,
+                            Country = model.Country,
+                            ZipCode = model.ZipCode,
+                            ImageUrl = model.ImageUrl,
+                            StoreID = model.StoreID,
+                            IsSupperAdmin = model.IsSupperAdmin,
+
+                            Status = (byte)Commons.EStatus.Actived,
+                            CreatedDate = DateTime.Now,
+                            CreatedUser = model.CreatedBy,
+                            ModifiedUser = model.CreatedBy,
+                            LastModified = DateTime.Now,
+                        };
+                        cxt.CMS_Employee.Add(e);
+                    }
+                    else /* updated */
+                    {
+                        var e = cxt.CMS_Employee.Find(model.Id);
+                        if (e != null)
+                        {
+                            e.Name = model.Name;
+                            //Password = model.Password,
+                            e.IsActive = model.IsActive;
+                            e.Phone = model.Employee_Phone;
+                            e.PinCode = model.PinCode;
+                            e.Gender = model.Gender;
+                            e.Marital = model.Marital;
+                            e.HiredDate = model.HiredDate;
+                            e.BirthDate = model.BirthDate;
+                            e.Street = model.Street;
+                            e.City = model.City;
+                            e.Country = model.Country;
+                            e.ZipCode = model.ZipCode;
+                            e.ImageUrl = model.ImageUrl;
+                            e.StoreID = model.StoreID;
+                            e.IsSupperAdmin = model.IsSupperAdmin;
+
+                            e.ModifiedUser = model.CreatedBy;
+                            e.LastModified = DateTime.Now;
                         }
                         else
                         {
-                            var e = cxt.CMS_Employee.Find(model.Id);
-                            if(e != null)
-                            {
-                            }
+                            Result = false;
+                            msg = "Unable to find Discount.";
                         }
-                        cxt.SaveChanges();
-                        trans.Commit();
                     }
-                    catch (Exception ex)
-                    {
-                        msg = "Vui lòng kiểm tra đường truyền";
-                        result = false;
-                        trans.Rollback();
-                    }
-                    finally
-                    {
-                        cxt.Dispose();
-                    }
+
+                    cxt.SaveChanges();
+                    NSLog.Logger.Info("ResponseEmployeeCreateOrUpdate", new { Result, msg });
+
+                }
+                catch (Exception ex)
+                {
+                    Result = false;
+                    msg = "System Error.";
+                    NSLog.Logger.Error("ErrorEmployeeCreateOrUpdate", ex);
                 }
             }
-            return result;
+            return Result;
         }
 
         public bool Delete(string Id, ref string msg)
         {
+            NSLog.Logger.Info("EmployeeDelete", Id);
+
             var result = true;
             try
             {
                 using (var cxt = new CMS_Context())
                 {
-                    cxt.SaveChanges();
+                    var e = cxt.CMS_Employee.Find(Id);
+                    if (e != null)
+                    {
+                        e.Status = (byte)Commons.EStatus.Deleted;
+                        cxt.SaveChanges();
+                    }
+                    else
+                    {
+                        msg = "Unable to find data to delete.";
+                        result = false;
+                    }
+
+                    NSLog.Logger.Info("ResponseEmployeeDelete", new { result, msg });
                 }
             }
             catch (Exception ex)
             {
-                msg = "Không thể xóa nhân viên này";
+                msg = "System Error.";
                 result = false;
+                NSLog.Logger.Error("ErrorEmployeeDelete", ex);
             }
             return result;
         }
 
         public CMS_EmployeeModels GetDetail(string Id)
         {
+            NSLog.Logger.Info("EmployeeGetDetail", Id);
+            CMS_EmployeeModels result = null;
+
             try
             {
                 using (var cxt = new CMS_Context())
                 {
-                    var data = cxt.CMS_Employee.Where(x => x.ID.Equals(Id))
-                                                .Select(x => new CMS_EmployeeModels
-                                                {
-                                                }).FirstOrDefault();
-                    return data;
+                    var data = cxt.CMS_Employee.Where(o => o.ID == Id && o.Status != (byte)Commons.EStatus.Deleted)
+                        .Select(o => new CMS_EmployeeModels
+                        {
+                            Id = o.ID,
+                            Name = o.Name,
+                            Password = o.Password,
+                            IsActive = o.IsActive?? true,
+                            Employee_Phone = o.Phone,
+                            PinCode = o.PinCode,
+                            Gender = o.Gender,
+                            Marital = o.Marital,
+                            HiredDate = o.HiredDate,
+                            BirthDate = o.BirthDate,
+                            Street = o.Street,
+                            City = o.City,
+                            Country = o.Country,
+                            ZipCode = o.ZipCode,
+                            ImageUrl = string.IsNullOrEmpty(o.ImageUrl) ? "" : Commons._PublicImages + o.ImageUrl,
+                            StoreID = o.StoreID,
+                            IsSupperAdmin = o.IsSupperAdmin,
+                            
+                        }).FirstOrDefault();
+
+                    result = data;
+
+                    NSLog.Logger.Info("ResponseEmployeeGetDetail", result);
                 }
             }
-            catch (Exception) { }
-            return null;
+            catch (Exception ex)
+            {
+                NSLog.Logger.Error("ErrorDiscountGetDetail", ex);
+            }
+            return result;
         }
 
         public List<CMS_EmployeeModels> GetList()
         {
+            NSLog.Logger.Info("EmployeeGetList");
+
+            List<CMS_EmployeeModels> result = null;
             try
             {
                 using (var cxt = new CMS_Context())
                 {
-                    var data = cxt.CMS_Employee.Select(x => new CMS_EmployeeModels
-                                                {
-                                                }).ToList();
-                    return data;
+                    var data = cxt.CMS_Employee.Where(o => o.Status != (byte)Commons.EStatus.Deleted)
+                        .Select(o => new CMS_EmployeeModels
+                        {
+                            Id = o.ID,
+                            Name = o.Name,
+                            Password = o.Password,
+                            IsActive = o.IsActive ?? true,
+                            Employee_Phone = o.Phone,
+                            PinCode = o.PinCode,
+                            Gender = o.Gender,
+                            Marital = o.Marital,
+                            HiredDate = o.HiredDate,
+                            BirthDate = o.BirthDate,
+                            Street = o.Street,
+                            City = o.City,
+                            Country = o.Country,
+                            ZipCode = o.ZipCode,
+                            ImageUrl = string.IsNullOrEmpty(o.ImageUrl) ? "" : Commons._PublicImages + o.ImageUrl,
+                            StoreID = o.StoreID,
+                            IsSupperAdmin = o.IsSupperAdmin,
+                        }).ToList();
+
+                    /* response data */
+                    result = data;
+                    NSLog.Logger.Info("ResponseEmployeeGetList", result);
+
                 }
             }
-            catch (Exception) { }
-            return null;
+            catch (Exception ex)
+            {
+                NSLog.Logger.Error("ErrorEmployeeGetList", ex);
+            }
+            return result;
         }
     }
 }

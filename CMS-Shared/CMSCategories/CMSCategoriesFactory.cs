@@ -114,69 +114,76 @@ namespace CMS_Shared.CMSCategories
         public CMSCategoriesModels GetDetail(string Id)
         {
             NSLog.Logger.Info("CateGetDetail", Id);
-            CMSCategoriesModels ret = null;
+            CMSCategoriesModels result = null;
 
             try
             {
                 using (var cxt = new CMS_Context())
                 {
-                    var data = cxt.CMS_Categories.Select(x => new CMSCategoriesModels
-                    {
-                        Id = x.ID,
-                        ParentId = x.ParentID,
-                        CategoryName = x.Name,
-                        StoreID = x.StoreID,
-                        NumberOfProduct = x.TotalProducts ?? 0,
-                        Description = x.Description,
-                        ImageURL = string.IsNullOrEmpty(x.ImageURL) ? "" : Commons._PublicImages + x.ImageURL,
-                        ProductTypeCode = x.ProductTypeCode,
-                        IsShowInReservation = x.IsShowInReservation,
-                        IsActive = x.IsActive,
-                        Sequence = x.Sequence,
-                    }).Where(x => x.Id.Equals(Id)).FirstOrDefault();
+                    var data = cxt.CMS_Categories.Where(o => o.ID == Id && o.Status != (byte)Commons.EStatus.Deleted)
+                        .Select(x => new CMSCategoriesModels
+                        {
+                            Id = x.ID,
+                            ParentId = x.ParentID,
+                            CategoryName = x.Name,
+                            StoreID = x.StoreID,
+                            NumberOfProduct = x.TotalProducts ?? 0,
+                            Description = x.Description,
+                            ImageURL = string.IsNullOrEmpty(x.ImageURL) ? "" : Commons._PublicImages + x.ImageURL,
+                            ProductTypeCode = x.ProductTypeCode,
+                            IsShowInReservation = x.IsShowInReservation,
+                            IsActive = x.IsActive,
+                            Sequence = x.Sequence,
+                        }).FirstOrDefault();
 
-                    ret = data;
+                    result = data;
 
-                    NSLog.Logger.Info("ResponseCateGetDetail", ret);
+                    NSLog.Logger.Info("ResponseCateGetDetail", result);
                 }
             }
             catch (Exception ex)
             {
                 NSLog.Logger.Error("ErrorCateGetDetail", ex);
             }
-            return ret;
+            return result;
         }
 
         public List<CMSCategoriesModels> GetList()
         {
             NSLog.Logger.Info("CateGetList");
 
-            List<CMSCategoriesModels> ret = null;
+            List<CMSCategoriesModels> result = null;
             try
             {
                 using (var cxt = new CMS_Context())
                 {
-                    var data = cxt.CMS_Categories.Select(x => new CMSCategoriesModels
-                    {
-                        Id = x.ID,
-                        ParentId = x.ParentID,
-                        CategoryName = x.Name,
-                        StoreID = x.StoreID,
-                        NumberOfProduct = x.TotalProducts ?? 0,
-                        Description = x.Description,
-                        ImageURL = string.IsNullOrEmpty(x.ImageURL) ? "" : Commons._PublicImages + x.ImageURL,
-                        ProductTypeCode = x.ProductTypeCode,
-                        IsShowInReservation = x.IsShowInReservation,
-                        IsActive = x.IsActive,
-                        Sequence = x.Sequence,
-                    }).ToList();
+                    var data = cxt.CMS_Categories.Where(o => o.Status != (byte)Commons.EStatus.Deleted)
+                        .Select(x => new CMSCategoriesModels
+                        {
+                            Id = x.ID,
+                            ParentId = x.ParentID,
+                            CategoryName = x.Name,
+                            StoreID = x.StoreID,
+                            NumberOfProduct = x.TotalProducts ?? 0,
+                            Description = x.Description,
+                            ImageURL = string.IsNullOrEmpty(x.ImageURL) ? "" : Commons._PublicImages + x.ImageURL,
+                            ProductTypeCode = x.ProductTypeCode,
+                            IsShowInReservation = x.IsShowInReservation,
+                            IsActive = x.IsActive,
+                            Sequence = x.Sequence,
+                        }).ToList();
 
                     /* response data */
-                    ret = data;
+                    result = data;
+                    NSLog.Logger.Info("ResponseCateGetList", result);
+
                 }
             }
-            catch (Exception ex) { }
-            return ret;
+            catch (Exception ex)
+            {
+                NSLog.Logger.Error("ErrorCateGetList", ex);
+            }
+            return result;
         }
     }
 }

@@ -12,13 +12,6 @@ namespace CMS_DTO.CMSEmployee
     public class CMS_EmployeeModels : CMS_BaseModel
     {
         public string Id { get; set; }
-        [Required(ErrorMessage = "Vui lòng nhập họ tên")]
-        [MaxLength(50, ErrorMessage = "Họ tên tối đa 50 kí tự")]
-        public string FirstName { get; set; }
-        [Required(ErrorMessage = "Vui lòng nhập tên")]
-        [MaxLength(20, ErrorMessage = "Tên tối đa 20 kí tự")]
-        public string LastName { get; set; }
-        public string Employee_Address { get; set; }
         [RegularExpression("([0-9]+)", ErrorMessage = "Vui lòng nhập số")]
         public string Employee_Phone { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập e-mail")]
@@ -35,9 +28,18 @@ namespace CMS_DTO.CMSEmployee
         public string UpdatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public string sStatus { get; set; }
-        public string FullName { get { return this.FirstName + " " + this.LastName; } }
         public bool IsSupperAdmin { get; set; }
         public string Name { get; set; }
+        public string PinCode { get; set; }
+        public bool Gender { get; set; }
+        public bool Marital { get; set; }
+        public DateTime HiredDate { get; set; }
+        public string ImageUrl { get; set; }
+        public string Street { get; set; }
+        public string City { get; set; }
+        public string ZipCode { get; set; }
+        public string Country { get; set; }
+        public string StoreID { get; set; }
         public CMS_EmployeeModels()
         {
             IsActive = true;

@@ -12,6 +12,7 @@ namespace CMS_Shared.CMSCompanies
     {
         public bool CreateOrUpdate(CMS_CompanyModels model, ref string msg)
         {
+            NSLog.Logger.Info("CompCreateOrUpdate", model);
             var result = true;
             using (var cxt = new CMS_Context())
             {
@@ -19,7 +20,7 @@ namespace CMS_Shared.CMSCompanies
                 {
                     try
                     {
-                        if (string.IsNullOrEmpty(model.ID))
+                        if (string.IsNullOrEmpty(model.ID)) /* insert */
                         {
                             var e = new CMS_Companies
                             {
@@ -43,7 +44,7 @@ namespace CMS_Shared.CMSCompanies
                             };
                             cxt.CMS_Companies.Add(e);
                         }
-                        else
+                        else /* update */
                         {
                             var e = cxt.CMS_Companies.Find(model.ID);
                             if (e != null)
@@ -62,18 +63,26 @@ namespace CMS_Shared.CMSCompanies
                                 e.BusinessHour = model.Businesshour;
                                 e.UpdatedBy = model.UpdatedBy;
                                 e.UpdatedDate = DateTime.Now;
+                                e.ImageURL = string.IsNullOrEmpty(model.ImageURL) ? e.ImageURL : model.ImageURL;
                             }
-                            if (!string.IsNullOrEmpty(model.ImageURL))
-                                e.ImageURL = model.ImageURL;
+                            else
+                            {
+                                msg = "Unable to find company.";
+                                result = false;
+                            }
                         }
                         cxt.SaveChanges();
                         trans.Commit();
+
+                        NSLog.Logger.Info("ResponseCompCreateOrUpdate", new { result, msg });
+
                     }
                     catch (Exception ex)
                     {
                         result = false;
                         trans.Rollback();
                         msg = "Lỗi đường truyền mạng";
+                        NSLog.Logger.Error("ErrorCompCreateOrUpdate", ex);
                     }
                     finally
                     {
@@ -82,73 +91,13 @@ namespace CMS_Shared.CMSCompanies
                 }
             }
             return result;
-        }
-
-        public bool Delete(string Id, ref string msg)
-        {
-            var result = true;
-            using (var cxt = new CMS_Context())
-            {
-                using (var trans = cxt.Database.BeginTransaction())
-                {
-                    try
-                    {
-                        var e = cxt.CMS_Companies.Find(Id);
-                        cxt.SaveChanges();
-                        trans.Commit();
-                    }
-                    catch (Exception ex)
-                    {
-                        result = false;
-                        msg = "Không thể xóa thể loại này";
-                        trans.Rollback();
-                    }
-                    finally
-                    {
-                        cxt.Dispose();
-                    }
-
-                }
-            }
-            return result;
-        }
-
-        public CMS_CompanyModels GetDetail(string Id)
-        {
-            try
-            {
-                using (var cxt = new CMS_Context())
-                {
-                    var data = cxt.CMS_Companies.Where(x => x.Id.Equals(Id))
-                                                .Select(x => new CMS_CompanyModels
-                                                {
-                                                    ID = x.Id,
-                                                    Name = x.Name,
-                                                    Description = x.Description,
-                                                    Email = x.Email,
-                                                    Phone = x.Phone,
-                                                    Address = x.Address,
-                                                    LinkBlog = x.LinkBlog,
-                                                    LinkTwiter = x.LinkTwiter,
-                                                    LinkInstagram = x.LinkInstagram,
-                                                    LinkFB = x.LinkFB,
-                                                    ImageURL = string.IsNullOrEmpty(x.ImageURL) ? "" : Commons.HostImage + x.ImageURL,
-                                                    IsActive = true,
-                                                    Businesshour = x.BusinessHour,
-                                                    CreatedBy = x.CreatedBy,
-                                                    CreatedDate = DateTime.Now,
-                                                    UpdatedBy = x.UpdatedBy,
-                                                    UpdatedDate = DateTime.Now
-                                                }).FirstOrDefault();
-                    return data;
-                }
-            }
-            catch (Exception ex) { }
-            return null;
         }
 
         public List<CMS_CompanyModels> GetList()
         {
+            NSLog.Logger.Info("CompGetList");
+
+            List<CMS_CompanyModels> result = null;
             try
             {
                 using (var cxt = new CMS_Context())
@@ -173,15 +122,23 @@ namespace CMS_Shared.CMSCompanies
                         UpdatedBy = x.UpdatedBy,
                         UpdatedDate = DateTime.Now
                     }).ToList();
-                    return data;
+                    result = data; 
+
+                    NSLog.Logger.Info("ResponseCompGetList", new { result });
                 }
             }
-            catch (Exception ex) { }
-            return null;
+            catch (Exception ex)
+            {
+                NSLog.Logger.Error("ErrorCompGetList", ex);
+            }
+            return result;
         }
 
         public CMS_CompanyModels GetInfor()
         {
+            NSLog.Logger.Info("CompGetInfor");
+
+            CMS_CompanyModels result = null;
             try
             {
                 using (var cxt = new CMS_Context())
@@ -205,11 +162,17 @@ namespace CMS_Shared.CMSCompanies
                         UpdatedBy = x.UpdatedBy,
                         UpdatedDate = DateTime.Now
                     }).FirstOrDefault();
-                    return data;
+                    
+                    result = data;
+
+                    NSLog.Logger.Info("ResponseCompGetInfor", new { result });
                 }
             }
-            catch (Exception ex) { }
-            return null;
+            catch (Exception ex)
+            {
+                NSLog.Logger.Error("ErrorCompGetInfor", ex);
+            }
+            return result;
         }
     }
 }
