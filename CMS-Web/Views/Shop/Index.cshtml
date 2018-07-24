@@ -22,7 +22,7 @@
                         <ul class="products">
                             @foreach (var item in Model.Products)
                             {
-                                if(_index == 1)
+                                if (_index == 1)
                                 {
                                     _first = "first";
                                 }
@@ -92,10 +92,10 @@
                                     _index = _index + 1;
                                 }
 
-                            } 
+                            }
                         </ul>
                     }
-                    
+
                     @if (Model != null && Model.TotalPage > 0)
                     {
                         <div class="pagination product-pagination">
@@ -114,52 +114,49 @@
                                         </li>
                                     }
                                 }
-                                </ul>
-                                <div class="next-post">
-                                    <a href="https://dreamspa.dttheme.com/shop/page/2/">Next</a>
-                                </div>
-</div>
+                            </ul>
+                            <div class="next-post">
+                                <a href="https://dreamspa.dttheme.com/shop/page/2/">Next</a>
+                            </div>
+                        </div>
                     }
-                    
+
                 </section>
                 <section id='secondary-right' class='secondary-sidebar secondary-has-right-sidebar'>
-                    <aside id="woocommerce_product_categories-3" class="widget woocommerce widget_product_categories">
-                        <h3 class="widgettitle">Product Categories</h3>
-                        <ul class="product-categories">
-                            <li class="cat-item cat-item-16 cat-parent">
-                                <a href="https://dreamspa.dttheme.com/product-category/clothing/">Clothing</a>
-                                <span class="count">(10)</span>
-                                <ul class='children'>
-                                    <li class="cat-item cat-item-17">
-                                        <a href="https://dreamspa.dttheme.com/product-category/clothing/hoodies/">Hoodies</a>
-                                        <span class="count">(5)</span>
+                    @if (Model != null && Model.Categories != null && Model.Categories.Any())
+                    {
+                        var _parent = "";
+                        <aside id="woocommerce_product_categories-3" class="widget woocommerce widget_product_categories">
+                            <h3 class="widgettitle">Product Categories</h3>
+                            <ul class="product-categories">
+                                @foreach (var item in Model.Categories)
+                                {
+                                    if (item.Children != null && item.Children.Count > 0)
+                                        _parent = "cat-parent";
+                                    else
+                                        _parent = "";
+
+                                    <li class="cat-item cat-item-16 @_parent">
+                                        <a href="javascript:void(0)">@item.Name</a>
+                                        <span class="count">(@item.TotalProduct)</span>
+                                        @if (item.Children != null && item.Children.Any())
+                                        {
+                                            <ul class='children'>
+                                                @foreach (var itemchild in item.Children)
+                                                {
+                                                    <li class="cat-item cat-item-17">
+                                                        <a href="javascript:void(0)">@itemchild.Name</a>
+                                                        <span class="count">(@itemchild.TotalProduct)</span>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        }       
                                     </li>
-                                    <li class="cat-item cat-item-21">
-                                        <a href="https://dreamspa.dttheme.com/product-category/clothing/t-shirts/">T-shirts</a>
-                                        <span class="count">(5)</span>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="cat-item cat-item-18 cat-parent">
-                                <a href="https://dreamspa.dttheme.com/product-category/music/">Music</a>
-                                <span class="count">(6)</span>
-                                <ul class='children'>
-                                    <li class="cat-item cat-item-22">
-                                        <a href="https://dreamspa.dttheme.com/product-category/music/albums/">Albums</a>
-                                        <span class="count">(4)</span>
-                                    </li>
-                                    <li class="cat-item cat-item-20">
-                                        <a href="https://dreamspa.dttheme.com/product-category/music/singles/">Singles</a>
-                                        <span class="count">(2)</span>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="cat-item cat-item-19">
-                                <a href="https://dreamspa.dttheme.com/product-category/posters/">Posters</a>
-                                <span class="count">(4)</span>
-                            </li>
-                        </ul>
-                    </aside>
+                                }
+                            </ul>
+                        </aside>
+                    }
+                    
                     <aside id="woocommerce_products-4" class="widget woocommerce widget_products">
                         <h3 class="widgettitle">Best Selling Products</h3>
                         <ul class="product_list_widget">
