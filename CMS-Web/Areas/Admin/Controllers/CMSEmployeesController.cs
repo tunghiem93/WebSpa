@@ -14,7 +14,7 @@ using System.Web.Mvc;
 namespace CMS_Web.Areas.Admin.Controllers
 {
     [NuAuth]
-    public class CMSEmployeesController : Controller
+    public class CMSEmployeesController : HQController
     {
         private CMSEmployeeFactory _factory;
         public CMSEmployeesController()

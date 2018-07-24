@@ -13,13 +13,12 @@ namespace CMS_DTO.CMSDiscount
     {
         public string Id { get; set; }
         public string StoreID { get; set; }
-        [Required(ErrorMessage="Vui lòng nhập tên thể loại")]
-        [MaxLength(60,ErrorMessage ="Tên thể loại tối đa 250 kí tự")]
+        [Required(ErrorMessage="Vui lòng nhập tên giảm giá")]
+        [MaxLength(60,ErrorMessage ="Tên giảm giá tối đa 250 kí tự")]
         public string Name { get; set; }
         public bool IsActive { get; set; }
         public bool IsAllowOpenValue { get; set; }
         public bool IsApplyTotalBill { get; set; }
-        [AllowHtml]
         public string Description { get; set; }
         public string ImageUrl { get; set; }
         public byte ValueType { get; set; }
@@ -28,8 +27,7 @@ namespace CMS_DTO.CMSDiscount
         public DateTime UpdatedDate { get; set; }
         public string UpdatedBy { get; set; }
         public CMSDiscountModels()
-        {
-            IsActive = true;
+        {            
         }
     }
 }

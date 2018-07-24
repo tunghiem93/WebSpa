@@ -11,7 +11,7 @@ using System.Web.Mvc;
 namespace CMS_Web.Areas.Admin.Controllers
 {
     [NuAuth]
-    public class CMSPolicyController : Controller
+    public class CMSPolicyController : HQController
     {
         private CMSPolicyFactory _factory;
         public CMSPolicyController()

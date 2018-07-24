@@ -8,7 +8,7 @@ using System.Web.Mvc;
 namespace CMS_Web.Areas.Admin.Controllers
 {
     [NuAuth]
-    public class CMSDiscountsController : Controller
+    public class CMSDiscountsController : HQController
     {
         // GET: Admin/CMSDiscounts
         public ActionResult Index()
