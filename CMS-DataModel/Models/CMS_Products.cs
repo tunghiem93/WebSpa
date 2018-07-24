@@ -26,10 +26,8 @@ namespace CMS_DataModel.Models
         [Required]
         [StringLength(100)]
         public string ParentID { get; set; }
-
-        [Required]
-        [StringLength(100)]
-        public string TypeCode { get; set; }
+        
+        public int TypeCode { get; set; }
 
         [StringLength(100)]
         public string CategoryID { get; set; }
