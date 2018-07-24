@@ -1,4 +1,4 @@
-﻿
+﻿@model CMS_DTO.CMSShop.CMS_ShopViewModels
 <div class="wrapper">
     <div class="inner-wrapper">
         <div id="main">
@@ -14,623 +14,113 @@
             </section>
             <div class="container">
                 <section id='primary' class='page-with-sidebar with-right-sidebar'>
-                    <ul class="products">
-                        <li class="first post-93 product type-product status-publish has-post-thumbnail product_cat-music product_cat-singles pif-has-gallery downloadable shipping-taxable purchasable product-type-simple product-cat-music product-cat-singles instock">
-                            <div class='product-wrapper  product-three-column in-stock-product '>
-                                <div class="product-container">
-                                    <a href="https://dreamspa.dttheme.com/product/dry-aroma-petals-for-bath/">
-                                        <div class="product-thumb">
-                                            <img width="1000" height="1000" src="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product18.jpg"
-                                                 class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product18.jpg 1000w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product18-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product18-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product18-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product18-550x550.jpg 550w"
-                                                 sizes="(max-width: 1000px) 100vw, 1000px" />
-                                            <img width="500" height="500" src="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9-550x550.jpg"
-                                                 class="secondary-image attachment-shop-catalog" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9.jpg 1000w"
-                                                 sizes="(max-width: 500px) 100vw, 500px" />
-                                        </div>
-                                        <div class='product-title'>
-                                            <h3>Dry Aroma Petals for Bath</h3>
-                                            <p>Entice your dreams with new spa</p>
-                                        </div>
-                                    </a>
-                                    <div class='product-details'>
-                                        <span class="price">
-                                            <span class="amount">&pound;3.00</span>
-                                        </span>
-                                        <div class='product-buttons'>
-                                            <a rel="nofollow" href="/shop/?add-to-cart=93" data-quantity="1" data-product_id="93" data-product_sku=""
-                                               class="small button button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
-                                            <div class="yith-wcwl-add-to-wishlist add-to-wishlist-93">
-                                                <div class="yith-wcwl-add-button show" style="display:block">
-                                                    <a href="/shop/?add_to_wishlist=93" rel="nofollow" data-product-id="93" data-product-type="simple"
-                                                       class="add_to_wishlist">Add to Wishlist</a>
-                                                    <img src="https://dreamspa.dttheme.com/wp-content/plugins/yith-woocommerce-wishlist/assets/images/wpspin_light.gif"
-                                                         class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" />
+                    @if (Model != null && Model.Products != null && Model.Products.Any())
+                    {
+                        string _first = "first";
+                        string _last = "";
+                        var _index = 1;
+                        <ul class="products">
+                            @foreach (var item in Model.Products)
+                            {
+                                if(_index == 1)
+                                {
+                                    _first = "first";
+                                }
+                                else
+                                {
+                                    _first = "";
+                                }
+
+                                <li class="@_first @_last post-93 product type-product status-publish has-post-thumbnail product_cat-music product_cat-singles pif-has-gallery downloadable shipping-taxable purchasable product-type-simple product-cat-music product-cat-singles instock">
+                                    <div class='product-wrapper  product-three-column in-stock-product '>
+                                        <div class="product-container">
+                                            <a href="javascript:void(0)">
+                                                <div class="product-thumb">
+                                                    <img width="1000" height="1000" src="@item.ImageURL"
+                                                         class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" srcset="@item.ImageURL 1000w, @item.ImageURL 150w, @item.ImageURL 300w, @item.ImageURL 90w, @item.ImageURL 550w"
+                                                         sizes="(max-width: 1000px) 100vw, 1000px" />
+                                                    <img width="500" height="500" src="@item.ImageURL"
+                                                         class="secondary-image attachment-shop-catalog" alt="" srcset="@item.ImageURL 550w, @item.ImageURL 150w, @item.ImageURL 300w, @item.ImageURL 90w, @item.ImageURL 1000w"
+                                                         sizes="(max-width: 500px) 100vw, 500px" />
                                                 </div>
-                                                <div class="yith-wcwl-wishlistaddedbrowse hide" style="display:none;">
-                                                    <span class="feedback">Product added!</span>
-                                                    <a href="https://dreamspa.dttheme.com/wishlist/" rel="nofollow"> Browse Wishlist </a>
+                                                <div class='product-title'>
+                                                    <h3>@item.ProductName</h3>
+                                                    <p>@string.Format("{0}",!string.IsNullOrEmpty(item.Description) && item.Description.Length >30 ? item.Description.Substring(0,30) + "..." : item.Description)</p>
                                                 </div>
-                                                <div class="yith-wcwl-wishlistexistsbrowse hide" style="display:none">
-                                                    <span class="feedback">The product is already in the wishlist!</span>
-                                                    <a href="https://dreamspa.dttheme.com/wishlist/"
-                                                       rel="nofollow">Browse Wishlist</a>
-                                                </div>
-                                                <div style="clear:both"></div>
-                                                <div class="yith-wcwl-wishlistaddresponse"></div>
-                                            </div>
-                                            <div class="clear"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="post-70 product type-product status-publish has-post-thumbnail product_cat-posters pif-has-gallery sale shipping-taxable purchasable product-type-simple product-cat-posters instock">
-                            <div class='product-wrapper  product-three-column on-sale-product  in-stock-product '>
-                                <div class="product-container">
-                                    <a href="https://dreamspa.dttheme.com/product/flying-ninja/">
-                                        <div class="product-thumb">
-                                            <img width="1000" height="1000" src="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product6.jpg"
-                                                 class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product6.jpg 1000w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product6-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product6-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product6-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product6-550x550.jpg 550w"
-                                                 sizes="(max-width: 1000px) 100vw, 1000px" />
-                                            <img width="500" height="500" src="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product15-550x550.jpg"
-                                                 class="secondary-image attachment-shop-catalog" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product15-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product15-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product15-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product15-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product15.jpg 1000w"
-                                                 sizes="(max-width: 500px) 100vw, 500px" />
-                                            <div class='product-rating-wrapper'>
-                                                <div class='product-rating-container'>
-                                                    <div class="star-rating" title="Rated 4 out of 5">
-                                                        <span style="width:80%">
-                                                            <strong class="rating">4</strong> out of 5
-                                                        </span>
+                                            </a>
+                                            <div class='product-details'>
+                                                <span class="price">
+                                                    <span class="amount">&pound; @item.ProductPrice.ToString("#,0")</span>
+                                                </span>
+                                                <div class='product-buttons'>
+                                                    <a rel="nofollow" href="javascript:void(0)" data-quantity="1" data-product_id="93" data-product_sku=""
+                                                       class="small button button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
+                                                    <div class="yith-wcwl-add-to-wishlist add-to-wishlist-93">
+                                                        <div class="yith-wcwl-add-button show" style="display:block">
+                                                            <a href="/shop/?add_to_wishlist=93" rel="nofollow" data-product-id="93" data-product-type="simple"
+                                                               class="add_to_wishlist">Add to Wishlist</a>
+                                                            <img src="@Url.Content("~/Images/wpspin_light.gif")"
+                                                                 class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" />
+                                                        </div>
+                                                        <div class="yith-wcwl-wishlistaddedbrowse hide" style="display:none;">
+                                                            <span class="feedback">Product added!</span>
+                                                            <a href="javascript:void(0)" rel="nofollow"> Browse Wishlist </a>
+                                                        </div>
+                                                        <div class="yith-wcwl-wishlistexistsbrowse hide" style="display:none">
+                                                            <span class="feedback">The product is already in the wishlist!</span>
+                                                            <a href="javascript:void(0)"
+                                                               rel="nofollow">Browse Wishlist</a>
+                                                        </div>
+                                                        <div style="clear:both"></div>
+                                                        <div class="yith-wcwl-wishlistaddresponse"></div>
                                                     </div>
+                                                    <div class="clear"></div>
                                                 </div>
                                             </div>
-                                            <span class="onsale">
-                                                <span>Sale!</span>
-                                            </span>
-                                        </div>
-                                        <div class='product-title'>
-                                            <h3>Flying Ninja</h3>
-                                            <p>Entice your dreams with new spa</p>
-                                        </div>
-                                    </a>
-                                    <div class='product-details'>
-                                        <span class="price">
-                                            <del>
-                                                <span class="amount">&pound;15.00</span>
-                                            </del>
-                                            <ins>
-                                                <span class="amount">&pound;12.00</span>
-                                            </ins>
-                                        </span>
-                                        <div class='product-buttons'>
-                                            <a rel="nofollow" href="/shop/?add-to-cart=70" data-quantity="1" data-product_id="70" data-product_sku=""
-                                               class="small button button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
-                                            <div class="yith-wcwl-add-to-wishlist add-to-wishlist-70">
-                                                <div class="yith-wcwl-add-button show" style="display:block">
-                                                    <a href="/shop/?add_to_wishlist=70" rel="nofollow" data-product-id="70" data-product-type="simple"
-                                                       class="add_to_wishlist">Add to Wishlist</a>
-                                                    <img src="https://dreamspa.dttheme.com/wp-content/plugins/yith-woocommerce-wishlist/assets/images/wpspin_light.gif"
-                                                         class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" />
-                                                </div>
-                                                <div class="yith-wcwl-wishlistaddedbrowse hide" style="display:none;">
-                                                    <span class="feedback">Product added!</span>
-                                                    <a href="https://dreamspa.dttheme.com/wishlist/" rel="nofollow"> Browse Wishlist </a>
-                                                </div>
-                                                <div class="yith-wcwl-wishlistexistsbrowse hide" style="display:none">
-                                                    <span class="feedback">The product is already in the wishlist!</span>
-                                                    <a href="https://dreamspa.dttheme.com/wishlist/"
-                                                       rel="nofollow">Browse Wishlist</a>
-                                                </div>
-                                                <div style="clear:both"></div>
-                                                <div class="yith-wcwl-wishlistaddresponse"></div>
-                                            </div>
-                                            <div class="clear"></div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="last post-53 product type-product status-publish has-post-thumbnail product_cat-clothing product_cat-hoodies pif-has-gallery sale shipping-taxable purchasable product-type-simple product-cat-clothing product-cat-hoodies instock">
-                            <div class='product-wrapper  product-three-column on-sale-product  in-stock-product '>
-                                <div class="product-container">
-                                    <a href="https://dreamspa.dttheme.com/product/happy-ninja-2/">
-                                        <div class="product-thumb">
-                                            <img width="1000" height="1000" src="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product8.jpg"
-                                                 class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product8.jpg 1000w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product8-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product8-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product8-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product8-550x550.jpg 550w"
-                                                 sizes="(max-width: 1000px) 100vw, 1000px" />
-                                            <img width="500" height="500" src="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product1-550x550.jpg"
-                                                 class="secondary-image attachment-shop-catalog" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product1-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product1-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product1-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product1-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product1.jpg 1000w"
-                                                 sizes="(max-width: 500px) 100vw, 500px" />
-                                            <div class='product-rating-wrapper'>
-                                                <div class='product-rating-container'>
-                                                    <div class="star-rating" title="Rated 3 out of 5">
-                                                        <span style="width:60%">
-                                                            <strong class="rating">3</strong> out of 5
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <span class="onsale">
-                                                <span>Sale!</span>
-                                            </span>
-                                        </div>
-                                        <div class='product-title'>
-                                            <h3>Happy Ninja</h3>
-                                            <p>Entice your dreams with new spa</p>
-                                        </div>
-                                    </a>
-                                    <div class='product-details'>
-                                        <span class="price">
-                                            <del>
-                                                <span class="amount">&pound;35.00</span>
-                                            </del>
-                                            <ins>
-                                                <span class="amount">&pound;30.00</span>
-                                            </ins>
-                                        </span>
-                                        <div class='product-buttons'>
-                                            <a rel="nofollow" href="/shop/?add-to-cart=53" data-quantity="1" data-product_id="53" data-product_sku=""
-                                               class="small button button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
-                                            <div class="yith-wcwl-add-to-wishlist add-to-wishlist-53">
-                                                <div class="yith-wcwl-add-button show" style="display:block">
-                                                    <a href="/shop/?add_to_wishlist=53" rel="nofollow" data-product-id="53" data-product-type="simple"
-                                                       class="add_to_wishlist">Add to Wishlist</a>
-                                                    <img src="https://dreamspa.dttheme.com/wp-content/plugins/yith-woocommerce-wishlist/assets/images/wpspin_light.gif"
-                                                         class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" />
-                                                </div>
-                                                <div class="yith-wcwl-wishlistaddedbrowse hide" style="display:none;">
-                                                    <span class="feedback">Product added!</span>
-                                                    <a href="https://dreamspa.dttheme.com/wishlist/" rel="nofollow"> Browse Wishlist </a>
-                                                </div>
-                                                <div class="yith-wcwl-wishlistexistsbrowse hide" style="display:none">
-                                                    <span class="feedback">The product is already in the wishlist!</span>
-                                                    <a href="https://dreamspa.dttheme.com/wishlist/"
-                                                       rel="nofollow">Browse Wishlist</a>
-                                                </div>
-                                                <div style="clear:both"></div>
-                                                <div class="yith-wcwl-wishlistaddresponse"></div>
-                                            </div>
-                                            <div class="clear"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="first post-56 product type-product status-publish has-post-thumbnail product_cat-clothing product_cat-hoodies pif-has-gallery shipping-taxable purchasable product-type-simple product-cat-clothing product-cat-hoodies instock">
-                            <div class='product-wrapper  product-three-column in-stock-product '>
-                                <div class="product-container">
-                                    <a href="https://dreamspa.dttheme.com/product/ninja-silhouette-2/">
-                                        <div class="product-thumb">
-                                            <img width="1000" height="1000" src="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9.jpg"
-                                                 class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9.jpg 1000w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9-550x550.jpg 550w"
-                                                 sizes="(max-width: 1000px) 100vw, 1000px" />
-                                            <img width="500" height="500" src="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product2-550x550.jpg"
-                                                 class="secondary-image attachment-shop-catalog" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product2-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product2-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product2-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product2-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product2.jpg 1000w"
-                                                 sizes="(max-width: 500px) 100vw, 500px" />
-                                            <div class='product-rating-wrapper'>
-                                                <div class='product-rating-container'>
-                                                    <div class="star-rating" title="Rated 4 out of 5">
-                                                        <span style="width:80%">
-                                                            <strong class="rating">4</strong> out of 5
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class='product-title'>
-                                            <h3>Ninja Silhouette</h3>
-                                            <p>Entice your dreams with new spa</p>
-                                        </div>
-                                    </a>
-                                    <div class='product-details'>
-                                        <span class="price">
-                                            <span class="amount">&pound;35.00</span>
-                                        </span>
-                                        <div class='product-buttons'>
-                                            <a rel="nofollow" href="/shop/?add-to-cart=56" data-quantity="1" data-product_id="56" data-product_sku=""
-                                               class="small button button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
-                                            <div class="yith-wcwl-add-to-wishlist add-to-wishlist-56">
-                                                <div class="yith-wcwl-add-button show" style="display:block">
-                                                    <a href="/shop/?add_to_wishlist=56" rel="nofollow" data-product-id="56" data-product-type="simple"
-                                                       class="add_to_wishlist">Add to Wishlist</a>
-                                                    <img src="https://dreamspa.dttheme.com/wp-content/plugins/yith-woocommerce-wishlist/assets/images/wpspin_light.gif"
-                                                         class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" />
-                                                </div>
-                                                <div class="yith-wcwl-wishlistaddedbrowse hide" style="display:none;">
-                                                    <span class="feedback">Product added!</span>
-                                                    <a href="https://dreamspa.dttheme.com/wishlist/" rel="nofollow"> Browse Wishlist </a>
-                                                </div>
-                                                <div class="yith-wcwl-wishlistexistsbrowse hide" style="display:none">
-                                                    <span class="feedback">The product is already in the wishlist!</span>
-                                                    <a href="https://dreamspa.dttheme.com/wishlist/"
-                                                       rel="nofollow">Browse Wishlist</a>
-                                                </div>
-                                                <div style="clear:both"></div>
-                                                <div class="yith-wcwl-wishlistaddresponse"></div>
-                                            </div>
-                                            <div class="clear"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="post-50 product type-product status-publish has-post-thumbnail product_cat-clothing product_cat-hoodies pif-has-gallery shipping-taxable purchasable product-type-simple product-cat-clothing product-cat-hoodies instock">
-                            <div class='product-wrapper  product-three-column in-stock-product '>
-                                <div class="product-container">
-                                    <a href="https://dreamspa.dttheme.com/product/patient-ninja/">
-                                        <div class="product-thumb">
-                                            <img width="1000" height="1000" src="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product7.jpg"
-                                                 class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product7.jpg 1000w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product7-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product7-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product7-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product7-550x550.jpg 550w"
-                                                 sizes="(max-width: 1000px) 100vw, 1000px" />
-                                            <img width="500" height="500" src="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product14-550x550.jpg"
-                                                 class="secondary-image attachment-shop-catalog" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product14-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product14-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product14-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product14-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product14.jpg 1000w"
-                                                 sizes="(max-width: 500px) 100vw, 500px" />
-                                            <div class='product-rating-wrapper'>
-                                                <div class='product-rating-container'>
-                                                    <div class="star-rating" title="Rated 4.67 out of 5">
-                                                        <span style="width:93.4%">
-                                                            <strong class="rating">4.67</strong> out of 5
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class='product-title'>
-                                            <h3>Patient Ninja</h3>
-                                            <p>Entice your dreams with new spa</p>
-                                        </div>
-                                    </a>
-                                    <div class='product-details'>
-                                        <span class="price">
-                                            <span class="amount">&pound;35.00</span>
-                                        </span>
-                                        <div class='product-buttons'>
-                                            <a rel="nofollow" href="/shop/?add-to-cart=50" data-quantity="1" data-product_id="50" data-product_sku=""
-                                               class="small button button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
-                                            <div class="yith-wcwl-add-to-wishlist add-to-wishlist-50">
-                                                <div class="yith-wcwl-add-button show" style="display:block">
-                                                    <a href="/shop/?add_to_wishlist=50" rel="nofollow" data-product-id="50" data-product-type="simple"
-                                                       class="add_to_wishlist">Add to Wishlist</a>
-                                                    <img src="https://dreamspa.dttheme.com/wp-content/plugins/yith-woocommerce-wishlist/assets/images/wpspin_light.gif"
-                                                         class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" />
-                                                </div>
-                                                <div class="yith-wcwl-wishlistaddedbrowse hide" style="display:none;">
-                                                    <span class="feedback">Product added!</span>
-                                                    <a href="https://dreamspa.dttheme.com/wishlist/" rel="nofollow"> Browse Wishlist </a>
-                                                </div>
-                                                <div class="yith-wcwl-wishlistexistsbrowse hide" style="display:none">
-                                                    <span class="feedback">The product is already in the wishlist!</span>
-                                                    <a href="https://dreamspa.dttheme.com/wishlist/"
-                                                       rel="nofollow">Browse Wishlist</a>
-                                                </div>
-                                                <div style="clear:both"></div>
-                                                <div class="yith-wcwl-wishlistaddresponse"></div>
-                                            </div>
-                                            <div class="clear"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="last post-19 product type-product status-publish has-post-thumbnail product_cat-clothing product_cat-t-shirts pif-has-gallery shipping-taxable purchasable product-type-simple product-cat-clothing product-cat-t-shirts instock">
-                            <div class='product-wrapper  product-three-column in-stock-product '>
-                                <div class="product-container">
-                                    <a href="https://dreamspa.dttheme.com/product/premium-quality/">
-                                        <div class="product-thumb">
-                                            <img width="1000" height="1000" src="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product2.jpg"
-                                                 class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product2.jpg 1000w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product2-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product2-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product2-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product2-550x550.jpg 550w"
-                                                 sizes="(max-width: 1000px) 100vw, 1000px" />
-                                            <img width="500" height="500" src="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product10-550x550.jpg"
-                                                 class="secondary-image attachment-shop-catalog" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product10-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product10-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product10-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product10-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product10.jpg 1000w"
-                                                 sizes="(max-width: 500px) 100vw, 500px" />
-                                            <div class='product-rating-wrapper'>
-                                                <div class='product-rating-container'>
-                                                    <div class="star-rating" title="Rated 4.5 out of 5">
-                                                        <span style="width:90%">
-                                                            <strong class="rating">4.5</strong> out of 5
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class='product-title'>
-                                            <h3>Premium Quality</h3>
-                                            <p>Entice your dreams with new spa</p>
-                                        </div>
-                                    </a>
-                                    <div class='product-details'>
-                                        <span class="price">
-                                            <span class="amount">&pound;20.00</span>
-                                        </span>
-                                        <div class='product-buttons'>
-                                            <a rel="nofollow" href="/shop/?add-to-cart=19" data-quantity="1" data-product_id="19" data-product_sku=""
-                                               class="small button button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
-                                            <div class="yith-wcwl-add-to-wishlist add-to-wishlist-19">
-                                                <div class="yith-wcwl-add-button show" style="display:block">
-                                                    <a href="/shop/?add_to_wishlist=19" rel="nofollow" data-product-id="19" data-product-type="simple"
-                                                       class="add_to_wishlist">Add to Wishlist</a>
-                                                    <img src="https://dreamspa.dttheme.com/wp-content/plugins/yith-woocommerce-wishlist/assets/images/wpspin_light.gif"
-                                                         class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" />
-                                                </div>
-                                                <div class="yith-wcwl-wishlistaddedbrowse hide" style="display:none;">
-                                                    <span class="feedback">Product added!</span>
-                                                    <a href="https://dreamspa.dttheme.com/wishlist/" rel="nofollow"> Browse Wishlist </a>
-                                                </div>
-                                                <div class="yith-wcwl-wishlistexistsbrowse hide" style="display:none">
-                                                    <span class="feedback">The product is already in the wishlist!</span>
-                                                    <a href="https://dreamspa.dttheme.com/wishlist/"
-                                                       rel="nofollow">Browse Wishlist</a>
-                                                </div>
-                                                <div style="clear:both"></div>
-                                                <div class="yith-wcwl-wishlistaddresponse"></div>
-                                            </div>
-                                            <div class="clear"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="first post-73 product type-product status-publish has-post-thumbnail product_cat-posters pif-has-gallery sale shipping-taxable purchasable product-type-simple product-cat-posters instock">
-                            <div class='product-wrapper  product-three-column on-sale-product  in-stock-product '>
-                                <div class="product-container">
-                                    <a href="https://dreamspa.dttheme.com/product/premium-quality-2/">
-                                        <div class="product-thumb">
-                                            <img width="1000" height="1000" src="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product12.jpg"
-                                                 class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product12.jpg 1000w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product12-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product12-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product12-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product12-550x550.jpg 550w"
-                                                 sizes="(max-width: 1000px) 100vw, 1000px" />
-                                            <img width="500" height="500" src="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product1-550x550.jpg"
-                                                 class="secondary-image attachment-shop-catalog" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product1-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product1-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product1-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product1-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product1.jpg 1000w"
-                                                 sizes="(max-width: 500px) 100vw, 500px" />
-                                            <div class='product-rating-wrapper'>
-                                                <div class='product-rating-container'>
-                                                    <div class="star-rating" title="Rated 2 out of 5">
-                                                        <span style="width:40%">
-                                                            <strong class="rating">2</strong> out of 5
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <span class="onsale">
-                                                <span>Sale!</span>
-                                            </span>
-                                        </div>
-                                        <div class='product-title'>
-                                            <h3>Premium Quality</h3>
-                                            <p>Entice your dreams with new spa</p>
-                                        </div>
-                                    </a>
-                                    <div class='product-details'>
-                                        <span class="price">
-                                            <del>
-                                                <span class="amount">&pound;15.00</span>
-                                            </del>
-                                            <ins>
-                                                <span class="amount">&pound;12.00</span>
-                                            </ins>
-                                        </span>
-                                        <div class='product-buttons'>
-                                            <a rel="nofollow" href="/shop/?add-to-cart=73" data-quantity="1" data-product_id="73" data-product_sku=""
-                                               class="small button button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
-                                            <div class="yith-wcwl-add-to-wishlist add-to-wishlist-73">
-                                                <div class="yith-wcwl-add-button show" style="display:block">
-                                                    <a href="/shop/?add_to_wishlist=73" rel="nofollow" data-product-id="73" data-product-type="simple"
-                                                       class="add_to_wishlist">Add to Wishlist</a>
-                                                    <img src="https://dreamspa.dttheme.com/wp-content/plugins/yith-woocommerce-wishlist/assets/images/wpspin_light.gif"
-                                                         class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" />
-                                                </div>
-                                                <div class="yith-wcwl-wishlistaddedbrowse hide" style="display:none;">
-                                                    <span class="feedback">Product added!</span>
-                                                    <a href="https://dreamspa.dttheme.com/wishlist/" rel="nofollow"> Browse Wishlist </a>
-                                                </div>
-                                                <div class="yith-wcwl-wishlistexistsbrowse hide" style="display:none">
-                                                    <span class="feedback">The product is already in the wishlist!</span>
-                                                    <a href="https://dreamspa.dttheme.com/wishlist/"
-                                                       rel="nofollow">Browse Wishlist</a>
-                                                </div>
-                                                <div style="clear:both"></div>
-                                                <div class="yith-wcwl-wishlistaddresponse"></div>
-                                            </div>
-                                            <div class="clear"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="post-99 product type-product status-publish has-post-thumbnail product_cat-music product_cat-singles pif-has-gallery sale shipping-taxable purchasable product-type-simple product-cat-music product-cat-singles instock">
-                            <div class='product-wrapper  product-three-column on-sale-product  in-stock-product '>
-                                <div class="product-container">
-                                    <a href="https://dreamspa.dttheme.com/product/spa-bars/">
-                                        <div class="product-thumb">
-                                            <img width="1000" height="1000" src="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product16.jpg"
-                                                 class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product16.jpg 1000w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product16-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product16-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product16-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product16-550x550.jpg 550w"
-                                                 sizes="(max-width: 1000px) 100vw, 1000px" />
-                                            <img width="500" height="500" src="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product14-550x550.jpg"
-                                                 class="secondary-image attachment-shop-catalog" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product14-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product14-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product14-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product14-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product14.jpg 1000w"
-                                                 sizes="(max-width: 500px) 100vw, 500px" />
-                                            <div class='product-rating-wrapper'>
-                                                <div class='product-rating-container'>
-                                                    <div class="star-rating" title="Rated 4.5 out of 5">
-                                                        <span style="width:90%">
-                                                            <strong class="rating">4.5</strong> out of 5
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <span class="onsale">
-                                                <span>Sale!</span>
-                                            </span>
-                                        </div>
-                                        <div class='product-title'>
-                                            <h3>Spa Bars</h3>
-                                            <p>Entice your dreams with new spa</p>
-                                        </div>
-                                    </a>
-                                    <div class='product-details'>
-                                        <span class="price">
-                                            <del>
-                                                <span class="amount">&pound;3.00</span>
-                                            </del>
-                                            <ins>
-                                                <span class="amount">&pound;2.00</span>
-                                            </ins>
-                                        </span>
-                                        <div class='product-buttons'>
-                                            <a rel="nofollow" href="/shop/?add-to-cart=99" data-quantity="1" data-product_id="99" data-product_sku=""
-                                               class="small button button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
-                                            <div class="yith-wcwl-add-to-wishlist add-to-wishlist-99">
-                                                <div class="yith-wcwl-add-button show" style="display:block">
-                                                    <a href="/shop/?add_to_wishlist=99" rel="nofollow" data-product-id="99" data-product-type="simple"
-                                                       class="add_to_wishlist">Add to Wishlist</a>
-                                                    <img src="https://dreamspa.dttheme.com/wp-content/plugins/yith-woocommerce-wishlist/assets/images/wpspin_light.gif"
-                                                         class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" />
-                                                </div>
-                                                <div class="yith-wcwl-wishlistaddedbrowse hide" style="display:none;">
-                                                    <span class="feedback">Product added!</span>
-                                                    <a href="https://dreamspa.dttheme.com/wishlist/" rel="nofollow"> Browse Wishlist </a>
-                                                </div>
-                                                <div class="yith-wcwl-wishlistexistsbrowse hide" style="display:none">
-                                                    <span class="feedback">The product is already in the wishlist!</span>
-                                                    <a href="https://dreamspa.dttheme.com/wishlist/"
-                                                       rel="nofollow">Browse Wishlist</a>
-                                                </div>
-                                                <div style="clear:both"></div>
-                                                <div class="yith-wcwl-wishlistaddresponse"></div>
-                                            </div>
-                                            <div class="clear"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="last post-90 product type-product status-publish has-post-thumbnail product_cat-albums product_cat-music pif-has-gallery downloadable shipping-taxable purchasable product-type-simple product-cat-albums product-cat-music instock">
-                            <div class='product-wrapper  product-three-column in-stock-product '>
-                                <div class="product-container">
-                                    <a href="https://dreamspa.dttheme.com/product/spa-candle/">
-                                        <div class="product-thumb">
-                                            <img width="1000" height="1000" src="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product19.jpg"
-                                                 class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product19.jpg 1000w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product19-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product19-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product19-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product19-550x550.jpg 550w"
-                                                 sizes="(max-width: 1000px) 100vw, 1000px" />
-                                            <img width="500" height="500" src="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product8-550x550.jpg"
-                                                 class="secondary-image attachment-shop-catalog" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product8-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product8-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product8-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product8-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product8.jpg 1000w"
-                                                 sizes="(max-width: 500px) 100vw, 500px" />
-                                            <div class='product-rating-wrapper'>
-                                                <div class='product-rating-container'>
-                                                    <div class="star-rating" title="Rated 3 out of 5">
-                                                        <span style="width:60%">
-                                                            <strong class="rating">3</strong> out of 5
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class='product-title'>
-                                            <h3>Spa Candle</h3>
-                                            <p>Entice your dreams with new spa</p>
-                                        </div>
-                                    </a>
-                                    <div class='product-details'>
-                                        <span class="price">
-                                            <span class="amount">&pound;9.00</span>
-                                        </span>
-                                        <div class='product-buttons'>
-                                            <a rel="nofollow" href="/shop/?add-to-cart=90" data-quantity="1" data-product_id="90" data-product_sku=""
-                                               class="small button button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
-                                            <div class="yith-wcwl-add-to-wishlist add-to-wishlist-90">
-                                                <div class="yith-wcwl-add-button show" style="display:block">
-                                                    <a href="/shop/?add_to_wishlist=90" rel="nofollow" data-product-id="90" data-product-type="simple"
-                                                       class="add_to_wishlist">Add to Wishlist</a>
-                                                    <img src="https://dreamspa.dttheme.com/wp-content/plugins/yith-woocommerce-wishlist/assets/images/wpspin_light.gif"
-                                                         class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" />
-                                                </div>
-                                                <div class="yith-wcwl-wishlistaddedbrowse hide" style="display:none;">
-                                                    <span class="feedback">Product added!</span>
-                                                    <a href="https://dreamspa.dttheme.com/wishlist/" rel="nofollow"> Browse Wishlist </a>
-                                                </div>
-                                                <div class="yith-wcwl-wishlistexistsbrowse hide" style="display:none">
-                                                    <span class="feedback">The product is already in the wishlist!</span>
-                                                    <a href="https://dreamspa.dttheme.com/wishlist/"
-                                                       rel="nofollow">Browse Wishlist</a>
-                                                </div>
-                                                <div style="clear:both"></div>
-                                                <div class="yith-wcwl-wishlistaddresponse"></div>
-                                            </div>
-                                            <div class="clear"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="first post-87 product type-product status-publish has-post-thumbnail product_cat-albums product_cat-music pif-has-gallery downloadable shipping-taxable purchasable product-type-simple product-cat-albums product-cat-music instock">
-                            <div class='product-wrapper  product-three-column in-stock-product '>
-                                <div class="product-container">
-                                    <a href="https://dreamspa.dttheme.com/product/spa-decor-set/">
-                                        <div class="product-thumb">
-                                            <img width="1000" height="1000" src="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product20.jpg"
-                                                 class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product20.jpg 1000w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product20-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product20-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product20-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product20-550x550.jpg 550w"
-                                                 sizes="(max-width: 1000px) 100vw, 1000px" />
-                                            <img width="500" height="500" src="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product8-550x550.jpg"
-                                                 class="secondary-image attachment-shop-catalog" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product8-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product8-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product8-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product8-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product8.jpg 1000w"
-                                                 sizes="(max-width: 500px) 100vw, 500px" />
-                                            <div class='product-rating-wrapper'>
-                                                <div class='product-rating-container'>
-                                                    <div class="star-rating" title="Rated 4 out of 5">
-                                                        <span style="width:80%">
-                                                            <strong class="rating">4</strong> out of 5
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class='product-title'>
-                                            <h3>Spa Decor Set</h3>
-                                            <p>Entice your dreams with new spa</p>
-                                        </div>
-                                    </a>
-                                    <div class='product-details'>
-                                        <span class="price">
-                                            <span class="amount">&pound;9.00</span>
-                                        </span>
-                                        <div class='product-buttons'>
-                                            <a rel="nofollow" href="/shop/?add-to-cart=87" data-quantity="1" data-product_id="87" data-product_sku=""
-                                               class="small button button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
-                                            <div class="yith-wcwl-add-to-wishlist add-to-wishlist-87">
-                                                <div class="yith-wcwl-add-button show" style="display:block">
-                                                    <a href="/shop/?add_to_wishlist=87" rel="nofollow" data-product-id="87" data-product-type="simple"
-                                                       class="add_to_wishlist">Add to Wishlist</a>
-                                                    <img src="https://dreamspa.dttheme.com/wp-content/plugins/yith-woocommerce-wishlist/assets/images/wpspin_light.gif"
-                                                         class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" />
-                                                </div>
-                                                <div class="yith-wcwl-wishlistaddedbrowse hide" style="display:none;">
-                                                    <span class="feedback">Product added!</span>
-                                                    <a href="https://dreamspa.dttheme.com/wishlist/" rel="nofollow"> Browse Wishlist </a>
-                                                </div>
-                                                <div class="yith-wcwl-wishlistexistsbrowse hide" style="display:none">
-                                                    <span class="feedback">The product is already in the wishlist!</span>
-                                                    <a href="https://dreamspa.dttheme.com/wishlist/"
-                                                       rel="nofollow">Browse Wishlist</a>
-                                                </div>
-                                                <div style="clear:both"></div>
-                                                <div class="yith-wcwl-wishlistaddresponse"></div>
-                                            </div>
-                                            <div class="clear"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="pagination product-pagination">
-                        <div class="prev-post"></div>
-                        <ul class=''>
-                            <li class='active-page'>1</li>
-                            <li>
-                                <a href='https://dreamspa.dttheme.com/shop/page/2/' class='inactive'>2</a>
-                            </li>
+                                </li>
+
+                                if (_index == 3)
+                                {
+                                    _last = "last";
+                                    _index = 1;
+                                }
+                                else
+                                {
+                                    _last = "";
+                                    _index = _index + 1;
+                                }
+
+                            } 
                         </ul>
-                        <div class="next-post">
-                            <a href="https://dreamspa.dttheme.com/shop/page/2/">Next</a>
-                        </div>
-                    </div>
+                    }
+                    
+                    @if (Model != null && Model.TotalPage > 0)
+                    {
+                        <div class="pagination product-pagination">
+                            <div class="prev-post"></div>
+                            <ul class=''>
+                                @for (var i = 1; i <= Model.TotalPage; i++)
+                                {
+                                    if (i == 1)
+                                    {
+                                        <li class='active-page'>@i</li>
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            <a href='javascript:void(0)' class='inactive'>@i</a>
+                                        </li>
+                                    }
+                                }
+                                </ul>
+                                <div class="next-post">
+                                    <a href="https://dreamspa.dttheme.com/shop/page/2/">Next</a>
+                                </div>
+</div>
+                    }
+                    
                 </section>
                 <section id='secondary-right' class='secondary-sidebar secondary-has-right-sidebar'>
                     <aside id="woocommerce_product_categories-3" class="widget woocommerce widget_product_categories">
