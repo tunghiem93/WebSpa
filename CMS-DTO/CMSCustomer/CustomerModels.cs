@@ -43,7 +43,6 @@ namespace CMS_DTO.CMSCustomer
         public string ImageURL { get; set; }
         [DataType(DataType.Upload)]
         public HttpPostedFileBase PictureUpload { get; set; }
-
         public byte[] PictureByte { get; set; }
         public List<SelectListItem> ListMarital { get; set; }
         public List<SelectListItem> ListGender { get; set; }

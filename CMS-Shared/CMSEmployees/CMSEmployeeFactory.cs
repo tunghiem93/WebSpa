@@ -168,7 +168,7 @@ namespace CMS_Shared.CMSEmployees
             }
             catch (Exception ex)
             {
-                NSLog.Logger.Error("ErrorDiscountGetDetail", ex);
+                NSLog.Logger.Error("ErrorEmployeeGetDetail", ex);
             }
             return result;
         }
