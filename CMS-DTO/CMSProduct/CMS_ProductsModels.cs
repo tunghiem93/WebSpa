@@ -21,7 +21,7 @@ namespace CMS_DTO.CMSProduct
         public string ProductName { get; set; }
         [Required(ErrorMessage ="Vui lòng nhập giá sản phẩm")]
         [Range(0,Int64.MaxValue,ErrorMessage ="Giá sản phẩm phải lớn hơn 0")]
-        public decimal ProductPrice { get; set; }
+        public double ProductPrice { get; set; }
         [Required(ErrorMessage ="Vui lòng chọn thể loại")]
         public string CategoryId { get; set; }
         public string CreatedBy { get; set; }

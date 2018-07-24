@@ -34,7 +34,7 @@ namespace CMS_Shared.CMSProducts
                             PrintOutText = model.PrintOutText,
                             IsActive = model.IsActive,
                             ImageURL = model.ImageURL,
-                            Cost = (double)model.ProductPrice,
+                            Cost = model.ProductPrice,
                             Unit = model.Unit,
                             Measure = model.Measure,
                             Quantity = (decimal)model.Quantity,
@@ -73,7 +73,7 @@ namespace CMS_Shared.CMSProducts
                             e.PrintOutText = model.PrintOutText;
                             e.IsActive = model.IsActive;
                             e.ImageURL = model.ImageURL;
-                            e.Cost = (double)model.ProductPrice;
+                            e.Cost = model.ProductPrice;
                             e.Unit = model.Unit;
                             e.Measure = model.Measure;
                             e.Quantity = (decimal)model.Quantity;
@@ -169,7 +169,7 @@ namespace CMS_Shared.CMSProducts
                             PrintOutText = o.PrintOutText,
                             IsActive = o.IsActive,
                             ImageURL = o.ImageURL,
-                            ProductPrice = (decimal)o.Cost,
+                            ProductPrice = o.Cost,
                             Unit = o.Unit ?? 1,
                             Measure = o.Measure,
                             Quantity = (double)o.Quantity,
@@ -221,7 +221,7 @@ namespace CMS_Shared.CMSProducts
                             PrintOutText = o.PrintOutText,
                             IsActive = o.IsActive,
                             ImageURL = o.ImageURL,
-                            ProductPrice = (decimal)o.Cost,
+                            ProductPrice = o.Cost,
                             Unit = o.Unit ?? 1,
                             Measure = o.Measure,
                             Quantity = (double)o.Quantity,
