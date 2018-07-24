@@ -34,9 +34,9 @@
                                 <li class="@_first @_last post-93 product type-product status-publish has-post-thumbnail product_cat-music product_cat-singles pif-has-gallery downloadable shipping-taxable purchasable product-type-simple product-cat-music product-cat-singles instock">
                                     <div class='product-wrapper  product-three-column in-stock-product '>
                                         <div class="product-container">
-                                            <a href="javascript:void(0)">
+                                            <a href="@Url.Action("Index","Product",new { product_name = item.ProductName,product_id=item.Id})">
                                                 <div class="product-thumb">
-                                                    <img width="1000" height="1000" src="@item.ImageURL"
+                                                    <img @*width="1000" height="1000"*@ src="@item.ImageURL"
                                                          class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" srcset="@item.ImageURL 1000w, @item.ImageURL 150w, @item.ImageURL 300w, @item.ImageURL 90w, @item.ImageURL 550w"
                                                          sizes="(max-width: 1000px) 100vw, 1000px" />
                                                     <img width="500" height="500" src="@item.ImageURL"
@@ -44,7 +44,7 @@
                                                          sizes="(max-width: 500px) 100vw, 500px" />
                                                 </div>
                                                 <div class='product-title'>
-                                                    <h3>@item.ProductName</h3>
+                                                    <h3>@string.Format("{0}",!string.IsNullOrEmpty(item.ProductName) && item.ProductName.Length > 35 ? item.ProductName.Substring(0,35) + "..." : item.ProductName)</h3>
                                                     <p>@string.Format("{0}",!string.IsNullOrEmpty(item.Description) && item.Description.Length >30 ? item.Description.Substring(0,30) + "..." : item.Description)</p>
                                                 </div>
                                             </a>
@@ -57,7 +57,7 @@
                                                        class="small button button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
                                                     <div class="yith-wcwl-add-to-wishlist add-to-wishlist-93">
                                                         <div class="yith-wcwl-add-button show" style="display:block">
-                                                            <a href="/shop/?add_to_wishlist=93" rel="nofollow" data-product-id="93" data-product-type="simple"
+                                                            <a href="javascript:void(0)" rel="nofollow" data-product-id="93" data-product-type="simple"
                                                                class="add_to_wishlist">Add to Wishlist</a>
                                                             <img src="@Url.Content("~/Images/wpspin_light.gif")"
                                                                  class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" />
@@ -141,7 +141,7 @@
                                     }
 
                                     <li class="cat-item cat-item-16 @_parent">
-                                        <a href="javascript:void(0)">@item.Name</a>
+                                        <a href="javascript:void(0)">@string.Format("{0}",!string.IsNullOrEmpty(item.Name) && item.Name.Length > 35 ? item.Name.Substring(0,35) + "..." : item.Name)</a>
                                         <span class="count">(@item.TotalProduct)</span>
                                         @if (item.Children != null && item.Children.Any())
                                         {
@@ -149,7 +149,7 @@
                                                 @foreach (var itemchild in item.Children)
                                                 {
                                                     <li class="cat-item cat-item-17">
-                                                        <a href="javascript:void(0)">@itemchild.Name</a>
+                                                        <a href="javascript:void(0)">@string.Format("{0}",!string.IsNullOrEmpty(itemchild.Name) && itemchild.Name.Length > 35 ? itemchild.Name.Substring(0,35)+"..." : itemchild.Name)</a>
                                                         <span class="count">(@itemchild.TotalProduct)</span>
                                                     </li>
                                                 }
@@ -161,43 +161,32 @@
                         </aside>
                     }
                     
-                    <aside id="woocommerce_products-4" class="widget woocommerce widget_products">
-                        <h3 class="widgettitle">Best Selling Products</h3>
-                        <ul class="product_list_widget">
-                            <li>
-                                <a href="https://dreamspa.dttheme.com/product/spa-bars/" title="Spa Bars">
-                                    <img width="90" height="90" src="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product16-90x90.jpg"
-                                         class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product16-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product16-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product16-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product16-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product16.jpg 1000w"
-                                         sizes="(max-width: 90px) 100vw, 90px" />
-                                    <span class="product-title">Spa Bars</span>
-                                </a>
-                                <del>
-                                    <span class="amount">&pound;3.00</span>
-                                </del>
-                                <ins>
-                                    <span class="amount">&pound;2.00</span>
-                                </ins>
-                            </li>
-                            <li>
-                                <a href="https://dreamspa.dttheme.com/product/wollen-spa-cloth/" title="Wollen Spa Cloth">
-                                    <img width="90" height="90" src="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product17-90x90.jpg"
-                                         class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product17-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product17-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product17-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product17-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product17.jpg 1000w"
-                                         sizes="(max-width: 90px) 100vw, 90px" />
-                                    <span class="product-title">Wollen Spa Cloth</span>
-                                </a>
-                                <span class="amount">&pound;9.00</span>
-                            </li>
-                            <li>
-                                <a href="https://dreamspa.dttheme.com/product/dry-aroma-petals-for-bath/" title="Dry Aroma Petals for Bath">
-                                    <img width="90" height="90" src="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product18-90x90.jpg"
-                                         class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product18-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product18-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product18-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product18-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product18.jpg 1000w"
-                                         sizes="(max-width: 90px) 100vw, 90px" />
-                                    <span class="product-title">Dry Aroma Petals for Bath</span>
-                                </a>
-                                <span class="amount">&pound;3.00</span>
-                            </li>
-                        </ul>
-                    </aside>
+                    @if (Model != null && Model.ProductNew != null && Model.ProductNew.Any())
+                    {
+                        <aside id="woocommerce_products-4" class="widget woocommerce widget_products">
+                            <h3 class="widgettitle">Sản phẩm mới nhất</h3>
+                            <ul class="product_list_widget">
+                                @foreach (var item in Model.ProductNew)
+                                {
+                                    <li>
+                                        <a href="javascript:void(0)" title="@item.ProductName">
+                                            <img width="90" height="90" src="@item.ImageURL"
+                                                 class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="" srcset="@item.ImageURL 90w, @item.ImageURL 150w, @item.ImageURL 300w, @item.ImageURL 550w, @item.ImageURL 1000w"
+                                                 sizes="(max-width: 90px) 100vw, 90px" />
+                                            <span class="product-title">@string.Format("{0}",!string.IsNullOrEmpty(item.ProductName) && item.ProductName.Length > 35 ? item.ProductName.Substring(0,35) + "..." : item.ProductName)</span>
+                                        </a>
+                                        @*<del>
+                                            <span class="amount">&pound;3.00</span>
+                                        </del>*@
+                                        <ins>
+                                            <span class="amount">&pound; @item.ProductPrice.ToString("#,0")</span>
+                                        </ins>
+                                    </li>
+                                }
+                            </ul>
+                        </aside>
+                    }
+                    
                     <aside id="woocommerce_price_filter-3" class="widget woocommerce widget_price_filter">
                         <h3 class="widgettitle">Filter by price</h3>
                         <form method="get" action="https://dreamspa.dttheme.com/shop/">
@@ -219,12 +208,12 @@
                     </aside>
                     <aside id="text-12" class="widget widget_text">
                         <div class="textwidget">
-                            <img src="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/shop-widget-discount.png" alt="" tite="" />
+                            <img src="@Url.Content("~/Images/shop-widget-discount.png")" alt="" tite="" />
                         </div>
                     </aside>
                     <aside id="text-13" class="widget widget_text">
                         <div class="textwidget">
-                            <img src="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/shop-widget-special.png" alt="" tite="" />
+                            <img src="@Url.Content("~/Images/shop-widget-special.png")" alt="" tite="" />
                         </div>
                     </aside>
                 </section>
@@ -233,3 +222,26 @@
 
     </div>
 </div>
+@*<script type='text/javascript' src='https://dreamspa.dttheme.com/wp-includes/js/jquery/ui/widget.min.js?ver=1.11.4'></script>
+<script type='text/javascript' src='https://dreamspa.dttheme.com/wp-includes/js/jquery/ui/mouse.min.js?ver=1.11.4'></script>
+<script type='text/javascript' src='https://dreamspa.dttheme.com/wp-includes/js/jquery/ui/slider.min.js?ver=1.11.4'></script>
+<script type='text/javascript' src='https://dreamspa.dttheme.com/wp-content/plugins/woocommerce/assets/js/jquery-ui-touch-punch/jquery-ui-touch-punch.min.js?ver=2.5.5'></script>
+<script type='text/javascript'>
+    /*  */
+    var woocommerce_price_slider_params = {
+        "currency_symbol": "\u00a3",
+        "currency_pos": "left",
+        "min_price": "",
+        "max_price": ""
+    };
+        /*  */
+</script>
+<script type='text/javascript' src='https://dreamspa.dttheme.com/wp-content/plugins/woocommerce/assets/js/frontend/price-slider.min.js?ver=2.5.5'></script>*@
+
+@*<script src="@Url.Content("~/Scripts/slider.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery-ui-touch-punch.min.js")"></script>
+<script type="text/javascript">
+/*  */
+    var woocommerce_price_slider_params = { "currency_symbol": "\u00a3", "currency_pos": "left", "min_price": "", "max_price": "" };
+/*  */</script>
+<script src="@Url.Content("~/Scripts/price-slider.min.js")"></script>*@

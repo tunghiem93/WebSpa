@@ -11,7 +11,15 @@ namespace CMS_DTO.CMSShop
     public class CMS_ShopViewModels
     {
         public List<CMS_ProductsModels> Products { get; set; }
+        public List<CMS_ProductsModels> ProductNew { get; set; }
         public List<CMS_CategoryViewModels> Categories { get; set; }
         public int TotalPage { get; set; }
+
+        public CMS_ShopViewModels()
+        {
+            Products = new List<CMS_ProductsModels>();
+            ProductNew = new List<CMS_ProductsModels>();
+            Categories = new List<CMS_CategoryViewModels>();
+        }
     }
 }

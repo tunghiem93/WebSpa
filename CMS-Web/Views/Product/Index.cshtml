@@ -1,0 +1,274 @@
+﻿@model CMS_DTO.CMSProduct.ProductDetailViewModels
+
+<style type="text/css">
+    .product_main .images{
+        width : 49% ;
+        float:left;
+    }
+
+    .product_main .entry-summary{
+        float:right;
+        width:48%;
+    }
+
+    .product_main .cart {
+        margin-bottom: 20px;
+        margin-top: 20px;
+        display: inline-block;
+        width: 100%;
+        position: relative;
+        z-index: 0;
+        border-bottom: 1px dashed #d2c4b9;
+        border-top: 1px dashed #d2c4b9;
+        padding: 0px 0 60px !important;
+        /*clear: both;*/
+    } 
+    .product_main .quantity {
+        float: left;
+        margin: 0 4px 0 0;
+    }
+
+    .product_main .single_add_to_cart_button {
+        vertical-align: middle;
+        float: left;
+        margin-top: 9px;
+        margin-left: 10px;
+    }
+
+    .product_main input.qty {
+        padding: 5px;
+        height: 43px;
+        width: 65px !important;
+        float: left;
+        text-align: center;
+        border: 1px solid #e5e5d8;
+        background: #fff;
+        font-weight: bold;
+        margin-bottom: 0;
+        margin-top: 10px;
+    }
+</style>
+
+@if (Model != null && Model.Product != null)
+{
+    <div id="main" class="product_main">
+        <section class='title-section'>
+            <div class="title-wrapper">
+                <div class="container">
+                    <div class="border-title aligncenter">
+                        <h1>@Model.Product.ProductName</h1>
+                        <h6>Entice your dreams with new spa</h6>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="container">
+            <section id='secondary-left' class='secondary-sidebar secondary-has-left-sidebar'>
+                <!--PRODUCT CATEGORIES-->
+                @if (Model.Categories != null && Model.Categories.Any())
+                {
+                    var _parent = "";
+                    <aside id="woocommerce_product_categories-2" class="widget woocommerce widget_product_categories">
+                        <h3 class="widgettitle">Product Categories</h3>
+                        <ul class="product-categories">
+                            @foreach (var item in Model.Categories)
+                            {
+                                if (item.Children != null && item.Children.Count > 0)
+                                {
+                                    _parent = "cat-parent";
+                                }
+                                else
+                                {
+                                    _parent = "";
+                                }
+
+                                <li class="cat-item cat-item-16 @_parent">
+                                    <a href="javascript:void(0)">@string.Format("{0}", !string.IsNullOrEmpty(item.Name) && item.Name.Length > 35 ? item.Name.Substring(0, 35) + "..." : item.Name)</a>
+                                    <span class="count">(@item.TotalProduct)</span>
+                                    @if (item.Children != null && item.Children.Any())
+                                    {
+                                        <ul class='children'>
+                                            @foreach (var itemchild in item.Children)
+                                            {
+                                                <li class="cat-item cat-item-17">
+                                                    <a href="javascript:void(0)">@string.Format("{0}", !string.IsNullOrEmpty(itemchild.Name) && itemchild.Name.Length > 35 ? itemchild.Name.Substring(0, 35) + "..." : itemchild.Name)</a>
+                                                    <span class="count">(@itemchild.TotalProduct)</span>
+                                                </li>
+                                            }
+                                        </ul>
+                                    }
+                                </li>
+                            }
+                        </ul>
+                    </aside>
+                }
+                
+                <!--PRODUCT NEW-->
+                @if (Model.ProductNew != null && Model.ProductNew.Any())
+                {
+                    <aside id="woocommerce_products-3" class="widget woocommerce widget_products">
+                        <h3 class="widgettitle">Sản phẩm mới nhất</h3>
+                        <ul class="product_list_widget">
+                            @foreach (var item in Model.ProductNew)
+                            {
+                                <li>
+                                    <a href="javascript:void(0)" title="@item.ProductName">
+                                        <img width="90" height="90" src="@item.ImageURL"
+                                             class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="" srcset="@item.ImageURL 90w, @item.ImageURL 150w, @item.ImageURL 300w, @item.ImageURL 550w, @item.ImageURL 1000w"
+                                             sizes="(max-width: 90px) 100vw, 90px" />
+                                        <span class="product-title">@string.Format("{0}", !string.IsNullOrEmpty(item.ProductName) && item.ProductName.Length > 35 ? item.ProductName.Substring(0, 35) + "..." : item.ProductName)</span>
+                                    </a>
+                                    <ins>
+                                        <span class="amount">&pound; @item.ProductPrice.ToString("#,0")</span>
+                                    </ins>
+                                </li>
+                            }
+                        </ul>
+
+                    </aside>
+                }
+                
+                <aside id="text-10" class="widget widget_text">
+                    <div class="textwidget"><img src="@Url.Content("~/Images/shop-widget-discount.png")" alt="" tite="" /></div>
+                </aside>
+                <aside id="text-11" class="widget widget_text">
+                    <div class="textwidget"><img src="@Url.Content("~/Images/shop-widget-special.png")" alt="" tite="" /></div>
+                </aside>
+            </section>
+            <section id='primary' class='page-with-sidebar with-left-sidebar'>
+                <div itemscope itemtype="http://schema.org/Product" id="product-93" class="post-93 product type-product status-publish has-post-thumbnail product_cat-music product_cat-singles pif-has-gallery downloadable shipping-taxable purchasable product-type-simple product-cat-music product-cat-singles instock">
+                    <div class="images">
+                        <a href="@Model.Product.ImageURL" itemprop="image" class="woocommerce-main-image zoom" title="" data-rel="prettyPhoto[product-gallery]">
+                            <img width="550" height="550" style="height:auto" src="@Model.Product.ImageURL" class="attachment-shop_single size-shop_single wp-post-image" alt="" title="product18" srcset="@Model.Product.ImageURL 550w, @Model.Product.ImageURL 150w, @Model.Product.ImageURL 300w, @Model.Product.ImageURL 90w, @Model.Product.ImageURL 1000w" sizes="(max-width: 550px) 100vw, 550px" />
+                        </a>
+                        @*<div class="thumbnails columns-3">
+                            <a href="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9.jpg" class="zoom first" title="" data-rel="prettyPhoto[product-gallery]">
+                                <img width="90" height="90" style="height:auto" src="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9-90x90.jpg" class="attachment-shop_thumbnail size-shop_thumbnail" alt="product9" title="product9" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9.jpg 1000w" sizes="(max-width: 90px) 100vw, 90px" />
+                            </a>
+                            <a href="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product1.jpg" class="zoom" title="" data-rel="prettyPhoto[product-gallery]">
+                                <img width="90" height="90" style="height:auto" src="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product1-90x90.jpg" class="attachment-shop_thumbnail size-shop_thumbnail" alt="product1" title="product1" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product1-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product1-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product1-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product1-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product1.jpg 1000w" sizes="(max-width: 90px) 100vw, 90px" />
+                            </a>
+                            <a href="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product10.jpg" class="zoom last" title="" data-rel="prettyPhoto[product-gallery]">
+                                <img width="90" height="90" style="height:auto" src="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product10-90x90.jpg" class="attachment-shop_thumbnail size-shop_thumbnail" alt="product10" title="product10" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product10-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product10-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product10-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product10-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product10.jpg 1000w" sizes="(max-width: 90px) 100vw, 90px" />
+                            </a>
+                        </div>*@
+                    </div>
+                    <div class="summary entry-summary">
+                        <h1 itemprop="name" class="product_title entry-title">@Model.Product.ProductName</h1>
+                        <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                            <p class="price" style="top:40px !important;"><span class="amount">&pound; @Model.Product.ProductPrice.ToString("#,0")</span></p>
+                            @*<meta itemprop="price" content="3" />
+                            <meta itemprop="priceCurrency" content="GBP" />
+                            <link itemprop="availability" href="http://schema.org/InStock" />*@
+                        </div>
+                        <div itemprop="description">
+                            @Html.Raw(Model.Product.Description)
+                        </div>
+                        <form class="cart" method="post" enctype='multipart/form-data'>
+                            <div class="quantity">
+                                <input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" />
+                            </div>
+                            <input type="hidden" name="add-to-cart" value="93" />
+                            <button type="submit" class="single_add_to_cart_button button alt">Add to cart</button>
+                        </form>
+                    </div>
+                    <div class="woocommerce-tabs wc-tabs-wrapper">
+                        <ul class="tabs wc-tabs">
+                            <li class="description_tab"> <a href="#tab-description">Description</a></li>
+                        </ul>
+                        <div class="panel entry-content wc-tab" id="tab-description">
+                            <h2>Product Description</h2>
+                            @Html.Raw(Model.Product.Description)
+                        </div>
+                    </div>
+
+                    @if (Model.ListProduct != null && Model.ListProduct.Any())
+                    {
+                        string _first = "first";
+                        string _last = "";
+                        var _index = 1;
+                        <div class='related-products-container'>
+                            <div class="related products">
+                                <h2>Sản phẩm tương tự</h2>
+                                <ul class="products">
+                                    @foreach (var item in Model.ListProduct)
+                                    {
+                                        if (_index == 1)
+                                        {
+                                            _first = "first";
+                                        }
+                                        else
+                                        {
+                                            _first = "";
+                                        }
+                                        <li class="@_first @_last post-87 product type-product status-publish has-post-thumbnail product_cat-albums product_cat-music pif-has-gallery downloadable shipping-taxable purchasable product-type-simple product-cat-albums product-cat-music instock">
+                                            <div class='product-wrapper product-three-column in-stock-product '>
+                                                <div class="product-container">
+                                                    <a href="@Url.Action("Index","Product",new { product_name = item.ProductName,product_id=item.Id})">
+                                                        <div class="product-thumb">
+                                                            <img width="1000" height="1000" style="height:auto" src="@item.ImageURL" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" srcset="@item.ImageURL 1000w, @item.ImageURL 150w, @item.ImageURL 300w, @item.ImageURL 90w, @item.ImageURL 550w" sizes="(max-width: 1000px) 100vw, 1000px" />
+                                                            <img width="500" height="500" src="@item.ImageURL" class="secondary-image attachment-shop-catalog" alt="" srcset="@item.ImageURL 550w, @item.ImageURL 150w, @item.ImageURL 300w, @item.ImageURL 90w, @item.ImageURL 1000w" sizes="(max-width: 500px) 100vw, 500px" />
+                                                            @*<div class='product-rating-wrapper'>
+                                                                <div class='product-rating-container'>
+                                                                    <div class="star-rating" title="Rated 4 out of 5"><span style="width:80%"><strong class="rating">4</strong> out of 5</span></div>
+                                                                </div>
+                                                            </div>*@
+                                                        </div>
+                                                        <div class='product-title'>
+                                                            <h3>@string.Format("{0}", !string.IsNullOrEmpty(item.ProductName) && item.ProductName.Length > 35 ? item.ProductName.Substring(0,35) + "..." : item.ProductName)</h3>
+                                                            <p>@Html.Raw(item.Description)</p>
+                                                        </div>
+                                                    </a>
+                                                    <div class='product-details'>
+                                                        <span class="price"><span class="amount">&pound; @item.ProductPrice.ToString("#,0")</span></span>
+                                                        <div class='product-buttons'>
+                                                            <a rel="nofollow" href="javascript:void(0)" data-quantity="1" data-product_id="87" data-product_sku="" class="small button button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
+                                                            <div class="yith-wcwl-add-to-wishlist add-to-wishlist-87">
+                                                                <div class="yith-wcwl-add-button show" style="display:block"> <a href="javascript:void(0)" rel="nofollow" data-product-id="87" data-product-type="simple" class="add_to_wishlist"> Add to Wishlist</a> 
+                                                                <img src="@Url.Content("~/Images/wpspin_light.gif")" class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" /></div>
+                                                                <div class="yith-wcwl-wishlistaddedbrowse hide" style="display:none;"> <span class="feedback">Product added!</span> <a href="javascript:void(0)" rel="nofollow"> Browse Wishlist </a></div>
+                                                                <div class="yith-wcwl-wishlistexistsbrowse hide" style="display:none"> <span class="feedback">The product is already in the wishlist!</span> <a href="javascript:void(0)" rel="nofollow"> Browse Wishlist </a></div>
+                                                                <div style="clear:both"></div>
+                                                                <div class="yith-wcwl-wishlistaddresponse"></div>
+                                                            </div>
+                                                            <div class="clear"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        if (_index == 3)
+                                        {
+                                            _last = "last";
+                                            _index = 1;
+                                        }
+                                        else
+                                        {
+                                            _last = "";
+                                            _index = _index + 1;
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    }
+                    
+                    <meta itemprop="url" content="https://dreamspa.dttheme.com/product/dry-aroma-petals-for-bath/" />
+                </div>
+            </section>
+            <section id='secondary-right' class='secondary-sidebar secondary-has-left-sidebar'></section>
+        </div>
+    </div>
+}
+    
+    <script type='text/javascript'>
+        /*  */
+        var wc_single_product_params = {
+            "i18n_required_rating_text": "Please select a rating",
+            "review_rating_required": "yes"
+        };
+        /*  */
+    </script>
+    <script type='text/javascript' src='//dreamspa.dttheme.com/wp-content/plugins/woocommerce/assets/js/frontend/single-product.min.js?ver=2.5.5'></script>
+    <script type='text/javascript' src='//dreamspa.dttheme.com/wp-content/plugins/woocommerce/assets/js/jquery-blockui/jquery.blockUI.min.js?ver=2.70'></script>
