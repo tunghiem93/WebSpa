@@ -25,7 +25,10 @@ namespace CMS_DataModel.Models
         public string IC { get; set; }
 
         [StringLength(50)]
-        public string Name { get; set; }
+        public string FirstName { get; set; }
+
+        [StringLength(50)]
+        public string LastName { get; set; }
 
         public bool? IsActive { get; set; }
 
