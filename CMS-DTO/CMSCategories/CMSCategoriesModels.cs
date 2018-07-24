@@ -16,9 +16,9 @@ namespace CMS_DTO.CMSCategories
         [MaxLength(60,ErrorMessage ="Tên thể loại tối đa 250 kí tự")]
         public string CategoryName { get; set; }
 
-        [Required(ErrorMessage ="Vui lòng nhập mã thể loại")]
-        [MaxLength(50, ErrorMessage = "Mã thể loại tối đa 50 kí tự")]
-        public string CategoryCode { get; set; }
+        //[Required(ErrorMessage ="Vui lòng nhập mã thể loại")]
+        //[MaxLength(50, ErrorMessage = "Mã thể loại tối đa 50 kí tự")]
+        //public string CategoryCode { get; set; }
         public bool IsActive { get; set; }
         [AllowHtml]
         public string Description { get; set; }
@@ -32,10 +32,13 @@ namespace CMS_DTO.CMSCategories
         public string StoreID { get; set; }
         public bool IsShowInReservation { get; set; }
         public int ProductTypeCode { get; set; }
+        public string sProductTypeCode { get; set; }
         public int Sequence { get; set; }
         public CMSCategoriesModels()
         {
             IsActive = true;
+            StoreID = "Spa";
+            IsShowInReservation = true;
         }
     }
 }

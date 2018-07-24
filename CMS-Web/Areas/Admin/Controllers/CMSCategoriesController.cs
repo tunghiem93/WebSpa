@@ -35,8 +35,7 @@ namespace CMS_Web.Areas.Admin.Controllers
             model.ForEach(x =>
             {
                 x.sStatus = x.IsActive ? "Kích hoạt" : "Chưa kích hoạt";
-                if (!string.IsNullOrEmpty(x.ImageURL))
-                    x.ImageURL = Commons.HostImage + "Categories/" + x.ImageURL;
+                x.sProductTypeCode = x.ProductTypeCode == (int)Commons.EProductType.Product ? "Sản phẩm" : "Dịch vụ";
             });
             return PartialView("_ListData",model);
         }
@@ -75,6 +74,8 @@ namespace CMS_Web.Areas.Admin.Controllers
                 }
                 var Id = "";
                 var msg = "";
+                model.CreatedBy = CurrentUser.UserId;
+                model.UpdatedBy = CurrentUser.UserId;
                 var result = _factory.CreateOrUpdate(model,ref Id,ref msg);
                 if (result)
                 {
@@ -103,8 +104,6 @@ namespace CMS_Web.Areas.Admin.Controllers
         public ActionResult Edit(string Id)
         {
             var model = GetDetail(Id);
-            if (!string.IsNullOrEmpty(model.ImageURL))
-                model.ImageURL = Commons.HostImage + "Categories/" + model.ImageURL;
             return PartialView("_Edit", model);
         }
 
@@ -137,6 +136,8 @@ namespace CMS_Web.Areas.Admin.Controllers
                 }
                 var Id = "";
                 var msg = "";
+                model.CreatedBy = CurrentUser.UserId;
+                model.UpdatedBy = CurrentUser.UserId;
                 var result = _factory.CreateOrUpdate(model, ref Id, ref msg);
                 if (result)
                 {
@@ -173,6 +174,7 @@ namespace CMS_Web.Areas.Admin.Controllers
             var model = GetDetail(Id);
             if (!string.IsNullOrEmpty(model.ImageURL))
                 model.ImageURL = Commons.HostImage + "Categories/" + model.ImageURL;
+            model.sProductTypeCode = model.ProductTypeCode == (int)Commons.EProductType.Product ? "Sản phẩm" : "Dịch vụ";
             return PartialView("_View", model);
         }
 
