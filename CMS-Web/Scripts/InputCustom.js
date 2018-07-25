@@ -55,6 +55,20 @@ function init_ICheckMoney() {
             }
         }
     });
+
+    $(".keyNumber").keypress(function (e) {
+        if (window.event) {
+            if (/*window.event.keyCode != 46 &&*/ window.event.keyCode > 31
+                && (window.event.keyCode < 48 || window.event.keyCode > 57)) {
+                return (false);//chrome and IE
+            }
+        } else {
+            if (/*e.which != 46 &&*/ e.which > 31
+                && (e.which < 48 || e.which > 57)) {
+                return (false);//firefox
+            }
+        }
+    });
 }
 
 $(document).ready(function () {

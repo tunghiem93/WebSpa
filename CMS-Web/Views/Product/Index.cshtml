@@ -119,7 +119,7 @@
                                         <span class="product-title">@string.Format("{0}", !string.IsNullOrEmpty(item.ProductName) && item.ProductName.Length > 35 ? item.ProductName.Substring(0, 35) + "..." : item.ProductName)</span>
                                     </a>
                                     <ins>
-                                        <span class="amount">&pound; @item.ProductPrice.ToString("#,0")</span>
+                                        <span class="amount"> @item.ProductPrice.ToString("#,0") đ</span>
                                     </ins>
                                 </li>
                             }
@@ -136,6 +136,8 @@
                 </aside>
             </section>
             <section id='primary' class='page-with-sidebar with-left-sidebar'>
+                <div class="woocommerce-message hidden"><a href="javascript:void(0)" class="button wc-forward">View Cart</a> “@Model.Product.ProductName” has been added to your cart.</div>
+
                 <div itemscope itemtype="http://schema.org/Product" id="product-93" class="post-93 product type-product status-publish has-post-thumbnail product_cat-music product_cat-singles pif-has-gallery downloadable shipping-taxable purchasable product-type-simple product-cat-music product-cat-singles instock">
                     <div class="images">
                         <a href="@Model.Product.ImageURL" itemprop="image" class="woocommerce-main-image zoom" title="" data-rel="prettyPhoto[product-gallery]">
@@ -152,22 +154,11 @@
                                 }
                             </div>
                         }
-                        @*<div class="thumbnails columns-3">
-                            <a href="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9.jpg" class="zoom first" title="" data-rel="prettyPhoto[product-gallery]">
-                                <img width="90" height="90" style="height:auto" src="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9-90x90.jpg" class="attachment-shop_thumbnail size-shop_thumbnail" alt="product9" title="product9" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9.jpg 1000w" sizes="(max-width: 90px) 100vw, 90px" />
-                            </a>
-                            <a href="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product1.jpg" class="zoom" title="" data-rel="prettyPhoto[product-gallery]">
-                                <img width="90" height="90" style="height:auto" src="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product1-90x90.jpg" class="attachment-shop_thumbnail size-shop_thumbnail" alt="product1" title="product1" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product1-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product1-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product1-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product1-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product1.jpg 1000w" sizes="(max-width: 90px) 100vw, 90px" />
-                            </a>
-                            <a href="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product10.jpg" class="zoom last" title="" data-rel="prettyPhoto[product-gallery]">
-                                <img width="90" height="90" style="height:auto" src="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product10-90x90.jpg" class="attachment-shop_thumbnail size-shop_thumbnail" alt="product10" title="product10" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product10-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product10-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product10-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product10-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product10.jpg 1000w" sizes="(max-width: 90px) 100vw, 90px" />
-                            </a>
-                        </div>*@
                     </div>
                     <div class="summary entry-summary">
                         <h1 itemprop="name" class="product_title entry-title">@Model.Product.ProductName</h1>
                         <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                            <p class="price" style="top:40px !important;"><span class="amount">&pound; @Model.Product.ProductPrice.ToString("#,0")</span></p>
+                            <p class="price" style="top:40px !important;"><span class="amount"> @Model.Product.ProductPrice.ToString("#,0") đ</span></p>
                             @*<meta itemprop="price" content="3" />
                             <meta itemprop="priceCurrency" content="GBP" />
                             <link itemprop="availability" href="http://schema.org/InStock" />*@
@@ -177,10 +168,10 @@
                         </div>
                         <form class="cart" method="post" enctype='multipart/form-data'>
                             <div class="quantity">
-                                <input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" />
+                                <input type="number" id="txtquantity" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text keyNumber" size="4" />
                             </div>
                             <input type="hidden" name="add-to-cart" value="93" />
-                            <button type="submit" class="single_add_to_cart_button button alt">Add to cart</button>
+                            <button type="button" onclick="AddOrderDetail('@Model.Product.Id','@Model.Product.Unit',@Model.Product.ProductPrice)" class="single_add_to_cart_button button alt">Add to cart</button>
                         </form>
                     </div>
                     <div class="woocommerce-tabs wc-tabs-wrapper">
@@ -231,9 +222,11 @@
                                                         </div>
                                                     </a>
                                                     <div class='product-details'>
-                                                        <span class="price"><span class="amount">&pound; @item.ProductPrice.ToString("#,0")</span></span>
+                                                        <span class="price"><span class="amount"> @item.ProductPrice.ToString("#,0") đ</span></span>
                                                         <div class='product-buttons'>
-                                                            <a rel="nofollow" href="javascript:void(0)" data-quantity="1" data-product_id="87" data-product_sku="" class="small button button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
+                                                            <a rel="nofollow" href="javascript:void(0)" onclick="AddOrder('@item.Id','@item.Unit',1,@item.ProductPrice)" data-quantity="1" data-product_id="87" data-product_sku="" class="small button button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
+                                                            <a href="javascript:void(0)" class="added_to_cart wc-forward hidden added_cart_@item.Id" title="View Cart">View Cart</a>
+                                                            
                                                             <div class="yith-wcwl-add-to-wishlist add-to-wishlist-87">
                                                                 <div class="yith-wcwl-add-button show" style="display:block"> <a href="javascript:void(0)" rel="nofollow" data-product-id="87" data-product-type="simple" class="add_to_wishlist"> Add to Wishlist</a> 
                                                                 <img src="@Url.Content("~/Images/wpspin_light.gif")" class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" /></div>
@@ -283,3 +276,34 @@
     </script>
     <script type='text/javascript' src='//dreamspa.dttheme.com/wp-content/plugins/woocommerce/assets/js/frontend/single-product.min.js?ver=2.5.5'></script>
     <script type='text/javascript' src='//dreamspa.dttheme.com/wp-content/plugins/woocommerce/assets/js/jquery-blockui/jquery.blockUI.min.js?ver=2.70'></script>
+<script>
+    $(document).ready(function () {
+        $(".keyNumber").keypress(function (e) {
+            if (window.event) {
+                if (/*window.event.keyCode != 46 &&*/ window.event.keyCode > 31
+                    && (window.event.keyCode < 48 || window.event.keyCode > 57)) {
+                    return (false);//chrome and IE
+                }
+            } else {
+                if (/*e.which != 46 &&*/ e.which > 31
+                    && (e.which < 48 || e.which > 57)) {
+                    return (false);//firefox
+                }
+            }
+        });
+    })
+    function AddOrderDetail(itemId, unitId, price) {
+            var quantity = $('#txtquantity').val();
+            if ($.trim(quantity) === "")
+                quantity = 1;
+            console.log(itemId + " " + unitId + " " + quantity + " " + price);
+            var _Order = {
+                ItemId : itemId,
+                UnitId : unitId,
+                Quantity : quantity,
+                Price : price
+            };
+            CreateOrUpdateOrder(_Order);
+            $('.woocommerce-message').removeClass("hidden");
+        }
+</script>

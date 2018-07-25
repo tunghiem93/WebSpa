@@ -12,7 +12,7 @@ function CreateOrUpdateOrder(objOrder)
             $.each(Orders, function (index, item) {
                 if (item.ItemId === objOrder.ItemId) {
                     // update quantity
-                    item.Quantity += 1;
+                    item.Quantity = parseInt(item.Quantity) + parseInt(objOrder.Quantity);
                 }
             });
         }
@@ -40,9 +40,16 @@ function getListOrder()
     {
         Orders = _Order;
         if (Orders !== undefined && Orders !== null) {
-            var _Quantity = Orders.length;
-            $('.notify-right').text(_Quantity);
-            $('.cart-items-count').text(_Quantity);
+            var _Quantity = 0;
+            var _Price = 0;
+            $.each(Orders, function (index, item) {
+                _Quantity = _Quantity + item.Quantity;
+                _Price = parseFloat(_Price) + parseFloat(item.Price * item.Quantity);
+            });
+            _Price = parseFloat(_Price, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").replace(".00", "").toString() + " đ";
+            $('#top-cart-count').text(_Quantity);
+            $('#top-cart-total .amount').text(_Price)
+           
         }
     }
     return Orders;
@@ -50,8 +57,7 @@ function getListOrder()
 
 function deleteOrder() {
     Cookies.remove(CookieName);
-    $('.notify-right').text(0);
-    $('.cart-items-count').text(0);
+    $('#top-cart-count').text(0);
 }
 
 function UpdateQuantity(itemId, qty)

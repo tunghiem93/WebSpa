@@ -13,6 +13,9 @@
     </script>
 
     <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1' />
+    <script type='text/javascript' src="@Url.Content("~/Libraries/plugins/jquery.min.js")"></script>
+    
+    
     <link href="@Url.Content("~/Content/cache/breeze-minification/css/breeze_de341f499d515bd714f550e8af8fe23a.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/cache/breeze-minification/css/breeze_78c385beb21471d90489ae0d8907ddf7.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/cache/breeze-minification/css/breeze_41145aabea38ea8e660a38748d735711.css")" rel="stylesheet" />
@@ -97,8 +100,7 @@
 
     <link href="@Url.Content("~/Content/ls-google-fonts-css.css")" id='ls-google-fonts-css' rel="stylesheet" type='text/css' media='all' />
     <link href="@Url.Content("~/Content/mytheme-google-fonts-css.css")" id='ls-google-fonts-css' rel="stylesheet" type='text/css' media='all' />
-
-    <script type='text/javascript' src="@Url.Content("~/Libraries/plugins/jquery.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.js")"></script>
     <script type='text/javascript' src="@Url.Content("~/Libraries/plugins/jquery-migrate.min.js")"></script>
     <script type='text/javascript' src="@Url.Content("~/Scripts/greensock.js")"></script>
     <script type='text/javascript' src="@Url.Content("~/Scripts/layerslider.kreaturamedia.jquery.js")"></script>
@@ -174,7 +176,7 @@
     var woocommerce_params = { "ajax_url": "\/wp-admin\/admin-ajax.php", "wc_ajax_url": "\/?wc-ajax=%%endpoint%%" };
     /*  */</script>
 <script src="@Url.Content("~/Scripts/woocommerce.min.js")"></script>
-<script src="@Url.Content("~/Scripts/jquery.cookie.min.js")"></script>
+<script src="@Url.Content("~/Scripts/js.cookie.min.js")"></script>
 <script type='text/javascript'>
     /*  */
     var wc_cart_fragments_params = { "ajax_url": "\/wp-admin\/admin-ajax.php", "wc_ajax_url": "\/?wc-ajax=%%endpoint%%", "fragment_name": "wc_fragments" };
@@ -203,3 +205,21 @@
 <script src="@Url.Content("~/Scripts/wp-embed.min.js")"></script>
 <script src="@Url.Content("~/Scripts/comment-reply.min.js")"></script>
 <script type="text/javascript">window.NREUM || (NREUM = {}); NREUM.info = { "beacon": "bam.nr-data.net", "licenseKey": "095ddbfebf", "applicationID": "46457724", "transactionName": "YVJSZBBSDEIFURVRWVgYZUILHAtfAFcZFkZeRw==", "queueTime": 0, "applicationTime": 19, "atts": "TRVRElhIH0w=", "errorBeacon": "bam.nr-data.net", "agent": "" }</script>
+<script src="@Url.Content("~/Scripts/InitCookie.js")"></script>
+<script>
+    $(document).ready(function () {
+        getListOrder();
+    });
+    
+    function AddOrder(itemId, unitId, quantity, price) {
+        console.log(itemId + " " + unitId + " " + quantity + " " + price);
+        var _Order = {
+            ItemId: itemId,
+            UnitId: unitId,
+            Quantity: quantity,
+            Price: price
+        };
+        CreateOrUpdateOrder(_Order);
+        $('.added_cart_' + itemId + '').removeClass("hidden");
+    }
+</script>

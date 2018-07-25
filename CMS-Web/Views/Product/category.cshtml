@@ -46,9 +46,11 @@
                                                 </div>
                                             </a>
                                             <div class='product-details'>
-                                                <span class="price"> <ins><span class="amount">&pound; @item.ProductPrice.ToString("#,0")</span></ins></span>
+                                                <span class="price"> <ins><span class="amount"> @item.ProductPrice.ToString("#,0") đ</span></ins></span>
                                                 <div class='product-buttons'>
-                                                    <a rel="nofollow" href="javascript:void(0)" data-quantity="1" data-product_id="53" data-product_sku="" class="small button button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
+                                                    <a rel="nofollow" href="javascript:void(0)" onclick="AddOrder('@item.Id','@item.Unit',1,@item.ProductPrice)" data-quantity="1" data-product_id="53" data-product_sku="" class="small button button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
+                                                    <a href="javascript:void(0)" class="added_to_cart wc-forward hidden added_cart_@item.Id" title="View Cart">View Cart</a>
+                                                    
                                                     <div class="yith-wcwl-add-to-wishlist add-to-wishlist-53">
                                                         <div class="yith-wcwl-add-button show" style="display:block"> <a href="javascript:void(0)" rel="nofollow" data-product-id="53" data-product-type="simple" class="add_to_wishlist"> Add to Wishlist</a> 
                                                         <img src="@Url.Content("~/Images/wpspin_light.gif")" class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" /></div>
@@ -151,7 +153,7 @@
                                         <img width="90" height="90" src="@item.ImageURL" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="" srcset="@item.ImageURL 90w, @item.ImageURL 150w, @item.ImageURL 300w, @item.ImageURL 550w, @item.ImageURL 1000w" sizes="(max-width: 90px) 100vw, 90px" /> 
                                             <span class="product-title">@string.Format("{0}", !string.IsNullOrEmpty(item.ProductName) && item.ProductName.Length > 35 ? item.ProductName.Substring(0, 35) + "..." : item.ProductName)</span>
                                         </a>
-                                        <ins><span class="amount">&pound; @item.ProductPrice.ToString("#,0")</span></ins>
+                                        <ins><span class="amount"> @item.ProductPrice.ToString("#,0") đ</span></ins>
                                     </li>
                                 }
                             </ul>
