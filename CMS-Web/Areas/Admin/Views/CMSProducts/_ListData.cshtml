@@ -63,7 +63,9 @@
                                     <td class="text-center">
                                         <span class="label label-sm label-success"> @item.sStatus </span>
                                     </td>
-                                    <td></td>
+                                    <td>
+                                        <img class="imageThumb" src="@item.ImageURL" style="width: 100%" />
+                                    </td>
                                     <td class="text-center">
                                         <a href="javascript:void(0)"
                                            onclick='ShowView("@Url.Action("View","CMSProducts",new { Id=item.Id})")'

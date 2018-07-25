@@ -13,6 +13,7 @@ namespace CMS_Shared.CMSProducts
     {
         public bool CreateOrUpdate(CMS_ProductsModels model, ref string msg)
         {
+            model.PictureUpload = null;
             NSLog.Logger.Info("ProductCreateOrUpdate", model);
             var Result = true;
             using (var cxt = new CMS_Context())
@@ -21,83 +22,149 @@ namespace CMS_Shared.CMSProducts
                 {
                     if (string.IsNullOrEmpty(model.Id)) /* insert */
                     {
-                        var Id = Guid.NewGuid().ToString();
-                        var e = new CMS_Products
+                        var _Id = Guid.NewGuid().ToString();
+                        model.ProductCode = model.ProductCode.Trim();
+                        model.BarCode = model.BarCode.Trim();
+                        var isDupProdctCode = cxt.CMS_Products.Where(o => o.ProductCode.Contains(model.ProductCode) && o.Status == (byte)Commons.EStatus.Actived).Count() > 0;
+                        if (isDupProdctCode == false) /* don't duplicate */
                         {
-                            ID = Id,
-                            TypeCode = model.TypeCode,
-                            CategoryID = model.CategoryId,
-                            Name = model.ProductName,
-                            ProductCode = model.ProductCode,
-                            BarCode = model.BarCode,
-                            Description = model.Description,
-                            PrintOutText = model.PrintOutText,
-                            IsActive = model.IsActive,
-                            ImageURL = model.ImageURL,
-                            Cost = model.ProductPrice,
-                            Unit = model.Unit,
-                            Measure = model.Measure,
-                            Quantity = (decimal)model.Quantity,
-                            Limit = model.Limit,
-                            ExtraPrice = model.ExtraPrice,
-                            IsAllowedDiscount = model.IsAllowedDiscount,
-                            IsCheckedStock = model.IsCheckedStock,
-                            IsAllowedOpenPrice = model.IsAllowedOpenPrice,
-                            IsPrintedOnCheck = model.IsPrintedOnCheck,
-                            ExpiredDate = model.ExpiredDate,
-                            IsAutoAddToOrder = model.IsAutoAddToOrder,
-                            IsComingSoon = model.IsComingSoon,
-                            IsShowInReservation = model.IsShowInReservation,
-                            IsRecommend = model.IsRecommend,
-                            StoreID = model.StoreID,
+                            var e = new CMS_Products
+                            {
+                                ID = _Id,
+                                TypeCode = model.TypeCode,
+                                CategoryID = model.CategoryId,
+                                Name = model.ProductName,
+                                ProductCode = model.ProductCode,
+                                BarCode = model.BarCode,
+                                Description = model.Description,
+                                PrintOutText = model.PrintOutText,
+                                IsActive = model.IsActive,
+                                ImageURL = model.ImageURL,
+                                Cost = model.ProductPrice,
+                                Unit = model.Unit,
+                                Measure = model.Measure,
+                                Quantity = (decimal)model.Quantity,
+                                Limit = model.Limit,
+                                ExtraPrice = model.ExtraPrice,
+                                IsAllowedDiscount = model.IsAllowedDiscount,
+                                IsCheckedStock = model.IsCheckedStock,
+                                IsAllowedOpenPrice = model.IsAllowedOpenPrice,
+                                IsPrintedOnCheck = model.IsPrintedOnCheck,
+                                ExpiredDate = model.ExpiredDate,
+                                IsAutoAddToOrder = model.IsAutoAddToOrder,
+                                IsComingSoon = model.IsComingSoon,
+                                IsShowInReservation = model.IsShowInReservation,
+                                IsRecommend = model.IsRecommend,
+                                StoreID = model.StoreID,
 
-                            Status = (byte)Commons.EStatus.Actived,
-                            CreatedDate = DateTime.Now,
-                            CreatedUser = model.CreatedBy,
-                            ModifiedUser = model.CreatedBy,
-                            LastModified = DateTime.Now,
-                        };
-                        cxt.CMS_Products.Add(e);
-                    }
-                    else /* updated */
-                    {
-                        var e = cxt.CMS_Products.Find(model.Id);
-                        if (e != null)
-                        {
-                            e.TypeCode = model.TypeCode;
-                            e.CategoryID = model.CategoryId;
-                            e.Name = model.ProductName;
-                            e.ProductCode = model.ProductCode;
-                            e.BarCode = model.BarCode;
-                            e.Description = model.Description;
-                            e.PrintOutText = model.PrintOutText;
-                            e.IsActive = model.IsActive;
-                            e.ImageURL = model.ImageURL;
-                            e.Cost = model.ProductPrice;
-                            e.Unit = model.Unit;
-                            e.Measure = model.Measure;
-                            e.Quantity = (decimal)model.Quantity;
-                            e.Limit = model.Limit;
-                            e.ExtraPrice = model.ExtraPrice;
-                            e.IsAllowedDiscount = model.IsAllowedDiscount;
-                            e.IsCheckedStock = model.IsCheckedStock;
-                            e.IsAllowedOpenPrice = model.IsAllowedOpenPrice;
-                            e.IsPrintedOnCheck = model.IsPrintedOnCheck;
-                            e.ExpiredDate = model.ExpiredDate;
-                            e.IsAutoAddToOrder = model.IsAutoAddToOrder;
-                            e.IsComingSoon = model.IsComingSoon;
-                            e.IsShowInReservation = model.IsShowInReservation;
-                            e.IsRecommend = model.IsRecommend;
-                            e.StoreID = model.StoreID;
+                                Status = (byte)Commons.EStatus.Actived,
+                                CreatedDate = DateTime.Now,
+                                CreatedUser = model.CreatedBy,
+                                ModifiedUser = model.CreatedBy,
+                                LastModified = DateTime.Now,
+                            };
+                            cxt.CMS_Products.Add(e);
 
-                            e.ModifiedUser = model.CreatedBy;
-                            e.LastModified = DateTime.Now;
+                            if (model.ListImages != null && model.ListImages.Any())
+                            {
+                                var _e = new List<CMS_ImagesLink>();
+                                model.ListImages.ForEach(x =>
+                                {
+                                    _e.Add(new CMS_ImagesLink
+                                    {
+                                        Id = Guid.NewGuid().ToString(),
+                                        ImageURL = x.ImageURL,
+                                        ProductId = _Id,
+                                        Offset = x.OffSet,
+                                        CreatedUser = model.CreatedBy,
+                                        CreatedDate = DateTime.Now,
+                                        ModifiedUser = model.CreatedBy,
+                                        LastModified = DateTime.Now
+                                    });
+                                });
+                                cxt.CMS_ImagesLink.AddRange(_e);
+                            }
+
                         }
                         else
                         {
                             Result = false;
-                            msg = "Unable to find products.";
+                            msg = "Duplicate product Code.";
                         }
+
+                    }
+                    else /* updated */
+                    {
+                        var isDupProdctCode = cxt.CMS_Products.Where(o => o.ProductCode.Contains(model.ProductCode) && o.Status == (byte)Commons.EStatus.Actived && o.ID != model.Id).Count() > 0;
+                        if (isDupProdctCode == false) /* don't duplicate */
+                        {
+                            var proCheck = cxt.CMS_Products.Find(model.Id);
+                            if (proCheck != null)
+                            {
+                                proCheck.TypeCode = model.TypeCode;
+                                proCheck.CategoryID = model.CategoryId;
+                                proCheck.Name = model.ProductName;
+                                proCheck.ProductCode = model.ProductCode;
+                                proCheck.BarCode = model.BarCode;
+                                proCheck.Description = model.Description;
+                                proCheck.PrintOutText = model.PrintOutText;
+                                proCheck.IsActive = model.IsActive;
+                                proCheck.ImageURL = model.ImageURL;
+                                proCheck.Cost = model.ProductPrice;
+                                proCheck.Unit = model.Unit;
+                                proCheck.Measure = model.Measure;
+                                proCheck.Quantity = (decimal)model.Quantity;
+                                proCheck.Limit = model.Limit;
+                                proCheck.ExtraPrice = model.ExtraPrice;
+                                proCheck.IsAllowedDiscount = model.IsAllowedDiscount;
+                                proCheck.IsCheckedStock = model.IsCheckedStock;
+                                proCheck.IsAllowedOpenPrice = model.IsAllowedOpenPrice;
+                                proCheck.IsPrintedOnCheck = model.IsPrintedOnCheck;
+                                proCheck.ExpiredDate = model.ExpiredDate;
+                                proCheck.IsAutoAddToOrder = model.IsAutoAddToOrder;
+                                proCheck.IsComingSoon = model.IsComingSoon;
+                                proCheck.IsShowInReservation = model.IsShowInReservation;
+                                proCheck.IsRecommend = model.IsRecommend;
+                                proCheck.StoreID = model.StoreID;
+
+                                proCheck.ModifiedUser = model.CreatedBy;
+                                proCheck.LastModified = DateTime.Now;
+
+                                if (model.ListImages != null && model.ListImages.Any())
+                                {
+                                    var _edel = cxt.CMS_ImagesLink.Where(x => x.ProductId.Equals(proCheck.ID));
+                                    cxt.CMS_ImagesLink.RemoveRange(_edel);
+
+                                    var _e = new List<CMS_ImagesLink>();
+                                    model.ListImages.ForEach(x =>
+                                    {
+                                        _e.Add(new CMS_ImagesLink
+                                        {
+                                            Id = Guid.NewGuid().ToString(),
+                                            ImageURL = x.ImageURL,
+                                            ProductId = proCheck.ID,
+                                            Offset = x.OffSet,
+                                            CreatedUser = model.CreatedBy,
+                                            CreatedDate = DateTime.Now,
+                                            ModifiedUser = model.CreatedBy,
+                                            LastModified = DateTime.Now
+                                        });
+                                    });
+                                    cxt.CMS_ImagesLink.AddRange(_e);
+                                }
+                            }
+                            else
+                            {
+                                Result = false;
+                                msg = "Unable to find products.";
+                            }
+                        }
+                        else
+                        {
+                            Result = false;
+                            msg = "Duplicate product Code.";
+                        }
+
                     }
 
                     cxt.SaveChanges();
@@ -187,6 +254,16 @@ namespace CMS_Shared.CMSProducts
                             StoreID = o.StoreID,
                         }).FirstOrDefault();
 
+                    data.ListImages = cxt.CMS_ImagesLink.Where(o => o.ProductId == Id).OrderBy(o => o.Offset).Select(o => new CMS_ImagesModels()
+                    {
+                        Id = o.Id,
+                        OffSet = o.Offset,
+                        ImageName = o.ImageURL,
+                        ProductId = o.ProductId,
+                        ImageURL = string.IsNullOrEmpty(o.ImageURL) ? "" : Commons._PublicImages + "Products/" + o.ImageURL,
+                    }).ToList();
+
+                    /* response data */
                     result = data;
 
                     NSLog.Logger.Info("ResponseProductGetDetail", result);
@@ -209,36 +286,49 @@ namespace CMS_Shared.CMSProducts
                 using (var cxt = new CMS_Context())
                 {
                     var data = cxt.CMS_Products.Where(o => o.Status != (byte)Commons.EStatus.Deleted)
+                        .Join(cxt.CMS_Categories, p => p.CategoryID, c => c.ID, (p, c) => new { p, c })
                         .Select(o => new CMS_ProductsModels
                         {
-                            Id = o.ID,
-                            TypeCode = o.TypeCode,
-                            CategoryId = o.CategoryID,
-                            ProductName = o.Name,
-                            ProductCode = o.ProductCode,
-                            BarCode = o.BarCode,
-                            Description = o.Description,
-                            PrintOutText = o.PrintOutText,
-                            IsActive = o.IsActive,
-                            ImageURL = o.ImageURL,
-                            ProductPrice = o.Cost,
-                            Unit = o.Unit ?? 1,
-                            Measure = o.Measure,
-                            Quantity = (double)o.Quantity,
-                            Limit = o.Limit,
-                            ExtraPrice = o.ExtraPrice,
-                            IsAllowedDiscount = o.IsAllowedDiscount,
-                            IsCheckedStock = o.IsCheckedStock,
-                            IsAllowedOpenPrice = o.IsAllowedOpenPrice,
-                            IsPrintedOnCheck = o.IsPrintedOnCheck,
-                            ExpiredDate = o.ExpiredDate,
-                            IsAutoAddToOrder = o.IsAutoAddToOrder,
-                            IsComingSoon = o.IsComingSoon,
-                            IsShowInReservation = o.IsShowInReservation,
-                            IsRecommend = o.IsRecommend,
-                            StoreID = o.StoreID,
+                            Id = o.p.ID,
+                            TypeCode = o.p.TypeCode,
+                            CategoryId = o.p.CategoryID,
+                            CategoryName = o.c.Name,
+                            ProductName = o.p.Name,
+                            ProductCode = o.p.ProductCode,
+                            BarCode = o.p.BarCode,
+                            Description = o.p.Description,
+                            PrintOutText = o.p.PrintOutText,
+                            IsActive = o.p.IsActive,
+                            //ImageURL = o.p.ImageURL,
+                            ProductPrice = o.p.Cost,
+                            Unit = o.p.Unit ?? 1,
+                            Measure = o.p.Measure,
+                            Quantity = (double)o.p.Quantity,
+                            Limit = o.p.Limit,
+                            ExtraPrice = o.p.ExtraPrice,
+                            IsAllowedDiscount = o.p.IsAllowedDiscount,
+                            IsCheckedStock = o.p.IsCheckedStock,
+                            IsAllowedOpenPrice = o.p.IsAllowedOpenPrice,
+                            IsPrintedOnCheck = o.p.IsPrintedOnCheck,
+                            ExpiredDate = o.p.ExpiredDate,
+                            IsAutoAddToOrder = o.p.IsAutoAddToOrder,
+                            IsComingSoon = o.p.IsComingSoon,
+                            IsShowInReservation = o.p.IsShowInReservation,
+                            IsRecommend = o.p.IsRecommend,
+                            StoreID = o.p.StoreID,
                         }).ToList();
 
+                    var listProductID = data.Select(o => o.Id).ToList();
+                    var listImage = cxt.CMS_ImagesLink.Where(o => listProductID.Contains(o.ProductId)).Select(o => new CMS_ImagesModels
+                    {
+                        Id = o.Id,
+                        OffSet = o.Offset,
+                        ImageName = o.ImageURL,
+                        ProductId = o.ProductId,
+                        ImageURL = string.IsNullOrEmpty(o.ImageURL) ? "" : Commons._PublicImages + "Products/" + o.ImageURL,
+                    }).ToList();
+
+                    data.ForEach(o => o.ImageURL = listImage.Where(i => i.ProductId == o.Id).OrderBy(i => i.OffSet).Select(i => i.ImageURL).FirstOrDefault());
                     /* response data */
                     result = data;
                     NSLog.Logger.Info("ResponseProductGetList", result);

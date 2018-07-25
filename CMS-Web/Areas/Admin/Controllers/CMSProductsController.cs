@@ -45,11 +45,6 @@ namespace CMS_Web.Areas.Admin.Controllers
             return PartialView("_Create", model);
         }
 
-        public CMS_ProductsModels GetDetail(string Id)
-        {
-            return _factory.GetDetail(Id);
-        }
-
         [HttpPost]
         public ActionResult Create(CMS_ProductsModels model)
         {
@@ -113,6 +108,7 @@ namespace CMS_Web.Areas.Admin.Controllers
 
                 var msg = "";
                 model.ListImages = data;
+                model.CreatedBy = CurrentUser.UserId;
                 var result = _factory.CreateOrUpdate(model, ref msg);
                 if (result)
                 {
@@ -151,19 +147,7 @@ namespace CMS_Web.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Edit(string Id)
         {
-            var model = GetDetail(Id);
-            model.ListImages = _factory.GetListImageOfProduct(Id);
-            var _OffSet = 0;
-            if (model.ListImages != null && model.ListImages.Any())
-            {
-                model.ListImages.ForEach(x =>
-                {
-                    x.OffSet = _OffSet;
-                    _OffSet = _OffSet + 1;
-                    x.ImageName = " ";
-                    x.ImageURL = Commons.HostImage + "Products/" + x.ImageURL;
-                });
-            }
+            var model = _factory.GetDetail(Id);
             return PartialView("_Edit", model);
         }
 
@@ -229,6 +213,8 @@ namespace CMS_Web.Areas.Admin.Controllers
                 }
                 var msg = "";
                 model.ListImages = data;
+                model.CreatedBy = CurrentUser.UserId;
+
                 var result = _factory.CreateOrUpdate(model, ref msg);
                 if (result)
                 {
@@ -266,26 +252,14 @@ namespace CMS_Web.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult View(string Id)
         {
-            var model = GetDetail(Id);
-            model.ListImages = _factory.GetListImageOfProduct(Id);
-            var _OffSet = 0;
-            if (model.ListImages != null && model.ListImages.Any())
-            {
-                model.ListImages.ForEach(x =>
-                {
-                    x.OffSet = _OffSet;
-                    _OffSet = _OffSet + 1;
-                    x.ImageName = " ";
-                    x.ImageURL = Commons.HostImage + "Products/" + x.ImageURL;
-                });
-            }
+            var model = _factory.GetDetail(Id);
             return PartialView("_View", model);
         }
 
         [HttpGet]
         public ActionResult Delete(string Id)
         {
-            var model = GetDetail(Id);
+            var model = _factory.GetDetail(Id);
             return PartialView("_Delete", model);
         }
 

@@ -180,7 +180,6 @@ namespace CMS_Web.Controllers
                     var dataDetail = _fac.GetDetail(id);
                     if (dataDetail != null)
                     {
-                        dataDetail.ListImages = _fac.GetListImageOfProduct(id);
                         if (dataDetail.ListImages != null)
                         {
                             dataDetail.ListImages.ForEach(x =>

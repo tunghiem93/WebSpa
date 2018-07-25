@@ -1,4 +1,5 @@
 ﻿using CMS_DTO.CMSImage;
+using CMS_Shared;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -25,7 +26,6 @@ namespace CMS_DTO.CMSProduct
         [Required(ErrorMessage ="Vui lòng chọn thể loại")]
         public string CategoryId { get; set; }
         public string CreatedBy { get; set; }
-        public string UpdatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public bool IsActive { get; set; }
@@ -62,6 +62,10 @@ namespace CMS_DTO.CMSProduct
         public CMS_ProductsModels()
         {
             IsActive = true;
+            Measure = "times";
+            ProductCode = "";
+            BarCode = "";
+            ExpiredDate = Commons.MaxDate;
             ListImages = new List<CMS_ImagesModels>();
         }
     }

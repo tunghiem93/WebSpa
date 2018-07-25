@@ -76,7 +76,7 @@
                         @id = "CategoryDdl",
                         @style = "width:100%;"
                     })
-                   @Html.ValidationMessageFor(model => model.CategoryId, null, new { @class = "label label-danger" })
+                @Html.ValidationMessageFor(model => model.CategoryId, null, new { @class = "label label-danger" })
             </div>
         </div>
 
@@ -135,7 +135,7 @@
     function showPictureUpload() {
         $('[id=upload_file]').click();
     }
-
+    
     function preview_image(e) {
         var _Files = document.getElementById("upload_file").files;
         var filesLength = _Files.length;
@@ -152,6 +152,7 @@
             };
             oFReader.readAsDataURL(_Files[i]);
         }
+
         setTimeout(function () {
             $.ajax({
                 url: '@Url.Action("AddImageItem", "CMSProducts")',
@@ -217,4 +218,5 @@
             });
         }
     }
+
 </script>

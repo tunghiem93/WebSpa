@@ -26,11 +26,17 @@ namespace CMS_Web.Areas.Admin.Controllers
         public List<SelectListItem> GetListCategorySelectItem()
         {
             var _factory = new CMSCategoriesFactory();
-            var data = _factory.GetList().Select(x => new SelectListItem
+            List<SelectListItem> data = null;
+
+            var listCate = _factory.GetList();
+            if (listCate != null)
             {
-                Value = x.Id,
-                Text = x.CategoryName,
-            }).ToList();
+                data = listCate.Select(x => new SelectListItem
+                {
+                    Value = x.Id,
+                    Text = x.CategoryName,
+                }).ToList();
+            }
             return data;
         }
 
