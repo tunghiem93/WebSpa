@@ -29,12 +29,6 @@ namespace CMS_Web.Controllers
                 var data =  _fac.GetList();
                 if(data != null)
                 {
-                    data.ForEach(x =>
-                    {
-                        if(!string.IsNullOrEmpty(x.ImageURL))
-                            x.ImageURL = Commons._PublicImages + "Products/" + x.ImageURL;
-                    });
-                    
                     models.ProductNew = data.OrderBy(x => x.CreatedDate).Skip(0).Take(3).ToList();
                 }
                 var _cate = _facCate.GetListProductCate();
