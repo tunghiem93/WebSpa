@@ -143,6 +143,7 @@ namespace CMS_Shared.CMSEmployees
                         {
                             Id = o.ID,
                             Name = o.Name,
+                            Employee_Email = o.Email,
                             Password = o.Password,
                             IsActive = o.IsActive?? true,
                             Employee_Phone = o.Phone,
@@ -187,6 +188,7 @@ namespace CMS_Shared.CMSEmployees
                         {
                             Id = o.ID,
                             Name = o.Name,
+                            Employee_Email = o.Email,
                             Password = o.Password,
                             IsActive = o.IsActive ?? true,
                             Employee_Phone = o.Phone,
