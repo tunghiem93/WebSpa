@@ -45,7 +45,7 @@
                                                 </div>
                                                 <div class='product-title'>
                                                     <h3>@string.Format("{0}",!string.IsNullOrEmpty(item.ProductName) && item.ProductName.Length > 35 ? item.ProductName.Substring(0,35) + "..." : item.ProductName)</h3>
-                                                    <p>@string.Format("{0}",!string.IsNullOrEmpty(item.Description) && item.Description.Length >30 ? item.Description.Substring(0,30) + "..." : item.Description)</p>
+                                                   @* <p>@Html.Raw(item.Description)</p>*@
                                                 </div>
                                             </a>
                                             <div class='product-details'>
@@ -141,7 +141,7 @@
                                     }
 
                                     <li class="cat-item cat-item-16 @_parent">
-                                        <a href="javascript:void(0)">@string.Format("{0}",!string.IsNullOrEmpty(item.Name) && item.Name.Length > 35 ? item.Name.Substring(0,35) + "..." : item.Name)</a>
+                                        <a href="@Url.Action("category","Product",new { d= item.Name, i = item.Id })">@string.Format("{0}",!string.IsNullOrEmpty(item.Name) && item.Name.Length > 35 ? item.Name.Substring(0,35) + "..." : item.Name)</a>
                                         <span class="count">(@item.TotalProduct)</span>
                                         @if (item.Children != null && item.Children.Any())
                                         {
@@ -149,7 +149,7 @@
                                                 @foreach (var itemchild in item.Children)
                                                 {
                                                     <li class="cat-item cat-item-17">
-                                                        <a href="javascript:void(0)">@string.Format("{0}",!string.IsNullOrEmpty(itemchild.Name) && itemchild.Name.Length > 35 ? itemchild.Name.Substring(0,35)+"..." : itemchild.Name)</a>
+                                                        <a href="@Url.Action("category","Product",new { d= itemchild.Name, i = itemchild.Id })">@string.Format("{0}",!string.IsNullOrEmpty(itemchild.Name) && itemchild.Name.Length > 35 ? itemchild.Name.Substring(0,35)+"..." : itemchild.Name)</a>
                                                         <span class="count">(@itemchild.TotalProduct)</span>
                                                     </li>
                                                 }
@@ -189,7 +189,7 @@
                     
                     <aside id="woocommerce_price_filter-3" class="widget woocommerce widget_price_filter">
                         <h3 class="widgettitle">Filter by price</h3>
-                        <form method="get" action="https://dreamspa.dttheme.com/shop/">
+                        <form method="get" action="">
                             <div class="price_slider_wrapper">
                                 <div class="price_slider" style="display:none;"></div>
                                 <div class="price_slider_amount">

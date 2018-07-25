@@ -83,7 +83,7 @@
                                 }
 
                                 <li class="cat-item cat-item-16 @_parent">
-                                    <a href="javascript:void(0)">@string.Format("{0}", !string.IsNullOrEmpty(item.Name) && item.Name.Length > 35 ? item.Name.Substring(0, 35) + "..." : item.Name)</a>
+                                    <a href="@Url.Action("category","Product",new { d= item.Name, i = item.Id })">@string.Format("{0}", !string.IsNullOrEmpty(item.Name) && item.Name.Length > 35 ? item.Name.Substring(0, 35) + "..." : item.Name)</a>
                                     <span class="count">(@item.TotalProduct)</span>
                                     @if (item.Children != null && item.Children.Any())
                                     {
@@ -91,7 +91,7 @@
                                             @foreach (var itemchild in item.Children)
                                             {
                                                 <li class="cat-item cat-item-17">
-                                                    <a href="javascript:void(0)">@string.Format("{0}", !string.IsNullOrEmpty(itemchild.Name) && itemchild.Name.Length > 35 ? itemchild.Name.Substring(0, 35) + "..." : itemchild.Name)</a>
+                                                    <a href="@Url.Action("category","Product",new { d= itemchild.Name, i = itemchild.Id })">@string.Format("{0}", !string.IsNullOrEmpty(itemchild.Name) && itemchild.Name.Length > 35 ? itemchild.Name.Substring(0, 35) + "..." : itemchild.Name)</a>
                                                     <span class="count">(@itemchild.TotalProduct)</span>
                                                 </li>
                                             }
@@ -141,6 +141,17 @@
                         <a href="@Model.Product.ImageURL" itemprop="image" class="woocommerce-main-image zoom" title="" data-rel="prettyPhoto[product-gallery]">
                             <img width="550" height="550" style="height:auto" src="@Model.Product.ImageURL" class="attachment-shop_single size-shop_single wp-post-image" alt="" title="product18" srcset="@Model.Product.ImageURL 550w, @Model.Product.ImageURL 150w, @Model.Product.ImageURL 300w, @Model.Product.ImageURL 90w, @Model.Product.ImageURL 1000w" sizes="(max-width: 550px) 100vw, 550px" />
                         </a>
+                        @if(Model.Product.ListImages != null && Model.Product.ListImages.Any())
+                        {
+                            <div class="thumbnails columns-3">
+                                @foreach (var item in Model.Product.ListImages)
+                                {
+                                    <a href="@item.ImageURL" class="zoom first" title="" data-rel="prettyPhoto[product-gallery]">
+                                        <img width="90" height="90" style="height:auto" src="@item.ImageURL" class="attachment-shop_thumbnail size-shop_thumbnail" alt="product9" title="product9" srcset="@item.ImageURL 90w, @item.ImageURL 150w, @item.ImageURL 300w, @item.ImageURL 550w, @item.ImageURL 1000w" sizes="(max-width: 90px) 100vw, 90px" />
+                                    </a>
+                                }
+                            </div>
+                        }
                         @*<div class="thumbnails columns-3">
                             <a href="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9.jpg" class="zoom first" title="" data-rel="prettyPhoto[product-gallery]">
                                 <img width="90" height="90" style="height:auto" src="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9-90x90.jpg" class="attachment-shop_thumbnail size-shop_thumbnail" alt="product9" title="product9" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2013/06/product9.jpg 1000w" sizes="(max-width: 90px) 100vw, 90px" />

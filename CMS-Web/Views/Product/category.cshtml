@@ -1,0 +1,187 @@
+﻿@model CMS_DTO.CMSShop.CMS_ShopViewModels
+<div class="wrapper">
+    <div class="inner-wrapper">
+        <div id="main">
+            <section class='title-section'>
+                <div class="title-wrapper">
+                    <div class="container">
+                        <div class="border-title aligncenter">
+                            <h1>@Model.CategoryName</h1>
+                            <h6>Products Archive</h6>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="container">
+                @if (Model != null && Model.Products != null && Model.Products.Any())
+                {
+                    string _first = "first";
+                    string _last = "";
+                    var _index = 1;
+                    <section id='primary' class='page-with-sidebar with-right-sidebar'>
+                        <ul class="products">
+                            @foreach (var item in Model.Products)
+                            {
+                                if (_index == 1)
+                                {
+                                    _first = "first";
+                                }
+                                else
+                                {
+                                    _first = "";
+                                }
+                                <li class="@_first @_last post-53 product type-product status-publish has-post-thumbnail product_cat-clothing product_cat-hoodies pif-has-gallery sale shipping-taxable purchasable product-type-simple product-cat-clothing product-cat-hoodies instock">
+                                    <div class='product-wrapper  product-three-column on-sale-product  in-stock-product '>
+                                        <div class="product-container">
+                                            <a href="@Url.Action("Index","Product",new { product_name = item.ProductName,product_id=item.Id})">
+                                                <div class="product-thumb">
+                                                    <img width="1000" height="1000" style="height:auto" src="@item.ImageURL" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" srcset="@item.ImageURL 1000w, @item.ImageURL 150w, @item.ImageURL 300w, @item.ImageURL 90w, @item.ImageURL 550w" sizes="(max-width: 1000px) 100vw, 1000px" />
+                                                    <img width="500" height="500" src="@item.ImageURL" class="secondary-image attachment-shop-catalog" alt="" srcset="@item.ImageURL 550w, @item.ImageURL 150w, @item.ImageURL 300w, @item.ImageURL 90w, @item.ImageURL 1000w" sizes="(max-width: 500px) 100vw, 500px" />
+                   
+                                                    @*<span class="onsale"><span>Sale!</span></span>*@
+                                                </div>
+                                                <div class='product-title'>
+                                                    <h3>@string.Format("{0}", !string.IsNullOrEmpty(item.ProductName) && item.ProductName.Length > 35 ? item.ProductName.Substring(0, 35) + "..." : item.ProductName)</h3>
+                                                    
+                                                </div>
+                                            </a>
+                                            <div class='product-details'>
+                                                <span class="price"> <ins><span class="amount">&pound; @item.ProductPrice.ToString("#,0")</span></ins></span>
+                                                <div class='product-buttons'>
+                                                    <a rel="nofollow" href="javascript:void(0)" data-quantity="1" data-product_id="53" data-product_sku="" class="small button button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
+                                                    <div class="yith-wcwl-add-to-wishlist add-to-wishlist-53">
+                                                        <div class="yith-wcwl-add-button show" style="display:block"> <a href="javascript:void(0)" rel="nofollow" data-product-id="53" data-product-type="simple" class="add_to_wishlist"> Add to Wishlist</a> 
+                                                        <img src="@Url.Content("~/Images/wpspin_light.gif")" class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" /></div>
+                                                        <div class="yith-wcwl-wishlistaddedbrowse hide" style="display:none;"> <span class="feedback">Product added!</span> 
+                                                        <a href="javascript:void(0)" rel="nofollow"> Browse Wishlist </a></div>
+                                                        <div class="yith-wcwl-wishlistexistsbrowse hide" style="display:none"> <span class="feedback">The product is already in the wishlist!</span>
+                                                        <a href="javascript:void(0)" rel="nofollow"> Browse Wishlist </a></div>
+                                                        <div style="clear:both"></div>
+                                                        <div class="yith-wcwl-wishlistaddresponse"></div>
+                                                    </div>
+                                                    <div class="clear"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                if (_index == 3)
+                                {
+                                    _last = "last";
+                                    _index = 1;
+                                }
+                                else
+                                {
+                                    _last = "";
+                                    _index = _index + 1;
+                                }
+                            }
+                        </ul>
+                       @if (Model != null && Model.TotalPage > 0)
+                       {
+                        <div class="pagination product-pagination">
+                            <div class="prev-post"></div>
+                            <ul class=''>
+                                @for (var i = 1; i <= Model.TotalPage; i++)
+                                {
+                                    if (i == 1)
+                                    {
+                                        <li class='active-page'>@i</li>
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            <a href='javascript:void(0)' class='inactive'>@i</a>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                            <div class="next-post">
+                                <a href="javascript:void(0)">Next</a>
+                            </div>
+                        </div>
+                       }
+                    </section>
+                }
+                <section id='secondary-right' class='secondary-sidebar secondary-has-right-sidebar'>
+                    @if (Model != null && Model.Categories != null && Model.Categories.Any())
+                    {
+                        var _parent = "";
+                        <aside id="woocommerce_product_categories-2" class="widget woocommerce widget_product_categories">
+                            <h3 class="widgettitle">Product Categories</h3>
+                            <ul class="product-categories">
+                                @foreach (var item in Model.Categories)
+                                {
+                                    if (item.Children != null && item.Children.Count > 0)
+                                    {
+                                        _parent = "cat-parent";
+                                    }
+                                    else
+                                    {
+                                        _parent = "";
+                                    }
+                                    <li class="cat-item cat-item-16 current-cat @_parent">
+                                        <a href="@Url.Action("category","Product",new { d= item.Name, i = item.Id })">@string.Format("{0}",!string.IsNullOrEmpty(item.Name) && item.Name.Length > 35 ? item.Name.Substring(0,35) + "..." : item.Name)</a> 
+                                        <span class="count">(@item.TotalProduct)</span>
+                                        @if (item.Children != null && item.Children.Any())
+                                        {
+                                            <ul class='children'>
+                                                @foreach (var itemChild in item.Children)
+                                                {
+                                                    <li class="cat-item cat-item-17"><a href="@Url.Action("category","Product",new { d= itemChild.Name, i = itemChild.Id })">@string.Format("{0}", !string.IsNullOrEmpty(itemChild.Name) && itemChild.Name.Length > 35 ? itemChild.Name.Substring(0, 35) + "..." : itemChild.Name)</a> <span class="count">(@itemChild.TotalProduct)</span></li>
+                                                }
+                                            </ul>
+                                        }
+                                        
+                                    </li>
+                                }
+                            </ul>
+                        </aside>
+                    }
+                    
+                    @if (Model != null && Model.ProductNew != null && Model.ProductNew.Any())
+                    {
+                        <aside id="woocommerce_products-3" class="widget woocommerce widget_products">
+                            <h3 class="widgettitle">Sản phẩm mới nhất</h3>
+                            <ul class="product_list_widget">
+                                @foreach (var item in Model.ProductNew)
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Index","Product",new { product_name = item.ProductName,product_id=item.Id})" title="@item.ProductName">
+                                        <img width="90" height="90" src="@item.ImageURL" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="" srcset="@item.ImageURL 90w, @item.ImageURL 150w, @item.ImageURL 300w, @item.ImageURL 550w, @item.ImageURL 1000w" sizes="(max-width: 90px) 100vw, 90px" /> 
+                                            <span class="product-title">@string.Format("{0}", !string.IsNullOrEmpty(item.ProductName) && item.ProductName.Length > 35 ? item.ProductName.Substring(0, 35) + "..." : item.ProductName)</span>
+                                        </a>
+                                        <ins><span class="amount">&pound; @item.ProductPrice.ToString("#,0")</span></ins>
+                                    </li>
+                                }
+                            </ul>
+                        </aside>
+                    }
+                    
+                    <aside id="woocommerce_price_filter-2" class="widget woocommerce widget_price_filter">
+                        <h3 class="widgettitle">Filter by price</h3>
+                        <form method="get" action="">
+                            <div class="price_slider_wrapper">
+                                <div class="price_slider" style="display:none;"></div>
+                                <div class="price_slider_amount">
+                                    <input type="text" id="min_price" name="min_price" value="" data-min="18" placeholder="Min price" />
+                                    <input type="text" id="max_price" name="max_price" value="" data-max="35" placeholder="Max price" />
+                                    <button type="submit" class="button">Filter</button>
+                                    <div class="price_label" style="display:none;"> Price: <span class="from"></span> &mdash; <span class="to"></span></div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        </form>
+                    </aside>
+                    <aside id="text-10" class="widget widget_text">
+                        <div class="textwidget"><img src="@Url.Content("~/Images/shop-widget-discount.png")" alt="" tite="" /></div>
+                    </aside>
+                    <aside id="text-11" class="widget widget_text">
+                        <div class="textwidget"><img src="@Url.Content("~/Images/shop-widget-special.png")" alt="" tite="" /></div>
+                    </aside>
+                </section>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -14,7 +14,7 @@ namespace CMS_DTO.CMSShop
         public List<CMS_ProductsModels> ProductNew { get; set; }
         public List<CMS_CategoryViewModels> Categories { get; set; }
         public int TotalPage { get; set; }
-
+        public string CategoryName { get; set; }
         public CMS_ShopViewModels()
         {
             Products = new List<CMS_ProductsModels>();
