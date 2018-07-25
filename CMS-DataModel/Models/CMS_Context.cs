@@ -201,7 +201,7 @@ namespace CMS_DataModel.Models
 
             modelBuilder.Entity<CMS_Products>()
                 .HasMany(e => e.CMS_Products1)
-                .WithRequired(e => e.CMS_Products2)
+                .WithOptional(e => e.CMS_Products2)
                 .HasForeignKey(e => e.ParentID);
 
             modelBuilder.Entity<CMS_Refund>()

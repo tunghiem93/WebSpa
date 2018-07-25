@@ -18,6 +18,7 @@ namespace CMS_DataModel.Models
         public string ProductId { get; set; }
 
         public byte Status { get; set; }
+        public int Offset { get; set; }
 
         public DateTime CreatedDate { get; set; }
 

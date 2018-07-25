@@ -22,8 +22,7 @@ namespace CMS_DataModel.Models
 
         [StringLength(100)]
         public string StoreID { get; set; }
-
-        [Required]
+        
         [StringLength(100)]
         public string ParentID { get; set; }
         
