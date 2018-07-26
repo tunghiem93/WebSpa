@@ -34,7 +34,7 @@ namespace CMS_Web.Areas.Admin.Controllers
             model.ForEach(x =>
             {
                 if (!string.IsNullOrEmpty(x.ImageURL))
-                    x.ImageURL = Commons.HostImage + "Employees/" + x.ImageURL;
+                    x.ImageURL = Commons.HostImage + "Customers/" + x.ImageURL;
             });
             return PartialView("_ListData", model);
         }
@@ -116,7 +116,7 @@ namespace CMS_Web.Areas.Admin.Controllers
         {
             var model = GetDetail(Id);
             if (!string.IsNullOrEmpty(model.ImageURL))
-                model.ImageURL = Commons.HostImage + "Employees/" + model.ImageURL;
+                model.ImageURL = Commons.HostImage + "Customers/" + model.ImageURL;
             return PartialView("_Edit", model);
         }
 
@@ -134,7 +134,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                 }
                 if (!string.IsNullOrEmpty(model.ImageURL))
                 {
-                    model.ImageURL = model.ImageURL.Replace(Commons._PublicImages, "").Replace("Employees/", "").Replace(Commons.Image200_100, "");
+                    model.ImageURL = model.ImageURL.Replace(Commons._PublicImages, "").Replace("Customers/", "").Replace(Commons.Image200_100, "");
                     temp = model.ImageURL;
                 }
 
@@ -158,12 +158,12 @@ namespace CMS_Web.Areas.Admin.Controllers
                 {
                     if (!string.IsNullOrEmpty(model.ImageURL) && model.PictureByte != null)
                     {
-                        if (System.IO.File.Exists(Server.MapPath("~/Uploads/Employees/" + temp)))
+                        if (System.IO.File.Exists(Server.MapPath("~/Uploads/Customers/" + temp)))
                         {
-                            ImageHelper.Me.TryDeleteImageUpdated(Server.MapPath("~/Uploads/Employees/" + temp));
+                            ImageHelper.Me.TryDeleteImageUpdated(Server.MapPath("~/Uploads/Customers/" + temp));
                         }
 
-                        var path = Server.MapPath("~/Uploads/Employees/" + model.ImageURL);
+                        var path = Server.MapPath("~/Uploads/Customers/" + model.ImageURL);
                         MemoryStream ms = new MemoryStream(photoByte, 0, photoByte.Length);
                         ms.Write(photoByte, 0, photoByte.Length);
                         System.Drawing.Image imageTmp = System.Drawing.Image.FromStream(ms, true);
@@ -193,7 +193,7 @@ namespace CMS_Web.Areas.Admin.Controllers
         {
             var model = GetDetail(Id);
             if (!string.IsNullOrEmpty(model.ImageURL))
-                model.ImageURL = Commons.HostImage + "Employees/" + model.ImageURL;
+                model.ImageURL = Commons.HostImage + "Customers/" + model.ImageURL;
             return PartialView("_View", model);
         }
 

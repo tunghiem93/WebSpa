@@ -29,6 +29,7 @@ namespace CMS_Shared.CMSCustomers
                             LastName = model.LastName,
                             IsActive = model.IsActive,
                             Email = model.Email,
+                            Password = model.Password,
                             Gender = model.Gender,
                             Marital = model.MaritalStatus,
                             JoinedDate = DateTime.Now,
@@ -45,7 +46,7 @@ namespace CMS_Shared.CMSCustomers
                             ModifiedUser = model.CreatedBy,
                             LastModified = DateTime.Now,
                             Anniversary = Commons.MinDate,
-                            ValidTo = DateTime.MinDate,
+                            ValidTo = Commons.MinDate,
                         };
                         cxt.CMS_Customer.Add(e);
                     }
@@ -58,6 +59,7 @@ namespace CMS_Shared.CMSCustomers
                             e.LastName = model.LastName;
                             e.IsActive = model.IsActive;
                             e.Email = model.Email;
+                            e.Password = model.Password;
                             e.Gender = model.Gender;
                             e.Marital = model.MaritalStatus;
                             e.BirthDate = model.BirthDate;
@@ -141,13 +143,14 @@ namespace CMS_Shared.CMSCustomers
                                                     LastName = o.LastName,
                                                     IsActive = o.IsActive ?? true,
                                                     Email = o.Email,
+                                                    Password = o.Password,
                                                     Gender = o.Gender ?? true,
                                                     MaritalStatus = o.Marital ?? false,
                                                     BirthDate = o.BirthDate ?? Commons.MinDate,
                                                     Address = o.HomeStreet,
                                                     City = o.HomeCity,
                                                     Country = o.HomeCountry,
-                                                    ImageURL = string.IsNullOrEmpty(o.ImageUrl) ? "" : Commons._PublicImages + o.ImageUrl,
+                                                    ImageURL = string.IsNullOrEmpty(o.ImageUrl) ? "" : o.ImageUrl,
                                                     /* other info */
 
                                                 }).FirstOrDefault();
@@ -187,7 +190,7 @@ namespace CMS_Shared.CMSCustomers
                                                     Address = o.HomeStreet,
                                                     City = o.HomeCity,
                                                     Country = o.HomeCountry,
-                                                    ImageURL = string.IsNullOrEmpty(o.ImageUrl) ? "" : Commons._PublicImages + o.ImageUrl,
+                                                    ImageURL = string.IsNullOrEmpty(o.ImageUrl) ? "" : o.ImageUrl,
                                                     /* other info */
                                                 }).ToList();
 

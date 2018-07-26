@@ -157,7 +157,7 @@ namespace CMS_Shared.CMSEmployees
                             City = o.City,
                             Country = o.Country,
                             ZipCode = o.ZipCode,
-                            ImageURL = string.IsNullOrEmpty(o.ImageUrl) ? "" : Commons._PublicImages + o.ImageUrl,
+                            ImageURL = string.IsNullOrEmpty(o.ImageUrl) ? "" : o.ImageUrl,
                             StoreID = o.StoreID,
                             IsSupperAdmin = o.IsSupperAdmin,
                             
@@ -202,7 +202,7 @@ namespace CMS_Shared.CMSEmployees
                             City = o.City,
                             Country = o.Country,
                             ZipCode = o.ZipCode,
-                            ImageURL = string.IsNullOrEmpty(o.ImageUrl) ? "" : Commons._PublicImages + o.ImageUrl,
+                            ImageURL = string.IsNullOrEmpty(o.ImageUrl) ? "" : o.ImageUrl,
                             StoreID = o.StoreID,
                             IsSupperAdmin = o.IsSupperAdmin,
                         }).ToList();
