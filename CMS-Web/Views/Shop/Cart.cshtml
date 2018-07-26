@@ -29,6 +29,7 @@
                                     <tr>
                                         <th class="product-name">Product</th>
                                         <th class="product-price">Price</th>
+                                        <th class="product-quantity">Qty</th>
                                         <th class="product-total">Total</th>
                                         <th></th>
                                     </tr>
@@ -39,9 +40,11 @@
                                         <tr class="cart_item_@item.ProductID">
                                             <td class="product-name">
                                                 @string.Format("{0}", !string.IsNullOrEmpty(item.ProductName) && item.ProductName.Length > 35 ? item.ProductName.Substring(0, 35) + "..." : item.ProductName)&nbsp;
-                                                <strong class="product-quantity">× @item.Quantity</strong>
                                             </td>
                                             <td class="product-price">@item.Price.ToString("#,0") đ</td>
+                                            <td class="product-quantity" align="center">
+                                                <input type="number" class="keyNumber" value="@item.Quantity" min="1" onchange="ChangeQuantity('@item.ProductID',@item.Price,this)" style="width:15%;margin:0;padding:10px;display:inline-block;" />
+                                            </td>
                                             <td class="product-total">
                                                 <span class="amount">@item.TotalPrice.ToString("#,0") đ</span>
                                             </td>
@@ -56,19 +59,19 @@
                                 <tfoot>
                                     <tr class="cart-subtotal">
                                         <th>Subtotal</th>
-                                        <td colspan="3">
+                                        <td colspan="4">
                                             <span class="amount subtotalamount">@Model.SubTotalPrice.ToString("#,0") đ</span>
                                         </td>
                                     </tr>
                                     <tr class="shipping">
                                         <th>Shipping</th>
-                                        <td colspan="3" data-title="Shipping">
+                                        <td colspan="4" data-title="Shipping">
                                             <p>Shipping costs will be calculated once you have provided your address.</p>
                                         </td>
                                     </tr>
                                     <tr class="order-total">
                                         <th>Total</th>
-                                        <td colspan="3">
+                                        <td colspan="4">
                                             <strong>
                                                 <span class="amount totalbillamout">@Model.TotalPrice.ToString("#,0") đ</span>
                                             </strong>
@@ -98,6 +101,46 @@
 </div>
 
 <script>
+    $(document).ready(function () {
+        $(".keyNumber").keypress(function (e) {
+            if (window.event) {
+                if (/*window.event.keyCode != 46 &&*/ window.event.keyCode > 31
+                    && (window.event.keyCode < 48 || window.event.keyCode > 57)) {
+                    return (false);//chrome and IE
+                }
+            } else {
+                if (/*e.which != 46 &&*/ e.which > 31
+                    && (e.which < 48 || e.which > 57)) {
+                    return (false);//firefox
+                }
+            }
+        });
+    })
+
+    function ChangeQuantity(itemId, price, that) {
+        var qty = $(that).val();
+        if (qty.length == 0 || qty == 0) {
+            qty = 1;
+            $(that).val(1);
+        }
+
+        var _price = qty * price;
+        _price = parseFloat(_price, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").replace(".00", "").toString() + " đ";
+        $('.cart_item_' + itemId + '').find(".amount").html(_price);
+
+        UpdateQuantity(itemId, qty);
+        var _Order = getListOrder();
+        if (_Order != null) {
+            var TotalBill = 0;
+            $.each(_Order, function (index, item) {
+                TotalBill += item.Price * item.Quantity;
+            });
+            TotalBill = parseFloat(TotalBill, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").replace(".00", "").toString() + " đ";
+            $('.subtotalamount').html(TotalBill);
+            $('.totalbillamout').html(TotalBill);
+        }
+    }
+
     function deleteRecordByItem(itemId) {
         //remote item
         $('.cart_item_' + itemId + '').remove();
