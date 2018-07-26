@@ -80,6 +80,7 @@ namespace CMS_DataModel.Models
         public DateTime Anniversary { get; set; }
 
         public DateTime ValidTo { get; set; }
+        public int  CustomerType { get; set; }
 
         [StringLength(100)]
         public string StoreID { get; set; }
