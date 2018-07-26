@@ -1,11 +1,159 @@
 ﻿@model CMS_DTO.CMSCustomer.CustomerModels
 @{
-    Layout = "~/Areas/Clients/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Đăng ký thành viên";
 }
+
+<div id="main">
+    <section class='title-section'>
+        <div class="title-wrapper">
+            <div class="container">
+                <div class="border-title aligncenter">
+                    <h1>Register</h1>
+                    <h6>Shop our exclusive collections. Earn a better living.</h6>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <section id="primary" class="content-full-width" style="padding-top: 25px;">
+            <div id="post-7" class="post-7 page type-page status-publish hentry">
+                <div class="woocommerce">
+                    @using (@Html.BeginForm("SignUp", "Login", FormMethod.Post, new { @class = "form-horizontal create-form", @enctype = "multipart/form-data", @style = "" }))
+                    {
+                        <div class="col2-set" id="customer_details">
+                            <div class="col-1">
+                                <div class="">
+                                    <p class="form-row form-row form-row-first validate-required" id="billing_first_name_field">
+                                        <label for="billing_first_name" class="">
+                                            First Name
+                                            <abbr class="required" title="required">*</abbr>
+                                        </label>
+                                        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control input-text", @id = "FirstName", @placeholder = "*FirstName", })
+                                        @Html.ValidationMessageFor(model => model.FirstName, null, new { @class = "label label-danger", })
+                                    </p>
+                                    <p class="form-row form-row form-row-last validate-required" id="billing_last_name_field">
+                                        <label for="billing_last_name" class="">
+                                            Last Name
+                                            <abbr class="required" title="required">*</abbr>
+                                        </label>
+                                        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control input-text", @id = "LastName", @placeholder = "*LastName", })
+                                        @Html.ValidationMessageFor(model => model.LastName, null, new { @class = "label label-danger", })
+                                    </p>
+                                    <div class="clear"></div>
+                                    <p class="form-row form-row form-row-wide" id="billing_company_field">
+                                        <label for="billing_company" class="">Company Name</label>
+                                        @Html.TextBoxFor(model => model.CompanyName, new { @class = "form-control input-text", @id = "CompanyName", @placeholder = "*Company Name", })
+                                        @Html.ValidationMessageFor(model => model.CompanyName, null, new { @class = "label label-danger", })
+                                    </p>
+                                    <p class="form-row form-row form-row-first validate-required validate-email" id="billing_email_field">
+                                        <label for="billing_email" class="">
+                                            Email Address
+                                            <abbr class="required" title="required">*</abbr>
+                                        </label>
+                                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control input-text", @id = "username", @placeholder = "*Username", @type = "email", })
+                                        @Html.ValidationMessageFor(model => model.Email, null, new { @class = "label label-danger", })
+                                    </p>
+                                    <p class="form-row form-row form-row-last validate-required validate-phone" id="billing_phone_field">
+                                        <label for="billing_phone" class="">
+                                            Phone
+                                            <abbr class="required" title="required">*</abbr>
+                                        </label>
+                                        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control input-text", @id = "Phone", @placeholder = "*Phone", })
+                                        @Html.ValidationMessageFor(model => model.Phone, null, new { @class = "label label-danger", })
+                                    </p>
+                                    <div class="clear"></div>
+                                    <p class="form-row form-row notes" id="order_comments_field">
+                                        <label for="order_comments" class="">Notes</label>
+                                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control input-text", @id = "Description", @placeholder = "*Description", })
+                                        @Html.ValidationMessageFor(model => model.Country, null, new { @class = "label label-danger", })
+                                    </p>
+                                    <div class="clear"></div>                                    
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="">
+                                    <div class="shipping_address">
+                                        <div class="clear"></div>
+                                        <p class="form-row form-row form-row-wide address-field validate-required" id="billing_address_1_field">
+                                            <label for="billing_address_1" class="">
+                                                Address
+                                                <abbr class="required" title="required">*</abbr>
+                                            </label>
+                                            @Html.TextBoxFor(model => model.Address, new { @class = "form-control input-text", @id = "Address", @placeholder = "*Address", })
+                                            @Html.ValidationMessageFor(model => model.Address, null, new { @class = "label label-danger", })
+                                        </p>
+                                        <div class="clear"></div>
+                                        <p class="form-row form-row form-row-wide address-field validate-required" id="billing_city_field">
+                                            <label for="billing_city" class="">
+                                                Town / City
+                                                <abbr class="required" title="required">*</abbr>
+                                            </label>
+                                            @Html.TextBoxFor(model => model.City, new { @class = "form-control input-text", @id = "City", @placeholder = "*City", })
+                                            @Html.ValidationMessageFor(model => model.City, null, new { @class = "label label-danger", })
+                                        </p>
+                                        <p class="form-row form-row form-row-first address-field validate-state" id="billing_state_field">
+                                            <label for="billing_state" class="">County</label>
+                                            @Html.TextBoxFor(model => model.Country, new { @class = "form-control input-text", @id = "Country", @placeholder = "*Country", })
+                                            @Html.ValidationMessageFor(model => model.Country, null, new { @class = "label label-danger", })
+                                        </p>
+                                        <p class="form-row form-row form-row-last address-field validate-required validate-postcode" id="billing_postcode_field">
+                                            <label for="billing_postcode" class="">
+                                                Postcode
+                                                <abbr class="required" title="required">*</abbr>
+                                            </label>
+                                            @Html.TextBoxFor(model => model.Postcode, new { @class = "form-control input-text", @id = "Postcode", @placeholder = "*Postcode", })
+                                            @Html.ValidationMessageFor(model => model.Postcode, null, new { @class = "label label-danger", })
+                                        </p>
+                                        <div class="clear"></div>
+                                        <p class="form-row form-row-wide create-account">
+                                            <input class="input-checkbox" id="createaccount" type="checkbox" name="createaccount" value="1" />
+                                            <label for="createaccount" class="checkbox">Create an account?</label>
+                                        </p>
+                                        <div class="create-account">
+                                            <p class="form-row form-row validate-required" id="account_password_field">
+                                                <label for="account_password" class="">
+                                                    Account password
+                                                    <abbr class="required" title="required">*</abbr>
+                                                </label>
+                                                @Html.TextBoxFor(model => model.Password, new { @class = "form-control input-text", @id = "Password", @placeholder = "*Password", })
+                                                @Html.ValidationMessageFor(model => model.Password, null, new { @class = "label label-danger", })
+                                            </p>
+                                            <div class="clear"></div>
+                                        </div>
+                                        <div class="create-account">
+                                            <p class="form-row form-row validate-required" id="account_password_field">
+                                                <label for="account_password" class="">
+                                                    Confirm Password
+                                                    <abbr class="required" title="required">*</abbr>
+                                                </label>
+                                                @Html.TextBoxFor(model => model.ConfirmPassword, new { @class = "form-control input-text", @id = "ConfirmPassword", @placeholder = "*Confirm Password", })
+                                                @Html.ValidationMessageFor(model => model.ConfirmPassword, null, new { @class = "label label-danger", })
+                                            </p>
+                                            <div class="clear"></div>
+                                        </div>
+                                    </div>                                    
+                                    <p class="form-row form-row notes" id="order_comments_field" style="">
+                                        <label for="" class=""></label>
+                                        <input type="submit" class="button alt" name="woocommerce_checkout_place_order" id="place_order"
+                                                value="Agree" data-value="Agree" />
+                                        <input type="hidden" id="_wpnonce" name="_wpnonce" value="be71342e8b" />
+                                        <input type="hidden" name="_wp_http_referer" value="/shop/checkout/" />
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="social-bookmark"></div>
+                <div class="social-share"></div>
+            </div>
+        </section>
+    </div>
+</div>
 
 <script type="text/javascript">
     $(document).ready(function () {
 
-    });
+                    });
 </script>

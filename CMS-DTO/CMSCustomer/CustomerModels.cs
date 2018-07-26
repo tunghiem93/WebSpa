@@ -35,6 +35,7 @@ namespace CMS_DTO.CMSCustomer
         [Required(ErrorMessage = "Làm ơn nhập địa chỉ!")]
         public string Address { get; set; }
         public bool MaritalStatus { get; set; }
+        public string Postcode { get; set; }
         public string Street { get; set; }
         public string City { get; set; }
         public string Country { get; set; }

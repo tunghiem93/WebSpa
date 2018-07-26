@@ -18,81 +18,90 @@ namespace CMS_Shared.CMSCustomers
             var Result = true;
             using (var cxt = new CMS_Context())
             {
-                try
+                var _isExits = cxt.CMS_Customer.Any(x => x.Email.Equals(model.Email) && x.IsActive.HasValue);
+                if (_isExits)
                 {
-                    if (string.IsNullOrEmpty(model.ID)) /* insert */
-                    {
-                        Id = Guid.NewGuid().ToString();
-                        var e = new CMS_Customer
-                        {
-                            ID = Id,
-                            FirstName = model.Name,
-                            LastName = model.LastName,
-                            IsActive = model.IsActive,
-                            Email = model.Email,
-                            Password = model.Password,
-                            Gender = model.Gender,
-                            Marital = model.MaritalStatus,
-                            JoinedDate = DateTime.Now,
-                            BirthDate = model.BirthDate,
-                            HomeStreet = model.Address,
-                            HomeCity = model.City,
-                            ImageUrl = model.ImageURL,
-                            /* other info */
-
-
-                            Status = (byte)Commons.EStatus.Actived,
-                            CreatedDate = DateTime.Now,
-                            CreatedUser = model.CreatedBy,
-                            ModifiedUser = model.CreatedBy,
-                            LastModified = DateTime.Now,
-                            Anniversary = Commons.MinDate,
-                            ValidTo = Commons.MinDate,
-                        };
-                        cxt.CMS_Customer.Add(e);
-                    }
-                    else /* updated */
-                    {
-                        var e = cxt.CMS_Customer.Find(model.ID);
-                        if (e != null)
-                        {
-                            e.FirstName = model.FirstName;
-                            e.LastName = model.LastName;
-                            e.IsActive = model.IsActive;
-                            e.Email = model.Email;
-                            e.Password = model.Password;
-                            e.Gender = model.Gender;
-                            e.Marital = model.MaritalStatus;
-                            e.BirthDate = model.BirthDate;
-                            e.HomeStreet = model.Address;
-                            e.HomeCity = model.City;
-                            e.ImageUrl = model.ImageURL;
-
-                            /* other info */
-
-                            e.ModifiedUser = model.CreatedBy;
-                            e.LastModified = DateTime.Now;
-                        }
-                        else
-                        {
-                            Result = false;
-                            msg = "Unable to find Discount.";
-                        }
-                    }
-
-                    cxt.SaveChanges();
-                    NSLog.Logger.Info("ResponseCustomersCreateOrUpdate", new { Result, msg });
-
-                }
-                catch (Exception ex)
-                {
+                    msg = "Địa chỉ email đã tồn tại";
                     Result = false;
-                    msg = "System Error.";
-                    NSLog.Logger.Error("ErrorCustomersCreateOrUpdate", ex);
+                }
+                else
+                {
+                    try
+                    {
+                        if (string.IsNullOrEmpty(model.ID)) /* insert */
+                        {
+                            Id = Guid.NewGuid().ToString();
+                            var e = new CMS_Customer
+                            {
+                                ID = Id,
+                                FirstName = model.Name,
+                                LastName = model.LastName,
+                                IsActive = model.IsActive,
+                                Email = model.Email,
+                                Password = model.Password,
+                                Gender = model.Gender,
+                                Marital = model.MaritalStatus,
+                                JoinedDate = DateTime.Now,
+                                BirthDate = model.BirthDate,
+                                HomeStreet = model.Address,
+                                HomeCity = model.City,
+                                ImageUrl = model.ImageURL,
+                                /* other info */
+
+
+                                Status = (byte)Commons.EStatus.Actived,
+                                CreatedDate = DateTime.Now,
+                                CreatedUser = model.CreatedBy,
+                                ModifiedUser = model.CreatedBy,
+                                LastModified = DateTime.Now,
+                                Anniversary = Commons.MinDate,
+                                ValidTo = Commons.MinDate,
+                            };
+                            cxt.CMS_Customer.Add(e);
+                        }
+                        else /* updated */
+                        {
+                            var e = cxt.CMS_Customer.Find(model.ID);
+                            if (e != null)
+                            {
+                                e.FirstName = model.FirstName;
+                                e.LastName = model.LastName;
+                                e.IsActive = model.IsActive;
+                                e.Email = model.Email;
+                                e.Password = model.Password;
+                                e.Gender = model.Gender;
+                                e.Marital = model.MaritalStatus;
+                                e.BirthDate = model.BirthDate;
+                                e.HomeStreet = model.Address;
+                                e.HomeCity = model.City;
+                                e.ImageUrl = model.ImageURL;
+
+                                /* other info */
+
+                                e.ModifiedUser = model.CreatedBy;
+                                e.LastModified = DateTime.Now;
+                            }
+                            else
+                            {
+                                Result = false;
+                                msg = "Unable to find Discount.";
+                            }
+                        }
+
+                        cxt.SaveChanges();
+                        NSLog.Logger.Info("ResponseCustomersCreateOrUpdate", new { Result, msg });
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Result = false;
+                        msg = "System Error.";
+                        NSLog.Logger.Error("ErrorCustomersCreateOrUpdate", ex);
+                    }
                 }
             }
             return Result;
-        }
+        }        
 
         public bool Delete(string Id, ref string msg)
         {

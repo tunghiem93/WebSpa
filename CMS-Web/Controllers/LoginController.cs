@@ -98,7 +98,7 @@ namespace CMS_Web.Controllers
                 model.Password = CommonHelper.Encrypt(model.Password);
                 string msg = "";
                 string cusId = "";
-                var result = _factory.CreateOrUpdate(model, ref msg, ref cusId);
+                var result = _factory.CreateOrUpdate(model, ref cusId, ref msg);
                 if (result)
                 {
                     var data = _factory.GetDetail(cusId);
