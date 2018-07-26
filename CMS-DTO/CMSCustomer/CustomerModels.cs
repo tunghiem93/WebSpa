@@ -39,11 +39,7 @@ namespace CMS_DTO.CMSCustomer
         public string City { get; set; }
         public string Country { get; set; }
         public string Description { get; set; }
-        public bool IsActive { get; set; }
-        public string ImageURL { get; set; }
-        [DataType(DataType.Upload)]
-        public HttpPostedFileBase PictureUpload { get; set; }
-        public byte[] PictureByte { get; set; }
+        public bool IsActive { get; set; }        
         public List<SelectListItem> ListMarital { get; set; }
         public List<SelectListItem> ListGender { get; set; }
         public string CompanyName { get; set; }
@@ -51,6 +47,12 @@ namespace CMS_DTO.CMSCustomer
         public string UpdatedBy { get; set; }
         public DateTime UpdatedDate { get; set; }
         public DateTime CreatedDate { get; set; }
+
+        public string ImageURL { get; set; }
+        [DataType(DataType.Upload)]
+        public HttpPostedFileBase PictureUpload { get; set; }
+        public byte[] PictureByte { get; set; }
+
         public CustomerModels()
         {
             IsActive = true;

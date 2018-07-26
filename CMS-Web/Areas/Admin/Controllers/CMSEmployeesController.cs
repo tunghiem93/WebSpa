@@ -76,6 +76,7 @@ namespace CMS_Web.Areas.Admin.Controllers
 
                 var msg = "";
                 var id = "";
+                model.CreatedBy = CurrentUser.Email;
                 model.Password = CommonHelper.Encrypt(model.Password);
                 var result = _factory.CreateOrUpdate(model, ref id, ref msg);
                 if (result)
@@ -143,6 +144,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                 var msg = "";
                 var id = "";
 
+                model.CreatedBy = CurrentUser.Email;
                 model.Password = CommonHelper.Encrypt(model.Password);
                 var result = _factory.CreateOrUpdate(model, ref id, ref msg);
                 if (result)

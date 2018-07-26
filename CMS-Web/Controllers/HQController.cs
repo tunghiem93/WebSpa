@@ -1,4 +1,5 @@
 ﻿using CMS_DTO.CMSSession;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -27,6 +28,18 @@ namespace CMS_Web.Controllers
                 }
             }
             System.Web.HttpContext.Current.Session["SliderSession"] = ListSlider;
+        }
+
+        public List<OrderCookie> GetListOrderCookie()
+        {
+            if (Request.Cookies["cms-order"] != null)
+            {
+                var _Orders = Request.Cookies["cms-order"].Value;
+                var strOrder = Server.UrlDecode(_Orders);
+                var ListOrder = JsonConvert.DeserializeObject<List<OrderCookie>>(strOrder);
+                return ListOrder;
+            }
+            return null;
         }
     }
 }

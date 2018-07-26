@@ -24,8 +24,8 @@ namespace CMS_Shared.CMSEmployees
                         var e = new CMS_Employee
                         {
                             ID = Id,
-
                             Name = model.Name,
+                            Email = model.Employee_Email,
                             Password = model.Password,
                             IsActive = model.IsActive,
                             Phone = model.Employee_Phone,
@@ -38,10 +38,9 @@ namespace CMS_Shared.CMSEmployees
                             City = model.City,
                             Country = model.Country,
                             ZipCode = model.ZipCode,
-                            ImageUrl = model.ImageUrl,
+                            ImageUrl = model.ImageURL,
                             StoreID = model.StoreID,
                             IsSupperAdmin = model.IsSupperAdmin,
-
                             Status = (byte)Commons.EStatus.Actived,
                             CreatedDate = DateTime.Now,
                             CreatedUser = model.CreatedBy,
@@ -56,6 +55,7 @@ namespace CMS_Shared.CMSEmployees
                         if (e != null)
                         {
                             e.Name = model.Name;
+                            e.Email = model.Employee_Email;
                             //Password = model.Password,
                             e.IsActive = model.IsActive;
                             e.Phone = model.Employee_Phone;
@@ -68,10 +68,10 @@ namespace CMS_Shared.CMSEmployees
                             e.City = model.City;
                             e.Country = model.Country;
                             e.ZipCode = model.ZipCode;
-                            e.ImageUrl = model.ImageUrl;
+                            e.ImageUrl = model.ImageURL;
                             e.StoreID = model.StoreID;
                             e.IsSupperAdmin = model.IsSupperAdmin;
-
+                            e.Status = (byte)Commons.EStatus.Actived;
                             e.ModifiedUser = model.CreatedBy;
                             e.LastModified = DateTime.Now;
                         }
@@ -156,7 +156,7 @@ namespace CMS_Shared.CMSEmployees
                             City = o.City,
                             Country = o.Country,
                             ZipCode = o.ZipCode,
-                            ImageUrl = string.IsNullOrEmpty(o.ImageUrl) ? "" : Commons._PublicImages + o.ImageUrl,
+                            ImageURL = string.IsNullOrEmpty(o.ImageUrl) ? "" : Commons._PublicImages + o.ImageUrl,
                             StoreID = o.StoreID,
                             IsSupperAdmin = o.IsSupperAdmin,
                             
@@ -201,7 +201,7 @@ namespace CMS_Shared.CMSEmployees
                             City = o.City,
                             Country = o.Country,
                             ZipCode = o.ZipCode,
-                            ImageUrl = string.IsNullOrEmpty(o.ImageUrl) ? "" : Commons._PublicImages + o.ImageUrl,
+                            ImageURL = string.IsNullOrEmpty(o.ImageUrl) ? "" : Commons._PublicImages + o.ImageUrl,
                             StoreID = o.StoreID,
                             IsSupperAdmin = o.IsSupperAdmin,
                         }).ToList();
