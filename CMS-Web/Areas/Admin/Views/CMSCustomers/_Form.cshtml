@@ -125,7 +125,8 @@
         }, function (start, end, label) {
             });
 
-        $('[id=txtPassword]').val('@Model.Password')
+        $('[id=txtPassword]').val('@Model.Password');
+        $('[id=txtConfirmPassword]').val('@Model.ConfirmPassword');
     });
 
     function showPictureUpload() {
