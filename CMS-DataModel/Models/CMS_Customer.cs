@@ -65,11 +65,9 @@ namespace CMS_DataModel.Models
 
         public DateTime CreatedDate { get; set; }
 
-        [Required]
         [StringLength(100)]
         public string CreatedUser { get; set; }
 
-        [Required]
         [StringLength(100)]
         public string ModifiedUser { get; set; }
 
