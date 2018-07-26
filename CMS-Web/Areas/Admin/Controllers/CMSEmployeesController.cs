@@ -93,7 +93,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                     return RedirectToAction("Index");
                 }
                    
-                ModelState.AddModelError("FirstName", msg);
+                ModelState.AddModelError("Name", msg);
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return PartialView("_Create", model);
             }
@@ -166,7 +166,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                     return RedirectToAction("Index");
                 }
                     
-                ModelState.AddModelError("FirstName", msg);
+                ModelState.AddModelError("Name", msg);
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return PartialView("_Edit", model);
             }
@@ -208,7 +208,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                 var result = _factory.Delete(model.Id, ref msg);
                 if (result)
                     return RedirectToAction("Index");
-                ModelState.AddModelError("FirstName", msg);
+                ModelState.AddModelError("Name", msg);
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return PartialView("_Delete", model);
             }

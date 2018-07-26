@@ -1,11 +1,72 @@
 ﻿@model CMS_DTO.CMSCustomer.ClientLoginModel
 @{
-    Layout = "~/Areas/Clients/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "Đăng nhập";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    
+</style>
 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Đăng nhập</title>
+</head>
+<body class="">
+    <div id="main">
+        <section class='title-section'>
+            <div class="title-wrapper">
+                <div class="container">
+                    <div class="border-title aligncenter">
+                        <h1>My Account</h1>
+                        <h6>Shop our exclusive collections. Earn a better living.</h6>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="container">
+            <section id="primary" class="content-full-width">
+                <div id="post-8" class="post-8 page type-page status-publish hentry">
+                    <div class="woocommerce">
+                        <h2>Login</h2>
+                        @using (@Html.BeginForm("SignIn", "Login", FormMethod.Post, new { @class = "form-horizontal create-form", @enctype = "multipart/form-data", @style = "" }))
+                        {
+                        <p class="form-row form-row-wide">
+                            <label for="username">
+                                Username or email address
+                                <span class="required">*</span>
+                            </label>
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control input-text", @id = "username", @placeholder = "*Username", @type = "email", })
+                            @Html.ValidationMessageFor(model => model.Email, null, new { @class = "label label-danger", })
+                        </p>
+                        <p class="form-row form-row-wide">
+                            <label for="password">
+                                Password
+                                <span class="required">*</span>
+                            </label>
+                            @Html.PasswordFor(model => model.Password, new { @class = "form-control input-text", @id = "password", @placeholder = "*Password", @type = "password" })
+                            @Html.ValidationMessageFor(model => model.Password, null, new { @class = "label label-danger", })
+                        </p>
+                            <p class="form-row">
+                                <input type="hidden" id="_wpnonce" name="_wpnonce" value="e8f5622d97" />
+                                <input type="hidden" name="_wp_http_referer" value="/shop/my-account/" />
+                                <input type="submit" class="button" name="login" value="Login" />
+                                <label for="rememberme" class="inline">
+                                    <input name="rememberme" type="checkbox" id="rememberme" value="forever" /> Remember me
+                                </label>
+                            </p>
+                            <p class="lost_password">
+                                <a href="javascript:void(0)">Lost your password?</a>
+                            </p>
+                        }
+                        </div>
+                    <div class="social-bookmark"></div>
+                    <div class="social-share"></div>
+                </div>
+            </section>
+        </div>
+    </div>    
+</body>
+</html>
 
 <script type="text/javascript">
 </script>
-
-

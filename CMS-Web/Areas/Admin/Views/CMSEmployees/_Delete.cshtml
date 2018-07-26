@@ -31,11 +31,11 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label"></label>
                             <div class="col-md-6" style="font-size: 20px; width: 100%;">
-                                Bạn có chắc chắn muốn xóa <strong>[ @Model.FullName ]</strong>?
+                                Bạn có chắc chắn muốn xóa <strong>[ @Model.Name ]</strong>?
                                 <br />
                                 @Html.HiddenFor(model => model.Id)
-                                @Html.HiddenFor(model => model.FirstName)
-                                @Html.ValidationMessageFor(model => model.FirstName, null, new { @class = "label" })
+                                @Html.HiddenFor(model => model.Name)
+                                @Html.ValidationMessageFor(model => model.Name, null, new { @class = "label" })
                             </div>
                         </div>
                     }
