@@ -38,7 +38,7 @@ namespace CMS_Shared.CMSEmployees
                             City = model.City,
                             Country = model.Country,
                             ZipCode = model.ZipCode,
-                            ImageUrl = model.ImageUrl,
+                            ImageUrl = model.ImageURL,
                             StoreID = model.StoreID,
                             IsSupperAdmin = model.IsSupperAdmin,
 
@@ -68,7 +68,7 @@ namespace CMS_Shared.CMSEmployees
                             e.City = model.City;
                             e.Country = model.Country;
                             e.ZipCode = model.ZipCode;
-                            e.ImageUrl = model.ImageUrl;
+                            e.ImageUrl = model.ImageURL;
                             e.StoreID = model.StoreID;
                             e.IsSupperAdmin = model.IsSupperAdmin;
 
@@ -156,7 +156,7 @@ namespace CMS_Shared.CMSEmployees
                             City = o.City,
                             Country = o.Country,
                             ZipCode = o.ZipCode,
-                            ImageUrl = string.IsNullOrEmpty(o.ImageUrl) ? "" : Commons._PublicImages + o.ImageUrl,
+                            ImageURL = string.IsNullOrEmpty(o.ImageUrl) ? "" : Commons._PublicImages + o.ImageUrl,
                             StoreID = o.StoreID,
                             IsSupperAdmin = o.IsSupperAdmin,
                             
@@ -201,7 +201,7 @@ namespace CMS_Shared.CMSEmployees
                             City = o.City,
                             Country = o.Country,
                             ZipCode = o.ZipCode,
-                            ImageUrl = string.IsNullOrEmpty(o.ImageUrl) ? "" : Commons._PublicImages + o.ImageUrl,
+                            ImageURL = string.IsNullOrEmpty(o.ImageUrl) ? "" : Commons._PublicImages + o.ImageUrl,
                             StoreID = o.StoreID,
                             IsSupperAdmin = o.IsSupperAdmin,
                         }).ToList();
