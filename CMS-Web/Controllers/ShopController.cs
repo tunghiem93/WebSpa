@@ -82,5 +82,44 @@ namespace CMS_Web.Controllers
             }
             return View(model);
         }
+
+        public ActionResult CheckOut()
+        {
+            CMS_CheckOutModels model = new CMS_CheckOutModels();
+            try
+            {
+                var _Orders = GetListOrderCookie();
+                NSLog.Logger.Info("List Order Cookie", JsonConvert.SerializeObject(_Orders));
+                if (_Orders != null && _Orders.Any())
+                {
+                    var ItemIds = _Orders.Select(x => x.ItemId).ToList();
+                    var data = _fac.GetList().Where(o => ItemIds.Contains(o.Id))
+                                             .Select(o => new CMS_ItemModels
+                                             {
+                                                 Price = o.ProductPrice,
+                                                 ProductID = o.Id,
+                                                 ProductName = o.ProductName,
+                                                 Quantity = o.Quantity
+                                             }).ToList();
+                    if (data != null && data.Any())
+                    {
+                        data.ForEach(o =>
+                        {
+                            var item = _Orders.FirstOrDefault(z => z.ItemId.Equals(o.ProductID));
+                            o.Quantity = item.Quantity;
+                            o.TotalPrice = Convert.ToDouble(o.Price * item.Quantity);
+                        });
+                        model.ListItem = data;
+                        model.TotalPrice = data.Sum(o => o.TotalPrice);
+                        model.SubTotalPrice = data.Sum(o => o.TotalPrice);
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                NSLog.Logger.Error("CheckOut", ex);
+            }
+            return View(model);
+        }
     }
 }
