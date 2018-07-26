@@ -49,7 +49,10 @@ namespace CMS_Web.Areas.Admin.Controllers
         {
             var data = _factory.GetDetail(Id);
             if (data != null)
+            {
                 data.Password = CommonHelper.Decrypt(data.Password);
+                data.ConfirmPassword = data.Password;
+            }                
             return data;
         }
 
@@ -94,11 +97,15 @@ namespace CMS_Web.Areas.Admin.Controllers
                 }
 
                 ModelState.AddModelError("Name", msg);
+                model.Password = CommonHelper.Decrypt(model.Password);
+                model.ConfirmPassword = model.Password;
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return PartialView("_Create", model);
             }
             catch (Exception ex)
             {
+                model.Password = CommonHelper.Decrypt(model.Password);
+                model.ConfirmPassword = model.Password;
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return PartialView("_Create", model);
             }
@@ -167,11 +174,15 @@ namespace CMS_Web.Areas.Admin.Controllers
                 }
 
                 ModelState.AddModelError("Name", msg);
+                model.Password = CommonHelper.Decrypt(model.Password);
+                model.ConfirmPassword = model.Password;
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return PartialView("_Edit", model);
             }
             catch (Exception ex)
             {
+                model.Password = CommonHelper.Decrypt(model.Password);
+                model.ConfirmPassword = model.Password;
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return PartialView("_Edit", model);
             }
