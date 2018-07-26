@@ -44,6 +44,8 @@ namespace CMS_Shared.CMSCustomers
                             CreatedUser = model.CreatedBy,
                             ModifiedUser = model.CreatedBy,
                             LastModified = DateTime.Now,
+                            Anniversary = Commons.MinDate,
+                            ValidTo = DateTime.MinDate,
                         };
                         cxt.CMS_Customer.Add(e);
                     }
@@ -67,7 +69,6 @@ namespace CMS_Shared.CMSCustomers
 
                             e.ModifiedUser = model.CreatedBy;
                             e.LastModified = DateTime.Now;
-
                         }
                         else
                         {
