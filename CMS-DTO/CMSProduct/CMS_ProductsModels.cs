@@ -1,5 +1,5 @@
-﻿using CMS_DTO.CMSImage;
-using CMS_Shared;
+﻿using CMS_Common;
+using CMS_DTO.CMSImage;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

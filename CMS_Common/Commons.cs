@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CMS_Shared
+namespace CMS_Common
 {
     public static class Commons
     {

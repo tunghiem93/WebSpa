@@ -1,4 +1,5 @@
-﻿using CMS_DTO.CMSNews;
+﻿using CMS_Common;
+using CMS_DTO.CMSNews;
 using CMS_Shared;
 using CMS_Shared.CMSNews;
 using System;

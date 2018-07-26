@@ -1,4 +1,5 @@
-﻿using CMS_DataModel.Models;
+﻿using CMS_Common;
+using CMS_DataModel.Models;
 using CMS_DTO.CMSCustomer;
 using System;
 using System.Collections.Generic;
@@ -210,7 +211,7 @@ namespace CMS_Shared.CMSCustomers
                 {
                     var data = cxt.CMS_Customer.Where(x => x.Email.Equals(model.Email) &&
                                                          x.Password.Equals(model.Password) &&
-                                                         x.IsActive.HasValue) 
+                                                         x.IsActive.Value) 
                                               .Select(x => new ClientLoginModel
                                               {
                                                   Email = x.Email,

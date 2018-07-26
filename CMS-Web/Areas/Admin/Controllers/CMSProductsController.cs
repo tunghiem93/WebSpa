@@ -1,6 +1,6 @@
-﻿using CMS_DTO.CMSImage;
+﻿using CMS_Common;
+using CMS_DTO.CMSImage;
 using CMS_DTO.CMSProduct;
-using CMS_Shared;
 using CMS_Shared.CMSProducts;
 using CMS_Shared.Utilities;
 using CMS_Web.Web.App_Start;

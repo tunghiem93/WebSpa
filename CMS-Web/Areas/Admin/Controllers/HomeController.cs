@@ -1,6 +1,6 @@
-﻿using CMS_DTO.CMSCompany;
+﻿using CMS_Common;
+using CMS_DTO.CMSCompany;
 using CMS_DTO.CMSHome;
-using CMS_Shared;
 using CMS_Shared.CMSCompanies;
 using CMS_Shared.Utilities;
 using CMS_Web.Web.App_Start;

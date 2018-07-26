@@ -1,4 +1,5 @@
-﻿using CMS_DTO.CMSBase;
+﻿using CMS_Common;
+using CMS_DTO.CMSBase;
 using CMS_DTO.CMSSession;
 using CMS_Shared;
 using CMS_Shared.CMSCategories;

@@ -1,10 +1,10 @@
-﻿@model CMS_DTO.CMSEmployee.CMS_EmployeeModels
+﻿@model CMS_DTO.CMSCustomer.CustomerModels
 @using CMS_Shared
 <div role="main" style="display:inline-block;height:100%;width:100%">
     @*<div class="se-pre-con" style="display: none;"></div>*@
     <div class="page-title">
         <!-- BEGIN PAGE BAR -->
-        @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Trang chủ" }, { "B", "Nhân viên - Xem" } })
+        @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Trang chủ" }, { "B", "Khách hàng - Xem" } })
         <!-- END PAGE BAR -->
     </div>
     <div class="page-main">
@@ -25,7 +25,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Tên nhân viên</label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <label style="margin-top:1%">@Model.FullName</label>
+                                    <label style="margin-top:1%">@Model.Name</label>
                                 </div>
                             </div>
                             <div class="form-group">

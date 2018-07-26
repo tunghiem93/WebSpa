@@ -1,5 +1,5 @@
-﻿using CMS_DTO.CMSNews;
-using CMS_Shared;
+﻿using CMS_Common;
+using CMS_DTO.CMSNews;
 using CMS_Shared.CMSNews;
 using CMS_Shared.Utilities;
 using CMS_Web.Web.App_Start;

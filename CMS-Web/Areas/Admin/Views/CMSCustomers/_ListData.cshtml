@@ -1,7 +1,7 @@
 ﻿@{
     Layout = null;
 }
-@model List<CMS_DTO.CMSEmployee.CMS_EmployeeModels >
+@model List<CMS_DTO.CMSCustomer.CustomerModels>
 @*<style type="text/css">
     #sample_3 ul {
         width: 100% !important;
@@ -21,10 +21,10 @@
         <div class="portlet box red">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-cogs"></i>Nhân viên
+                    <i class="fa fa-cogs"></i>Khách hàng
                 </div>
                 <div class="actions">
-                    <a href="javascript:;" class="btn btn-default btn-sm" onclick='ShowView("@Url.Action("Create","CMSEmployees")")'>
+                    <a href="javascript:;" class="btn btn-default btn-sm" onclick='ShowView("@Url.Action("Create","CMSCustomers")")'>
                         <i class="fa fa-plus"></i> Thêm mới
                     </a>
                 </div>
@@ -49,26 +49,33 @@
                             {
                                 <tr class="odd gradeX">
                                     <td class="text-center">
-                                        @item.FullName
+                                        @item.Name
                                     </td>
-                                    <td class="text-center"> @item.Employee_Email </td>
+                                    <td class="text-center"> @item.Email </td>
                                     <td class="text-center">
-                                        @item.Employee_Phone
+                                        @item.Phone
                                     </td>
                                     <td class="text-center">@item.BirthDate.ToString("dd/MM/yyyy")</td>
-                                    <td>@item.Employee_Address</td>
+                                    <td>@item.Address</td>
                                     <td class="text-center">
-                                        <span class="label label-sm label-success"> @item.sStatus </span>
+                                        @if (item.IsActive)
+                                        {
+                                            <span class="label label-success">@Html.Raw("Kích hoạt")</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="label label-danger">@Html.Raw("Chưa kích hoạt")</span>
+                                        }
                                     </td>
                                     <td class="text-center">
                                         <a href="javascript:void(0)"
-                                           onclick='ShowView("@Url.Action("View","CMSEmployees",new { Id=item.Id})")'
+                                           onclick='ShowView("@Url.Action("View","CMSCustomers",new { Id=item.ID})")'
                                            class="btn btn-primary btn-xs view details"><i class="fa fa-eye"></i>&nbsp;Xem</a>&nbsp;&nbsp;
                                         <a href="javascript:void(0)"
-                                           onclick='ShowView("@Url.Action("Edit","CMSEmployees",new { Id=item.Id})")'
+                                           onclick='ShowView("@Url.Action("Edit","CMSCustomers",new { Id=item.ID})")'
                                            class="btn btn-info btn-xs edit details"><i class="fa fa-edit"></i>&nbsp;Cập nhập</a>&nbsp;&nbsp;
                                         <a href="javascript:void(0)"
-                                           onclick='ShowView("@Url.Action("Delete","CMSEmployees",new { Id=item.Id})")'
+                                           onclick='ShowView("@Url.Action("Delete","CMSCustomers",new { Id=item.ID})")'
                                            class="btn btn-danger btn-xs delete details"><i class="fa fa-trash-o"></i>&nbsp;Xóa</a>
                                     </td>
                                 </tr>

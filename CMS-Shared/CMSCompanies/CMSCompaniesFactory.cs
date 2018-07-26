@@ -1,4 +1,5 @@
-﻿using CMS_DataModel.Models;
+﻿using CMS_Common;
+using CMS_DataModel.Models;
 using CMS_DTO.CMSCompany;
 using System;
 using System.Collections.Generic;
