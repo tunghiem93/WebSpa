@@ -1,0 +1,118 @@
+﻿@model CMS_DTO.CMSOrder.CMS_OrderViewModels
+<style>
+    th {
+        background-color: #a0ca50 !important;
+    }
+</style>
+<div class="wrapper">
+    <div class="inner-wrapper">
+
+        <div id="main">
+            <section class='title-section'>
+                <div class="title-wrapper">
+                    <div class="container">
+                        <div class="border-title aligncenter">
+                            <h1>Cart</h1>
+                            <h6>Shop our exclusive collections. Earn a better living.</h6>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="container">
+                <section id="primary" class="content-full-width">
+                    <!--Cart-->
+                    @if (Model != null && Model.ListItem != null && Model.ListItem.Any())
+                    {
+                        <div id="order_review" class="woocommerce-checkout-review-order">
+                            <table class="shop_table woocommerce-checkout-review-order-table" style="position: relative; zoom: 1;">
+                                <thead>
+                                    <tr>
+                                        <th class="product-name">Product</th>
+                                        <th class="product-price">Price</th>
+                                        <th class="product-total">Total</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.ListItem)
+                                    {
+                                        <tr class="cart_item_@item.ProductID">
+                                            <td class="product-name">
+                                                @string.Format("{0}", !string.IsNullOrEmpty(item.ProductName) && item.ProductName.Length > 35 ? item.ProductName.Substring(0, 35) + "..." : item.ProductName)&nbsp;
+                                                <strong class="product-quantity">× @item.Quantity</strong>
+                                            </td>
+                                            <td class="product-price">@item.Price.ToString("#,0") đ</td>
+                                            <td class="product-total">
+                                                <span class="amount">@item.TotalPrice.ToString("#,0") đ</span>
+                                            </td>
+                                            <td class="">
+                                                <a href="javascript:void(0)" onclick="deleteRecordByItem('@item.ProductID')">
+                                                    <i class="fa fa-remove" style="color:red"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr class="cart-subtotal">
+                                        <th>Subtotal</th>
+                                        <td colspan="3">
+                                            <span class="amount subtotalamount">@Model.SubTotalPrice.ToString("#,0") đ</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="shipping">
+                                        <th>Shipping</th>
+                                        <td colspan="3" data-title="Shipping">
+                                            <p>Shipping costs will be calculated once you have provided your address.</p>
+                                        </td>
+                                    </tr>
+                                    <tr class="order-total">
+                                        <th>Total</th>
+                                        <td colspan="3">
+                                            <strong>
+                                                <span class="amount totalbillamout">@Model.TotalPrice.ToString("#,0") đ</span>
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+                        </div>
+                    }
+                    else
+                    {
+                        <div id="post-6" class="post-6 page type-page status-publish hentry">
+                            <div class="woocommerce">
+                                <p class="cart-empty"> Your cart is currently empty.</p>
+                                <p class="return-to-shop"> <a class="button wc-backward" href="@Url.Action("Index","Shop")"> Return To Shop </a></p>
+                            </div>
+                            <div class="social-bookmark"></div>
+                            <div class="social-share"></div>
+                        </div>
+                    }
+                </section>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function deleteRecordByItem(itemId) {
+        //remote item
+        $('.cart_item_' + itemId + '').remove();
+        //remote cookie
+        RemoveOrderByItemId(itemId);
+        //update your cart
+        var _Order = getListOrder();
+        if (_Order != null) {
+            var TotalBill = 0;
+            $.each(_Order, function (index, item) {
+                TotalBill += item.Price * item.Quantity;
+            });
+            TotalBill = parseFloat(TotalBill, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").replace(".00", "").toString() + " đ";
+            $('.subtotalamount').html(TotalBill);
+            $('.totalbillamout').html(TotalBill);
+        }
+    }
+</script>
