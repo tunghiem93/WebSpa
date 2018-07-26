@@ -21,11 +21,8 @@ namespace CMS_DataModel.Models
         public string ID { get; set; }
 
         [StringLength(100)]
-        public string StoreID { get; set; }
-        
-        [StringLength(100)]
         public string ParentID { get; set; }
-        
+
         public int TypeCode { get; set; }
 
         [StringLength(100)]
@@ -52,6 +49,19 @@ namespace CMS_DataModel.Models
 
         public string ImageURL { get; set; }
 
+        public byte Status { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string CreatedUser { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string ModifiedUser { get; set; }
+
+        public DateTime LastModified { get; set; }
 
         public double Cost { get; set; }
 
@@ -85,19 +95,8 @@ namespace CMS_DataModel.Models
 
         public bool IsRecommend { get; set; }
 
-        public byte Status { get; set; }
-
-        public DateTime CreatedDate { get; set; }
-
-        [Required]
         [StringLength(100)]
-        public string CreatedUser { get; set; }
-
-        [Required]
-        [StringLength(100)]
-        public string ModifiedUser { get; set; }
-
-        public DateTime LastModified { get; set; }
+        public string StoreID { get; set; }
 
         public virtual CMS_Categories CMS_Categories { get; set; }
 

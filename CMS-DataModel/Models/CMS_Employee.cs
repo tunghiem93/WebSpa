@@ -16,8 +16,6 @@ namespace CMS_DataModel.Models
 
         [StringLength(100)]
         public string ID { get; set; }
-        [StringLength(100)]
-        public string StoreID { get; set; }
 
         [StringLength(50)]
         public string Name { get; set; }
@@ -70,6 +68,10 @@ namespace CMS_DataModel.Models
         public string Country { get; set; }
 
         public string ImageUrl { get; set; }
+
+        [StringLength(100)]
+        public string StoreID { get; set; }
+
         public bool IsSupperAdmin { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -30,8 +30,6 @@ namespace CMS_DataModel.Models
 
         public double? Value { get; set; }
 
-        public byte? ValueType { get; set; }
-
         public bool? IsAllowOpenValue { get; set; }
 
         public bool? IsActive { get; set; }
@@ -53,6 +51,8 @@ namespace CMS_DataModel.Models
         public string ImageUrl { get; set; }
 
         public bool IsApplyTotalBill { get; set; }
+
+        public byte? ValueType { get; set; }
 
         public virtual CMS_Store CMS_Store { get; set; }
 

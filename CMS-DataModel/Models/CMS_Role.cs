@@ -42,8 +42,6 @@ namespace CMS_DataModel.Models
         public DateTime LastModified { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMS_ModulePermission> CMS_ModulePermission { get; set; }
 
         public virtual CMS_Store CMS_Store { get; set; }

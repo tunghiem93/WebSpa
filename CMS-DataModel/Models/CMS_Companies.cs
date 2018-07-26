@@ -10,8 +10,6 @@ namespace CMS_DataModel.Models
     {
         [StringLength(100)]
         public string Id { get; set; }
-        [StringLength(100)]
-        public string StoreID { get; set; }
 
         [Required]
         [StringLength(250)]
@@ -62,5 +60,8 @@ namespace CMS_DataModel.Models
         public string UpdatedBy { get; set; }
 
         public DateTime CreatedDate { get; set; }
+
+        [StringLength(100)]
+        public string StoreID { get; set; }
     }
 }

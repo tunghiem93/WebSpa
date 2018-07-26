@@ -18,6 +18,7 @@ namespace CMS_DataModel.Models
         [StringLength(100)]
         public string ID { get; set; }
 
+        [Required]
         [StringLength(100)]
         public string StoreID { get; set; }
 
@@ -50,11 +51,12 @@ namespace CMS_DataModel.Models
 
         public DateTime LastModified { get; set; }
 
-        public int ProductTypeCode { get; set; }
-
         public bool IsShowInReservation { get; set; }
 
         public int Sequence { get; set; }
+
+        public int ProductTypeCode { get; set; }
+
         public bool IsActive { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

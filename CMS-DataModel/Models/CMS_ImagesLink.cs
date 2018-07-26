@@ -18,7 +18,6 @@ namespace CMS_DataModel.Models
         public string ProductId { get; set; }
 
         public byte Status { get; set; }
-        public int Offset { get; set; }
 
         public DateTime CreatedDate { get; set; }
 
@@ -31,6 +30,8 @@ namespace CMS_DataModel.Models
         public string ModifiedUser { get; set; }
 
         public DateTime LastModified { get; set; }
+
+        public int Offset { get; set; }
 
         public virtual CMS_Products CMS_Products { get; set; }
     }

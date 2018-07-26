@@ -6,19 +6,17 @@ namespace CMS_DataModel.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class CMS_Module
+    public partial class CMS_LanguageKey
     {
         [StringLength(100)]
         public string ID { get; set; }
 
         [Required]
-        [StringLength(50)]
         public string Name { get; set; }
 
-        [StringLength(100)]
-        public string ParentID { get; set; }
-
         public byte Status { get; set; }
+
+        public int Code { get; set; }
 
         public DateTime CreatedDate { get; set; }
 
@@ -31,7 +29,5 @@ namespace CMS_DataModel.Models
         public string ModifiedUser { get; set; }
 
         public DateTime LastModified { get; set; }
-
-        public int Code { get; set; }
     }
 }

@@ -24,6 +24,9 @@ namespace CMS_DataModel.Models
         public virtual DbSet<CMS_EmployeeWorking> CMS_EmployeeWorking { get; set; }
         public virtual DbSet<CMS_GeneralSetting> CMS_GeneralSetting { get; set; }
         public virtual DbSet<CMS_ImagesLink> CMS_ImagesLink { get; set; }
+        public virtual DbSet<CMS_Language> CMS_Language { get; set; }
+        public virtual DbSet<CMS_LanguageDetail> CMS_LanguageDetail { get; set; }
+        public virtual DbSet<CMS_LanguageKey> CMS_LanguageKey { get; set; }
         public virtual DbSet<CMS_Module> CMS_Module { get; set; }
         public virtual DbSet<CMS_ModulePermission> CMS_ModulePermission { get; set; }
         public virtual DbSet<CMS_News> CMS_News { get; set; }
@@ -215,7 +218,6 @@ namespace CMS_DataModel.Models
                 .WithRequired(e => e.CMS_Reservation)
                 .HasForeignKey(e => e.ReservationID);
 
-
             modelBuilder.Entity<CMS_Role>()
                 .HasMany(e => e.CMS_ModulePermission)
                 .WithRequired(e => e.CMS_Role)
@@ -259,7 +261,7 @@ namespace CMS_DataModel.Models
                 .WithRequired(e => e.CMS_Store)
                 .HasForeignKey(e => e.StoreID)
                 .WillCascadeOnDelete(false);
-            
+
             modelBuilder.Entity<CMS_Store>()
                 .HasMany(e => e.CMS_EmployeeWorking)
                 .WithOptional(e => e.CMS_Store)
