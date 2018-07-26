@@ -208,15 +208,15 @@ namespace CMS_Shared.CMSCustomers
             {
                 using (var cxt = new CMS_Context())
                 {
-                    var data = cxt.CMS_Customer.Where(x => x.Email.Equals(model.Email)
-                                                        && x.Password.Equals(model.Password)
-                                                        && x.IsActive)
+                    var data = cxt.CMS_Customer.Where(x => x.Email.Equals(model.Email) &&
+                                                         x.Password.Equals(model.Password) &&
+                                                         x.IsActive.HasValue) 
                                               .Select(x => new ClientLoginModel
                                               {
                                                   Email = x.Email,
-                                                  DisplayName = x.Name,
+                                                  DisplayName = x.FirstName + " " + x.LastName,
                                                   Password = x.Password,
-                                                  IsAdmin = x.IsAdmin,
+                                                  IsAdmin = false,
                                               })
                                               .FirstOrDefault();
                     return data;
