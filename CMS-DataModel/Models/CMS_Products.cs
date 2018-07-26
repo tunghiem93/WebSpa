@@ -32,6 +32,9 @@ namespace CMS_DataModel.Models
         [StringLength(100)]
         public string Name { get; set; }
 
+        [StringLength(100)]
+        public string NameUS { get; set; }
+
         [Required]
         [StringLength(20)]
         public string ProductCode { get; set; }
@@ -41,6 +44,8 @@ namespace CMS_DataModel.Models
 
         [StringLength(256)]
         public string Description { get; set; }
+        [StringLength(256)]
+        public string DescriptionUS { get; set; }
 
         [StringLength(256)]
         public string PrintOutText { get; set; }

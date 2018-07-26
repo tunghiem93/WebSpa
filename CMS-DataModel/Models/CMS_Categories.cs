@@ -25,11 +25,15 @@ namespace CMS_DataModel.Models
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
+        [StringLength(50)]
+        public string NameUS { get; set; }
 
         public int? TotalProducts { get; set; }
 
         [StringLength(500)]
         public string Description { get; set; }
+        [StringLength(500)]
+        public string DescriptionUS { get; set; }
 
         [StringLength(500)]
         public string ImageURL { get; set; }

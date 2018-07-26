@@ -14,13 +14,20 @@ namespace CMS_DataModel.Models
         [Required]
         [StringLength(150)]
         public string Title { get; set; }
+        [StringLength(150)]
+        public string TitleUS { get; set; }
 
         [Required]
         [StringLength(500)]
         public string Short_Description { get; set; }
+        [StringLength(500)]
+        public string Short_DescriptionUS { get; set; }
 
         [Column(TypeName = "ntext")]
         public string Description { get; set; }
+
+        [Column(TypeName = "ntext")]
+        public string DescriptionUS { get; set; }
 
         [StringLength(60)]
         public string ImageURL { get; set; }
@@ -49,5 +56,7 @@ namespace CMS_DataModel.Models
 
         [StringLength(250)]
         public string Category { get; set; }
+        [StringLength(250)]
+        public string CategoryUS { get; set; }
     }
 }
