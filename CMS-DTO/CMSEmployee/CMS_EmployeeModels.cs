@@ -12,13 +12,9 @@ namespace CMS_DTO.CMSEmployee
     public class CMS_EmployeeModels
     {
         public string Id { get; set; }
-        public string Name { get { return (this.FirstName + " " + this.LastName); } }
-        [Required(ErrorMessage = "Vui lòng nhập họ tên")]
-        [MaxLength(50, ErrorMessage = "Họ tên tối đa 50 kí tự")]
-        public string FirstName { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập tên")]
-        [MaxLength(20, ErrorMessage = "Tên tối đa 20 kí tự")]
-        public string LastName { get; set; }
+        [MaxLength(50, ErrorMessage = "Họ tên tối đa 50 kí tự")]
+        public string Name { get; set; } 
         public string Employee_Address { get; set; }
         [RegularExpression("([0-9]+)", ErrorMessage = "Vui lòng nhập số")]
         public string Employee_Phone { get; set; }
@@ -37,7 +33,6 @@ namespace CMS_DTO.CMSEmployee
         public DateTime CreatedDate { get; set; }
         public string sStatus { get; set; }
         public bool IsSupperAdmin { get; set; }
-        public string Name { get; set; }
         public string PinCode { get; set; }
         public bool Gender { get; set; }
         public bool Marital { get; set; }
@@ -57,6 +52,7 @@ namespace CMS_DTO.CMSEmployee
         {
             IsActive = true;
             BirthDate = new DateTime(1990, 01, 01);
+            HiredDate = DateTime.Now;
         }
     }
 }

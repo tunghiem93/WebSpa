@@ -24,8 +24,8 @@ namespace CMS_Shared.CMSEmployees
                         var e = new CMS_Employee
                         {
                             ID = Id,
-
                             Name = model.Name,
+                            Email = model.Employee_Email,
                             Password = model.Password,
                             IsActive = model.IsActive,
                             Phone = model.Employee_Phone,
@@ -41,7 +41,6 @@ namespace CMS_Shared.CMSEmployees
                             ImageUrl = model.ImageURL,
                             StoreID = model.StoreID,
                             IsSupperAdmin = model.IsSupperAdmin,
-
                             Status = (byte)Commons.EStatus.Actived,
                             CreatedDate = DateTime.Now,
                             CreatedUser = model.CreatedBy,
@@ -56,6 +55,7 @@ namespace CMS_Shared.CMSEmployees
                         if (e != null)
                         {
                             e.Name = model.Name;
+                            e.Email = model.Employee_Email;
                             //Password = model.Password,
                             e.IsActive = model.IsActive;
                             e.Phone = model.Employee_Phone;
@@ -71,7 +71,7 @@ namespace CMS_Shared.CMSEmployees
                             e.ImageUrl = model.ImageURL;
                             e.StoreID = model.StoreID;
                             e.IsSupperAdmin = model.IsSupperAdmin;
-
+                            e.Status = (byte)Commons.EStatus.Actived;
                             e.ModifiedUser = model.CreatedBy;
                             e.LastModified = DateTime.Now;
                         }
