@@ -1,6 +1,7 @@
 ﻿using CMS_Common;
 using CMS_DataModel.Models;
 using CMS_DTO.CMSCustomer;
+using CMS_Shared.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -232,6 +233,50 @@ namespace CMS_Shared.CMSCustomers
                 NSLog.Logger.Error("Login", ex);
             }
             return null;
+        }
+
+        public bool ForgotPassword(string email, ref string msg)
+        {
+            NSLog.Logger.Info("CustomerForgotPassword", email);
+
+            var result = false;
+            try
+            {
+                using (var cxt = new CMS_Context())
+                {
+                    var emp = cxt.CMS_Customer.Where(o => o.Email.ToLower().Trim() == email.ToLower().Trim() && o.Status == (byte)Commons.EStatus.Actived).FirstOrDefault();
+                    if (emp != null)
+                    {
+                        if (emp.IsActive??true)
+                        {
+                            string newPass = CommonHelper.GenerateCode(1, new List<string>(), 8).FirstOrDefault();
+
+                            CommonHelper.SendContentMail(email, "New password: " + newPass, "", "Forgot password");
+
+                            emp.Password = CommonHelper.Encrypt(newPass);
+                            emp.LastModified = DateTime.Now;
+
+                            if (cxt.SaveChanges() > 0)
+                                result = true;
+                            else
+                                msg = "Unable to change password.";
+                        }
+                        else
+                            msg = "This customer is inactive. Please contact your administrator for more support.";
+                    }
+                    else
+                        msg = "Email is not exist.";
+
+                    NSLog.Logger.Info("ResponseCustomerForgotPassword", new { result, msg });
+                }
+            }
+            catch (Exception ex)
+            {
+                msg = "System Error.";
+                result = false;
+                NSLog.Logger.Error("ErrorCustomerForgotPassword", ex);
+            }
+            return result;
         }
     }
 }

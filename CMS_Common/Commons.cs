@@ -35,6 +35,8 @@ namespace CMS_Common
         public static DateTime MinDate = new DateTime(1900, 01, 01, 00, 00, 00, DateTimeKind.Unspecified);
         public static DateTime MaxDate = new DateTime(9999, 12, 31, 23, 59, 59, DateTimeKind.Unspecified);
 
+        public const string PasswordChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
         #region Enum
         public enum EBlogType
         {
