@@ -223,11 +223,11 @@
     height: 100% !important;
     left: 0 !important;
     top: 0 !important;
-    background-image: url(//dreamspa.dttheme.com/wp-content/plugins/LayerSlider/static/css/blank.gif)
+    background-image: url('/Content/plugins/LayerSlider/static/css/blank.gif')
 }
 
 .ls-slide > a > * {
-    background-image: url(//dreamspa.dttheme.com/wp-content/plugins/LayerSlider/static/css/blank.gif)
+    background-image: url('/Content/plugins/LayerSlider/static/css/blank.gif')
 }
 
 .ls-vpcontainer {

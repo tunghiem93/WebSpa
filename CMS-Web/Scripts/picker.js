@@ -15,12 +15,12 @@ jQuery(document).ready(function($){
       $.cookie("dreamspa_skin",mytheme_urls.skin, { path: '/' });
     }
 
-    var $href = $("link[id='skin-css']").attr("href");
-    $href = $href.substr(0,$href.lastIndexOf("/"));
-    $href = $href.substr(0,$href.lastIndexOf("/"))+"/"+$.cookie("dreamspa_skin")+"/style.css";
+    //var $href = $("link[id='skin-css']").attr("href");
+    //$href = $href.substr(0,$href.lastIndexOf("/"));
+    //$href = $href.substr(0,$href.lastIndexOf("/"))+"/"+$.cookie("dreamspa_skin")+"/style.css";
     
-    $("link[id='skin-css']").attr("href",$href);
-    $("ul.color-picker a[id='"+$.cookie("dreamspa_skin")+"']").addClass("selected");
+    //$("link[id='skin-css']").attr("href",$href);
+    //$("ul.color-picker a[id='"+$.cookie("dreamspa_skin")+"']").addClass("selected");
   }else{
 	$("ul.color-picker a:first").addClass("selected");
   }
