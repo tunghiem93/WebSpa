@@ -207,6 +207,18 @@
                                         {
                                             _first = "";
                                         }
+
+                                        if (_index == 3)
+                                        {
+                                            _last = "last";
+                                            _index = 1;
+                                        }
+                                        else
+                                        {
+                                            _last = "";
+                                            _index = _index + 1;
+                                        }
+
                                         <li class="@_first @_last post-87 product type-product status-publish has-post-thumbnail product_cat-albums product_cat-music pif-has-gallery downloadable shipping-taxable purchasable product-type-simple product-cat-albums product-cat-music instock">
                                             <div class='product-wrapper product-three-column in-stock-product '>
                                                 <div class="product-container">
@@ -246,16 +258,7 @@
                                             </div>
                                         </li>
 
-                                        if (_index == 3)
-                                        {
-                                            _last = "last";
-                                            _index = 1;
-                                        }
-                                        else
-                                        {
-                                            _last = "";
-                                            _index = _index + 1;
-                                        }
+                                        
                                     }
                                 </ul>
                             </div>

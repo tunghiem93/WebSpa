@@ -30,6 +30,18 @@
                                 {
                                     _first = "";
                                 }
+
+                                if (_index == 3)
+                                {
+                                    _last = "last";
+                                    _index = 1;
+                                }
+                                else
+                                {
+                                    _last = "";
+                                    _index = _index + 1;
+                                }
+
                                 <li class="@_first @_last post-53 product type-product status-publish has-post-thumbnail product_cat-clothing product_cat-hoodies pif-has-gallery sale shipping-taxable purchasable product-type-simple product-cat-clothing product-cat-hoodies instock">
                                     <div class='product-wrapper  product-three-column on-sale-product  in-stock-product '>
                                         <div class="product-container">
@@ -67,16 +79,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                if (_index == 3)
-                                {
-                                    _last = "last";
-                                    _index = 1;
-                                }
-                                else
-                                {
-                                    _last = "";
-                                    _index = _index + 1;
-                                }
+                                
                             }
                         </ul>
                        @if (Model != null && Model.TotalPage > 0)

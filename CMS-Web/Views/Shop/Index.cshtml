@@ -31,17 +31,28 @@
                                     _first = "";
                                 }
 
+                                if (_index == 3)
+                                {
+                                    _last = "last";
+                                    _index = 1;
+                                }
+                                else
+                                {
+                                    _last = "";
+                                    _index = _index + 1;
+                                }
+
                                 <li class="@_first @_last post-93 product type-product status-publish has-post-thumbnail product_cat-music product_cat-singles pif-has-gallery downloadable shipping-taxable purchasable product-type-simple product-cat-music product-cat-singles instock">
-                                    <div class='product-wrapper  product-three-column in-stock-product '>
+                                    <div class='product-wrapper  product-three-column in-stock-product ' @*style="width:233px"*@>
                                         <div class="product-container">
                                             <a href="@Url.Action("Index","Product",new { product_name = item.ProductName,product_id=item.Id})">
                                                 <div class="product-thumb">
                                                     <img @*width="1000" height="1000"*@ src="@item.ImageURL"
                                                          class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" srcset="@item.ImageURL 1000w, @item.ImageURL 150w, @item.ImageURL 300w, @item.ImageURL 90w, @item.ImageURL 550w"
                                                          sizes="(max-width: 1000px) 100vw, 1000px" />
-                                                    <img width="500" height="500" src="@item.ImageURL"
+                                                    @*<img width="500" height="500" src="@item.ImageURL"
                                                          class="secondary-image attachment-shop-catalog" alt="" srcset="@item.ImageURL 550w, @item.ImageURL 150w, @item.ImageURL 300w, @item.ImageURL 90w, @item.ImageURL 1000w"
-                                                         sizes="(max-width: 500px) 100vw, 500px" />
+                                                         sizes="(max-width: 500px) 100vw, 500px" />*@
                                                 </div>
                                                 <div class='product-title'>
                                                     <h3>@string.Format("{0}",!string.IsNullOrEmpty(item.ProductName) && item.ProductName.Length > 35 ? item.ProductName.Substring(0,35) + "..." : item.ProductName)</h3>
@@ -82,18 +93,6 @@
                                         </div>
                                     </div>
                                 </li>
-
-                                if (_index == 3)
-                                {
-                                    _last = "last";
-                                    _index = 1;
-                                }
-                                else
-                                {
-                                    _last = "";
-                                    _index = _index + 1;
-                                }
-
                             }
                         </ul>
                     }
