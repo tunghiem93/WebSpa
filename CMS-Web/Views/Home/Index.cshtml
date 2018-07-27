@@ -117,68 +117,45 @@
                 </div>
             </div>
             <div class='dt-sc-hr-invisible-medium  '></div>
-            <div class='fullwidth-section skin-white' style="background-color:#fcfcf7;background-image:url(https://dreamspa.dttheme.com/wp-content/uploads/2014/05/border.png);background-repeat:repeat-x;background-position:left top;padding-top:95px;">
-                <div class="container">
-                    <div class="border-title aligncenter">
-                        <h2>Popular Procedures</h2>
-                        <h6>These procedures are the best and most loved by our customers.</h6>
-                    </div>
-                    <div class='dt-sc-hr-invisible-small  '></div>
-                    <div class='column dt-sc-one-third  space first'>
-                        <div class="dt-sc-popular-procedures with-image">
-                            <div class="dt-sc-popular-procedures-wrapper">
-                                <div class="border"></div>
-                                <div class='image'>
-                                    <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/popular-procedures1.jpg' alt='Aromatheraphy' />
-                                </div>
-                                <h2>Aromatheraphy</h2>
-                                <p>
-                                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti
-                                    atque corrupti quos dolores et quas molestias provident destiny is about voles.
-                                </p>
-                            </div>
-                         @*   <a href='#' class='dt-sc-button small'>Read More</a>*@
+            @if (Model != null && Model.ListProcedures != null && Model.ListProcedures.Any())
+            {
+                var _first = "first";
+                <div class='fullwidth-section skin-white' style="background-color:#fcfcf7;background-image:url(@Url.Content("~/Images/border.png"));background-repeat:repeat-x;background-position:left top;padding-top:95px;">
+                    <div class="container">
+                        <div class="border-title aligncenter">
+                            <h2>Popular Procedures</h2>
+                            <h6>These procedures are the best and most loved by our customers.</h6>
                         </div>
-                    </div>
-                    <div class='column dt-sc-one-third  space '>
-                        <div class="dt-sc-popular-procedures with-image">
-                            <div class="dt-sc-popular-procedures-wrapper">
-                                <div class="border"></div>
-                                <div class='image'>
-                                    <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/popular-procedures2.jpg' alt='Skin Care' />
+                        <div class='dt-sc-hr-invisible-small  '></div>
+                        @foreach (var item in Model.ListProcedures)
+                        {
+                            <div class='column dt-sc-one-third  space @_first'>
+                                <div class="dt-sc-popular-procedures with-image">
+                                    <div class="dt-sc-popular-procedures-wrapper">
+                                        <div class="border"></div>
+                                        <div class='image'>
+                                            <img src='@item.ImageUrl' alt='@item.ProceduresName' />
+                                        </div>
+                                        <h2>@item.ProceduresName</h2>
+                                        <p>
+                                           @item.ShortDescription
+                                        </p>
+                                    </div>
+                                    @*   <a href='#' class='dt-sc-button small'>Read More</a>*@
                                 </div>
-                                <h2>Skin Care</h2>
-                                <p>
-                                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti
-                                    atque corrupti quos dolores et quas molestias provident destiny is about voles.
-                                </p>
                             </div>
-                           @* <a href='#' class='dt-sc-button small'>Read More</a>*@
+                            _first = "";
+                        }
+                        
+                        <div class='dt-sc-hr-invisible-medium  '></div>
+                        <div class="border-title aligncenter">
+                            <h2>Our Gallery</h2>
+                            <h6>Take a look at our practice and process of defining spa!</h6>
                         </div>
-                    </div>
-                    <div class='column dt-sc-one-third  space '>
-                        <div class="dt-sc-popular-procedures with-image">
-                            <div class="dt-sc-popular-procedures-wrapper">
-                                <div class="border"></div>
-                                <div class='image'>
-                                    <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/popular-procedures3.jpg' alt='Herbal Spa' />
-                                </div>
-                                <h2>Herbal Spa</h2>
-                                <p>
-                                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti
-                                    atque corrupti quos dolores et quas molestias provident destiny is about voles.
-                                </p>
-                            </div>
-                           @* <a href='#' class='dt-sc-button small'>Read More</a>*@
-                        </div>
-                    </div>
-                    <div class='dt-sc-hr-invisible-medium  '></div>
-                    <div class="border-title aligncenter">
-                        <h2>Our Gallery</h2>
-                        <h6>Take a look at our practice and process of defining spa!</h6>
                     </div>
                 </div>
-            </div>
+            }
+            
             @if (Model != null && Model.ListProduct != null && Model.ListProduct.Any())
             {
                 var _first = "first";
