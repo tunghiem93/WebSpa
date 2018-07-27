@@ -28,6 +28,13 @@ namespace CMS_Web.Controllers
             {
                 model.Categories = _facCate.GetList().Where(x => x.ProductTypeCode == (int)Commons.EProductType.Service).OrderByDescending(x => x.CreatedDate).Skip(0).Take(3).ToList();
                 model.Employees = _facEmp.GetList().OrderByDescending(x => x.CreatedDate).Skip(0).Take(3).ToList();
+                if(model.Employees != null)
+                {
+                    model.Employees.ForEach(o =>
+                    {
+                        o.ImageURL = Commons._PublicImages + "Employees/" + o.ImageURL;
+                    });
+                }
             }
             catch(Exception ex)
             {

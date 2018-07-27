@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMS_DTO.CMSProcedures;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,16 @@ namespace CMS_Web.Controllers
         // GET: Procedures
         public ActionResult Index()
         {
-            return View();
+            var models = new CMS_ProceduresViewModels();
+            try
+            {
+
+            }
+            catch(Exception ex)
+            {
+                NSLog.Logger.Error("Procedures_Index", ex);
+            }
+            return View(models);
         }
     }
 }
