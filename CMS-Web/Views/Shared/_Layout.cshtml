@@ -2,7 +2,7 @@
     string controller = (string)ViewContext.RouteData.Values["controller"];
     string action = (string)ViewContext.RouteData.Values["action"];
 }
-@using CMS_Common;
+    @using CMS_Common;
 <!DOCTYPE html>
 
 <html class="no-js">
@@ -208,9 +208,13 @@
 <script src="@Url.Content("~/Scripts/InitCookie.js")"></script>
 <script>
     $(document).ready(function () {
+        //set active menu
+        $('#main-menu').find("li").removeClass("current-menu-item current_page_item");
+        $('.@controller.ToLower()_@action.ToLower()').addClass("current-menu-item current_page_item");
+
         getListOrder();
     });
-    
+
     function AddOrder(itemId, unitId, quantity, price) {
         console.log(itemId + " " + unitId + " " + quantity + " " + price);
         var _Order = {
