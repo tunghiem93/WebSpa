@@ -4,6 +4,7 @@ using CMS_DTO.CMSSession;
 using CMS_Shared;
 using CMS_Shared.CMSCategories;
 using CMS_Shared.CMSCompanies;
+using CMS_Shared.CMSEmployees;
 using CMS_Shared.CMSNews;
 using CMS_Shared.CMSProducts;
 using CMS_Shared.Utilities;
@@ -21,12 +22,14 @@ namespace CMS_Web.Controllers
         private CMSCompaniesFactory _facCom;
         private CMSCategoriesFactory _facCate;
         private CMSNewsFactory _facNews;
+        private CMSEmployeeFactory _facEmp;
         public HomeController()
         {
             _fac = new CMSProductFactory();
             _facCom = new CMSCompaniesFactory();
             _facCate = new CMSCategoriesFactory();
             _facNews = new CMSNewsFactory();
+            _facEmp = new CMSEmployeeFactory();
         }
         // GET: Clients/Home
         public ActionResult Index()
@@ -55,7 +58,14 @@ namespace CMS_Web.Controllers
                     });
                 }
 
-
+                model.ListEmployee = _facEmp.GetList().OrderBy(o => o.CreatedDate).Skip(0).Take(10).ToList();
+                if(model.ListEmployee != null)
+                {
+                    model.ListEmployee.ForEach(o =>
+                    {
+                        o.ImageURL = !string.IsNullOrEmpty(o.ImageURL) ? Commons._PublicImages + "Employees/" + o.ImageURL : Commons._ImageDefault;
+                    });
+                }
                 return View(model);
             }
             catch (Exception ex)
