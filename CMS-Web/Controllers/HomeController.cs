@@ -39,39 +39,11 @@ namespace CMS_Web.Controllers
                 model.Company = _facCom.GetList().FirstOrDefault();
 
                 //Category
-                model.ListCate = _facCate.GetList().OrderByDescending(x => x.CreatedDate).Skip(0).Take(4).ToList();
-                if(model.ListCate != null && model.ListCate.Any())
-                {
-                    model.ListCate.ForEach(x =>
-                   {
-                       if(!string.IsNullOrEmpty(x.ImageURL))
-                            x.ImageURL = "~/Uploads/Categories/" + x.ImageURL;
-                   });
-                }
+                model.ListCate = _facCate.GetList().Where(o => o.ProductTypeCode == (int)Commons.EProductType.Service).OrderByDescending(x => x.CreatedDate).Skip(0).Take(3).ToList();
 
                 //Product
                 model.ListProduct = _fac.GetList().OrderByDescending(x => x.CreatedDate).Skip(0).Take(8).ToList();
-                var dataImage = _fac.GetListImage();
-                if(model.ListProduct != null && model.ListProduct.Any())
-                {
-                    model.ListProduct.ForEach(x =>
-                    {
-                        var _Image = dataImage.FirstOrDefault(z => z.ProductId.Equals(x.Id));
-                        if(_Image != null)
-                        {
-                            x.ImageURL = _Image.ImageURL;
-                            if (!string.IsNullOrEmpty(x.ImageURL))
-                            {
-                                x.ImageURL = "~/Uploads/Products/" + x.ImageURL;
-                            }
-                            else
-                            {
-                                x.ImageURL = "";
-                            }
-                        }
-                    });
-                }
-
+                
                 //News
                 model.ListNews = _facNews.GetList().OrderByDescending(x => x.CreatedDate).Skip(0).Take(3).ToList();
                 if(model.ListNews != null && model.ListNews.Any())
@@ -82,6 +54,8 @@ namespace CMS_Web.Controllers
                             x.ImageURL = "~/Uploads/News/" + x.ImageURL;
                     });
                 }
+
+
                 return View(model);
             }
             catch (Exception ex)

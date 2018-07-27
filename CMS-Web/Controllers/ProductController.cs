@@ -39,7 +39,7 @@ namespace CMS_Web.Controllers
                         /* get list product by category */
                         models.ListProduct = data.Where(o => o.CategoryId.Equals(_product.CategoryId) && !o.Id.Equals(product_id)).ToList();
                         /* get top 3 product new */
-                        models.ProductNew = data.OrderBy(x => x.CreatedDate).Skip(0).Take(3).ToList();
+                        models.ProductNew = data.OrderByDescending(x => x.CreatedDate).Skip(0).Take(3).ToList();
                         /* get list product category */
                         var _cate = _facCate.GetListProductCate();
                         models.Product = _product;
@@ -68,7 +68,7 @@ namespace CMS_Web.Controllers
                 var data = _fac.GetList();
                 if (data != null)
                 {
-                    models.ProductNew = data.OrderBy(x => x.CreatedDate).Skip(0).Take(3).ToList();
+                    models.ProductNew = data.OrderByDescending(x => x.CreatedDate).Skip(0).Take(3).ToList();
 
                     data = data.Where(o => o.CategoryId.Equals(i)).ToList();
                 }

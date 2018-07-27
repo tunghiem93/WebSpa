@@ -88,48 +88,32 @@
                         <h6>time here we can talk and come to a conclusion.</h6>
                     </div>
                     <div class='dt-sc-hr-invisible-small  '></div>
-                    <div class='column dt-sc-one-third  space first'>
-                        <div class='dt-sc-ico-content type1 green'>
-                            <div class='icon'>
-                                <span>
-                                    <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/services-ico1.png' alt='' />
-                                </span>
+                    @if (Model != null && Model.ListCate != null && Model.ListCate.Any())
+                    {
+                        var _first = "first";
+                        var _index = 1;
+                        var _types =  new string[] { "green", "chocolate", "blue" };
+                        foreach (var item in Model.ListCate)
+                        {
+                            var _type = _types[_index - 1];
+                            <div class='column dt-sc-one-third  space @_first'>
+                                <div class='dt-sc-ico-content type1 @_type'>
+                                    <div class='icon'>
+                                        <span>
+                                            <img src='@Url.Content("~/Images/services-ico"+_index+".png")' alt='' />
+                                        </span>
+                                    </div>
+                                    <h2>@item.CategoryName</h2>
+                                    <div class='image'>
+                                        <img src='@item.ImageURL' alt='' title='' />
+                                    </div>
+                                    <p>@Html.Raw(item.Description)</p>
+                                </div>
                             </div>
-                            <h2>Ayurveda Spa</h2>
-                            <div class='image'>
-                                <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/services1.jpg' alt='' title='' />
-                            </div>
-                            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.</p>
-                        </div>
-                    </div>
-                    <div class='column dt-sc-one-third  space '>
-                        <div class='dt-sc-ico-content type1 chocolate'>
-                            <div class='icon'>
-                                <span>
-                                    <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/services-ico2.png' alt='' />
-                                </span>
-                            </div>
-                            <h2>Luxury Spa</h2>
-                            <div class='image'>
-                                <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/services2.jpg' alt='' title='' />
-                            </div>
-                            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.</p>
-                        </div>
-                    </div>
-                    <div class='column dt-sc-one-third  space '>
-                        <div class='dt-sc-ico-content type1 blue'>
-                            <div class='icon'>
-                                <span>
-                                    <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/services-ico3.png' alt='' />
-                                </span>
-                            </div>
-                            <h2>Massage Spa</h2>
-                            <div class='image'>
-                                <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/services3.jpg' alt='' title='' />
-                            </div>
-                            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.</p>
-                        </div>
-                    </div>
+                            _first = "";
+                            _index = _index + 1;
+                        }
+                    }
                 </div>
             </div>
             <div class='dt-sc-hr-invisible-medium  '></div>

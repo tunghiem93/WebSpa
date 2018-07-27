@@ -26,8 +26,8 @@ namespace CMS_Web.Controllers
             var model = new CMS_AboutViewModels();
             try
             {
-                model.Categories = _facCate.GetList().Where(x => x.ProductTypeCode == (int)Commons.EProductType.Service).OrderBy(x => x.CreatedDate).Skip(0).Take(3).ToList();
-                model.Employees = _facEmp.GetList().OrderBy(x => x.CreatedDate).Skip(0).Take(3).ToList();
+                model.Categories = _facCate.GetList().Where(x => x.ProductTypeCode == (int)Commons.EProductType.Service).OrderByDescending(x => x.CreatedDate).Skip(0).Take(3).ToList();
+                model.Employees = _facEmp.GetList().OrderByDescending(x => x.CreatedDate).Skip(0).Take(3).ToList();
             }
             catch(Exception ex)
             {

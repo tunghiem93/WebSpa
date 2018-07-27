@@ -196,13 +196,16 @@
                             @if (Model != null && Model.Categories != null && Model.Categories.Any())
                             {
                                 string _first = "first";
+                                var _index = 1;
+                                var _types = new string[] { "green", "chocolate", "blue" };
                                 foreach (var item in Model.Categories)
                                 {
+                                    var _type = _types[_index - 1];
                                     <div class='column dt-sc-one-third  space @_first'>
-                                        <div class='dt-sc-ico-content type1 green'>
+                                        <div class='dt-sc-ico-content type1 @_type'>
                                             <div class='icon'>
                                                 <span>
-                                                    <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/services-ico1.png' alt='' />
+                                                    <img src='@Url.Content("~/Images/services-ico"+_index+".png")' alt='' />
                                                 </span>
                                             </div>
                                             <h2>@item.CategoryName</h2>
@@ -213,6 +216,7 @@
                                         </div>
                                     </div>
                                     _first = "";
+                                    _index = _index + 1;
                                 }
                             }
                             <div class='dt-sc-hr-invisible  '></div>

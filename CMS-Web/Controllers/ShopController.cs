@@ -31,7 +31,7 @@ namespace CMS_Web.Controllers
                 var data =  _fac.GetList();
                 if(data != null)
                 {
-                    models.ProductNew = data.OrderBy(x => x.CreatedDate).Skip(0).Take(3).ToList();
+                    models.ProductNew = data.OrderByDescending(x => x.CreatedDate).Skip(0).Take(3).ToList();
                 }
                 var _cate = _facCate.GetListProductCate();
                 models.Products = data;
