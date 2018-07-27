@@ -53,8 +53,16 @@ namespace CMS_DTO.CMSNews
         public CMS_NewsModels CMS_News { get; set; }
         public List<CMSCategoriesModels> ListCate { get; set; }
         public List<CMS_ProductsModels> ListProduct { get; set; }
+        public int TotalBlog { get; set; }
+        public bool IsAddMore { get; set; }
+        public int TotalPage { get; set; }
+        public int First { get; set; }
+        public int Later { get; set; }
+
         public CMS_NewsViewModel()
         {
+            First = 1;
+            Later = 2;
             ListNews = new List<CMS_NewsModels>();
             ListNewsNew = new List<CMS_NewsModels>();
             CMS_News = new CMS_NewsModels();

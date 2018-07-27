@@ -216,4 +216,17 @@
         CreateOrUpdateOrder(_Order);
         $('.added_cart_' + itemId + '').removeClass("hidden");
     }
+
+    function LoadPagging(index) {
+        $.ajax({
+            url: "/Blog/LoadPagging",
+            type: "post",
+            data: { pageIndex: index },
+            success: function (content) {
+                $(".list-blog").html(content);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+            }
+        });
+    }
 </script>

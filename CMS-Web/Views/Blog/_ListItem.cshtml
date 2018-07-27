@@ -1,0 +1,288 @@
+﻿@model CMS_DTO.CMSNews.CMS_NewsViewModel
+@using CMS_Common;
+
+<div class="tpl-blog-holder list-blog">
+    @if (Model.ListNewsNew != null && Model.ListNewsNew.Any())
+    {
+        foreach (var item in Model.ListNewsNew)
+        {
+            if (item.Type == (byte)Commons.EBlogType.Image)
+            {
+                <div class="column dt-sc-one-column blog-fullwidth first">
+                    <article id="post-207" class="blog-entry post-207 post type-post status-publish format-standard has-post-thumbnail hentry category-therapy tag-lifestyle tag-spa">
+                        <div class="blog-entry-inner">
+                            <div class="entry-meta">
+                                <div class="date">
+                                    <span>
+                                        @Html.Raw(string.Format("{0}", item.UpdatedDate.Day))
+                                        <br> @Html.Raw(string.Format("{0}", item.UpdatedDate.Month))
+                                        <br> @Html.Raw(string.Format("{0}", item.UpdatedDate.Year))
+                                    </span>
+                                </div>
+                                <p class="comments">
+                                    <a href="javascript:void(0)">
+                                        <span class="fa fa-comments"> </span> 0
+                                    </a>
+                                </p>
+                            </div>
+                            <div class="entry-thumb">
+                                <a href="@Url.Action("BlogDetail", "Blog", new { id=item.Id })" title="@item.Title">
+                                    <img width="920" height="536" src="@item.ImageURL"
+                                         class="attachment-blog-one-column size-blog-one-column wp-post-image" alt="" srcset="@item.ImageURL 1060w, @item.ImageURL 300w, @item.ImageURL 1024w"
+                                         sizes="(max-width: 920px) 100vw, 920px" />
+                                </a>
+                            </div>
+                            <div class="entry-details">
+                                <div class="entry-title">
+                                    <h4>
+                                        <a href="javascript:void(0)" title="@item.Title">@Html.Raw(item.Title)</a>
+                                    </h4>
+                                </div>
+                                <div class="entry-metadata">
+                                    <p class="author">
+                                        <i class="fa fa-user"> </i>
+                                        <a href="javascript:void(0)" title="@item.Title">@Html.Raw(item.Author)</a>
+                                    </p>
+                                    <span class=""> | </span>
+                                    <p class='tags tags'>
+                                        <i class='fa fa-tags'> </i>
+                                        <a href="javascript:void(0)" rel="tag">@item.Source</a>,
+                                        <a href="javascript:void(0)" rel="tag">Spa</a>
+                                    </p>
+                                    <span class='tags'> | </span>
+                                    <p class="category">
+                                        <i class="fa fa-sitemap"></i>
+                                        <a href="javascript:void(0)" rel="category tag">@item.Category</a>
+                                    </p>
+                                </div>
+                                <div class="entry-body">
+                                    <p>
+                                        @Html.Raw(item.Short_Description)
+                                    </p>
+                                </div>
+                                <a href="@Url.Action("BlogDetail", "Blog", new { id=item.Id })" title="@item.Title" class="dt-sc-button small">
+                                    Read More
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            }
+            else
+            {
+                if (item.Type == (byte)Commons.EBlogType.Iframe)
+                {
+                    <div class="column dt-sc-one-column blog-fullwidth first">
+                        <article id="post-221" class="blog-entry post-221 post type-post status-publish format-video hentry category-ayurvedic category-herbal category-therapy tag-spa tag-video tag-vimeo post_format-post-format-video">
+                            <div class="blog-entry-inner">
+                                <div class="entry-meta">
+                                    <div class="date">
+                                        <span>
+                                            @Html.Raw(string.Format("{0}", item.UpdatedDate.Day))
+                                            <br> @Html.Raw(string.Format("{0}", item.UpdatedDate.Month))
+                                            <br> @Html.Raw(string.Format("{0}", item.UpdatedDate.Year))
+                                        </span>
+                                    </div>
+                                    <p class="comments">
+                                        <a href="javascript:void(0)">
+                                            <span class="fa fa-comments"> </span> 0
+                                        </a>
+                                    </p>
+                                </div>
+                                <div class="entry-thumb">
+                                    <div class='dt-video-wrap'>
+                                        @Html.Raw(item.Link)
+                                    </div>
+                                </div>
+                                <div class="entry-details">
+                                    <div class="entry-title">
+                                        <h4>
+                                            <a href="javascript:void(0)" title="@item.Title">@item.Title</a>
+                                        </h4>
+                                    </div>
+                                    <div class="entry-metadata">
+                                        <p class="author">
+                                            <i class="fa fa-user"> </i>
+                                            <a href="javascript:void(0)" title="@item.Title">@item.Author</a>
+                                        </p>
+                                        <span class=""> | </span>
+                                        <p class='tags  tags '>
+                                            <i class='fa fa-tags'> </i>
+                                            <a href="javascript:void(0)" rel="tag">Spa</a>,
+                                            <a href="javascript:void(0)" rel="tag">Iframe</a>,
+                                            <a href="javascript:void(0)" rel="tag">@item.Source</a>
+                                        </p>
+                                        <span class='tags'> | </span>
+                                        <p class="category">
+                                            <i class="fa fa-sitemap"> </i>
+                                            <a href="javascript:void(0)" rel="category tag">@item.Category</a>
+                                        </p>
+                                    </div>
+                                    <div class="entry-body">
+                                        <p>
+                                            @item.Short_Description
+                                        </p>
+                                    </div>
+                                    <a href="@Url.Action("BlogDetail", "Blog", new { id=item.Id })" title="@item.Title"
+                                       class="dt-sc-button small">Read More</a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                }
+                else
+                {
+                    if (item.Type == (byte)Commons.EBlogType.Video)
+                    {
+                        <div class="column dt-sc-one-column blog-fullwidth first">
+                            <article id="post-223" class="blog-entry post-223 post type-post status-publish format-video hentry category-uncategorized tag-dream tag-treatment tag-video post_format-post-format-video">
+                                <div class="blog-entry-inner">
+                                    <div class="entry-meta">
+                                        <div class="date ">
+                                            <span>
+                                                @Html.Raw(string.Format("{0}", item.UpdatedDate.Day))
+                                                <br> @Html.Raw(string.Format("{0}", item.UpdatedDate.Month))
+                                                <br> @Html.Raw(string.Format("{0}", item.UpdatedDate.Year))
+                                            </span>
+                                        </div>
+                                        <p class="comments ">
+                                            <a href="javascript:void(0)">
+                                                <span class="fa fa-comments"> </span> 0
+                                            </a>
+                                        </p>
+                                    </div>
+                                    <div class="entry-thumb">
+                                        <div class='dt-video-wrap'>
+                                            <div style="width: 640px;" class="wp-video">
+                                                <video class="wp-video-shortcode" id="video-223-1" width="640" height="360" preload="metadata" controls="controls">
+                                                    <source type="video/mp4" src="@item.Link" />
+                                                    <a href="@Url.Action("BlogDetail", "Blog", new { id=item.Id })">@item.Link</a>
+                                                </video>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="entry-details">
+                                        <div class="entry-title">
+                                            <h4>
+                                                <a href="javascript:void(0)" title="@item.Title">@item.Title</a>
+                                            </h4>
+                                        </div>
+                                        <div class="entry-metadata">
+                                            <p class="author ">
+                                                <i class="fa fa-user"> </i>
+                                                <a href="javascript:void(0)" title="@item.Title">@item.Author</a>
+                                            </p>
+                                            <span class=""> | </span>
+                                            <p class='tags tags'>
+                                                <i class='fa fa-tags'> </i>
+                                                <a href="javascript:void(0)" rel="tag">dream</a>,
+                                                <a href="javascript:void(0)" rel="tag">Video</a>,
+                                                <a href="javascript:void(0)" rel="tag">@item.Source</a>
+                                            </p>
+                                            <span class='tags'> | </span>
+                                            <p class="category">
+                                                <i class="fa fa-sitemap"> </i>
+                                                <a href="javascript:void(0)" rel="category tag">@item.Category</a>
+                                            </p>
+                                        </div>
+                                        <div class="entry-body">
+                                            <p>
+                                                @item.Short_Description
+                                            </p>
+                                        </div>
+                                        <a href="@Url.Action("BlogDetail", "Blog", new { id=item.Id })" title="@item.Title" class="dt-sc-button small">
+                                            Read More
+                                        </a>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    }
+                    else
+                    {
+                        if (item.Type == (byte)Commons.EBlogType.Audio)
+                        {
+                            <div class="column dt-sc-one-column blog-fullwidth first">
+                                <article id="" class="blog-entry post type-post status-publish format-audio hentry category-herbal category-massage tag-audio tag-spa post_format-post-format-audio">
+                                    <div class="blog-entry-inner">
+                                        <div class="entry-meta">
+                                            <div class="date">
+                                                <span>
+                                                    @Html.Raw(string.Format("{0}", item.UpdatedDate.Day))
+                                                    <br> @Html.Raw(string.Format("{0}", item.UpdatedDate.Month))
+                                                    <br> @Html.Raw(string.Format("{0}", item.UpdatedDate.Year))
+                                                </span>
+                                            </div>
+                                            <p class="comments ">
+                                                <a href="javascript:void(0)">
+                                                    <span class="fa fa-comments"> </span> 0
+                                                </a>
+                                            </p>
+                                        </div>
+                                        <div class="entry-thumb">
+                                            <audio class="wp-audio-shortcode" id="" preload="none" style="width: 100%;" controls="controls">
+                                                <source type="audio/mpeg" src="@item.Link" />
+                                                <a href="@Url.Action("BlogDetail", "Blog", new { id=item.Id })">@item.Link</a>
+                                            </audio>
+                                        </div>
+                                        <div class="entry-details">
+                                            <div class="entry-title">
+                                                <h4>
+                                                    <a href="javascript:void(0)" title="@item.Title">@item.Title</a>
+                                                </h4>
+                                            </div>
+                                            <div class="entry-metadata">
+                                                <p class="author">
+                                                    <i class="fa fa-user"> </i>
+                                                    <a href="javascript:void(0)" title="@item.Title">@item.Author</a>
+                                                </p>
+                                                <span class=""> | </span>
+                                                <p class='tags tags'>
+                                                    <i class='fa fa-tags'> </i>
+                                                    <a href="javascript:void(0)" rel="tag">Spa</a>,
+                                                    <a href="javascript:void(0)" rel="tag">Audio</a>
+                                                    <a href="javascript:void(0)" rel="tag">@item.Source</a>
+                                                </p>
+                                                <span class='tags'> | </span>
+                                                <p class="category">
+                                                    <i class="fa fa-sitemap"> </i>
+                                                    <a href="javascript:void(0)" rel="category tag">@item.Category</a>
+                                                </p>
+                                            </div>
+                                            <div class="entry-body">
+                                                <p>
+                                                    @item.Short_Description
+                                                </p>
+                                            </div>
+                                            <a href="@Url.Action("BlogDetail", "Blog", new { id=item.Id })" title="@item.Title" class="dt-sc-button small">
+                                                Read More
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        }
+                    }
+                }
+            }
+        }
+    }
+    <div class="pagination blog-pagination">
+        <div class="prev-post"></div>
+        <ul class=''>
+            <li class='active-page'><a onclick="LoadPagging('@Model.First')"><b>@Model.First</b></a></li>
+            @if (Model.TotalPage > 1)
+            {
+                <li>
+                    <a href='#' class='inactive' onclick="LoadPagging('@Model.Later')"><b>@Model.Later</b></a>
+                </li>
+            }
+        </ul>
+        @if (Model.IsAddMore)
+        {
+            <div class="next-post">
+                <a href="javascript:void(0)" onclick="LoadPagging('(@Model.Later +1)')">Next</a>
+            </div>
+        }
+    </div>
+</div>
