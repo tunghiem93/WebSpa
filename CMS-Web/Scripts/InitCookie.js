@@ -47,7 +47,7 @@ function getListOrder()
                 _Price = parseFloat(_Price) + parseFloat(item.Price * item.Quantity);
             });
             _Price = parseFloat(_Price, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").replace(".00", "").toString() + " đ";
-            $('#top-cart-count').text(_Quantity);
+            $('#top-cart-count').text("Cart [" + _Quantity+"] items");
             $('#top-cart-total .amount').text(_Price)
            
         }
