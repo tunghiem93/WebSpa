@@ -17,15 +17,21 @@
             </li>
         </ul>
         <ul class="cart-details">
-            <li>
-                <span class="fa fa-shopping-cart"></span>
-                <a id="top-cart-count" href="@Url.Action("Cart","Shop")">Cart [0] items</a>
-            </li>
-            <li>
-                <a id="top-cart-total" href="@Url.Action("Cart","Shop")">
-                    <span class="amount">0.00 đ</span>
-                </a>
-            </li>
+            @{
+                var user = Session["UserClient"] as CMS_DTO.CMSSession.UserSession;
+                if (user != null)
+                {
+                    <li class=""><a href="javascript:void(0)"><i class="fa fa-user"></i> @user.UserName </a></li>
+                    <li class="icofont icofont-logout">
+                        <a href="@Url.Action("Logout","Login")"><i class="fa fa-sign-in"></i> Đăng xuất </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="account-login"><a href="@Url.Action("SignIn","Login")"><i class="fa fa-sign-in"></i> Đăng nhập </a></li>
+                    <li class="account-register"><a target="_blank" href="@Url.Action("SignUp","Login")"><i class="fa fa-key"></i> Đăng ký </a></li>
+                }
+            }
         </ul>
     </div>
 </div>
@@ -52,31 +58,31 @@
                         <i class='fa fa-home'></i>Home
                     </a>
                     @*<ul class="sub-menu">
-                        <li id="menu-item-113" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-1">
-                            <a href="https://dreamspa.dttheme.com/home/home-ii/">Home II</a>
+                <li id="menu-item-113" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-1">
+                    <a href="https://dreamspa.dttheme.com/home/home-ii/">Home II</a>
+                </li>
+                <li id="menu-item-114" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-1">
+                    <a href="https://dreamspa.dttheme.com/home/home-iii/">Home III</a>
+                </li>
+                <li id="menu-item-511" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-depth-1">
+                    <a href="https://dreamspa.dttheme.com/headers/">Headers</a>
+                    <ul class="sub-menu">
+                        <li id="menu-item-507" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                            <a href="https://dreamspa.dttheme.com/headers/">Header 1</a>
                         </li>
-                        <li id="menu-item-114" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-1">
-                            <a href="https://dreamspa.dttheme.com/home/home-iii/">Home III</a>
+                        <li id="menu-item-510" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                            <a href="https://dreamspa.dttheme.com/headers/header-2/">Header 2</a>
                         </li>
-                        <li id="menu-item-511" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-depth-1">
-                            <a href="https://dreamspa.dttheme.com/headers/">Headers</a>
-                            <ul class="sub-menu">
-                                <li id="menu-item-507" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                    <a href="https://dreamspa.dttheme.com/headers/">Header 1</a>
-                                </li>
-                                <li id="menu-item-510" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                    <a href="https://dreamspa.dttheme.com/headers/header-2/">Header 2</a>
-                                </li>
-                                <li id="menu-item-509" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                    <a href="https://dreamspa.dttheme.com/headers/header-3/">Header 3</a>
-                                </li>
-                                <li id="menu-item-508" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                    <a href="https://dreamspa.dttheme.com/headers/header-4/">Header 4</a>
-                                </li>
-                            </ul>
-                            <a class="dt-menu-expand">+</a>
+                        <li id="menu-item-509" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                            <a href="https://dreamspa.dttheme.com/headers/header-3/">Header 3</a>
                         </li>
-                    </ul>*@
+                        <li id="menu-item-508" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                            <a href="https://dreamspa.dttheme.com/headers/header-4/">Header 4</a>
+                        </li>
+                    </ul>
+                    <a class="dt-menu-expand">+</a>
+                </li>
+            </ul>*@
                     <a class="dt-menu-expand">+</a>
                 </li>
                 <li id="menu-item-185" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-depth-0 menu-item-megamenu-parent  megamenu-4-columns-group">
@@ -84,156 +90,156 @@
                         <i class='fa fa-leaf'></i>About us
                     </a>
                     @*<div class='megamenu-child-container'>
-                        <ul class="sub-menu">
-                            <li id="menu-item-473" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-depth-1 menu-item-with-widget-area ">
-                                <a href="#">Our Services</a>
-                                <div class="menu-item-widget-area-container">
-                                    <ul>
-                                        <li id="text-5" class="widget widget_text">
-                                            <div class="textwidget">
-                                                <ul>
-                                                    <li>
-                                                        <a href=""> Aroma Therapy </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href=""> Skin Care </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href=""> Herbal Spa </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href=""> Hydrotherapy </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href=""> Electrotherapy </a>
-                                                    </li>
-                                                </ul>
-                                                <div class='dt-sc-hr-invisible-small  '></div>
-                                                <img src="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/mega-menu-services.jpg"
-                                                     alt="" title="" />
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li id="menu-item-474" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-depth-1 menu-item-with-widget-area ">
-                                <a href="#">Featured Procedure</a>
-                                <div class="menu-item-widget-area-container">
-                                    <ul>
-                                        <li id="text-6" class="widget widget_text">
-                                            <div class="textwidget">
-                                                <img src="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/mega-menu-features.jpg"
-                                                     alt="" title="" />
-                                                <div class='dt-sc-hr-invisible-small  '></div>
-                                                <p>
-                                                    At vero eos et accusamus et iusto odio dignissimos ducimus quiere blanditiis praesentium
-                                                    voluptatu torquent per conubia nastra, per inceptos himanaeos
-                                                </p>
-                                                <div class='dt-sc-hr-invisible-small  '></div>
-                                                <a href="" title=""> View All Procedures >> </a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li id="menu-item-475" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-depth-1 menu-item-with-widget-area ">
-                                <a href="#">Recent Testimonials</a>
-                                <div class="menu-item-widget-area-container">
-                                    <ul>
-                                        <li id="text-7" class="widget widget_text">
-                                            <div class="textwidget">
-                                                <div class="type2">
-                                                    <div class='dt-sc-testimonial'>
-                                                        <blockquote>
-                                                            <q>
-                                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit elit turpis,
-                                                                a porttitor tellus sollicitudin at. Class aptent taciti sociosqu ad litora torquent
-                                                                per conubia nostra, per inceptos himenaeos.
-                                                            </q>
-                                                        </blockquote>
-                                                        <cite> - John Doe </cite>
-                                                        <div class='author'>
-                                                            <span>
-                                                                <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/testimonial3.jpg'
-                                                                     alt='<cite> - John Doe </cite>' title='<cite> - John Doe </cite>' />
-                                                            </span>
-                                                        </div>
-                                                    </div>
+                <ul class="sub-menu">
+                    <li id="menu-item-473" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-depth-1 menu-item-with-widget-area ">
+                        <a href="#">Our Services</a>
+                        <div class="menu-item-widget-area-container">
+                            <ul>
+                                <li id="text-5" class="widget widget_text">
+                                    <div class="textwidget">
+                                        <ul>
+                                            <li>
+                                                <a href=""> Aroma Therapy </a>
+                                            </li>
+                                            <li>
+                                                <a href=""> Skin Care </a>
+                                            </li>
+                                            <li>
+                                                <a href=""> Herbal Spa </a>
+                                            </li>
+                                            <li>
+                                                <a href=""> Hydrotherapy </a>
+                                            </li>
+                                            <li>
+                                                <a href=""> Electrotherapy </a>
+                                            </li>
+                                        </ul>
+                                        <div class='dt-sc-hr-invisible-small  '></div>
+                                        <img src="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/mega-menu-services.jpg"
+                                             alt="" title="" />
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li id="menu-item-474" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-depth-1 menu-item-with-widget-area ">
+                        <a href="#">Featured Procedure</a>
+                        <div class="menu-item-widget-area-container">
+                            <ul>
+                                <li id="text-6" class="widget widget_text">
+                                    <div class="textwidget">
+                                        <img src="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/mega-menu-features.jpg"
+                                             alt="" title="" />
+                                        <div class='dt-sc-hr-invisible-small  '></div>
+                                        <p>
+                                            At vero eos et accusamus et iusto odio dignissimos ducimus quiere blanditiis praesentium
+                                            voluptatu torquent per conubia nastra, per inceptos himanaeos
+                                        </p>
+                                        <div class='dt-sc-hr-invisible-small  '></div>
+                                        <a href="" title=""> View All Procedures >> </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li id="menu-item-475" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-depth-1 menu-item-with-widget-area ">
+                        <a href="#">Recent Testimonials</a>
+                        <div class="menu-item-widget-area-container">
+                            <ul>
+                                <li id="text-7" class="widget widget_text">
+                                    <div class="textwidget">
+                                        <div class="type2">
+                                            <div class='dt-sc-testimonial'>
+                                                <blockquote>
+                                                    <q>
+                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit elit turpis,
+                                                        a porttitor tellus sollicitudin at. Class aptent taciti sociosqu ad litora torquent
+                                                        per conubia nostra, per inceptos himenaeos.
+                                                    </q>
+                                                </blockquote>
+                                                <cite> - John Doe </cite>
+                                                <div class='author'>
+                                                    <span>
+                                                        <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/testimonial3.jpg'
+                                                             alt='<cite> - John Doe </cite>' title='<cite> - John Doe </cite>' />
+                                                    </span>
                                                 </div>
                                             </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li id="menu-item-476" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-depth-1 menu-item-with-widget-area ">
-                                <a href="#">Contact Us</a>
-                                <div class="menu-item-widget-area-container">
-                                    <ul>
-                                        <li id="text-8" class="widget widget_text">
-                                            <div class="textwidget">
-                                                <div class="contact-address">
-                                                    <div class="dt-sc-contact-info">
-                                                        <i class='fa fa-rocket'></i>121 King St, Melbourne VIC 3000, Australia
-                                                    </div>
-                                                </div>
-                                                <div class="contact-link">
-                                                    <div class="dt-sc-contact-info">
-                                                        <i class='fa fa-envelope'></i>
-                                                        <span></span>
-                                                        <a href="/cdn-cgi/l/email-protection#4831273d3a2629252d083b27252d25292124662b2725">
-                                                            <span class="__cf_email__" data-cfemail="3e47514b4c505f535b7e4d51535b535f5752105d5153">[email&#160;protected]</span>
-                                                        </a>
-                                                        <span class='details'></span>
-                                                    </div>
-                                                </div>
-                                                <div class="dt-sc-contact-info">
-                                                    <i class='fa fa-comment'></i>
-                                                    <span>Live Chat (offline)</span>
-                                                </div>
-                                                <div class="dt-sc-contact-info">
-                                                    <i class='fa fa-phone'></i>
-                                                    <span>+1 888 458 5376 (offline)</span>
-                                                </div>
-                                                <div class="contact-link">
-                                                    <div class="dt-sc-contact-info">
-                                                        <i class='fa fa-envelope'></i>
-                                                        <span></span>
-                                                        <a href="/cdn-cgi/l/email-protection#3b5854554f5a584f7b5f495e5a56484b5a15585456">
-                                                            <span class="__cf_email__" data-cfemail="b0d3dfdec4d1d3c4f0d4c2d5d1ddc3c0d19ed3dfdd">[email&#160;protected]</span>
-                                                        </a>
-                                                        <span class='details'></span>
-                                                    </div>
-                                                </div>
-                                                <div class='dt-sc-hr-invisible-small  '></div>
-                                                <img src="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/mega-menu-contact.jpg"
-                                                     alt="" title="" />
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li id="menu-item-476" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-depth-1 menu-item-with-widget-area ">
+                        <a href="#">Contact Us</a>
+                        <div class="menu-item-widget-area-container">
+                            <ul>
+                                <li id="text-8" class="widget widget_text">
+                                    <div class="textwidget">
+                                        <div class="contact-address">
+                                            <div class="dt-sc-contact-info">
+                                                <i class='fa fa-rocket'></i>121 King St, Melbourne VIC 3000, Australia
                                             </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li id="menu-item-477" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-depth-1 menu-item-with-widget-area  fill-four-columns ">
-                                <div class="menu-item-widget-area-container">
-                                    <ul>
-                                        <li id="text-9" class="widget widget_text">
-                                            <div class="textwidget">
-                                                <img src="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/mega-menu-fullwidth.jpg"
-                                                     alt="" title="" />
+                                        </div>
+                                        <div class="contact-link">
+                                            <div class="dt-sc-contact-info">
+                                                <i class='fa fa-envelope'></i>
+                                                <span></span>
+                                                <a href="/cdn-cgi/l/email-protection#4831273d3a2629252d083b27252d25292124662b2725">
+                                                    <span class="__cf_email__" data-cfemail="3e47514b4c505f535b7e4d51535b535f5752105d5153">[email&#160;protected]</span>
+                                                </a>
+                                                <span class='details'></span>
                                             </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                        <a class="dt-menu-expand">+</a>
-                    </div>*@
+                                        </div>
+                                        <div class="dt-sc-contact-info">
+                                            <i class='fa fa-comment'></i>
+                                            <span>Live Chat (offline)</span>
+                                        </div>
+                                        <div class="dt-sc-contact-info">
+                                            <i class='fa fa-phone'></i>
+                                            <span>+1 888 458 5376 (offline)</span>
+                                        </div>
+                                        <div class="contact-link">
+                                            <div class="dt-sc-contact-info">
+                                                <i class='fa fa-envelope'></i>
+                                                <span></span>
+                                                <a href="/cdn-cgi/l/email-protection#3b5854554f5a584f7b5f495e5a56484b5a15585456">
+                                                    <span class="__cf_email__" data-cfemail="b0d3dfdec4d1d3c4f0d4c2d5d1ddc3c0d19ed3dfdd">[email&#160;protected]</span>
+                                                </a>
+                                                <span class='details'></span>
+                                            </div>
+                                        </div>
+                                        <div class='dt-sc-hr-invisible-small  '></div>
+                                        <img src="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/mega-menu-contact.jpg"
+                                             alt="" title="" />
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li id="menu-item-477" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-depth-1 menu-item-with-widget-area  fill-four-columns ">
+                        <div class="menu-item-widget-area-container">
+                            <ul>
+                                <li id="text-9" class="widget widget_text">
+                                    <div class="textwidget">
+                                        <img src="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/mega-menu-fullwidth.jpg"
+                                             alt="" title="" />
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+                <a class="dt-menu-expand">+</a>
+            </div>*@
                     <a class="dt-menu-expand">+</a>
                 </li>
                 @*<li id="menu-item-4857" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-0 menu-item-simple-parent ">
-                    <a href="@Url.Action("Index","Reservation")">
-                        <i class='fa fa-envelope'></i>Reservation
-                    </a>
-                </li>*@
+            <a href="@Url.Action("Index","Reservation")">
+                <i class='fa fa-envelope'></i>Reservation
+            </a>
+        </li>*@
                 <li id="menu-item-186" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-0 menu-item-simple-parent ">
                     <a href="@Url.Action("Index","Procedures")">
                         <i class='fa fa-trophy'></i>Procedures
@@ -244,200 +250,200 @@
                         <i class='fa fa-pencil'></i>Blog
                     </a>
                     @*<div class='megamenu-child-container'>
+                <ul class="sub-menu">
+                    <li id="menu-item-478" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-depth-1 menu-item-with-widget-area  fill-two-columns ">
+                        <a href="#">Recent Posts</a>
+                        <div class="menu-item-widget-area-container">
+                            <ul>
+                                <li id="my_recent_posts-2" class="widget widget_recent_entries">
+                                    <div class='recent-posts-widget'>
+                                        <ul>
+                                            <li>
+                                                <div class="entry-meta">
+                                                    <div class="date">
+                                                        <p class="day">
+                                                            29
+                                                            <br>
+                                                            <span class="month">May</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="entry-details">
+                                                    <div class="entry-title">
+                                                        <h4>
+                                                            <a href='https://dreamspa.dttheme.com/about-our-spa-process-2/'>About our Spa Process</a>
+                                                        </h4>
+                                                    </div>
+                                                    <div class="entry-metadata">
+                                                        <p class='author'>
+                                                            by
+                                                            <a href='https://dreamspa.dttheme.com/author/ram/'>ram</a>
+                                                        </p>
+                                                        <span> | </span>
+                                                        <p class='comments'>
+                                                            <a href='https://dreamspa.dttheme.com/about-our-spa-process-2//#respond' class='comments'>
+                                                                <span class='fa fa-comments'> </span> 36
+                                                            </a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="entry-body">
+                                                    <p>
+                                                        Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
+                                                        velit,...
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="entry-meta">
+                                                    <div class="date">
+                                                        <p class="day">
+                                                            29
+                                                            <br>
+                                                            <span class="month">May</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="entry-details">
+                                                    <div class="entry-title">
+                                                        <h4>
+                                                            <a href='https://dreamspa.dttheme.com/our-work-place/'>Our work place</a>
+                                                        </h4>
+                                                    </div>
+                                                    <div class="entry-metadata">
+                                                        <p class='author'>
+                                                            by
+                                                            <a href='https://dreamspa.dttheme.com/author/ram/'>ram</a>
+                                                        </p>
+                                                        <span> | </span>
+                                                        <p class='comments'>
+                                                            <a href='https://dreamspa.dttheme.com/our-work-place//#respond' class='comments'>
+                                                                <span class='fa fa-comments'> </span> 36
+                                                            </a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="entry-body">
+                                                    <p>
+                                                        Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
+                                                        velit,...
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="entry-meta">
+                                                    <div class="date">
+                                                        <p class="day">
+                                                            29
+                                                            <br>
+                                                            <span class="month">May</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="entry-details">
+                                                    <div class="entry-title">
+                                                        <h4>
+                                                            <a href='https://dreamspa.dttheme.com/self-hosted-audio/'>Self Hosted Audio</a>
+                                                        </h4>
+                                                    </div>
+                                                    <div class="entry-metadata">
+                                                        <p class='author'>
+                                                            by
+                                                            <a href='https://dreamspa.dttheme.com/author/ram/'>ram</a>
+                                                        </p>
+                                                        <span> | </span>
+                                                        <p class='comments'>
+                                                            <a href='https://dreamspa.dttheme.com/self-hosted-audio//#respond' class='comments'>
+                                                                <span class='fa fa-comments'> </span> 36
+                                                            </a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="entry-body">
+                                                    <p>
+                                                        Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
+                                                        velit,...
+                                                    </p>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li id="menu-item-350" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-depth-1">
+                        <a href="#">I Column</a>
                         <ul class="sub-menu">
-                            <li id="menu-item-478" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-depth-1 menu-item-with-widget-area  fill-two-columns ">
-                                <a href="#">Recent Posts</a>
-                                <div class="menu-item-widget-area-container">
-                                    <ul>
-                                        <li id="my_recent_posts-2" class="widget widget_recent_entries">
-                                            <div class='recent-posts-widget'>
-                                                <ul>
-                                                    <li>
-                                                        <div class="entry-meta">
-                                                            <div class="date">
-                                                                <p class="day">
-                                                                    29
-                                                                    <br>
-                                                                    <span class="month">May</span>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="entry-details">
-                                                            <div class="entry-title">
-                                                                <h4>
-                                                                    <a href='https://dreamspa.dttheme.com/about-our-spa-process-2/'>About our Spa Process</a>
-                                                                </h4>
-                                                            </div>
-                                                            <div class="entry-metadata">
-                                                                <p class='author'>
-                                                                    by
-                                                                    <a href='https://dreamspa.dttheme.com/author/ram/'>ram</a>
-                                                                </p>
-                                                                <span> | </span>
-                                                                <p class='comments'>
-                                                                    <a href='https://dreamspa.dttheme.com/about-our-spa-process-2//#respond' class='comments'>
-                                                                        <span class='fa fa-comments'> </span> 36
-                                                                    </a>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="entry-body">
-                                                            <p>
-                                                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
-                                                                velit,...
-                                                            </p>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="entry-meta">
-                                                            <div class="date">
-                                                                <p class="day">
-                                                                    29
-                                                                    <br>
-                                                                    <span class="month">May</span>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="entry-details">
-                                                            <div class="entry-title">
-                                                                <h4>
-                                                                    <a href='https://dreamspa.dttheme.com/our-work-place/'>Our work place</a>
-                                                                </h4>
-                                                            </div>
-                                                            <div class="entry-metadata">
-                                                                <p class='author'>
-                                                                    by
-                                                                    <a href='https://dreamspa.dttheme.com/author/ram/'>ram</a>
-                                                                </p>
-                                                                <span> | </span>
-                                                                <p class='comments'>
-                                                                    <a href='https://dreamspa.dttheme.com/our-work-place//#respond' class='comments'>
-                                                                        <span class='fa fa-comments'> </span> 36
-                                                                    </a>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="entry-body">
-                                                            <p>
-                                                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
-                                                                velit,...
-                                                            </p>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="entry-meta">
-                                                            <div class="date">
-                                                                <p class="day">
-                                                                    29
-                                                                    <br>
-                                                                    <span class="month">May</span>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="entry-details">
-                                                            <div class="entry-title">
-                                                                <h4>
-                                                                    <a href='https://dreamspa.dttheme.com/self-hosted-audio/'>Self Hosted Audio</a>
-                                                                </h4>
-                                                            </div>
-                                                            <div class="entry-metadata">
-                                                                <p class='author'>
-                                                                    by
-                                                                    <a href='https://dreamspa.dttheme.com/author/ram/'>ram</a>
-                                                                </p>
-                                                                <span> | </span>
-                                                                <p class='comments'>
-                                                                    <a href='https://dreamspa.dttheme.com/self-hosted-audio//#respond' class='comments'>
-                                                                        <span class='fa fa-comments'> </span> 36
-                                                                    </a>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="entry-body">
-                                                            <p>
-                                                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
-                                                                velit,...
-                                                            </p>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
+                            <li id="menu-item-353" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/blog/">Full Width</a>
                             </li>
-                            <li id="menu-item-350" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-depth-1">
-                                <a href="#">I Column</a>
-                                <ul class="sub-menu">
-                                    <li id="menu-item-353" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/blog/">Full Width</a>
-                                    </li>
-                                    <li id="menu-item-343" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/blog/blog-with-lhs/">With Left Sidebar</a>
-                                    </li>
-                                    <li id="menu-item-342" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/blog/blog-with-rhs/">With Right Sidebar</a>
-                                    </li>
-                                    <li id="menu-item-340" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/blog/blog-with-pagination/">With Pagination</a>
-                                    </li>
-                                </ul>
-                                <a class="dt-menu-expand">+</a>
+                            <li id="menu-item-343" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/blog/blog-with-lhs/">With Left Sidebar</a>
                             </li>
-                            <li id="menu-item-351" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-depth-1">
-                                <a href="#">II Columns</a>
-                                <ul class="sub-menu">
-                                    <li id="menu-item-344" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/blog/two-columns-blog/">Full Width</a>
-                                    </li>
-                                    <li id="menu-item-348" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/blog/two-columns-blog/two-columns-blog-with-lhs/">With Left Sidebar</a>
-                                    </li>
-                                    <li id="menu-item-347" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/blog/two-columns-blog/two-columns-blog-with-rhs/">With Right Sidebar</a>
-                                    </li>
-                                    <li id="menu-item-345" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/blog/two-columns-blog/two-columns-blog-with-pagination/">With Pagination</a>
-                                    </li>
-                                </ul>
-                                <a class="dt-menu-expand">+</a>
+                            <li id="menu-item-342" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/blog/blog-with-rhs/">With Right Sidebar</a>
                             </li>
-                            <li id="menu-item-352" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-depth-1">
-                                <a href="#">Single</a>
-                                <ul class="sub-menu">
-                                    <li id="menu-item-357" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/about-our-spa-process/">Full Width</a>
-                                    </li>
-                                    <li id="menu-item-355" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/petals-of-rose-a-clean-treatment-for-you-health/">With Left Sidebar</a>
-                                    </li>
-                                    <li id="menu-item-354" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/herbal-facial-cream-rejoice-your-beauty/">With Right Sidebar</a>
-                                    </li>
-                                    <li id="menu-item-358" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/herbal-facial-cream-rejoice-your-beauty/">Threaded Comments</a>
-                                    </li>
-                                </ul>
-                                <a class="dt-menu-expand">+</a>
-                            </li>
-                            <li id="menu-item-483" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-depth-1 menu-item-with-widget-area ">
-                                <a href="#">Sign Up For Our Newsletter</a>
-                                <div class="menu-item-widget-area-container">
-                                    <ul>
-                                        <li id="my_mailchimp-2" class="widget mailchimp">
-                                            <p>Lorem Ipsum Sit Amet Dolor</p>
-                                            <form method="post" class="mailchimp-form">
-                                                <input type="email" placeholder="Enter Email Address" name="mythem_mc_emailid" value="" required />
-                                                <input type='hidden' name='mythem_mc_listid' value='314bbca712' />
-                                                <input type="submit" name="submit" class="nl-submit" value="Signup" />
-                                            </form>
-                                        </li>
-                                    </ul>
-                                </div>
+                            <li id="menu-item-340" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/blog/blog-with-pagination/">With Pagination</a>
                             </li>
                         </ul>
                         <a class="dt-menu-expand">+</a>
-                    </div>*@
+                    </li>
+                    <li id="menu-item-351" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-depth-1">
+                        <a href="#">II Columns</a>
+                        <ul class="sub-menu">
+                            <li id="menu-item-344" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/blog/two-columns-blog/">Full Width</a>
+                            </li>
+                            <li id="menu-item-348" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/blog/two-columns-blog/two-columns-blog-with-lhs/">With Left Sidebar</a>
+                            </li>
+                            <li id="menu-item-347" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/blog/two-columns-blog/two-columns-blog-with-rhs/">With Right Sidebar</a>
+                            </li>
+                            <li id="menu-item-345" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/blog/two-columns-blog/two-columns-blog-with-pagination/">With Pagination</a>
+                            </li>
+                        </ul>
+                        <a class="dt-menu-expand">+</a>
+                    </li>
+                    <li id="menu-item-352" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-depth-1">
+                        <a href="#">Single</a>
+                        <ul class="sub-menu">
+                            <li id="menu-item-357" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/about-our-spa-process/">Full Width</a>
+                            </li>
+                            <li id="menu-item-355" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/petals-of-rose-a-clean-treatment-for-you-health/">With Left Sidebar</a>
+                            </li>
+                            <li id="menu-item-354" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/herbal-facial-cream-rejoice-your-beauty/">With Right Sidebar</a>
+                            </li>
+                            <li id="menu-item-358" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/herbal-facial-cream-rejoice-your-beauty/">Threaded Comments</a>
+                            </li>
+                        </ul>
+                        <a class="dt-menu-expand">+</a>
+                    </li>
+                    <li id="menu-item-483" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-depth-1 menu-item-with-widget-area ">
+                        <a href="#">Sign Up For Our Newsletter</a>
+                        <div class="menu-item-widget-area-container">
+                            <ul>
+                                <li id="my_mailchimp-2" class="widget mailchimp">
+                                    <p>Lorem Ipsum Sit Amet Dolor</p>
+                                    <form method="post" class="mailchimp-form">
+                                        <input type="email" placeholder="Enter Email Address" name="mythem_mc_emailid" value="" required />
+                                        <input type='hidden' name='mythem_mc_listid' value='314bbca712' />
+                                        <input type="submit" name="submit" class="nl-submit" value="Signup" />
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+                <a class="dt-menu-expand">+</a>
+            </div>*@
                     <a class="dt-menu-expand">+</a>
                 </li>
                 <li id="menu-item-187" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-depth-0 menu-item-megamenu-parent  megamenu-4-columns-group">
@@ -445,97 +451,97 @@
                         <i class='fa fa-camera'></i>Gallery
                     </a>
                     @*<div class='megamenu-child-container'>
+                <ul class="sub-menu">
+                    <li id="menu-item-273" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-depth-1">
+                        <a href="#">II Columns</a>
                         <ul class="sub-menu">
-                            <li id="menu-item-273" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-depth-1">
-                                <a href="#">II Columns</a>
-                                <ul class="sub-menu">
-                                    <li id="menu-item-280" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/gallery/two-columns-gallery/">Full Width</a>
-                                    </li>
-                                    <li id="menu-item-277" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/gallery/two-columns-gallery/two-columns-gallery-with-lhs/">With Left Sidebar</a>
-                                    </li>
-                                    <li id="menu-item-275" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/gallery/two-columns-gallery/two-columns-gallery-with-rhs/">With Right Sidebar</a>
-                                    </li>
-                                    <li id="menu-item-278" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/gallery/two-columns-gallery/two-columns-gallery-with-filter/">With Filter</a>
-                                    </li>
-                                    <li id="menu-item-274" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/gallery/two-columns-gallery/two-columns-gallery-with-sub-title/">With Sub Title</a>
-                                    </li>
-                                    <li id="menu-item-276" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/gallery/two-columns-gallery/two-columns-gallery-with-pagination/">With Pagination</a>
-                                    </li>
-                                </ul>
-                                <a class="dt-menu-expand">+</a>
+                            <li id="menu-item-280" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/gallery/two-columns-gallery/">Full Width</a>
                             </li>
-                            <li id="menu-item-281" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-depth-1">
-                                <a href="#">III Columns</a>
-                                <ul class="sub-menu">
-                                    <li id="menu-item-282" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/gallery/three-columns-gallery/">Full Width</a>
-                                    </li>
-                                    <li id="menu-item-285" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/gallery/three-columns-gallery/three-columns-gallery-with-lhs/">With Left Sidebar</a>
-                                    </li>
-                                    <li id="menu-item-287" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/gallery/three-columns-gallery/three-columns-gallery-with-rhs/">With Right Sidebar</a>
-                                    </li>
-                                    <li id="menu-item-284" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/gallery/three-columns-gallery/three-columns-gallery-with-filter/">With Filter</a>
-                                    </li>
-                                    <li id="menu-item-288" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/gallery/three-columns-gallery/three-columns-gallery-with-sub-title/">With Sub Title</a>
-                                    </li>
-                                    <li id="menu-item-286" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/gallery/three-columns-gallery/three-columns-gallery-with-pagination/">With Pagination</a>
-                                    </li>
-                                </ul>
-                                <a class="dt-menu-expand">+</a>
+                            <li id="menu-item-277" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/gallery/two-columns-gallery/two-columns-gallery-with-lhs/">With Left Sidebar</a>
                             </li>
-                            <li id="menu-item-289" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-depth-1">
-                                <a href="#">IV Columns</a>
-                                <ul class="sub-menu">
-                                    <li id="menu-item-290" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/gallery/four-columns-gallery/">Full Width</a>
-                                    </li>
-                                    <li id="menu-item-293" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/gallery/four-columns-gallery/four-columns-gallery-with-lhs/">With Left Sidebar</a>
-                                    </li>
-                                    <li id="menu-item-295" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/gallery/four-columns-gallery/four-columns-gallery-with-rhs/">With Right Sidebar</a>
-                                    </li>
-                                    <li id="menu-item-292" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/gallery/four-columns-gallery/four-columns-gallery-with-filter/">With Filter</a>
-                                    </li>
-                                    <li id="menu-item-296" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/gallery/four-columns-gallery/four-columns-gallery-with-sub-title/">With Sub Title</a>
-                                    </li>
-                                    <li id="menu-item-294" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/gallery/four-columns-gallery/four-columns-gallery-with-pagination/">With Pagination</a>
-                                    </li>
-                                </ul>
-                                <a class="dt-menu-expand">+</a>
+                            <li id="menu-item-275" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/gallery/two-columns-gallery/two-columns-gallery-with-rhs/">With Right Sidebar</a>
                             </li>
-                            <li id="menu-item-297" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-depth-1">
-                                <a href="#">Single</a>
-                                <ul class="sub-menu">
-                                    <li id="menu-item-299" class="menu-item menu-item-type-post_type menu-item-object-dt_galleries menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/dt_galleries/meditation-spa/">Full Width</a>
-                                    </li>
-                                    <li id="menu-item-300" class="menu-item menu-item-type-post_type menu-item-object-dt_galleries menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/dt_galleries/wollen-spa-cloth/">With Left Sidebar</a>
-                                    </li>
-                                    <li id="menu-item-301" class="menu-item menu-item-type-post_type menu-item-object-dt_galleries menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/dt_galleries/spa-bars/">With Right Sidebar</a>
-                                    </li>
-                                </ul>
-                                <a class="dt-menu-expand">+</a>
+                            <li id="menu-item-278" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/gallery/two-columns-gallery/two-columns-gallery-with-filter/">With Filter</a>
+                            </li>
+                            <li id="menu-item-274" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/gallery/two-columns-gallery/two-columns-gallery-with-sub-title/">With Sub Title</a>
+                            </li>
+                            <li id="menu-item-276" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/gallery/two-columns-gallery/two-columns-gallery-with-pagination/">With Pagination</a>
                             </li>
                         </ul>
                         <a class="dt-menu-expand">+</a>
-                    </div>*@
+                    </li>
+                    <li id="menu-item-281" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-depth-1">
+                        <a href="#">III Columns</a>
+                        <ul class="sub-menu">
+                            <li id="menu-item-282" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/gallery/three-columns-gallery/">Full Width</a>
+                            </li>
+                            <li id="menu-item-285" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/gallery/three-columns-gallery/three-columns-gallery-with-lhs/">With Left Sidebar</a>
+                            </li>
+                            <li id="menu-item-287" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/gallery/three-columns-gallery/three-columns-gallery-with-rhs/">With Right Sidebar</a>
+                            </li>
+                            <li id="menu-item-284" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/gallery/three-columns-gallery/three-columns-gallery-with-filter/">With Filter</a>
+                            </li>
+                            <li id="menu-item-288" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/gallery/three-columns-gallery/three-columns-gallery-with-sub-title/">With Sub Title</a>
+                            </li>
+                            <li id="menu-item-286" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/gallery/three-columns-gallery/three-columns-gallery-with-pagination/">With Pagination</a>
+                            </li>
+                        </ul>
+                        <a class="dt-menu-expand">+</a>
+                    </li>
+                    <li id="menu-item-289" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-depth-1">
+                        <a href="#">IV Columns</a>
+                        <ul class="sub-menu">
+                            <li id="menu-item-290" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/gallery/four-columns-gallery/">Full Width</a>
+                            </li>
+                            <li id="menu-item-293" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/gallery/four-columns-gallery/four-columns-gallery-with-lhs/">With Left Sidebar</a>
+                            </li>
+                            <li id="menu-item-295" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/gallery/four-columns-gallery/four-columns-gallery-with-rhs/">With Right Sidebar</a>
+                            </li>
+                            <li id="menu-item-292" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/gallery/four-columns-gallery/four-columns-gallery-with-filter/">With Filter</a>
+                            </li>
+                            <li id="menu-item-296" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/gallery/four-columns-gallery/four-columns-gallery-with-sub-title/">With Sub Title</a>
+                            </li>
+                            <li id="menu-item-294" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/gallery/four-columns-gallery/four-columns-gallery-with-pagination/">With Pagination</a>
+                            </li>
+                        </ul>
+                        <a class="dt-menu-expand">+</a>
+                    </li>
+                    <li id="menu-item-297" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-depth-1">
+                        <a href="#">Single</a>
+                        <ul class="sub-menu">
+                            <li id="menu-item-299" class="menu-item menu-item-type-post_type menu-item-object-dt_galleries menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/dt_galleries/meditation-spa/">Full Width</a>
+                            </li>
+                            <li id="menu-item-300" class="menu-item menu-item-type-post_type menu-item-object-dt_galleries menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/dt_galleries/wollen-spa-cloth/">With Left Sidebar</a>
+                            </li>
+                            <li id="menu-item-301" class="menu-item menu-item-type-post_type menu-item-object-dt_galleries menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/dt_galleries/spa-bars/">With Right Sidebar</a>
+                            </li>
+                        </ul>
+                        <a class="dt-menu-expand">+</a>
+                    </li>
+                </ul>
+                <a class="dt-menu-expand">+</a>
+            </div>*@
                     <a class="dt-menu-expand">+</a>
                 </li>
                 <li id="menu-item-403" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-0 menu-item-simple-parent ">
@@ -548,154 +554,157 @@
                         <i class='fa fa-shopping-cart'></i>Shop
                     </a>
                     @*<div class='megamenu-child-container'>
+                <ul class="sub-menu">
+                    <li id="menu-item-537" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-depth-1">
+                        <a href="https://dreamspa.dttheme.com/shop/">Shop Columns</a>
                         <ul class="sub-menu">
-                            <li id="menu-item-537" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-depth-1">
-                                <a href="https://dreamspa.dttheme.com/shop/">Shop Columns</a>
-                                <ul class="sub-menu">
-                                    <li id="menu-item-535" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/shop/shop-two-columns/">Two Columns</a>
-                                    </li>
-                                    <li id="menu-item-536" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/shop/shop-two-columns-with-sidebar/">Two Columns with sidebar</a>
-                                    </li>
-                                    <li id="menu-item-533" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/shop/shop-three-columns/">Three Columns</a>
-                                    </li>
-                                    <li id="menu-item-534" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/shop/shop-three-columns-with-sidebar/">Three Columns with sidebar</a>
-                                    </li>
-                                    <li id="menu-item-531" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/shop/shop-four-columns/">Four Columns</a>
-                                    </li>
-                                    <li id="menu-item-532" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/shop/shop-four-columns-with-sidebar/">Four Columns with sidebar</a>
-                                    </li>
-                                </ul>
-                                <a class="dt-menu-expand">+</a>
+                            <li id="menu-item-535" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/shop/shop-two-columns/">Two Columns</a>
                             </li>
-                            <li id="menu-item-484" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-depth-1 menu-item-with-widget-area ">
-                                <a href="#">Recent Products</a>
-                                <div class="menu-item-widget-area-container">
-                                    <ul>
-                                        <li id="woocommerce_products-2" class="widget woocommerce widget_products">
-                                            <ul class="product_list_widget">
-                                                <li>
-                                                    <a href="https://dreamspa.dttheme.com/product/spa-bars/" title="Spa Bars">
-                                                        <img width="90" height="90" src="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product16-90x90.jpg"
-                                                             class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product16-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product16-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product16-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product16-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product16.jpg 1000w"
-                                                             sizes="(max-width: 90px) 100vw, 90px" />
-                                                        <span class="product-title">Spa Bars</span>
-                                                    </a>
-                                                    <del>
-                                                        <span class="amount">&pound;3.00</span>
-                                                    </del>
-                                                    <ins>
-                                                        <span class="amount">&pound;2.00</span>
-                                                    </ins>
-                                                </li>
-                                                <li>
-                                                    <a href="https://dreamspa.dttheme.com/product/wollen-spa-cloth/" title="Wollen Spa Cloth">
-                                                        <img width="90" height="90" src="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product17-90x90.jpg"
-                                                             class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product17-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product17-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product17-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product17-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product17.jpg 1000w"
-                                                             sizes="(max-width: 90px) 100vw, 90px" />
-                                                        <span class="product-title">Wollen Spa Cloth</span>
-                                                    </a>
-                                                    <span class="amount">&pound;9.00</span>
-                                                </li>
-                                                <li>
-                                                    <a href="https://dreamspa.dttheme.com/product/dry-aroma-petals-for-bath/" title="Dry Aroma Petals for Bath">
-                                                        <img width="90" height="90" src="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product18-90x90.jpg"
-                                                             class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product18-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product18-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product18-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product18-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product18.jpg 1000w"
-                                                             sizes="(max-width: 90px) 100vw, 90px" />
-                                                        <span class="product-title">Dry Aroma Petals for Bath</span>
-                                                    </a>
-                                                    <span class="amount">&pound;3.00</span>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
+                            <li id="menu-item-536" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/shop/shop-two-columns-with-sidebar/">Two Columns with sidebar</a>
                             </li>
-                            <li id="menu-item-485" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-depth-1 menu-item-with-widget-area ">
-                                <a href="#">Top Rated Products</a>
-                                <div class="menu-item-widget-area-container">
-                                    <ul>
-                                        <li id="woocommerce_top_rated_products-2" class="widget woocommerce widget_top_rated_products">
-                                            <ul class="product_list_widget">
-                                                <li>
-                                                    <a href="https://dreamspa.dttheme.com/product/wollen-spa-cloth/" title="Wollen Spa Cloth">
-                                                        <img width="90" height="90" src="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product17-90x90.jpg"
-                                                             class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product17-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product17-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product17-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product17-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product17.jpg 1000w"
-                                                             sizes="(max-width: 90px) 100vw, 90px" />
-                                                        <span class="product-title">Wollen Spa Cloth</span>
-                                                    </a>
-                                                    <div class="star-rating" title="Rated 5 out of 5">
-                                                        <span style="width:100%">
-                                                            <strong class="rating">5</strong> out of 5
-                                                        </span>
-                                                    </div>
-                                                    <span class="amount">&pound;9.00</span>
-                                                </li>
-                                                <li>
-                                                    <a href="https://dreamspa.dttheme.com/product/spa-green-salt/" title="Spa Green Salt">
-                                                        <img width="90" height="90" src="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product23-90x90.jpg"
-                                                             class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product23-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product23-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product23-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product23-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product23.jpg 1000w"
-                                                             sizes="(max-width: 90px) 100vw, 90px" />
-                                                        <span class="product-title">Spa Green Salt</span>
-                                                    </a>
-                                                    <div class="star-rating" title="Rated 5 out of 5">
-                                                        <span style="width:100%">
-                                                            <strong class="rating">5</strong> out of 5
-                                                        </span>
-                                                    </div>
-                                                    <span class="amount">&pound;18.00</span>
-                                                </li>
-                                                <li>
-                                                    <a href="https://dreamspa.dttheme.com/product/wax-candle-in-coconut-shell/" title="Wax Candle in Coconut Shell">
-                                                        <img width="90" height="90" src="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product22-90x90.jpg"
-                                                             class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product22-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product22-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product22-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product22-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product22.jpg 1000w"
-                                                             sizes="(max-width: 90px) 100vw, 90px" />
-                                                        <span class="product-title">Wax Candle in Coconut Shell</span>
-                                                    </a>
-                                                    <div class="star-rating" title="Rated 5 out of 5">
-                                                        <span style="width:100%">
-                                                            <strong class="rating">5</strong> out of 5
-                                                        </span>
-                                                    </div>
-                                                    <span class="amount">&pound;20.00</span>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
+                            <li id="menu-item-533" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/shop/shop-three-columns/">Three Columns</a>
                             </li>
-                            <li id="menu-item-486" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-depth-1">
-                                <a href="#">Others</a>
-                                <ul class="sub-menu">
-                                    <li id="menu-item-479" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/shop/cart/">Cart</a>
-                                    </li>
-                                    <li id="menu-item-480" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/shop/checkout/">Checkout</a>
-                                    </li>
-                                    <li id="menu-item-481" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/shop/my-account/">My Account</a>
-                                    </li>
-                                    <li id="menu-item-482" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                                        <a href="https://dreamspa.dttheme.com/wishlist/">Wishlist</a>
-                                    </li>
-                                </ul>
-                                <a class="dt-menu-expand">+</a>
+                            <li id="menu-item-534" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/shop/shop-three-columns-with-sidebar/">Three Columns with sidebar</a>
+                            </li>
+                            <li id="menu-item-531" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/shop/shop-four-columns/">Four Columns</a>
+                            </li>
+                            <li id="menu-item-532" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/shop/shop-four-columns-with-sidebar/">Four Columns with sidebar</a>
                             </li>
                         </ul>
                         <a class="dt-menu-expand">+</a>
-                    </div>*@
+                    </li>
+                    <li id="menu-item-484" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-depth-1 menu-item-with-widget-area ">
+                        <a href="#">Recent Products</a>
+                        <div class="menu-item-widget-area-container">
+                            <ul>
+                                <li id="woocommerce_products-2" class="widget woocommerce widget_products">
+                                    <ul class="product_list_widget">
+                                        <li>
+                                            <a href="https://dreamspa.dttheme.com/product/spa-bars/" title="Spa Bars">
+                                                <img width="90" height="90" src="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product16-90x90.jpg"
+                                                     class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product16-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product16-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product16-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product16-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product16.jpg 1000w"
+                                                     sizes="(max-width: 90px) 100vw, 90px" />
+                                                <span class="product-title">Spa Bars</span>
+                                            </a>
+                                            <del>
+                                                <span class="amount">&pound;3.00</span>
+                                            </del>
+                                            <ins>
+                                                <span class="amount">&pound;2.00</span>
+                                            </ins>
+                                        </li>
+                                        <li>
+                                            <a href="https://dreamspa.dttheme.com/product/wollen-spa-cloth/" title="Wollen Spa Cloth">
+                                                <img width="90" height="90" src="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product17-90x90.jpg"
+                                                     class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product17-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product17-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product17-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product17-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product17.jpg 1000w"
+                                                     sizes="(max-width: 90px) 100vw, 90px" />
+                                                <span class="product-title">Wollen Spa Cloth</span>
+                                            </a>
+                                            <span class="amount">&pound;9.00</span>
+                                        </li>
+                                        <li>
+                                            <a href="https://dreamspa.dttheme.com/product/dry-aroma-petals-for-bath/" title="Dry Aroma Petals for Bath">
+                                                <img width="90" height="90" src="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product18-90x90.jpg"
+                                                     class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product18-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product18-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product18-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product18-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product18.jpg 1000w"
+                                                     sizes="(max-width: 90px) 100vw, 90px" />
+                                                <span class="product-title">Dry Aroma Petals for Bath</span>
+                                            </a>
+                                            <span class="amount">&pound;3.00</span>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li id="menu-item-485" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-depth-1 menu-item-with-widget-area ">
+                        <a href="#">Top Rated Products</a>
+                        <div class="menu-item-widget-area-container">
+                            <ul>
+                                <li id="woocommerce_top_rated_products-2" class="widget woocommerce widget_top_rated_products">
+                                    <ul class="product_list_widget">
+                                        <li>
+                                            <a href="https://dreamspa.dttheme.com/product/wollen-spa-cloth/" title="Wollen Spa Cloth">
+                                                <img width="90" height="90" src="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product17-90x90.jpg"
+                                                     class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product17-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product17-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product17-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product17-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product17.jpg 1000w"
+                                                     sizes="(max-width: 90px) 100vw, 90px" />
+                                                <span class="product-title">Wollen Spa Cloth</span>
+                                            </a>
+                                            <div class="star-rating" title="Rated 5 out of 5">
+                                                <span style="width:100%">
+                                                    <strong class="rating">5</strong> out of 5
+                                                </span>
+                                            </div>
+                                            <span class="amount">&pound;9.00</span>
+                                        </li>
+                                        <li>
+                                            <a href="https://dreamspa.dttheme.com/product/spa-green-salt/" title="Spa Green Salt">
+                                                <img width="90" height="90" src="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product23-90x90.jpg"
+                                                     class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product23-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product23-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product23-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product23-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product23.jpg 1000w"
+                                                     sizes="(max-width: 90px) 100vw, 90px" />
+                                                <span class="product-title">Spa Green Salt</span>
+                                            </a>
+                                            <div class="star-rating" title="Rated 5 out of 5">
+                                                <span style="width:100%">
+                                                    <strong class="rating">5</strong> out of 5
+                                                </span>
+                                            </div>
+                                            <span class="amount">&pound;18.00</span>
+                                        </li>
+                                        <li>
+                                            <a href="https://dreamspa.dttheme.com/product/wax-candle-in-coconut-shell/" title="Wax Candle in Coconut Shell">
+                                                <img width="90" height="90" src="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product22-90x90.jpg"
+                                                     class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="" srcset="https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product22-90x90.jpg 90w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product22-150x150.jpg 150w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product22-300x300.jpg 300w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product22-550x550.jpg 550w, https://dreamspa.dttheme.com/wp-content/uploads/2014/07/product22.jpg 1000w"
+                                                     sizes="(max-width: 90px) 100vw, 90px" />
+                                                <span class="product-title">Wax Candle in Coconut Shell</span>
+                                            </a>
+                                            <div class="star-rating" title="Rated 5 out of 5">
+                                                <span style="width:100%">
+                                                    <strong class="rating">5</strong> out of 5
+                                                </span>
+                                            </div>
+                                            <span class="amount">&pound;20.00</span>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li id="menu-item-486" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-depth-1">
+                        <a href="#">Others</a>
+                        <ul class="sub-menu">
+                            <li id="menu-item-479" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/shop/cart/">Cart</a>
+                            </li>
+                            <li id="menu-item-480" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/shop/checkout/">Checkout</a>
+                            </li>
+                            <li id="menu-item-481" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/shop/my-account/">My Account</a>
+                            </li>
+                            <li id="menu-item-482" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                <a href="https://dreamspa.dttheme.com/wishlist/">Wishlist</a>
+                            </li>
+                        </ul>
+                        <a class="dt-menu-expand">+</a>
+                    </li>
+                </ul>
+                <a class="dt-menu-expand">+</a>
+            </div>*@
                     <a class="dt-menu-expand">+</a>
                 </li>
                 <li id="menu-item-303" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-0 menu-item-simple-parent ">
                     <a href="@Url.Action("Index","Location")">
                         <i class='fa fa-location-arrow'></i>Location
                     </a>
+                </li>
+                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-0 menu-item-simple-parent">
+                    <a id="top-cart-count" href="@Url.Action("Cart","Shop")"><span class="fa fa-shopping-cart"></span> Cart [0]</a>
                 </li>
             </ul>
         </div>
