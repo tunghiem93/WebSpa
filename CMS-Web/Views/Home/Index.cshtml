@@ -137,7 +137,7 @@
                                     atque corrupti quos dolores et quas molestias provident destiny is about voles.
                                 </p>
                             </div>
-                            <a href='#' class='dt-sc-button small'>Read More</a>
+                         @*   <a href='#' class='dt-sc-button small'>Read More</a>*@
                         </div>
                     </div>
                     <div class='column dt-sc-one-third  space '>
@@ -153,7 +153,7 @@
                                     atque corrupti quos dolores et quas molestias provident destiny is about voles.
                                 </p>
                             </div>
-                            <a href='#' class='dt-sc-button small'>Read More</a>
+                           @* <a href='#' class='dt-sc-button small'>Read More</a>*@
                         </div>
                     </div>
                     <div class='column dt-sc-one-third  space '>
@@ -169,7 +169,7 @@
                                     atque corrupti quos dolores et quas molestias provident destiny is about voles.
                                 </p>
                             </div>
-                            <a href='#' class='dt-sc-button small'>Read More</a>
+                           @* <a href='#' class='dt-sc-button small'>Read More</a>*@
                         </div>
                     </div>
                     <div class='dt-sc-hr-invisible-medium  '></div>
@@ -179,232 +179,54 @@
                     </div>
                 </div>
             </div>
-            <div class='column no-space  dt-sc-one-fourth  first'>
-                <div id='dt_galleries-203' class='dt-gallery gallery no-space'>
-                    <figure>
-                        <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio1.jpg' width='1060' height='795'
-                             alt='' />
-                        <div class="image-overlay">
-                            <div class="image-overlay-details">
-                                <h5>
-                                    <a href='https://dreamspa.dttheme.com/dt_galleries/meditation-spa/'>Meditation spa</a>
-                                </h5>
-                                <div class="links">
-                                    <a href='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio1.jpg' data-gal='prettyPhoto[gallery]'>
-                                        <span class='fa fa-search-plus'> </span>
-                                    </a>
-                                    <a href='https://dreamspa.dttheme.com/dt_galleries/meditation-spa/'>
-                                        <span class='fa fa-external-link'> </span>
-                                    </a>
-                                    <div class='views'>
-                                        <span class='fa fa-heart'> </span>
-                                        <a href="#" class="likeThis" id="like-203" data-post-id="203">12419</a>
+            @if (Model != null && Model.ListProduct != null && Model.ListProduct.Any())
+            {
+                var _first = "first";
+                var _index = 1;
+                foreach (var item in Model.ListProduct)
+                {
+                    <div class='column no-space  dt-sc-one-fourth  @_first'>
+                        <div id='dt_galleries-203' class='dt-gallery gallery no-space'>
+                            <figure>
+                                <img src='@item.ImageURL' width='1060' height='795'
+                                     alt='' />
+                                <div class="image-overlay">
+                                    <div class="image-overlay-details">
+                                        <h5>
+                                            <a href='javascript:void(0)'>@item.ProductName</a>
+                                        </h5>
+                                        <div class="links">
+                                            <a href='@item.ImageURL' data-gal='prettyPhoto[gallery]'>
+                                                <span class='fa fa-search-plus'> </span>
+                                            </a>
+                                            <a href='javascript:void(0)'>
+                                                <span class='fa fa-external-link'> </span>
+                                            </a>
+                                            <div class='views'>
+                                                <span class='fa fa-heart'> </span>
+                                                <a href="javascript:void(0)" class="likeThis" id="like-203" data-post-id="203"></a>
+                                            </div>
+                                        </div>
                                     </div>
+                                    <a class="close-overlay hidden"> x </a>
                                 </div>
-                            </div>
-                            <a class="close-overlay hidden"> x </a>
+                            </figure>
                         </div>
-                    </figure>
-                </div>
-            </div>
-            <div class='column no-space  dt-sc-one-fourth '>
-                <div id='dt_galleries-202' class='dt-gallery gallery no-space'>
-                    <figure>
-                        <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio2.jpg' width='1060' height='795'
-                             alt='' />
-                        <div class="image-overlay">
-                            <div class="image-overlay-details">
-                                <h5>
-                                    <a href='https://dreamspa.dttheme.com/dt_galleries/spa-bars/'>Spa Bars</a>
-                                </h5>
-                                <div class="links">
-                                    <a href='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio2.jpg' data-gal='prettyPhoto[gallery]'>
-                                        <span class='fa fa-search-plus'> </span>
-                                    </a>
-                                    <a href='https://dreamspa.dttheme.com/dt_galleries/spa-bars/'>
-                                        <span class='fa fa-external-link'> </span>
-                                    </a>
-                                    <div class='views'>
-                                        <span class='fa fa-heart'> </span>
-                                        <a href="#" class="likeThis" id="like-202" data-post-id="202">12436</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <a class="close-overlay hidden"> x </a>
-                        </div>
-                    </figure>
-                </div>
-            </div>
-            <div class='column no-space  dt-sc-one-fourth '>
-                <div id='dt_galleries-201' class='dt-gallery gallery no-space'>
-                    <figure>
-                        <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio3.jpg' width='1060' height='795'
-                             alt='' />
-                        <div class="image-overlay">
-                            <div class="image-overlay-details">
-                                <h5>
-                                    <a href='https://dreamspa.dttheme.com/dt_galleries/wollen-spa-cloth/'>Wollen Spa Cloth</a>
-                                </h5>
-                                <div class="links">
-                                    <a href='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio3.jpg' data-gal='prettyPhoto[gallery]'>
-                                        <span class='fa fa-search-plus'> </span>
-                                    </a>
-                                    <a href='https://dreamspa.dttheme.com/dt_galleries/wollen-spa-cloth/'>
-                                        <span class='fa fa-external-link'> </span>
-                                    </a>
-                                    <div class='views'>
-                                        <span class='fa fa-heart'> </span>
-                                        <a href="#" class="likeThis" id="like-201" data-post-id="201">12404</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <a class="close-overlay hidden"> x </a>
-                        </div>
-                    </figure>
-                </div>
-            </div>
-            <div class='column no-space  dt-sc-one-fourth '>
-                <div id='dt_galleries-200' class='dt-gallery gallery no-space'>
-                    <figure>
-                        <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio4.jpg' width='1060' height='795'
-                             alt='' />
-                        <div class="image-overlay">
-                            <div class="image-overlay-details">
-                                <h5>
-                                    <a href='https://dreamspa.dttheme.com/dt_galleries/wax-candle-in-coconut-shell/'>Wax Candle</a>
-                                </h5>
-                                <div class="links">
-                                    <a href='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio4.jpg' data-gal='prettyPhoto[gallery]'>
-                                        <span class='fa fa-search-plus'> </span>
-                                    </a>
-                                    <a href='https://dreamspa.dttheme.com/dt_galleries/wax-candle-in-coconut-shell/'>
-                                        <span class='fa fa-external-link'> </span>
-                                    </a>
-                                    <div class='views'>
-                                        <span class='fa fa-heart'> </span>
-                                        <a href="#" class="likeThis" id="like-200" data-post-id="200">36</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <a class="close-overlay hidden"> x </a>
-                        </div>
-                    </figure>
-                </div>
-            </div>
-            <div class='column no-space  dt-sc-one-fourth  first'>
-                <div id='dt_galleries-199' class='dt-gallery gallery no-space'>
-                    <figure>
-                        <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio5.jpg' width='1060' height='795'
-                             alt='' />
-                        <div class="image-overlay">
-                            <div class="image-overlay-details">
-                                <h5>
-                                    <a href='https://dreamspa.dttheme.com/dt_galleries/dry-aroma-petals-for-bath/'>Dry Aroma Petals for Bath</a>
-                                </h5>
-                                <div class="links">
-                                    <a href='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio5.jpg' data-gal='prettyPhoto[gallery]'>
-                                        <span class='fa fa-search-plus'> </span>
-                                    </a>
-                                    <a href='https://dreamspa.dttheme.com/dt_galleries/dry-aroma-petals-for-bath/'>
-                                        <span class='fa fa-external-link'> </span>
-                                    </a>
-                                    <div class='views'>
-                                        <span class='fa fa-heart'> </span>
-                                        <a href="#" class="likeThis" id="like-199" data-post-id="199">30</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <a class="close-overlay hidden"> x </a>
-                        </div>
-                    </figure>
-                </div>
-            </div>
-            <div class='column no-space  dt-sc-one-fourth '>
-                <div id='dt_galleries-198' class='dt-gallery gallery no-space'>
-                    <figure>
-                        <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio6.jpg' width='1060' height='795'
-                             alt='' />
-                        <div class="image-overlay">
-                            <div class="image-overlay-details">
-                                <h5>
-                                    <a href='https://dreamspa.dttheme.com/dt_galleries/spa-green-salt/'>Spa Green Salt</a>
-                                </h5>
-                                <div class="links">
-                                    <a href='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio6.jpg' data-gal='prettyPhoto[gallery]'>
-                                        <span class='fa fa-search-plus'> </span>
-                                    </a>
-                                    <a href='https://dreamspa.dttheme.com/dt_galleries/spa-green-salt/'>
-                                        <span class='fa fa-external-link'> </span>
-                                    </a>
-                                    <div class='views'>
-                                        <span class='fa fa-heart'> </span>
-                                        <a href="#" class="likeThis" id="like-198" data-post-id="198">51</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <a class="close-overlay hidden"> x </a>
-                        </div>
-                    </figure>
-                </div>
-            </div>
-            <div class='column no-space  dt-sc-one-fourth '>
-                <div id='dt_galleries-197' class='dt-gallery gallery no-space'>
-                    <figure>
-                        <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio7.jpg' width='1060' height='795'
-                             alt='' />
-                        <div class="image-overlay">
-                            <div class="image-overlay-details">
-                                <h5>
-                                    <a href='https://dreamspa.dttheme.com/dt_galleries/wooden-mixer/'>Wooden Mixer</a>
-                                </h5>
-                                <div class="links">
-                                    <a href='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio7.jpg' data-gal='prettyPhoto[gallery]'>
-                                        <span class='fa fa-search-plus'> </span>
-                                    </a>
-                                    <a href='https://dreamspa.dttheme.com/dt_galleries/wooden-mixer/'>
-                                        <span class='fa fa-external-link'> </span>
-                                    </a>
-                                    <div class='views'>
-                                        <span class='fa fa-heart'> </span>
-                                        <a href="#" class="likeThis" id="like-197" data-post-id="197">34</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <a class="close-overlay hidden"> x </a>
-                        </div>
-                    </figure>
-                </div>
-            </div>
-            <div class='column no-space  dt-sc-one-fourth '>
-                <div id='dt_galleries-196' class='dt-gallery gallery no-space'>
-                    <figure>
-                        <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio8.jpg' width='1060' height='795'
-                             alt='' />
-                        <div class="image-overlay">
-                            <div class="image-overlay-details">
-                                <h5>
-                                    <a href='https://dreamspa.dttheme.com/dt_galleries/spa-candle/'>Spa Candle</a>
-                                </h5>
-                                <div class="links">
-                                    <a href='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/portfolio8.jpg' data-gal='prettyPhoto[gallery]'>
-                                        <span class='fa fa-search-plus'> </span>
-                                    </a>
-                                    <a href='https://dreamspa.dttheme.com/dt_galleries/spa-candle/'>
-                                        <span class='fa fa-external-link'> </span>
-                                    </a>
-                                    <div class='views'>
-                                        <span class='fa fa-heart'> </span>
-                                        <a href="#" class="likeThis" id="like-196" data-post-id="196">23</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <a class="close-overlay hidden"> x </a>
-                        </div>
-                    </figure>
-                </div>
-            </div>
-            </p>
-            <div class='fullwidth-section '>
+                    </div>
+                    if (_index == 3)
+                    {
+                        _first = "first";
+                        _index = 1;
+                    }
+                    else
+                    {
+                        _first = "";
+                        _index = _index + 1;
+                    }
+                }
+            }
+           
+            @*<div class='fullwidth-section '>
                 <div class="container">
                     <div class='dt-sc-hr-invisible  '></div>
                     <div class='dt-sc-callout-box with-icon type6 '>
@@ -424,80 +246,51 @@
                     </div>
                     <div class='dt-sc-hr-invisible  '></div>
                 </div>
-            </div>
-            <div class='fullwidth-section fullwidth-testimonial' style="background-color:#ffffff;background-repeat:no-repeat;background-position:left top;padding-top:30px;height:205px;">
-                <div class="container">
-                    <div class='dt-sc-testimonial-carousel-wrapper type2'>
-                        <ul class='dt-sc-testimonial-carousel'>
-                            <li>
-                                <div class='dt-sc-testimonial'>
-                                    <blockquote>
-                                        <q>
-                                            But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was
-                                            born and I will give you a complete account of the system, and expound the actual teachings of
-                                            the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes,
-                                            or avoids pleasure itself, because it is pleasure.
-                                        </q>
-                                    </blockquote>
-                                    <cite> - John Doe </cite>
-                                    <div class='author'>
-                                        <span>
-                                            <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/testimonial1.jpg' alt='<cite> - John Doe </cite>'
-                                                 title='<cite> - John Doe </cite>' />
-                                        </span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class='dt-sc-testimonial'>
-                                    <blockquote>
-                                        <q>
-                                            But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was
-                                            born and I will give you a complete account of the system, and expound the actual teachings of
-                                            the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes,
-                                            or avoids pleasure itself, because it is pleasure.
-                                        </q>
-                                    </blockquote>
-                                    <cite> - John Doe </cite>
-                                    <div class='author'>
-                                        <span>
-                                            <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/testimonial3.jpg' alt='<cite> - John Doe </cite>'
-                                                 title='<cite> - John Doe </cite>' />
-                                        </span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class='dt-sc-testimonial'>
-                                    <blockquote>
-                                        <q>
-                                            But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was
-                                            born and I will give you a complete account of the system, and expound the actual teachings of
-                                            the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes,
-                                            or avoids pleasure itself, because it is pleasure.
-                                        </q>
-                                    </blockquote>
-                                    <cite> - John Doe </cite>
-                                    <div class='author'>
-                                        <span>
-                                            <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/testimonial2.jpg' alt='<cite> - John Doe </cite>'
-                                                 title='<cite> - John Doe </cite>' />
-                                        </span>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="carousel-arrows">
-                            <a href="" class="testimonial-prev">
-                                <span class="fa fa-angle-left"> </span>
-                            </a>
-                            <a href="" class="testimonial-next">
-                                <span class="fa fa-angle-right"> </span>
-                            </a>
+            </div>*@
+
+            @if (Model != null && Model.ListEmployee != null && Model.ListEmployee.Any())
+            {
+                <div class='fullwidth-section fullwidth-testimonial' style="background-color:#ffffff;background-repeat:no-repeat;background-position:left top;padding-top:30px;height:205px;">
+                    <div class="container">
+                        <div class='dt-sc-testimonial-carousel-wrapper type2'>
+                            <ul class='dt-sc-testimonial-carousel'>
+                                @foreach (var item in Model.ListEmployee)
+                                {
+                                    <li>
+                                        <div class='dt-sc-testimonial'>
+                                            <blockquote>
+                                                <q>
+                                                    But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was
+                                                    born and I will give you a complete account of the system, and expound the actual teachings of
+                                                    the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes,
+                                                    or avoids pleasure itself, because it is pleasure.
+                                                </q>
+                                            </blockquote>
+                                            <cite> - @item.Name </cite>
+                                            <div class='author'>
+                                                <span>
+                                                    <img src='@item.ImageURL' alt='<cite> - @item.Name </cite>'
+                                                         title='<cite> - @item.Name </cite>' />
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+
+                            </ul>
+                            <div class="carousel-arrows">
+                                <a href="" class="testimonial-prev">
+                                    <span class="fa fa-angle-left"> </span>
+                                </a>
+                                <a href="" class="testimonial-next">
+                                    <span class="fa fa-angle-right"> </span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
+            
             <div class='dt-sc-hr-invisible-medium  '></div>
             <div class="container">
                 <div class="social-bookmark"></div>
