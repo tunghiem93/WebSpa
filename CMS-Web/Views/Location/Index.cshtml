@@ -59,42 +59,42 @@
             </div>
             <div class='fullwidth-section'>
                 <div class="container">
-                    <div class='column dt-sc-two-third  space first'>
+                    <div class='column dt-sc-two-third space first'>
                         <h2> Give us a Message</h2>
-                        <div role="form" class="wpcf7" id="wpcf7-f4-p183-o1" lang="en-US" dir="ltr">
+                        <div class="" id="" lang="en-US" dir="ltr">
                             <div class="screen-reader-response"></div>
-                            <form action="" method="post" class="wpcf7-form" novalidate="novalidate">
-                                <div style="display: none;">
-                                    <input type="hidden" name="_wpcf7" value="4" />
-                                    <input type="hidden" name="_wpcf7_version" value="5.0.2" />
-                                    <input type="hidden" name="_wpcf7_locale" value="en_US" />
-                                    <input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f4-p183-o1" />
-                                    <input type="hidden" name="_wpcf7_container_post" value="183" />
-                                </div>
+                            @using (@Html.BeginForm("SendToMail", "Location", FormMethod.Post, new { @class = "form-horizontal create-form", @enctype = "multipart/form-data", @style = "" }))
+                            {                                
                                 <div class="column dt-sc-one-half first">
                                     <p>
-                                        <span class="wpcf7-form-control-wrap your-name">
-                                            <input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Name" />
+                                        <span class="">
+                                            @Html.TextBoxFor(model => model.ContactDTO.Name, new { @class = "form-control input-text", @id = "Name", @placeholder = "*Name", @type = "Text", @Size = "40" })
+                                            @Html.ValidationMessageFor(model => model.ContactDTO.Name, null, new { @class = "label label-danger", })
+                                            @*<input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Name" />*@
                                         </span>
                                     </p>
                                     <p>
-                                        <span class="wpcf7-form-control-wrap your-email">
-                                            <input type="email" name="your-email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false" placeholder="Email" />
+                                        <span class="">
+                                            @Html.TextBoxFor(model => model.ContactDTO.Email, new { @class = "form-control input-text", @id = "Email", @placeholder = "*Email", @type = "email", @Size = "40" })
+                                            @Html.ValidationMessageFor(model => model.ContactDTO.Email, null, new { @class = "label label-danger", })
+                                            @*<input type="email" name="your-email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false" placeholder="Email" />*@
                                         </span>
                                     </p>
                                 </div>
                                 <div class="column dt-sc-one-half">
                                     <p>
-                                        <span class="wpcf7-form-control-wrap your-message">
-                                            <textarea name="your-message" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea" aria-invalid="false" placeholder="Message"></textarea>
+                                        <span class="">
+                                            @Html.TextAreaFor(model => model.ContactDTO.Message, new { @class = "form-control input-text", @id = "Message", @placeholder = "Message", @type = "email", @Size = "40", @cols = "40", @rows = "10" })
+                                            @Html.ValidationMessageFor(model => model.ContactDTO.Message, null, new { @class = "label label-danger", })
+                                            @*<textarea name="your-message" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea" aria-invalid="false" placeholder="Message"></textarea>*@
                                         </span>
                                     </p>
                                 </div>
                                 <p>
-                                    <input type="submit" value="Submit" class="wpcf7-form-control wpcf7-submit" />
+                                    <input type="submit" value="Submit" class="" />
                                 </p>
                                 <div class="wpcf7-response-output wpcf7-display-none"></div>
-                            </form>
+                            }
                         </div>
                     </div>
                     <div class='column dt-sc-one-third space '>

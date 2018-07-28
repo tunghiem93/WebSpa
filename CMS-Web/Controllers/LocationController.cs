@@ -1,5 +1,7 @@
-﻿using CMS_DTO.CMSLocation;
+﻿using CMS_DTO.CMSContact;
+using CMS_DTO.CMSLocation;
 using CMS_Shared.CMSDiscount;
+using CMS_Shared.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +23,30 @@ namespace CMS_Web.Controllers
             CMSLocationModels model = new CMSLocationModels();
             model.LstDiscount = _facDis.GetList();
             return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult SendToMail(CMSLocationModels model)
+        {
+            try
+            {
+                string msg = "";
+                var result = CommonHelper.SendContentMail(model.ContactDTO.Email, model.ContactDTO.Message, model.ContactDTO.Name, null, null, null);
+                if (result)
+                {
+                    return RedirectToAction("Index", "Location");
+                }
+                else
+                {
+                    ModelState.AddModelError("ContactDTO.Name", msg);
+                    return View(model);
+                }
+            }
+            catch (Exception ex)
+            {
+                NSLog.Logger.Error("Contact_Email", ex);
+                return new HttpStatusCodeResult(400, ex.Message);
+            }
         }
     }
 }
