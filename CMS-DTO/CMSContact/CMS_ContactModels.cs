@@ -19,15 +19,16 @@ namespace CMS_DTO.CMSContact
 
         public string GetContactInfo()
         {
-            var ret = "Name: " + Name
-                + "\n"
-                + "Email: " + Email
-                + "\n"
-                + "Phone: " + Phone
-                + "\n"
-                + "Subject: " + Subject
-                + "\n"
-                + "Message: " + Message;
+            var ret = "Name: " + Name;
+            ret += "<br/>" + "Email: " + Email;
+
+            if (!string.IsNullOrEmpty(Phone))
+                ret += "<br/>" + "Phone: " + Phone;
+
+            if (!string.IsNullOrEmpty(Subject))
+                ret += "<br/>" + "Subject: " + Subject;
+
+            ret += "<br/>" + "Message: " + Message;
             return ret;
         }
     }

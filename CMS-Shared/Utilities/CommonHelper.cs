@@ -135,16 +135,24 @@ namespace CMS_Shared.Utilities
         }
 
         
-        public static void ContactAdmin(CMS_ContactModels _ctInfo )
+        public static bool ContactAdmin(CMS_ContactModels _ctInfo )
         {
-            string lamodMail = ConfigurationManager.AppSettings["LamodeMail"];
+            var ret = false;
+            try
+            {
+                string lamodMail = ConfigurationManager.AppSettings["LamodeMail"];
 
-            /* send mail to lamode */
-            SendContentMail(lamodMail, _ctInfo.GetContactInfo(), _ctInfo.Name, "[CustomerContact]"+ _ctInfo.Subject);
+                /* send mail to lamode */
+                SendContentMail(lamodMail, _ctInfo.GetContactInfo(), _ctInfo.Name, "[Customer Contact]" + _ctInfo.Subject);
 
-            /* send mail to customer */
-            if (!string.IsNullOrEmpty(_ctInfo.Email))
-                SendContentMail(_ctInfo.Email, _ctInfo.GetContactInfo(), _ctInfo.Name, "[Lamode]" + _ctInfo.Subject + "-Recived");
+                /* send mail to customer */
+                if (!string.IsNullOrEmpty(_ctInfo.Email))
+                    SendContentMail(_ctInfo.Email, _ctInfo.GetContactInfo(), _ctInfo.Name, "[Lamode Home]" + " thanks for contacting us "  + _ctInfo.Subject);
+
+                ret = true;
+            }
+            catch(Exception ex) { }
+            return ret;
         }
     }
 }

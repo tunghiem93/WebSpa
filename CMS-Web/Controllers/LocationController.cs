@@ -31,7 +31,7 @@ namespace CMS_Web.Controllers
             try
             {
                 string msg = "";
-                var result = CommonHelper.SendContentMail(model.ContactDTO.Email, model.ContactDTO.Message, model.ContactDTO.Name, null, null, null);
+                var result = CommonHelper.ContactAdmin(model.ContactDTO);
                 if (result)
                 {
                     return RedirectToAction("Index", "Location");
