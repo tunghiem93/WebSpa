@@ -57,6 +57,7 @@ namespace CMS_DTO.CMSProduct
         public bool IsShowInReservation { get; set; }
         public bool IsRecommend { get; set; }
         public string StoreID { get; set; }
+        public int ProductTypeCode { get; set; }
         public List<CMS_ImagesModels> ListImages { get; set; }
 
         public CMS_ProductsModels()

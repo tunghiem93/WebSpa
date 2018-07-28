@@ -33,7 +33,7 @@ namespace CMS_Web.Controllers
                 var _product = _fac.GetDetail(product_id);
                 if(_product != null)
                 {
-                    var data = _fac.GetList();
+                    var data = _fac.GetList().Where(o => o.ProductTypeCode == (int)CMS_Common.Commons.EProductType.Product).ToList();
                     if (data != null)
                     {
                         /* get list product by category */
@@ -65,7 +65,7 @@ namespace CMS_Web.Controllers
             models.CategoryName = d;
             try
             {
-                var data = _fac.GetList();
+                var data = _fac.GetList().Where(o => o.ProductTypeCode == (int)CMS_Common.Commons.EProductType.Product).ToList();
                 if (data != null)
                 {
                     models.ProductNew = data.OrderByDescending(x => x.CreatedDate).Skip(0).Take(3).ToList();

@@ -317,6 +317,7 @@ namespace CMS_Shared.CMSProducts
                             IsShowInReservation = o.p.IsShowInReservation,
                             IsRecommend = o.p.IsRecommend,
                             StoreID = o.p.StoreID,
+                            ProductTypeCode = o.c.ProductTypeCode
                         }).ToList();
 
                     var listProductID = data.Select(o => o.Id).ToList();
