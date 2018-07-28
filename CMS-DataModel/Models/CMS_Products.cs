@@ -42,9 +42,9 @@ namespace CMS_DataModel.Models
         [StringLength(20)]
         public string BarCode { get; set; }
 
-        [StringLength(256)]
+        [StringLength(4000)]
         public string Description { get; set; }
-        [StringLength(256)]
+        [StringLength(4000)]
         public string DescriptionUS { get; set; }
 
         [StringLength(256)]
