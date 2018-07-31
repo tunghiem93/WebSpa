@@ -17,8 +17,8 @@
             <div class="title-wrapper">
                 <div class="container">
                     <div class="border-title aligncenter">
-                        <h1>My Account</h1>
-                        <h6>Shop our exclusive collections. Earn a better living.</h6>
+                        <h1>Tài khoản của tôi</h1>
+                        <h6>Tận hưởng những cảm giác thú vụ với những liệu pháp mới nhất mà chúng tôi mang lại cho bạn.</h6>
                     </div>
                 </div>
             </div>
@@ -27,35 +27,35 @@
             <section id="primary" class="content-full-width">
                 <div id="post-8" class="post-8 page type-page status-publish hentry">
                     <div class="woocommerce">
-                        <h2>Login</h2>
+                        <h2>Đăng nhập</h2>
                         @using (@Html.BeginForm("SignIn", "Login", FormMethod.Post, new { @class = "form-horizontal create-form", @enctype = "multipart/form-data", @style = "" }))
                         {
                         <p class="form-row form-row-wide">
                             <label for="username">
-                                Username or email address
+                                Tên đăng nhập hoặc email
                                 <span class="required">*</span>
                             </label>
-                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control input-text", @id = "username", @placeholder = "*Username", @type = "email", })
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control input-text", @id = "username", @placeholder = "*Tên đăng nhập", @type = "email", })
                             @Html.ValidationMessageFor(model => model.Email, null, new { @class = "label label-danger", })
                         </p>
                         <p class="form-row form-row-wide">
                             <label for="password">
-                                Password
+                                Mật khẩu
                                 <span class="required">*</span>
                             </label>
-                            @Html.PasswordFor(model => model.Password, new { @class = "form-control input-text", @id = "password", @placeholder = "*Password", @type = "password" })
+                            @Html.PasswordFor(model => model.Password, new { @class = "form-control input-text", @id = "password", @placeholder = "*Mật khẩu", @type = "password" })
                             @Html.ValidationMessageFor(model => model.Password, null, new { @class = "label label-danger", })
                         </p>
                             <p class="form-row">
                                 <input type="hidden" id="_wpnonce" name="_wpnonce" value="e8f5622d97" />
                                 <input type="hidden" name="_wp_http_referer" value="/shop/my-account/" />
-                                <input type="submit" class="button" name="login" value="Login" />
+                                <input type="submit" class="button" name="login" value="Đăng nhập" />
                                 <label for="rememberme" class="inline">
-                                    <input name="rememberme" type="checkbox" id="rememberme" value="forever" /> Remember me
+                                    <input name="rememberme" type="checkbox" id="rememberme" value="forever" /> Ghi nhớ mật khẩu
                                 </label>
                             </p>
                             <p class="lost_password">
-                                <a href="javascript:void(0)">Lost your password?</a>
+                                <a href="javascript:void(0)">Quên mật khẩu?</a>
                             </p>
                         }
                         </div>
