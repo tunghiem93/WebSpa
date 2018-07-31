@@ -78,7 +78,8 @@ h1, h2, h3, h4, h5, h6, #main-menu ul.menu > li > a, .dt-menu-toggle, .entry-met
 }
 
 .border-title h6, #footer .widget h3.widgettitle, .dt-sc-team h6, .dt-sc-ico-content.type2 h2 a, .dt-sc-callout-box.type6 h4, .dt-sc-callout-box.type7 h4, .dt-sc-callout-box.type7 h4, .dt-sc-callout-box h4, .dt-sc-tb-content .dt-sc-rounded h3, .dt-sc-reservation h6.staff-name {
-    font-family: 'Courgette',cursive
+    /*font-family: 'Courgette',cursive*/
+    font-family: sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
