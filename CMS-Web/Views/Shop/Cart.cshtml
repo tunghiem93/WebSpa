@@ -12,8 +12,8 @@
                 <div class="title-wrapper">
                     <div class="container">
                         <div class="border-title aligncenter">
-                            <h1>Cart</h1>
-                            <h6>Shop our exclusive collections. Earn a better living.</h6>
+                            <h1>Giỏ hàng</h1>
+                            <h6>Mua những bộ sưu tập độc quyền của chúng tôi, để có một cuộc sống tốt hơn.</h6>
                         </div>
                     </div>
                 </div>
@@ -27,10 +27,10 @@
                             <table class="shop_table woocommerce-checkout-review-order-table" style="position: relative; zoom: 1;">
                                 <thead>
                                     <tr>
-                                        <th class="product-name">Product</th>
-                                        <th class="product-price">Price</th>
-                                        <th class="product-quantity">Qty</th>
-                                        <th class="product-total">Total</th>
+                                        <th class="product-name">Sản phẩm</th>
+                                        <th class="product-price">Giá</th>
+                                        <th class="product-quantity">Số lượng</th>
+                                        <th class="product-total">Thành tiền</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -58,7 +58,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr class="cart-subtotal">
-                                        <th>Subtotal</th>
+                                        <th>Thành tiền (Chưa VAT)</th>
                                         <td colspan="4">
                                             <span class="amount subtotalamount">@Model.SubTotalPrice.ToString("#,0") đ</span>
                                         </td>
@@ -66,11 +66,11 @@
                                     <tr class="shipping">
                                         <th>Shipping</th>
                                         <td colspan="4" data-title="Shipping">
-                                            <p>Shipping costs will be calculated once you have provided your address.</p>
+                                            <p>Phí vận chuyển sẽ được ước tính khi bạn nhập địa chỉ.</p>
                                         </td>
                                     </tr>
                                     <tr class="order-total">
-                                        <th>Total</th>
+                                        <th>Thành tiền</th>
                                         <td colspan="4">
                                             <strong>
                                                 <span class="amount totalbillamout">@Model.TotalPrice.ToString("#,0") đ</span>
@@ -81,12 +81,18 @@
                             </table>
 
                         </div>
+
+                        <div id="post-6" class="post-6 page type-page status-publish hentry">
+                            <div class="woocommerce">
+                                <p class="return-to-shop" style="float: right;"> <a class="button wc-backward" href="@Url.Action("CheckOut","Shop")"> Thanh toán </a></p>
+                            </div>
+                        </div>
                     }
                     else
                     {
                         <div id="post-6" class="post-6 page type-page status-publish hentry">
                             <div class="woocommerce">
-                                <p class="cart-empty"> Your cart is currently empty.</p>
+                                <p class="cart-empty"> Giỏ hàng của bạn hiện đang trống.</p>
                                 <p class="return-to-shop"> <a class="button wc-backward" href="@Url.Action("Index","Shop")"> Return To Shop </a></p>
                             </div>
                             <div class="social-bookmark"></div>
