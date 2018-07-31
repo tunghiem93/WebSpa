@@ -61,7 +61,7 @@
                 <div class="container">
                     <div class="border-title aligncenter">
                         <h1>@Model.Product.ProductName</h1>
-                        <h6>Entice your dreams with new spa</h6>
+                        <h6>Phong cách quyễn rũ - sang trọng  với dich vụ Spa mới</h6>
                     </div>
                 </div>
             </div>
@@ -73,7 +73,7 @@
                 {
                     var _parent = "";
                     <aside id="woocommerce_product_categories-2" class="widget woocommerce widget_product_categories">
-                        <h3 class="widgettitle">Product Categories</h3>
+                        <h3 class="widgettitle">Thể loại</h3>
                         <ul class="product-categories">
                             @foreach (var item in Model.Categories)
                             {
@@ -175,15 +175,15 @@
                                 <input type="number" id="txtquantity" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text keyNumber" size="4" />
                             </div>
                             <input type="hidden" name="add-to-cart" value="93" />
-                            <button type="button" onclick="AddOrderDetail('@Model.Product.Id','@Model.Product.Unit',@Model.Product.ProductPrice)" class="single_add_to_cart_button button alt">Add to cart</button>
+                            <button type="button" onclick="AddOrderDetail('@Model.Product.Id','@Model.Product.Unit',@Model.Product.ProductPrice)" class="single_add_to_cart_button button alt">Thêm giỏ hàng</button>
                         </form>
                     </div>
                     <div class="woocommerce-tabs wc-tabs-wrapper">
                         <ul class="tabs wc-tabs">
-                            <li class="description_tab"> <a href="#tab-description">Description</a></li>
+                            <li class="description_tab"> <a href="#tab-description">Mô tả</a></li>
                         </ul>
                         <div class="panel entry-content wc-tab" id="tab-description">
-                            <h2>Product Description</h2>
+                            <h2>Mô tả sản phẩm</h2>
                             @Html.Raw(Model.Product.Description)
                         </div>
                     </div>
@@ -234,13 +234,13 @@
                                                         </div>
                                                         <div class='product-title'>
                                                             <h3>@string.Format("{0}", !string.IsNullOrEmpty(item.ProductName) && item.ProductName.Length > 35 ? item.ProductName.Substring(0,35) + "..." : item.ProductName)</h3>
-                                                            <p>@Html.Raw(item.Description)</p>
+                                                           @* <p>@Html.Raw(item.Description)</p>*@
                                                         </div>
                                                     </a>
                                                     <div class='product-details'>
                                                         <span class="price"><span class="amount"> @item.ProductPrice.ToString("#,0") đ</span></span>
                                                         <div class='product-buttons'>
-                                                            <a rel="nofollow" href="javascript:void(0)" onclick="AddOrder('@item.Id','@item.Unit',1,@item.ProductPrice)" data-quantity="1" data-product_id="87" data-product_sku="" class="small button button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
+                                                            <a rel="nofollow" href="javascript:void(0)" onclick="AddOrder('@item.Id','@item.Unit',1,@item.ProductPrice)" data-quantity="1" data-product_id="87" data-product_sku="" class="small button button product_type_simple add_to_cart_button ajax_add_to_cart">Thêm giỏ hàng</a>
                                                             <a href="javascript:void(0)" class="added_to_cart wc-forward hidden added_cart_@item.Id" title="View Cart">View Cart</a>
                                                             
                                                             <div class="yith-wcwl-add-to-wishlist add-to-wishlist-87">
