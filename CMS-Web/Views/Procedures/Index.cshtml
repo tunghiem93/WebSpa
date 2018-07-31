@@ -6,8 +6,8 @@
                 <div class="title-wrapper">
                     <div class="container">
                         <div class="border-title aligncenter">
-                            <h1>Procedures</h1>
-                            <h6>Little to know about us. We are here for you.</h6>
+                            <h1>Dịch vụ và liệu trình</h1>
+                            <h6>Lamode Spa sẵn sàng phục vụ bạn.</h6>
                         </div>
                     </div>
                 </div>
@@ -21,36 +21,8 @@
                     <div class='dt-sc-hr-invisible-small  '></div>
                     <div class='fullwidth-section ' style="background-repeat:no-repeat;background-position:left top;">
                         <div class="container">
-
-                            <h2>Nothing but Natural!</h2>
-                            <p>These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain in all together be heavily avoided.</p>
                             <div class='dt-sc-hr-invisible  '></div>
-                            <div class='column dt-sc-one-fourth   first'>
-                                <div class='dt-sc-ico-content type3 green'>
-                                    <div class='icon'> <span class='fa fa-flag'> </span></div>
-                                    <h2><a href='javascript:void(0)' @*target='_blank'*@> Natural Alchemy </a></h2>
-                                </div>
-                            </div>
-                            <div class='column dt-sc-one-fourth   '>
-                                <div class='dt-sc-ico-content  type3 green'>
-                                    <div class='icon'> <span class='fa fa-key'> </span></div>
-                                    <h2><a href='javascript:void(0)' @*target='_blank'*@> Completely Herbal </a></h2>
-                                </div>
-                            </div>
-                            <div class='column dt-sc-one-fourth   '>
-                                <div class='dt-sc-ico-content  type3 green'>
-                                    <div class='icon'> <span class='fa fa-coffee'> </span></div>
-                                    <h2><a href='javascript:void(0)' @*target='_blank'*@> Coffee House Spa </a></h2>
-                                </div>
-                            </div>
-                            <div class='column dt-sc-one-fourth   '>
-                                <div class='dt-sc-ico-content  type3 green'>
-                                    <div class='icon'> <span class='fa fa-trophy'> </span></div>
-                                    <h2><a href='javascript:void(0)' @*target='_blank'*@> Outdoor Spa </a></h2>
-                                </div>
-                            </div>
-                            <div class='dt-sc-hr-invisible  '></div>
-                            <h2>Our Procedures</h2>
+                            <h2>Các liệu trình và dịch vụ:</h2>
                         </div>
                     </div>
 
@@ -61,30 +33,30 @@
                     <div class="container">
                         <div class='column dt-sc-one-fourth  space first'>
                             <ul class='dt-sc-fancy-list  onepage arrow'>
-                                <li><a href="#goto1">Aromatherapy</a></li>
-                                <li><a href="#goto2">Skin Care</a></li>
-                                <li><a href="#goto3">Herbal Spa</a></li>
+                                <li><a href="#goto1">Massage</a></li>
+                                <li><a href="#goto2">Chăm sóc da</a></li>
+                                <li><a href="#goto3">Spa thảo dược</a></li>
                             </ul>
                         </div>
                         <div class='column dt-sc-one-fourth  space '>
                             <ul class='dt-sc-fancy-list  onepage arrow'>
-                                <li><a href="#goto4">Drinking cures</a></li>
-                                <li><a>Hydrotherapy</a></li>
-                                <li><a>Electrotherapy</a></li>
+                                <li><a href="#goto4">Thực dưỡng</a></li>
+                                @*<li><a>Hydrotherapy</a></li>
+                                <li><a>Electrotherapy</a></li>*@
                             </ul>
                         </div>
                         <div class='column dt-sc-one-fourth  space '>
                             <ul class='dt-sc-fancy-list   arrow'>
-                                <li><a>Phototherapy</a></li>
+                                @*<li><a>Phototherapy</a></li>
                                 <li><a>Heat therapy</a></li>
-                                <li><a>Baths</a></li>
+                                <li><a>Baths</a></li>*@
                             </ul>
                         </div>
                         <div class='column dt-sc-one-fourth  space '>
                             <ul class='dt-sc-fancy-list   arrow'>
-                                <li><a>Aromatherapy</a></li>
+                                @*<li><a>Aromatherapy</a></li>
                                 <li><a>Skin Care</a></li>
-                                <li><a>NHerbal Spa</a></li>
+                                <li><a>NHerbal Spa</a></li>*@
                             </ul>
                         </div>
                     </div>
@@ -103,7 +75,7 @@
                                             <div class="dt-sc-popular-procedures-wrapper">
                                                 <div class="border"></div>
                                                 <div class='image'><img src='@item.ImageUrl' alt='@item.ProceduresName' /></div>
-                                                <h2>@item.ProceduresName</h2><span class='duration'>Duration: @item.Duration</span><span class='price'>$@item.Price.ToString("#,0")</span>
+                                                <h2>@item.ProceduresName</h2><span class='duration'>Thời gian: @item.Duration</span><span class='price'>@item.Price.ToString("#,0")VNĐ</span>
                                                 <p>@item.ShortDescription</p>
                                             </div>
                                         </div>
@@ -113,14 +85,14 @@
                                         <div class='dt-sc-hr-invisible  '></div>
                                         <div class='dt-sc-tabs-container aligncenter'>
                                             <ul class="dt-sc-tabs-frame">
-                                                <li><a href="#"><span>01</span> Preparation</a></li>
-                                                <li><a href="#"><span>02</span> Process</a></li>
-                                                <li><a href="#"><span>03</span> Spa Treatment</a></li>
+                                                <li><a href="#"><span>01</span> Chuẩn bị</a></li>
+                                                <li><a href="#"><span>02</span> Trình tự</a></li>
+                                                <li><a href="#"><span>03</span> Điều trị</a></li>
                                             </ul>
                                             <div class="dt-sc-tabs-frame-content">
                                                 <p>@item.Preparation</p>
                                                 <div class='dt-sc-hr-invisible  '></div>
-                                                <p style="font-size: 16px; color: #37251b;">Effects</p>
+                                                <p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
                                                 <div class='dt-sc-hr-invisible-small  '></div>
                                                 <div class="dt-sc-clear"></div>
                                                 <ul class='dt-sc-fancy-list  green  tick'>
@@ -135,7 +107,7 @@
                                             <div class="dt-sc-tabs-frame-content">
                                                 <p>@item.Process</p>
                                                 <div class='dt-sc-hr-invisible  '></div>
-                                                <p style="font-size: 16px; color: #37251b;">Effects</p>
+                                                <p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
                                                 <div class='dt-sc-hr-invisible-small  '></div>
                                                 <div class="dt-sc-clear"></div>
                                                 <ul class='dt-sc-fancy-list  green  tick'>
@@ -150,7 +122,7 @@
                                             <div class="dt-sc-tabs-frame-content">
                                                 <p>@item.SpaTreatment</p>
                                                 <div class='dt-sc-hr-invisible  '></div>
-                                                <p style="font-size: 16px; color: #37251b;">Effects</p>
+                                                <p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
                                                 <div class='dt-sc-hr-invisible-small  '></div>
                                                 <div class="dt-sc-clear"></div>
                                                 <ul class='dt-sc-fancy-list  green  tick'>
@@ -176,14 +148,14 @@
                                         <div class='dt-sc-hr-invisible  '></div>
                                         <div class='dt-sc-tabs-container aligncenter'>
                                             <ul class="dt-sc-tabs-frame">
-                                                <li><a href="#"><span>01</span> Preparation</a></li>
-                                                <li><a href="#"><span>02</span> Process</a></li>
-                                                <li><a href="#"><span>03</span> Spa Treatment</a></li>
+                                                <li><a href="#"><span>01</span> Chuẩn bị</a></li>
+                                                <li><a href="#"><span>02</span> Trình tự</a></li>
+                                                <li><a href="#"><span>03</span> Điều trị</a></li>
                                             </ul>
                                             <div class="dt-sc-tabs-frame-content">
                                                 <p>@item.Preparation</p>
                                                 <div class='dt-sc-hr-invisible  '></div>
-                                                <p style="font-size: 16px; color: #37251b;">Effects</p>
+                                                <p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
                                                 <div class='dt-sc-hr-invisible-small  '></div>
                                                 <div class="dt-sc-clear"></div>
                                                 <ul class='dt-sc-fancy-list  green  tick'>
@@ -198,7 +170,7 @@
                                             <div class="dt-sc-tabs-frame-content">
                                                 <p>@item.Process</p>
                                                 <div class='dt-sc-hr-invisible  '></div>
-                                                <p style="font-size: 16px; color: #37251b;">Effects</p>
+                                                <p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
                                                 <div class='dt-sc-hr-invisible-small  '></div>
                                                 <div class="dt-sc-clear"></div>
                                                 <ul class='dt-sc-fancy-list  green  tick'>
@@ -213,7 +185,7 @@
                                             <div class="dt-sc-tabs-frame-content">
                                                 <p>@item.SpaTreatment</p>
                                                 <div class='dt-sc-hr-invisible  '></div>
-                                                <p style="font-size: 16px; color: #37251b;">Effects</p>
+                                                <p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
                                                 <div class='dt-sc-hr-invisible-small  '></div>
                                                 <div class="dt-sc-clear"></div>
                                                 <ul class='dt-sc-fancy-list  green  tick'>
@@ -232,7 +204,7 @@
                                             <div class="dt-sc-popular-procedures-wrapper">
                                                 <div class="border"></div>
                                                 <div class='image'><img src='@item.ImageUrl' alt='@item.ProceduresName' /></div>
-                                                <h2>@item.ProceduresName</h2><span class='duration'>Duration: @item.Duration</span><span class='price'>$@item.Price.ToString("#,0")</span>
+                                                <h2>@item.ProceduresName</h2><span class='duration'>Thời gian: @item.Duration</span><span class='price'>@item.Price.ToString("#,0")VNĐ</span>
                                                 <p>@item.ShortDescription</p>
                                             </div>
                                         </div>
@@ -250,7 +222,7 @@
 
                 <div class='fullwidth-section ' style="background-image:url(@Url.Content("~/Images/border.png"));background-repeat:repeat-x;padding-top:95px;">
                     <div class="container">
-                        <h2>TODAY&#8217;S SPECIAL OFFER</h2>
+                        <h2>KHUYẾN MÃI ĐẶC BIỆT TRONG NGÀY HÔM NAY</h2>
                         <div class='dt-sc-images-carousel-wrapper' data-min='1' data-max='2' data-width='520'>
                             <ul class='dt-sc-images-carousel'>
                                 <li>
