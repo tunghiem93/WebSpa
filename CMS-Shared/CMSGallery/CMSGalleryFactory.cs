@@ -21,8 +21,8 @@ namespace CMS_Shared.CMSGallery
                     var data = _db.CMS_Products.Join(_db.CMS_ImagesLink,
                                                         p => p.ID,
                                                         i => i.ProductId,
-                                                        (p, i) => new { ProductName = p.Name, i })
-                                                .Where(o => !string.IsNullOrEmpty(o.i.ImageURL))
+                                                        (p, i) => new { ProductName = p.Name, Status = p.Status, i })
+                                                .Where(o => !string.IsNullOrEmpty(o.i.ImageURL) && o.Status == (byte)Commons.EStatus.Actived)
                                                 .Select(o => new CMS_GalleryModels
                                                 {
                                                     ImageUrl = Commons._PublicImages + "Products/" + o.i.ImageURL,
