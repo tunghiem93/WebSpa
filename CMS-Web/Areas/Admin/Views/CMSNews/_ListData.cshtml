@@ -35,7 +35,7 @@
                     <thead>
                         <tr>
                             <th class="text-center"> Tiêu đề </th>
-                            <th class="text-center"> Mô tả </th>
+                            <th class="text-center"> Thể loại </th>
                             <th class="text-center"> Hình ảnh </th>
                             <th class="text-center"> Trạng thái </th>
                             <th class="text-center"> Tùy chỉnh </th>
@@ -50,7 +50,16 @@
                                     <td class="text-center">
                                         @item.Title
                                     </td>
-                                    <td class="text-center"> @item.Short_Description </td>
+                                    <td class="text-center">
+                                        @if (item.Type == (byte)Commons.EBlogType.Image)
+                                        {
+                                        <span>Hình ảnh</span> 
+                                        }
+                                        else
+                                        {
+                                        <span>Video - Mp3</span>
+                                        }
+                                    </td>
                                     <td class="text-center">
                                         @if (!string.IsNullOrEmpty(item.ImageURL))
                                         {
