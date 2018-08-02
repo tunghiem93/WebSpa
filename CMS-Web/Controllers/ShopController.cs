@@ -28,7 +28,7 @@ namespace CMS_Web.Controllers
             var models = new CMS_ShopViewModels();
             try
             {
-                var data =  _fac.GetList().Where(o => o.ProductTypeCode == (int)CMS_Common.Commons.EProductType.Product).ToList();
+                var data =  _fac.GetList().ToList();
                 if(data != null)
                 {
                     models.ProductNew = data.OrderByDescending(x => x.CreatedDate).Skip(0).Take(3).ToList();
