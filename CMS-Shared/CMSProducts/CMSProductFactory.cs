@@ -327,7 +327,7 @@ namespace CMS_Shared.CMSProducts
                         OffSet = o.Offset,
                         ImageName = o.ImageURL,
                         ProductId = o.ProductId,
-                        ImageURL = string.IsNullOrEmpty(o.ImageURL) ? "" : Commons._PublicImages + "Products/" + o.ImageURL,
+                        ImageURL = string.IsNullOrEmpty(o.ImageURL) ? Commons._ImageProductDefault : Commons._PublicImages + "Products/" + o.ImageURL,
                     }).ToList();
 
                     data.ForEach(o => o.ImageURL = listImage.Where(i => i.ProductId == o.Id).OrderBy(i => i.OffSet).Select(i => i.ImageURL).FirstOrDefault());

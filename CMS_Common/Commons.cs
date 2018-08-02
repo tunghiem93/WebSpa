@@ -34,7 +34,8 @@ namespace CMS_Common
         public static string HostImage = ConfigurationManager.AppSettings["HostImage"];
         public static string _PublicImages = string.IsNullOrEmpty(ConfigurationManager.AppSettings["PublicImages"]) ? "" : ConfigurationManager.AppSettings["PublicImages"];
         public static string _ImageDefault = _PublicImages + "Employees/team1.jpg";
-        
+        public static string _ImageProductDefault = _PublicImages + "Products/Product1.jpg";
+
         public static DateTime MinDate = new DateTime(1900, 01, 01, 00, 00, 00, DateTimeKind.Unspecified);
         public static DateTime MaxDate = new DateTime(9999, 12, 31, 23, 59, 59, DateTimeKind.Unspecified);
 
