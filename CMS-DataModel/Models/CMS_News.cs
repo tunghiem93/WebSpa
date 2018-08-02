@@ -58,5 +58,10 @@ namespace CMS_DataModel.Models
         public string Category { get; set; }
         [StringLength(250)]
         public string CategoryUS { get; set; }
+
+        [Required]
+        public int Type { get; set; }
+        [StringLength(1000)]
+        public string Link { get; set; }
     }
 }
