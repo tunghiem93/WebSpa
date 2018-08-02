@@ -16,6 +16,7 @@ namespace CMS_DTO.CMSNews
     {
         public string Id { get; set; }
         public int Type { get; set; }
+        [AllowHtml]
         public string Link { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập tiêu đề bài viết")]
         [MaxLength(150, ErrorMessage = "Tiêu đề bài viết tối đa 150 kí tự")]

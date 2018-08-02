@@ -26,8 +26,10 @@ namespace CMS_Shared.CMSNews
                         {
                             Id = _Id,
                             Title = model.Title,
+                            Link = model.Link,
                             Short_Description = model.Short_Description,
-                            ImageURL = model.ImageURL,
+                            Type = model.Type,
+                            ImageURL = model.ImageURL,                            
                             Description = model.Description,
                             IsActive = model.IsActive,
                             Author = model.Author,
@@ -48,6 +50,8 @@ namespace CMS_Shared.CMSNews
                         {
                             e.Title = model.Title;
                             e.Short_Description = model.Short_Description;
+                            e.Type = model.Type;
+                            e.Link = model.Link;
                             e.ImageURL = model.ImageURL;
                             e.Description = model.Description;
                             e.Author = model.Author;
@@ -133,6 +137,8 @@ namespace CMS_Shared.CMSNews
                             IsActive = e.IsActive,
                             Title = e.Title,
                             Short_Description = e.Short_Description,
+                            Type = e.Type,
+                            Link = e.Link,
                             ImageURL = e.ImageURL,
                             Author = e.Author,
                             Category = e.Category,
@@ -166,6 +172,8 @@ namespace CMS_Shared.CMSNews
                                         Id = x.Id,
                                         Title = x.Title,
                                         Short_Description = x.Short_Description,
+                                        Type = x.Type,
+                                        Link = x.Link,
                                         ImageURL = x.ImageURL,
                                         Author = x.Author,
                                         Category = x.Category,
