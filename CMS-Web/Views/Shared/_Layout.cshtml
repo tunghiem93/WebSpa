@@ -109,10 +109,20 @@
 </head>
 
 <body class="home page-template page-template-tpl-fullwidth page-template-tpl-fullwidth-php page page-id-105 page-parent">
+    <div id="fb-root"></div>
+    <script>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v3.1&appId=288875834993595&autoLogAppEvents=1';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
     <!-- Style picker Area Start -->
     @*<div id="" class="fixed">
-        @Html.Partial("_StylePicker")
-    </div>*@
+            @Html.Partial("_StylePicker")
+        </div>*@
     <!-- Style picker End -->
     <div class="wrapper">
         <div class="inner-wrapper">
