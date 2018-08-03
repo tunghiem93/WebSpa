@@ -92,6 +92,22 @@
         </div>
 
         <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Nguồn</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.TextBoxFor(model => model.Source, new { @class = "form-control", @placeholder = "Nguồn", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Source, null, new { @class = "label label-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Tác giả</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.TextBoxFor(model => model.Author, new { @class = "form-control", @placeholder = "Tên tác giả", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Author, null, new { @class = "label label-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Trạng thái</label>
             <div class="col-md-1 col-sm-1 col-xs-12">
                 <label>@Html.CheckBoxFor(model => model.IsActive, new { @class = "icheck" })</label>
