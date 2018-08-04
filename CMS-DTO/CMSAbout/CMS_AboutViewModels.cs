@@ -1,4 +1,5 @@
 ﻿using CMS_DTO.CMSCategories;
+using CMS_DTO.CMSDiscount;
 using CMS_DTO.CMSEmployee;
 using System;
 using System.Collections.Generic;
@@ -11,12 +12,14 @@ namespace CMS_DTO.CMSAbout
     public class CMS_AboutViewModels
     {
         public List<CMSCategoriesModels> Categories { get; set; }
-        public List<CMS_EmployeeModels> Employees { get; set; }  
-        
+        public List<CMS_EmployeeModels> Employees { get; set; }
+        public List<CMS_DiscountModels> LstDiscount { get; set; }
+
         public CMS_AboutViewModels()
         {
             Categories = new List<CMSCategoriesModels>();
             Employees = new List<CMS_EmployeeModels>();
+            LstDiscount = new List<CMS_DiscountModels>();
         }
     }
 }

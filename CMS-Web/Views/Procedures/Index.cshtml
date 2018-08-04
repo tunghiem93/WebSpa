@@ -223,32 +223,32 @@
                 <div class='fullwidth-section ' style="background-image:url(@Url.Content("~/Images/border.png"));background-repeat:repeat-x;padding-top:95px;">
                     <div class="container">
                         <h2>KHUYẾN MÃI ĐẶC BIỆT TRONG NGÀY HÔM NAY</h2>
-                        <div class='dt-sc-images-carousel-wrapper' data-min='1' data-max='2' data-width='520'>
-                            <ul class='dt-sc-images-carousel'>
-                                <li>
-                                    <a href="javascript:void(0)"><img title="Client 1" src="@Url.Content("~/Images/dreamspa-carousel-image1.png")" alt="Client 1" /></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0"><img title="Client 2" src="@Url.Content("~/Images/dreamspa-carousel-image2.png")" alt="Client 2" /></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img title="Client 1" src="@Url.Content("~/Images/dreamspa-carousel-image1.png")" alt="Client 1" /></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0"><img title="Client 2" src="@Url.Content("~/Images/dreamspa-carousel-image2.png")" alt="Client 2" /></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img title="Client 1" src="@Url.Content("~/Images/dreamspa-carousel-image1.png")" alt="Client 1" /></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0"><img title="Client 2" src="@Url.Content("~/Images/dreamspa-carousel-image2.png")" alt="Client 2" /></a>
-                                </li>
-                            </ul>
-                            <div class="carousel-arrows">
-                                <a href="" class="images-carousel-prev"> <span class="fa fa-angle-left"> </span> </a>
-                                <a href="" class="images-carousel-next"> <span class="fa fa-angle-right"> </span> </a>
+                        @if (Model.LstDiscount != null && Model.LstDiscount.Any())
+                        {
+                            <div class='dt-sc-images-carousel-wrapper' data-min='1' data-max='2' data-width='520'>
+                                <ul class='dt-sc-images-carousel'>
+                                    @if (Model.LstDiscount != null && Model.LstDiscount.Any())
+                                    {
+                                        foreach (var item in Model.LstDiscount)
+                                        {
+                                            <li>
+                                                <a href="javascript:void(0)">
+                                                    <img title="@item.Name" src="@item.ImageURL" alt="@item.Name" />
+                                                </a>
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                                <div class="carousel-arrows">
+                                    <a href="" class="images-carousel-prev">
+                                        <span class="fa fa-angle-left"> </span>
+                                    </a>
+                                    <a href="" class="images-carousel-next">
+                                        <span class="fa fa-angle-right"> </span>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
+                        }
                     </div>
                 </div>
                 <div class="container">

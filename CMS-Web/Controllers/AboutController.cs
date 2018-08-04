@@ -2,6 +2,7 @@
 using CMS_DTO.CMSAbout;
 using CMS_Shared;
 using CMS_Shared.CMSCategories;
+using CMS_Shared.CMSDiscount;
 using CMS_Shared.CMSEmployees;
 using System;
 using System.Collections.Generic;
@@ -15,10 +16,13 @@ namespace CMS_Web.Controllers
     {
         private CMSCategoriesFactory _facCate;
         private CMSEmployeeFactory _facEmp;
+        private CMSDiscountFactory _facDis;
+
         public AboutController()
         {
             _facCate = new CMSCategoriesFactory();
             _facEmp = new CMSEmployeeFactory();
+            _facDis = new CMSDiscountFactory();
         }
         // GET: Clients/About
         public ActionResult Index()
@@ -35,6 +39,8 @@ namespace CMS_Web.Controllers
                         o.ImageURL = !string.IsNullOrEmpty(o.ImageURL) ? Commons._PublicImages + "Employees/" + o.ImageURL : "";
                     });
                 }
+                model.LstDiscount = _facDis.GetList();
+
             }
             catch (Exception ex)
             {

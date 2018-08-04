@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace CMS_DTO.CMSDiscount
 {
-    public class CMSDiscountModels : CMS_BaseModel
+    public class CMS_DiscountModels : CMS_BaseModel
     {
         public string Id { get; set; }
         public string StoreID { get; set; }
@@ -30,7 +30,7 @@ namespace CMS_DTO.CMSDiscount
         public string UpdatedBy { get; set; }
         public bool IsApplyTotalBill { get; set; }
         public bool IsPercent { get; set; }
-        public CMSDiscountModels()
+        public CMS_DiscountModels()
         {
             StoreID = "Spa";
         }

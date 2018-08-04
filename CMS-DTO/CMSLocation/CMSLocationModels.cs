@@ -11,11 +11,11 @@ namespace CMS_DTO.CMSLocation
     public class CMSLocationModels
     {
         public CMS_ContactModels ContactDTO { get; set; }
-        public List<CMSDiscountModels> LstDiscount { get; set; }
+        public List<CMS_DiscountModels> LstDiscount { get; set; }
         public CMSLocationModels()
         {
             ContactDTO = new CMS_ContactModels();
-            LstDiscount = new List<CMSDiscountModels>();
+            LstDiscount = new List<CMS_DiscountModels>();
         }
     }
 }

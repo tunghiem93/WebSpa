@@ -21,7 +21,7 @@
                             <h2>TẠI SAO LẠI LÀ LAMODE SPA?</h2>
                             <div class='column dt-sc-one-half  space first'>
                                 <p>
-                                    Không chỉ có vẻ bên ngoài bề thế, sang trọng, Lamode Spa còn gây ấn tượng bởi không gian lịch sự và hiện đại bên trong. 
+                                    Không chỉ có vẻ bên ngoài bề thế, sang trọng, Lamode Spa còn gây ấn tượng bởi không gian lịch sự và hiện đại bên trong.
                                     Đó là sự kết hợp hài hòa giữa phong cách Á – Âu, tạo cho khách hàng cảm giác sang trọng, lịch sự, nhưng cũng rất thân thiện, ấm cúng và thoải mái.
                                 </p>
                                 <p>&nbsp;</p>
@@ -151,36 +151,62 @@
                             }
                             <div class='dt-sc-hr-invisible' style="float:none !important"></div>
                             <h2>KHUYẾN MÃI ĐẶC BIỆT TRONG NGÀY HÔM NAY</h2>
-                            <div class='dt-sc-images-carousel-wrapper' data-min='1' data-max='2' data-width='520'>
-                                <ul class='dt-sc-images-carousel'>
-                                    <li>
-                                        <a href="javascript:void(0)"><img title="Client 1" src="@Url.Content("~/Images/dreamspa-carousel-image1.png")" alt="Client 1" /></a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0"><img title="Client 2" src="@Url.Content("~/Images/dreamspa-carousel-image2.png")" alt="Client 2" /></a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)"><img title="Client 1" src="@Url.Content("~/Images/dreamspa-carousel-image1.png")" alt="Client 1" /></a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0"><img title="Client 2" src="@Url.Content("~/Images/dreamspa-carousel-image2.png")" alt="Client 2" /></a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)"><img title="Client 1" src="@Url.Content("~/Images/dreamspa-carousel-image1.png")" alt="Client 1" /></a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0"><img title="Client 2" src="@Url.Content("~/Images/dreamspa-carousel-image2.png")" alt="Client 2" /></a>
-                                    </li>
-                                </ul>
-                                <div class="carousel-arrows">
-                                    <a href="" class="images-carousel-prev">
-                                        <span class="fa fa-angle-left"> </span>
-                                    </a>
-                                    <a href="" class="images-carousel-next">
-                                        <span class="fa fa-angle-right"> </span>
-                                    </a>
+                            @if (Model.LstDiscount != null && Model.LstDiscount.Any())
+                            {
+                                <div class='dt-sc-images-carousel-wrapper' data-min='1' data-max='2' data-width='520'>
+                                    <ul class='dt-sc-images-carousel'>
+                                        @if (Model.LstDiscount != null && Model.LstDiscount.Any())
+                                        {
+                                            foreach (var item in Model.LstDiscount)
+                                            {
+                                                <li>
+                                                    <a href="javascript:void(0)">
+                                                        <img title="@item.Name" src="@item.ImageURL" alt="@item.Name" />
+                                                    </a>
+                                                </li>
+                                            }
+                                        }
+                                    </ul>
+                                    <div class="carousel-arrows">
+                                        <a href="" class="images-carousel-prev">
+                                            <span class="fa fa-angle-left"> </span>
+                                        </a>
+                                        <a href="" class="images-carousel-next">
+                                            <span class="fa fa-angle-right"> </span>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
+                            }
+                            @*<div class='dt-sc-images-carousel-wrapper' data-min='1' data-max='2' data-width='520'>
+                                    <ul class='dt-sc-images-carousel'>
+                                        <li>
+                                            <a href="javascript:void(0)"><img title="Client 1" src="@Url.Content("~/Images/dreamspa-carousel-image1.png")" alt="Client 1" /></a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0"><img title="Client 2" src="@Url.Content("~/Images/dreamspa-carousel-image2.png")" alt="Client 2" /></a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)"><img title="Client 1" src="@Url.Content("~/Images/dreamspa-carousel-image1.png")" alt="Client 1" /></a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0"><img title="Client 2" src="@Url.Content("~/Images/dreamspa-carousel-image2.png")" alt="Client 2" /></a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)"><img title="Client 1" src="@Url.Content("~/Images/dreamspa-carousel-image1.png")" alt="Client 1" /></a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0"><img title="Client 2" src="@Url.Content("~/Images/dreamspa-carousel-image2.png")" alt="Client 2" /></a>
+                                        </li>
+                                    </ul>
+                                    <div class="carousel-arrows">
+                                        <a href="" class="images-carousel-prev">
+                                            <span class="fa fa-angle-left"> </span>
+                                        </a>
+                                        <a href="" class="images-carousel-next">
+                                            <span class="fa fa-angle-right"> </span>
+                                        </a>
+                                    </div>
+                                </div>*@
                         </div>
                     </div>
                     <div class="container">
