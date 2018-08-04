@@ -88,7 +88,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                     }
                     return RedirectToAction("Index");
                 }
-                ModelState.AddModelError("DiscountsCode", msg);
+                ModelState.AddModelError("DiscountCode", msg);
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return PartialView("_Create", model);
             }
@@ -156,7 +156,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                     }
                     return RedirectToAction("Index");
                 }
-                ModelState.AddModelError("DiscountsCode", msg);
+                ModelState.AddModelError("DiscountCode", msg);
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return PartialView("_Edit", model);
             }
@@ -193,13 +193,20 @@ namespace CMS_Web.Areas.Admin.Controllers
                     Response.StatusCode = (int)HttpStatusCode.BadRequest;
                     return PartialView("_Delete", model);
                 }
+                var orgImageUrl = "";
+                if (!string.IsNullOrEmpty(model.ImageURL))
+                {
+                    model.ImageURL = model.ImageURL.Replace(Commons._PublicImages, "").Replace("Discounts/", "").Replace(Commons.Image200_100, "");
+                    orgImageUrl = model.ImageURL;
+                }
+
                 var msg = "";
                 var result = _factory.Delete(model.Id, ref msg);
                 if (result)
                 {
-                    if (System.IO.File.Exists(Server.MapPath("~/Uploads/Discounts/" + model.ImageURL)))
+                    if (System.IO.File.Exists(Server.MapPath("~/Uploads/Discounts/" + orgImageUrl)))
                     {
-                        ImageHelper.Me.TryDeleteImageUpdated(Server.MapPath("~/Uploads/Discounts/" + model.ImageURL));
+                        ImageHelper.Me.TryDeleteImageUpdated(Server.MapPath("~/Uploads/Discounts/" + orgImageUrl));
                     }
 
                     return RedirectToAction("Index");

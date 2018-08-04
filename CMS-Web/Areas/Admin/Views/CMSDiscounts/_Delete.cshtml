@@ -1,9 +1,9 @@
-﻿@model CMS_DTO.CMSEmployee.CMS_EmployeeModels
+﻿@model CMS_DTO.CMSDiscount.CMSDiscountModels
 <div role="main" style="display:inline-block;height:100%;width:100%">
     @*<div class="se-pre-con" style="display: none;"></div>*@
     <div class="page-title">
         <!-- BEGIN PAGE BAR -->
-        @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Trang chủ" }, { "B", "Nhân viên - Xóa" } })
+        @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Trang chủ" }, { "B", "Discount - Xóa" } })
         <!-- END PAGE BAR -->
     </div>
     <div class="page-main">
@@ -20,22 +20,23 @@
                         <li>
                             <a href="javascript:void(0);" class="btn btn-success" id="btn-edit-save" onclick="SubmitForm('#form-delete')">
                                 <i class="fa fa-save"></i>
-                                &nbsp;Lưu
+                                &nbsp;Đồng ý
                             </a>
                         </li>
                     </ul>
                 </div>
                 <div class="box-body" style="display: block;">
-                    @using (@Html.BeginForm("Delete", "CMSEmployees", FormMethod.Post, new { @id = "form-delete", @class = "form-horizontal", @enctype = "multipart/form-data" }))
+                    @using (@Html.BeginForm("Delete", "CMSDiscounts", FormMethod.Post, new { @id = "form-delete", @class = "form-horizontal", @enctype = "multipart/form-data" }))
                     {
                         <div class="form-group">
                             <label class="col-md-2 control-label"></label>
                             <div class="col-md-6" style="font-size: 20px; width: 100%;">
-                                Bạn có chắc chắn muốn xóa <strong>[ @Model.FullName ]</strong>?
+                                Bạn có chắc chắn muốn xóa <strong>[ @Model.Name ]</strong>?
                                 <br />
                                 @Html.HiddenFor(model => model.Id)
-                                @Html.HiddenFor(model => model.FirstName)
-                                @Html.ValidationMessageFor(model => model.FirstName, null, new { @class = "label" })
+                                @Html.HiddenFor(model => model.Name)
+                                @Html.HiddenFor(model => model.ImageURL)
+                                @Html.ValidationMessageFor(model => model.Name, null, new { @class = "label" })
                             </div>
                         </div>
                     }

@@ -19,48 +19,72 @@ namespace CMS_Shared.CMSDiscount
             {
                 try
                 {
+                    model.DiscountCode = model.DiscountCode.Trim();
                     if (string.IsNullOrEmpty(model.Id)) /* insert */
                     {
                         Id = Guid.NewGuid().ToString();
-                        var e = new CMS_Discount
+                        var checkDup = cxt.CMS_Discount.Where(o => o.DiscountCode.Trim() == model.DiscountCode.Trim()).FirstOrDefault();
+                        if (checkDup == null)
                         {
-                            ID = Id,
-                            StoreID = model.StoreID,
-                            Name = model.Name,
-                            Description = model.Description,
-                            ImageUrl = model.ImageURL,
-                            IsAllowOpenValue = model.IsAllowOpenValue,
-                            IsApplyTotalBill = model.IsApplyTotalBill,
-                            IsActive = model.IsActive,
-                            ValueType = model.ValueType,
-                            Status = (byte)Commons.EStatus.Actived,
-                            CreatedDate = DateTime.Now,
-                            CreatedUser = model.CreatedBy,
-                            ModifiedUser = model.CreatedBy,
-                            LastModified = DateTime.Now,
-                        };
-                        cxt.CMS_Discount.Add(e);
-                    }
-                    else /* updated */
-                    {
-                        var e = cxt.CMS_Discount.Find(model.Id);
-                        if (e != null)
-                        {
-                            e.Name = model.Name;
-                            e.Description = model.Description;
-                            e.ImageUrl = model.ImageURL;
-                            e.IsAllowOpenValue = model.IsAllowOpenValue;
-                            e.IsApplyTotalBill = model.IsApplyTotalBill;
-                            e.IsActive = model.IsActive;
-                            e.ValueType = model.ValueType;
-                            e.Status = (byte)Commons.EStatus.Actived;
-                            e.ModifiedUser = model.CreatedBy;
-                            e.LastModified = DateTime.Now;
+                            var e = new CMS_Discount
+                            {
+                                ID = Id,
+                                StoreID = model.StoreID,
+                                Name = model.Name,
+                                DiscountCode = model.DiscountCode,
+                                Description = model.Description,
+                                ImageUrl = model.ImageURL,
+                                IsAllowOpenValue = model.IsAllowOpenValue,
+                                IsApplyTotalBill = model.IsApplyTotalBill,
+                                IsActive = model.IsActive,
+                                Value = model.Value,
+                                ValueType = model.IsPercent ? (byte)Commons.EValueType.Percent : (byte)Commons.EValueType.Currency,
+                                Status = (byte)Commons.EStatus.Actived,
+                                CreatedDate = DateTime.Now,
+                                CreatedUser = model.CreatedBy,
+                                ModifiedUser = model.CreatedBy,
+                                LastModified = DateTime.Now,
+                            };
+                            cxt.CMS_Discount.Add(e);
                         }
                         else
                         {
+                            msg = "Duplicate Code";
                             Result = false;
-                            msg = "Unable to find Discount.";
+                        }
+                        
+                    }
+                    else /* updated */
+                    {
+                        var checkDupCode = cxt.CMS_Discount.Where(o => o.DiscountCode.Trim() == model.DiscountCode.Trim() && o.ID != model.Id).FirstOrDefault();
+                        if (checkDupCode == null)
+                        {
+                            var e = cxt.CMS_Discount.Find(model.Id);
+                            if (e != null)
+                            {
+                                e.Name = model.Name;
+                                e.DiscountCode = model.DiscountCode;
+                                e.Description = model.Description;
+                                e.ImageUrl = model.ImageURL;
+                                e.IsAllowOpenValue = model.IsAllowOpenValue;
+                                e.IsApplyTotalBill = model.IsApplyTotalBill;
+                                e.IsActive = model.IsActive;
+                                e.Value = model.Value;
+                                e.ValueType = model.IsPercent ? (byte)Commons.EValueType.Percent : (byte)Commons.EValueType.Currency;
+                                e.Status = (byte)Commons.EStatus.Actived;
+                                e.ModifiedUser = model.CreatedBy;
+                                e.LastModified = DateTime.Now;
+                            }
+                            else
+                            {
+                                Result = false;
+                                msg = "Unable to find Discount.";
+                            }
+                        }
+                        else
+                        {
+                            msg = "Duplicate Code";
+                            Result = false;
                         }
                     }
 
@@ -126,13 +150,14 @@ namespace CMS_Shared.CMSDiscount
                             Id = o.ID,
                             StoreID = o.StoreID,
                             Name = o.Name,
+                            DiscountCode = o.DiscountCode,
                             Description = o.Description,
-                            ImageUrl = string.IsNullOrEmpty(o.ImageUrl) ? "" : Commons._PublicImages + o.ImageUrl,
-                            IsAllowOpenValue = o.IsAllowOpenValue?? false,
+                            ImageURL = string.IsNullOrEmpty(o.ImageUrl) ? "" : Commons._PublicImages + "Discounts/" + o.ImageUrl,
+                            IsAllowOpenValue = o.IsAllowOpenValue ?? false,
                             IsApplyTotalBill = o.IsApplyTotalBill,
-                            IsActive = o.IsActive??false,
-                            ValueType = o.ValueType??(byte)Commons.EValueType.Percent,
-                            Value = o.Value??0,
+                            IsActive = o.IsActive ?? false,
+                            IsPercent = (o.ValueType ?? (byte)Commons.EValueType.Percent) == (byte)Commons.EValueType.Percent,
+                            Value = o.Value ?? 0,
                         }).FirstOrDefault();
 
                     result = data;
@@ -162,12 +187,14 @@ namespace CMS_Shared.CMSDiscount
                             Id = o.ID,
                             StoreID = o.StoreID,
                             Name = o.Name,
+                            DiscountCode = o.DiscountCode,
                             Description = o.Description,
-                            ImageUrl = string.IsNullOrEmpty(o.ImageUrl) ? "" : Commons._PublicImages + o.ImageUrl,
+                            ImageURL = string.IsNullOrEmpty(o.ImageUrl) ? "" : Commons._PublicImages + "Discounts/" + o.ImageUrl,
                             IsAllowOpenValue = o.IsAllowOpenValue ?? false,
                             IsApplyTotalBill = o.IsApplyTotalBill,
                             IsActive = o.IsActive ?? false,
-                            ValueType = o.ValueType ?? (byte)Commons.EValueType.Percent,
+                            Value = o.Value ?? 0,
+                            IsPercent = (o.ValueType ?? (byte)Commons.EValueType.Percent) == (byte)Commons.EValueType.Percent,
                         }).ToList();
 
                     /* response data */

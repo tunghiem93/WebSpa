@@ -22,8 +22,10 @@
                     <thead>
                         <tr>
                             <th class="text-center"> Tên </th>
-                            <th class="text-center"> Giá trị </th>
+                            <th class="text-center"> Code (mã) </th>
+                            <th class="text-right"> Giá trị </th>
                             <th class="text-center"> Tình trạng </th>
+                            <th> Hình ảnh </th>
                             <th class="text-center"> Tùy chỉnh</th>
                         </tr>
                     </thead>
@@ -32,26 +34,30 @@
                         {
                             foreach (var item in Model)
                             {
-                                <tr class="odd gradeX">
-                                    <td class="text-center"> @item.Name </td>
-                                    <td class="text-center">
-                                        @item.ValueType
-                                    </td>
-                                    <td class="text-center">
-                                        <span class="label label-sm label-success"> @item.sStatus </span>
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="javascript:void(0)"
-                                           onclick='ShowView("@Url.Action("View", "CMSDiscounts", new { Id = item.Id })")'
-                                           class="btn btn-primary btn-xs view details"><i class="fa fa-eye"></i>&nbsp;Xem</a>&nbsp;&nbsp;
-                                        <a href="javascript:void(0)"
-                                           onclick='ShowView("@Url.Action("Edit", "CMSDiscounts", new { Id = item.Id })")'
-                                           class="btn btn-info btn-xs edit details"><i class="fa fa-edit"></i>&nbsp;Cập nhập</a>&nbsp;&nbsp;
-                                        <a href="javascript:void(0)"
-                                           onclick='ShowView("@Url.Action("Delete","CMSDiscounts",new { Id=item.Id})")'
-                                           class="btn btn-danger btn-xs delete details"><i class="fa fa-trash-o"></i>&nbsp;Xóa</a>
-                                    </td>
-                                </tr>
+                        <tr class="odd gradeX">
+                            <td class="text-center"> @item.Name </td>
+                            <td class="text-center"> @item.DiscountCode </td>
+                            <td class="text-center">
+                                @item.ValueText
+                            </td>
+                            <td class="text-center">
+                                <span class="label label-sm label-success"> @item.sStatus </span>
+                            </td>
+                            <td>
+                                <img class="imageThumb" src="@item.ImageURL" style="width: 100%" />
+                            </td>
+                            <td class="text-center">
+                                <a href="javascript:void(0)"
+                                   onclick='ShowView("@Url.Action("View", "CMSDiscounts", new { Id = item.Id })")'
+                                   class="btn btn-primary btn-xs view details"><i class="fa fa-eye"></i>&nbsp;Xem</a>&nbsp;&nbsp;
+                                <a href="javascript:void(0)"
+                                   onclick='ShowView("@Url.Action("Edit", "CMSDiscounts", new { Id = item.Id })")'
+                                   class="btn btn-info btn-xs edit details"><i class="fa fa-edit"></i>&nbsp;Cập nhập</a>&nbsp;&nbsp;
+                                <a href="javascript:void(0)"
+                                   onclick='ShowView("@Url.Action("Delete","CMSDiscounts",new { Id=item.Id})")'
+                                   class="btn btn-danger btn-xs delete details"><i class="fa fa-trash-o"></i>&nbsp;Xóa</a>
+                            </td>
+                        </tr>
                             }
                         }
                     </tbody>
@@ -102,9 +108,9 @@
         ],
         "pageLength": 100,
         "columnDefs": [
-            { "orderable": true, "targets": [0, 1, 2, 3] },
-            { "width": "33%", "targets": [3] },
-
+            { "orderable": true, "targets": [0, 1, 2, 3, 4, 5] },
+            { "width": "33%", "targets": [5] },
+            { "width": "10%", "targets": [4] },
         ],
         "order": [
             [1, "asc"]
