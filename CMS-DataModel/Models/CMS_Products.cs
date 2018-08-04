@@ -53,6 +53,22 @@ namespace CMS_DataModel.Models
         public bool IsActive { get; set; }
 
         public string ImageURL { get; set; }
+        [StringLength(500)]
+        public string Preparation { get; set; }
+        [StringLength(500)]
+        public string Process { get; set; }
+        [StringLength(500)]
+        public string SpaTreatment { get; set; }
+        [StringLength(500)]
+        public string Effect { get; set; }
+        public string PreparationUS { get; set; }
+        [StringLength(500)]
+        public string ProcessUS { get; set; }
+        [StringLength(500)]
+        public string SpaTreatmentUS { get; set; }
+        [StringLength(500)]
+        public string EffectUS { get; set; }
+        public string Duration { get; set; }
 
         public byte Status { get; set; }
 
