@@ -24,7 +24,7 @@ namespace CMS_Shared.CMSProcedures
                     {
                         var _Id = Guid.NewGuid().ToString();
                         model.ProductCode = model.ProductCode.Trim();
-                        model.BarCode = model.BarCode.Trim();
+                        //model.BarCode = model.BarCode.Trim();
                         var isDupProdctCode = cxt.CMS_Products.Where(o => o.ProductCode.Contains(model.ProductCode) && o.Status == (byte)Commons.EStatus.Actived).Count() > 0;
                         if (isDupProdctCode == false) /* don't duplicate */
                         {
@@ -35,27 +35,27 @@ namespace CMS_Shared.CMSProcedures
                                 CategoryID = model.CategoryId,
                                 Name = model.ProceduresName,
                                 ProductCode = model.ProductCode,
-                                BarCode = model.BarCode,
+                                //BarCode = model.BarCode,
                                 Description = model.Description,
-                                PrintOutText = model.PrintOutText,
+                                //PrintOutText = model.PrintOutText,
                                 IsActive = model.IsActive,
                                 ImageURL = model.ImageUrl,
-                                Cost = (double)model.Price,
+                                Cost = model.Price,
                                 //Unit = model.Unit,
-                                //Measure = model.Measure,
-                                Quantity = (decimal)model.Quantity,
-                                Limit = model.Limit,
+                                Measure = model.Measure,
+                                //Quantity = model.Quantity,
+                                //Limit = model.Limit,
                                 ExtraPrice = model.ExtraPrice,
                                 //IsAllowedDiscount = model.IsAllowedDiscount,
                                 //IsCheckedStock = model.IsCheckedStock,
                                 //IsAllowedOpenPrice = model.IsAllowedOpenPrice,
                                 //IsPrintedOnCheck = model.IsPrintedOnCheck,
                                 ExpiredDate = model.ExpiredDate,
-                                IsAutoAddToOrder = model.IsAutoAddToOrder,
-                                IsComingSoon = model.IsComingSoon,
-                                IsShowInReservation = model.IsShowInReservation,
-                                IsRecommend = model.IsRecommend,
-                                StoreID = model.StoreID,
+                                //IsAutoAddToOrder = model.IsAutoAddToOrder,
+                                //IsComingSoon = model.IsComingSoon,
+                                //IsShowInReservation = model.IsShowInReservation,
+                                //IsRecommend = model.IsRecommend,
+                                //StoreID = model.StoreID,
                                 Process = model.Process,
                                 Preparation = model.Preparation,
                                 Effect = model.Effect,
@@ -116,7 +116,7 @@ namespace CMS_Shared.CMSProcedures
                                 proCheck.SpaTreatment = model.SpaTreatment;
                                 proCheck.Duration = model.Duration;
 
-                                proCheck.ModifiedUser = model.CreatedBy;
+                                proCheck.ModifiedUser = model.UpdatedBy;
                                 proCheck.LastModified = DateTime.Now;
                             }
                             else
@@ -201,11 +201,11 @@ namespace CMS_Shared.CMSProcedures
                             Description = o.Description,
                             PrintOutText = o.PrintOutText,
                             IsActive = o.IsActive,
-                            ImageUrl = string.IsNullOrEmpty(o.ImageURL) ? "" : Commons._PublicImages + "Products/" + o.ImageURL,
-                            Price = (decimal)o.Cost,
+                            ImageUrl = string.IsNullOrEmpty(o.ImageURL) ? "" : o.ImageURL,
+                            Price = o.Cost,
                             //Unit = o.Unit ?? 1,
                             //Measure = o.Measure,
-                            Quantity = (double)o.Quantity,
+                            Quantity = o.Quantity ?? 0,
                             Limit = o.Limit,
                             ExtraPrice = o.ExtraPrice,
                             //IsAllowedDiscount = o.IsAllowedDiscount,
@@ -262,11 +262,11 @@ namespace CMS_Shared.CMSProcedures
                             Description = o.p.Description,
                             PrintOutText = o.p.PrintOutText,
                             IsActive = o.p.IsActive,
-                            ImageUrl = string.IsNullOrEmpty(o.p.ImageURL) ? "" : Commons._PublicImages + "Products/" + o.p.ImageURL,
-                            Price = (decimal)o.p.Cost,
+                            ImageUrl = string.IsNullOrEmpty(o.p.ImageURL) ? "" : o.p.ImageURL,
+                            Price = o.p.Cost,
                             //Unit = o.p.Unit ?? 1,
                             //Measure = o.p.Measure,
-                            Quantity = (double)o.p.Quantity,
+                            Quantity = o.p.Quantity ?? 0,
                             Limit = o.p.Limit,
                             ExtraPrice = o.p.ExtraPrice,
                             //IsAllowedDiscount = o.p.IsAllowedDiscount,

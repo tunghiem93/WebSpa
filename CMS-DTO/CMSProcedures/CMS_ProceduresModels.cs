@@ -30,16 +30,17 @@ namespace CMS_DTO.CMSProcedures
         public string SpaTreatment { get; set; }
         public string Effect { get; set; }
         public string Duration { get; set; }
-        public decimal Price { get; set; }
+        public double Price { get; set; }
         public string CategoryId { get; set; }
         public string CategoryName { get; set; }
         public string CreatedBy { get; set; }
+        public string UpdatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public bool IsActive { get; set; }
         public string sStatus { get; set; }
         public int ProductTypeCode { get; set; }
-        public double Quantity { get; set; }
+        public decimal Quantity { get; set; }
         public int Limit { get; set; }
         public string StoreID { get; set; }
         public DateTime ExpiredDate { get; set; }
@@ -48,5 +49,11 @@ namespace CMS_DTO.CMSProcedures
         public bool IsShowInReservation { get; set; }
         public double ExtraPrice { get; set; }
         public bool IsRecommend { get; set; }
+        public string Measure { get; set; }
+        public CMS_ProceduresModels()
+        {
+            IsActive = true;
+            Measure = "0";
+        }
     }
 }

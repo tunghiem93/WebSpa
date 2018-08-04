@@ -30,7 +30,7 @@ namespace CMS_Web.Areas.Admin.Controllers
 
         public ActionResult LoadGrid()
         {
-            var model = new List<CMS_ProceduresModels>();// _factory.GetList();
+            var model = _factory.GetList();
             model.ForEach(x =>
             {
                 x.sStatus = x.IsActive ? "Kích hoạt" : "Chưa kích hoạt";
@@ -46,8 +46,7 @@ namespace CMS_Web.Areas.Admin.Controllers
 
         public CMS_ProceduresModels GetDetail(string Id)
         {
-            CMS_ProceduresModels model = new CMS_ProceduresModels();
-            return model;// _factory.GetDetail(Id);
+            return _factory.GetDetail(Id);
         }
 
         [HttpPost]
@@ -73,7 +72,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                 }
                 var msg = "";
                 model.CreatedBy = CurrentUser.UserId;
-                //model.UpdatedBy = CurrentUser.UserId;
+                model.UpdatedBy = CurrentUser.UserId;
                 var result = _factory.CreateOrUpdate(model, ref msg);
                 if (result)
                 {
@@ -120,7 +119,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                 }
                 if (!string.IsNullOrEmpty(model.ImageUrl))
                 {
-                    model.ImageUrl = model.ImageUrl.Replace(Commons._PublicImages, "").Replace("Procedures/", "").Replace(Commons.Image200_100, "");
+                    model.ImageUrl = model.ImageUrl.Replace(Commons._PublicImages, "").Replace("Procedures/", "").Replace(Commons.Image500_500, "");
                     temp = model.ImageUrl;
                 }
 
@@ -135,7 +134,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                 }
                 var msg = "";
                 model.CreatedBy = CurrentUser.UserId;
-                //model.UpdatedBy = CurrentUser.UserId;
+                model.UpdatedBy = CurrentUser.UserId;
                 var result = _factory.CreateOrUpdate(model, ref msg);
                 if (result)
                 {
