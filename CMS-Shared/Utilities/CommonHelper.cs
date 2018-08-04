@@ -134,7 +134,13 @@ namespace CMS_Shared.Utilities
             return listCode;
         }
 
-        
+        public static string RandomNumberOrder()
+        {
+            Random R = new Random();
+            return "NO_" +((long)R.Next(0, 100000) * (long)R.Next(0, 100000)).ToString().PadLeft(10, '0');
+        }
+
+
         public static bool ContactAdmin(CMS_ContactModels _ctInfo )
         {
             var ret = false;

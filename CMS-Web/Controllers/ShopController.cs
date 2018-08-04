@@ -4,6 +4,7 @@ using CMS_DTO.CMSSession;
 using CMS_DTO.CMSShop;
 using CMS_Shared;
 using CMS_Shared.CMSCategories;
+using CMS_Shared.CMSOrders;
 using CMS_Shared.CMSProducts;
 using Newtonsoft.Json;
 using System;
@@ -17,11 +18,13 @@ namespace CMS_Web.Controllers
     public class ShopController : HQController
     {
         private CMSProductFactory _fac;
+        private CMSOrderFactory _facOrder;
         private CMSCategoriesFactory _facCate;
         public ShopController()
         {
             _fac = new CMSProductFactory();
             _facCate = new CMSCategoriesFactory();
+            _facOrder = new CMSOrderFactory();
         }
         // GET: Shop
         public ActionResult Index()
@@ -166,6 +169,7 @@ namespace CMS_Web.Controllers
                         model.TotalPrice = data.Sum(o => o.TotalPrice);
                         model.SubTotalPrice = data.Sum(o => o.TotalPrice);
                     }
+                    _facOrder.CreateOrder(model);
                 }
             }
             catch (Exception ex)
