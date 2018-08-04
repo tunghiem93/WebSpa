@@ -60,6 +60,7 @@ namespace CMS_Common
         {
             Service = 1,
             Product = 2,
+            Procudure = 3,
         }
 
         public enum EValueType
