@@ -4,18 +4,18 @@
 @model List<CMS_DTO.CMSNews.CMS_NewsModels>
 @using CMS_Common
 @*<style type="text/css">
-    #sample_3 ul {
-        width: 100% !important;
-    }
-
-        #sample_3 ul li .dtr-title {
-            width: 25% !important;
+        #sample_3 ul {
+            width: 100% !important;
         }
 
-        #sample_3 ul li .dtr-data {
-            width: 75% !important;
-        }
-</style>*@
+            #sample_3 ul li .dtr-title {
+                width: 25% !important;
+            }
+
+            #sample_3 ul li .dtr-data {
+                width: 75% !important;
+            }
+    </style>*@
 <div class="table-responsive">
     <div class="col-md-12">
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -53,11 +53,11 @@
                                     <td class="text-center">
                                         @if (item.Type == (byte)Commons.EBlogType.Image)
                                         {
-                                        <span>Hình ảnh</span> 
+                                            <span>Hình ảnh</span>
                                         }
                                         else
                                         {
-                                        <span>Video - Mp3</span>
+                                            <span>Video - Mp3</span>
                                         }
                                     </td>
                                     <td class="text-center">
@@ -70,9 +70,20 @@
                                             <img id="upload-preview" class="" src="@Commons.Image920_535" height="50" width="50" style="border-radius:100% !important" />
                                         }
                                     </td>
-                                    <td class="text-center">
-                                        <span class="label label-sm label-success"> @item.sStatus </span>
-                                    </td>
+                                    @{
+                                        if (item.IsActive)
+                                        {
+                                            <td class="text-center">
+                                                <span class="label label-sm label-success"> @item.sStatus </span>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td class="text-center">
+                                                <span class="label label-sm label-danger"> @item.sStatus </span>
+                                            </td>
+                                        }
+                                    }
                                     <td class="text-center">
                                         <a href="javascript:void(0)"
                                            onclick='ShowView("@Url.Action("View","CMSNews",new { Id=item.Id})")'
@@ -152,8 +163,7 @@
         });
     })
 
-    function ShowView(url)
-    {
+    function ShowView(url) {
         ShowViewOrEdit(url);
     }
 </script>

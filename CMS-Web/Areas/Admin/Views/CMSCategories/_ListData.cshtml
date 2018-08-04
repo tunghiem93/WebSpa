@@ -3,18 +3,18 @@
 }
 @model List<CMS_DTO.CMSCategories.CMSCategoriesModels>
 @*<style type="text/css">
-    #sample_3 ul {
-        width: 100% !important;
-    }
-
-        #sample_3 ul li .dtr-title {
-            width: 25% !important;
+        #sample_3 ul {
+            width: 100% !important;
         }
 
-        #sample_3 ul li .dtr-data {
-            width: 75% !important;
-        }
-</style>*@
+            #sample_3 ul li .dtr-title {
+                width: 25% !important;
+            }
+
+            #sample_3 ul li .dtr-data {
+                width: 75% !important;
+            }
+    </style>*@
 <div class="table-responsive">
     <div class="col-md-12">
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -28,8 +28,8 @@
                         <i class="fa fa-plus"></i> Thêm mới
                     </a>
                     @*<a href="javascript:;" class="btn btn-default btn-sm">
-                        <i class="fa fa-print"></i> Print
-                    </a>*@
+                            <i class="fa fa-print"></i> Print
+                        </a>*@
                 </div>
             </div>
             <div class="portlet-body">
@@ -37,7 +37,7 @@
                     <thead>
                         <tr>
                             <th class="text-center">
-                              Thể loại
+                                Thể loại
                             </th>
                             <th class="text-center"> Tên thể loại </th>
                             <th class="text-center"> Số sản phẩm </th>
@@ -58,9 +58,20 @@
                                     <td class="text-center">
                                         @item.NumberOfProduct
                                     </td>
-                                    <td class="text-center">
-                                        <span class="label label-sm label-success"> @item.sStatus </span>
-                                    </td>
+                                    @{
+                                        if (item.IsActive)
+                                        {
+                                            <td class="text-center">
+                                                <span class="label label-sm label-success"> @item.sStatus </span>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td class="text-center">
+                                                <span class="label label-sm label-danger"> @item.sStatus </span>
+                                            </td>
+                                        }
+                                    }
                                     <td class="text-center">
                                         <a href="javascript:void(0)"
                                            onclick='ShowView("@Url.Action("View","CMSCategories",new { Id=item.Id})")'
@@ -140,10 +151,9 @@
 
     $(document).ready(function () {
         _tableCategory = $('#sample_3').DataTable($.extend(true, {}, _settingsOptionTableCategory));
-       
+
     })
-    function ShowView(url)
-    {
+    function ShowView(url) {
         ShowViewOrEdit(url);
     }
 </script>

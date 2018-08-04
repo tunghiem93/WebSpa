@@ -1,20 +1,20 @@
 ﻿@{
     Layout = null;
 }
-@model List<CMS_DTO.CMSEmployee.CMS_EmployeeModels >
+@model List<CMS_DTO.CMSEmployee.CMS_EmployeeModels>
 @*<style type="text/css">
-    #sample_3 ul {
-        width: 100% !important;
-    }
-
-        #sample_3 ul li .dtr-title {
-            width: 25% !important;
+        #sample_3 ul {
+            width: 100% !important;
         }
 
-        #sample_3 ul li .dtr-data {
-            width: 75% !important;
-        }
-</style>*@
+            #sample_3 ul li .dtr-title {
+                width: 25% !important;
+            }
+
+            #sample_3 ul li .dtr-data {
+                width: 75% !important;
+            }
+    </style>*@
 <div class="table-responsive">
     <div class="col-md-12">
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -57,9 +57,20 @@
                                     </td>
                                     <td class="text-center">@item.BirthDate.ToString("dd/MM/yyyy")</td>
                                     <td>@item.Street</td>
-                                    <td class="text-center">
-                                        <span class="label label-sm label-success"> @item.sStatus </span>
-                                    </td>
+                                    @{
+                                        if (item.IsActive)
+                                        {
+                                            <td class="text-center">
+                                                <span class="label label-sm label-success"> @item.sStatus </span>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td class="text-center">
+                                                <span class="label label-sm label-danger"> @item.sStatus </span>
+                                            </td>
+                                        }
+                                    }
                                     <td class="text-center">
                                         <a href="javascript:void(0)"
                                            onclick='ShowView("@Url.Action("View", "CMSEmployees", new { Id = item.Id })")'

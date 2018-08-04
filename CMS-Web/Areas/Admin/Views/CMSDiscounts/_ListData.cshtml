@@ -1,7 +1,7 @@
 ﻿@{
     Layout = null;
 }
-@model List<CMS_DTO.CMSDiscount.CMS_DiscountModels >
+@model List<CMS_DTO.CMSDiscount.CMS_DiscountModels>
 
 <div class="table-responsive">
     <div class="col-md-12">
@@ -34,30 +34,41 @@
                         {
                             foreach (var item in Model)
                             {
-                        <tr class="odd gradeX">
-                            <td class="text-center"> @item.Name </td>
-                            <td class="text-center"> @item.DiscountCode </td>
-                            <td class="text-center">
-                                @item.ValueText
-                            </td>
-                            <td class="text-center">
-                                <span class="label label-sm label-success"> @item.sStatus </span>
-                            </td>
-                            <td>
-                                <img class="imageThumb" src="@item.ImageURL" style="width: 100%" />
-                            </td>
-                            <td class="text-center">
-                                <a href="javascript:void(0)"
-                                   onclick='ShowView("@Url.Action("View", "CMSDiscounts", new { Id = item.Id })")'
-                                   class="btn btn-primary btn-xs view details"><i class="fa fa-eye"></i>&nbsp;Xem</a>&nbsp;&nbsp;
-                                <a href="javascript:void(0)"
-                                   onclick='ShowView("@Url.Action("Edit", "CMSDiscounts", new { Id = item.Id })")'
-                                   class="btn btn-info btn-xs edit details"><i class="fa fa-edit"></i>&nbsp;Cập nhập</a>&nbsp;&nbsp;
-                                <a href="javascript:void(0)"
-                                   onclick='ShowView("@Url.Action("Delete","CMSDiscounts",new { Id=item.Id})")'
-                                   class="btn btn-danger btn-xs delete details"><i class="fa fa-trash-o"></i>&nbsp;Xóa</a>
-                            </td>
-                        </tr>
+                                <tr class="odd gradeX">
+                                    <td class="text-center"> @item.Name </td>
+                                    <td class="text-center"> @item.DiscountCode </td>
+                                    <td class="text-center">
+                                        @item.ValueText
+                                    </td>
+                                    @{
+                                        if (item.IsActive)
+                                        {
+                                            <td class="text-center">
+                                                <span class="label label-sm label-success"> @item.sStatus </span>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td class="text-center">
+                                                <span class="label label-sm label-danger"> @item.sStatus </span>
+                                            </td>
+                                        }
+                                    }
+                                    <td>
+                                        <img class="imageThumb" src="@item.ImageURL" style="width: 100%" />
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="javascript:void(0)"
+                                           onclick='ShowView("@Url.Action("View", "CMSDiscounts", new { Id = item.Id })")'
+                                           class="btn btn-primary btn-xs view details"><i class="fa fa-eye"></i>&nbsp;Xem</a>&nbsp;&nbsp;
+                                        <a href="javascript:void(0)"
+                                           onclick='ShowView("@Url.Action("Edit", "CMSDiscounts", new { Id = item.Id })")'
+                                           class="btn btn-info btn-xs edit details"><i class="fa fa-edit"></i>&nbsp;Cập nhập</a>&nbsp;&nbsp;
+                                        <a href="javascript:void(0)"
+                                           onclick='ShowView("@Url.Action("Delete","CMSDiscounts",new { Id=item.Id})")'
+                                           class="btn btn-danger btn-xs delete details"><i class="fa fa-trash-o"></i>&nbsp;Xóa</a>
+                                    </td>
+                                </tr>
                             }
                         }
                     </tbody>
