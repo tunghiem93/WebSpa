@@ -37,6 +37,7 @@ namespace CMS_Shared.CMSProcedures
                                 ProductCode = model.ProductCode,
                                 //BarCode = model.BarCode,
                                 Description = model.Description,
+                                ShortDescription = model.ShortDescription,
                                 //PrintOutText = model.PrintOutText,
                                 IsActive = model.IsActive,
                                 ImageURL = model.ImageUrl,
@@ -91,6 +92,7 @@ namespace CMS_Shared.CMSProcedures
                                 proCheck.ProductCode = model.ProductCode;
                                 proCheck.BarCode = model.BarCode;
                                 proCheck.Description = model.Description;
+                                proCheck.ShortDescription = model.ShortDescription;
                                 proCheck.PrintOutText = model.PrintOutText;
                                 proCheck.IsActive = model.IsActive;
                                 proCheck.ImageURL = model.ImageUrl;
@@ -199,9 +201,10 @@ namespace CMS_Shared.CMSProcedures
                             ProductCode = o.ProductCode,
                             BarCode = o.BarCode,
                             Description = o.Description,
+                            ShortDescription = o.ShortDescription,
                             PrintOutText = o.PrintOutText,
                             IsActive = o.IsActive,
-                            ImageUrl = string.IsNullOrEmpty(o.ImageURL) ? "" : o.ImageURL,
+                            ImageUrl = string.IsNullOrEmpty(o.ImageURL) ? "" : Commons._PublicImages + "Procedures/" + o.ImageURL,
                             Price = o.Cost,
                             //Unit = o.Unit ?? 1,
                             //Measure = o.Measure,
@@ -249,41 +252,41 @@ namespace CMS_Shared.CMSProcedures
                 using (var cxt = new CMS_Context())
                 {
                     var data = cxt.CMS_Products.Where(o => o.Status != (byte)Commons.EStatus.Deleted && o.TypeCode == (byte)Commons.EProductType.Procudure)
-                        .Join(cxt.CMS_Categories, p => p.CategoryID, c => c.ID, (p, c) => new { p, c })
                         .Select(o => new CMS_ProceduresModels
                         {
-                            Id = o.p.ID,
-                            ProductTypeCode = o.p.TypeCode,
-                            CategoryId = o.p.CategoryID,
-                            CategoryName = o.c.Name,
-                            ProceduresName = o.p.Name,
-                            ProductCode = o.p.ProductCode,
-                            BarCode = o.p.BarCode,
-                            Description = o.p.Description,
-                            PrintOutText = o.p.PrintOutText,
-                            IsActive = o.p.IsActive,
-                            ImageUrl = string.IsNullOrEmpty(o.p.ImageURL) ? "" : o.p.ImageURL,
-                            Price = o.p.Cost,
+                            Id = o.ID,
+                            ProductTypeCode = o.TypeCode,
+                            //CategoryId = o.p.CategoryID,
+                            //CategoryName = o.c.Name,
+                            ProceduresName = o.Name,
+                            ProductCode = o.ProductCode,
+                            BarCode = o.BarCode,
+                            Description = o.Description,
+                            ShortDescription = o.ShortDescription,
+                            PrintOutText = o.PrintOutText,
+                            IsActive = o.IsActive,
+                            ImageUrl = string.IsNullOrEmpty(o.ImageURL) ? "" : Commons._PublicImages + "Procedures/" + o.ImageURL,
+                            Price = o.Cost,
                             //Unit = o.p.Unit ?? 1,
                             //Measure = o.p.Measure,
-                            Quantity = o.p.Quantity ?? 0,
-                            Limit = o.p.Limit,
-                            ExtraPrice = o.p.ExtraPrice,
+                            Quantity = o.Quantity ?? 0,
+                            Limit = o.Limit,
+                            ExtraPrice = o.ExtraPrice,
                             //IsAllowedDiscount = o.p.IsAllowedDiscount,
                             //IsCheckedStock = o.p.IsCheckedStock,
                             //IsAllowedOpenPrice = o.p.IsAllowedOpenPrice,
                             ///IsPrintedOnCheck = o.p.IsPrintedOnCheck,
-                            ExpiredDate = o.p.ExpiredDate,
-                            IsAutoAddToOrder = o.p.IsAutoAddToOrder,
-                            IsComingSoon = o.p.IsComingSoon,
-                            IsShowInReservation = o.p.IsShowInReservation,
-                            IsRecommend = o.p.IsRecommend,
-                            StoreID = o.p.StoreID,
-                            Process = o.p.Process,
-                            Preparation = o.p.Preparation,
-                            SpaTreatment = o.p.SpaTreatment,
-                            Effect = o.p.Effect,
-                            Duration = o.p.Duration,
+                            ExpiredDate = o.ExpiredDate,
+                            IsAutoAddToOrder = o.IsAutoAddToOrder,
+                            IsComingSoon = o.IsComingSoon,
+                            IsShowInReservation = o.IsShowInReservation,
+                            IsRecommend = o.IsRecommend,
+                            StoreID = o.StoreID,
+                            Process = o.Process,
+                            Preparation = o.Preparation,
+                            SpaTreatment = o.SpaTreatment,
+                            Effect = o.Effect,
+                            Duration = o.Duration,
                         }).ToList();
                    
                     /* response data */

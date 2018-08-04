@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMS_Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -54,6 +55,8 @@ namespace CMS_DTO.CMSProcedures
         {
             IsActive = true;
             Measure = "0";
+            ExpiredDate = Commons.MaxDate;
+            ProductTypeCode = (byte)Commons.EProductType.Procudure;
         }
     }
 }
