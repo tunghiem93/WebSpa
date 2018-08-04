@@ -121,7 +121,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                 }
                 if (!string.IsNullOrEmpty(model.ImageURL))
                 {
-                    model.ImageURL = model.ImageURL.Replace(Commons._PublicImages, "").Replace("Categories/", "").Replace(Commons.Image200_100, "");
+                    model.ImageURL = model.ImageURL.Replace(Commons._PublicImages, "").Replace("Categories/", "").Replace(Commons.Image600_450, "");
                     temp = model.ImageURL;
                 }
 

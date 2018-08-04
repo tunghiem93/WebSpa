@@ -16,7 +16,8 @@ namespace CMS_DTO.CMSProcedures
         [MaxLength(50, ErrorMessage = "Mã sản phẩm tối đa 50 kí tự")]
         public string ProductCode { get; set; }
         public string BarCode { get; set; }
-        public HttpPostedFileBase[] PictureUpload { get; set; }
+        [DataType(DataType.Upload)]
+        public HttpPostedFileBase PictureUpload { get; set; }
         public byte[] PictureByte { get; set; }
         public string ImageUrl { get; set; }
         public string ProceduresName { get; set; }
