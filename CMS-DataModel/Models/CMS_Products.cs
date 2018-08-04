@@ -54,6 +54,8 @@ namespace CMS_DataModel.Models
 
         public string ImageURL { get; set; }
         [StringLength(500)]
+        public string ShortDescription { get; set; }
+        [StringLength(500)]
         public string Preparation { get; set; }
         [StringLength(500)]
         public string Process { get; set; }
@@ -61,6 +63,8 @@ namespace CMS_DataModel.Models
         public string SpaTreatment { get; set; }
         [StringLength(500)]
         public string Effect { get; set; }
+        [StringLength(500)]
+        public string ShortDescriptionUS { get; set; }
         public string PreparationUS { get; set; }
         [StringLength(500)]
         public string ProcessUS { get; set; }
