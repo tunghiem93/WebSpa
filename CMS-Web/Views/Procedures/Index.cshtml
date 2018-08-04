@@ -1,4 +1,14 @@
 ﻿@model CMS_DTO.CMSProcedures.CMS_ProceduresViewModels
+
+<style>
+    .dt-sc-hr-invisible-small{
+        margin-top: 0px !important;
+    }
+    .dt-sc-hr-invisible{
+        margin-top: 0px !important;
+    }
+</style>
+
 <div class="wrapper">
     <div class="inner-wrapper">
         <div id="main">
@@ -18,10 +28,10 @@
                         <img class="alignnone" style="margin-top: -35px;" src="@Url.Content("~/Images/static-banner.jpg")" alt="procedure-header-image" width="1920" height="420" />
                     </p>
                     <br />
-                    <div class='dt-sc-hr-invisible-small  '></div>
+                    <div class='dt-sc-hr-invisible-small'></div>
                     <div class='fullwidth-section ' style="background-repeat:no-repeat;background-position:left top;">
                         <div class="container">
-                            <div class='dt-sc-hr-invisible  '></div>
+                            <div class='dt-sc-hr-invisible'></div>
                             <h2>Các liệu trình và dịch vụ:</h2>
                         </div>
                     </div>
@@ -29,36 +39,19 @@
 
                 </div>
 
-                <div class='fullwidth-section skin-color' style="background-color:#e7e5d9;background-image:url(https://dreamspa.dttheme.com/wp-content/uploads/2014/05/border.png);background-repeat:repeat-x;background-position:left top;padding-top:75px;padding-bottom:20px;">
+                <div class='fullwidth-section skin-color' style="background-color:#e7e5d9;background-image:url(/Content/border/border.png);background-repeat:repeat-x;background-position:left top;padding-top:75px;padding-bottom:20px;">
                     <div class="container">
-                        <div class='column dt-sc-one-fourth  space first'>
-                            <ul class='dt-sc-fancy-list  onepage arrow'>
-                                <li><a href="#goto1">Massage</a></li>
-                                <li><a href="#goto2">Chăm sóc da</a></li>
-                                <li><a href="#goto3">Spa thảo dược</a></li>
-                            </ul>
-                        </div>
-                        <div class='column dt-sc-one-fourth  space '>
-                            <ul class='dt-sc-fancy-list  onepage arrow'>
-                                <li><a href="#goto4">Thực dưỡng</a></li>
-                                @*<li><a>Hydrotherapy</a></li>
-                                <li><a>Electrotherapy</a></li>*@
-                            </ul>
-                        </div>
-                        <div class='column dt-sc-one-fourth  space '>
-                            <ul class='dt-sc-fancy-list   arrow'>
-                                @*<li><a>Phototherapy</a></li>
-                                <li><a>Heat therapy</a></li>
-                                <li><a>Baths</a></li>*@
-                            </ul>
-                        </div>
-                        <div class='column dt-sc-one-fourth  space '>
-                            <ul class='dt-sc-fancy-list   arrow'>
-                                @*<li><a>Aromatherapy</a></li>
-                                <li><a>Skin Care</a></li>
-                                <li><a>NHerbal Spa</a></li>*@
-                            </ul>
-                        </div>
+                        @if (Model.ListProcedures != null && Model.ListProcedures.Any())
+                        {
+                            foreach (var item in Model.ListProcedures)
+                            {
+                                <div class='column dt-sc-one-fourth space first'>
+                                    <ul class='dt-sc-fancy-list onepage arrow'>
+                                        <li><a href="javascript:void(0)">@item.ProceduresName</a></li>  
+                                    </ul>
+                                </div>
+                            }
+                        }                        
                     </div>
                 </div>
                 @if (Model != null && Model.ListProcedures != null && Model.ListProcedures.Any())
@@ -82,7 +75,7 @@
                                     </div>
                                     <div class='column dt-sc-two-third  space '>
                                         <div class='dt-sc-hr-invisible-medium  '></div>
-                                        <div class='dt-sc-hr-invisible  '></div>
+                                        <div class='dt-sc-hr-invisible'></div>
                                         <div class='dt-sc-tabs-container aligncenter'>
                                             <ul class="dt-sc-tabs-frame">
                                                 <li><a href="#"><span>01</span> Chuẩn bị</a></li>
@@ -91,48 +84,33 @@
                                             </ul>
                                             <div class="dt-sc-tabs-frame-content">
                                                 <p>@item.Preparation</p>
-                                                <div class='dt-sc-hr-invisible  '></div>
+                                                <div class='dt-sc-hr-invisible'></div>
                                                 <p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
-                                                <div class='dt-sc-hr-invisible-small  '></div>
+                                                <div class='dt-sc-hr-invisible-small'></div>
                                                 <div class="dt-sc-clear"></div>
-                                                <ul class='dt-sc-fancy-list  green  tick'>
-                                                    <li>Makes the body slenderer and the figure more beautiful</li>
-                                                    <li>Effectively reduces cellulite problems</li>
-                                                    <li>Cleanses the body of waste substances and repairs blood and lymphatic circulation</li>
-                                                    <li>Makes the skin smoother, more elastic, softer and revitalises dry skin</li>
-                                                    <li>Reduces muscular and joint pains</li>
-                                                    <li>Relaxes, refreshes and gives a wonderful feeling, reduces fatigue and stress</li>
-                                                </ul>
+                                                <div class='dt-sc-fancy-list green tick'>
+                                                    @item.Description
+                                                </div>
                                             </div>
                                             <div class="dt-sc-tabs-frame-content">
                                                 <p>@item.Process</p>
-                                                <div class='dt-sc-hr-invisible  '></div>
+                                                <div class='dt-sc-hr-invisible'></div>
                                                 <p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
                                                 <div class='dt-sc-hr-invisible-small  '></div>
                                                 <div class="dt-sc-clear"></div>
-                                                <ul class='dt-sc-fancy-list  green  tick'>
-                                                    <li>Makes the body slenderer and the figure more beautiful</li>
-                                                    <li>Effectively reduces cellulite problems</li>
-                                                    <li>Cleanses the body of waste substances and repairs blood and lymphatic circulation</li>
-                                                    <li>Makes the skin smoother, more elastic, softer and revitalises dry skin</li>
-                                                    <li>Reduces muscular and joint pains</li>
-                                                    <li>Relaxes, refreshes and gives a wonderful feeling, reduces fatigue and stress</li>
-                                                </ul>
+                                                <div class='dt-sc-fancy-list green tick'>
+                                                    @item.Description
+                                                </div>
                                             </div>
                                             <div class="dt-sc-tabs-frame-content">
                                                 <p>@item.SpaTreatment</p>
-                                                <div class='dt-sc-hr-invisible  '></div>
+                                                <div class='dt-sc-hr-invisible'></div>
                                                 <p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
-                                                <div class='dt-sc-hr-invisible-small  '></div>
+                                                <div class='dt-sc-hr-invisible-small'></div>
                                                 <div class="dt-sc-clear"></div>
-                                                <ul class='dt-sc-fancy-list  green  tick'>
-                                                    <li>Makes the body slenderer and the figure more beautiful</li>
-                                                    <li>Effectively reduces cellulite problems</li>
-                                                    <li>Cleanses the body of waste substances and repairs blood and lymphatic circulation</li>
-                                                    <li>Makes the skin smoother, more elastic, softer and revitalises dry skin</li>
-                                                    <li>Reduces muscular and joint pains</li>
-                                                    <li>Relaxes, refreshes and gives a wonderful feeling, reduces fatigue and stress</li>
-                                                </ul>
+                                                <div class='dt-sc-fancy-list green tick'>
+                                                    @item.Description
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -154,33 +132,23 @@
                                             </ul>
                                             <div class="dt-sc-tabs-frame-content">
                                                 <p>@item.Preparation</p>
-                                                <div class='dt-sc-hr-invisible  '></div>
+                                                <div class='dt-sc-hr-invisible'></div>
                                                 <p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
-                                                <div class='dt-sc-hr-invisible-small  '></div>
+                                                <div class='dt-sc-hr-invisible-small'></div>
                                                 <div class="dt-sc-clear"></div>
-                                                <ul class='dt-sc-fancy-list  green  tick'>
-                                                    <li>Makes the body slenderer and the figure more beautiful</li>
-                                                    <li>Effectively reduces cellulite problems</li>
-                                                    <li>Cleanses the body of waste substances and repairs blood and lymphatic circulation</li>
-                                                    <li>Makes the skin smoother, more elastic, softer and revitalises dry skin</li>
-                                                    <li>Reduces muscular and joint pains</li>
-                                                    <li>Relaxes, refreshes and gives a wonderful feeling, reduces fatigue and stress</li>
-                                                </ul>
+                                                <div class='dt-sc-fancy-list green tick'>
+                                                    @item.Description
+                                                </div>
                                             </div>
                                             <div class="dt-sc-tabs-frame-content">
                                                 <p>@item.Process</p>
-                                                <div class='dt-sc-hr-invisible  '></div>
+                                                <div class='dt-sc-hr-invisible'></div>
                                                 <p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
-                                                <div class='dt-sc-hr-invisible-small  '></div>
+                                                <div class='dt-sc-hr-invisible-small'></div>
                                                 <div class="dt-sc-clear"></div>
-                                                <ul class='dt-sc-fancy-list  green  tick'>
-                                                    <li>Makes the body slenderer and the figure more beautiful</li>
-                                                    <li>Effectively reduces cellulite problems</li>
-                                                    <li>Cleanses the body of waste substances and repairs blood and lymphatic circulation</li>
-                                                    <li>Makes the skin smoother, more elastic, softer and revitalises dry skin</li>
-                                                    <li>Reduces muscular and joint pains</li>
-                                                    <li>Relaxes, refreshes and gives a wonderful feeling, reduces fatigue and stress</li>
-                                                </ul>
+                                                <div class='dt-sc-fancy-list green tick'>
+                                                    @item.Description
+                                                </div>
                                             </div>
                                             <div class="dt-sc-tabs-frame-content">
                                                 <p>@item.SpaTreatment</p>
@@ -188,14 +156,9 @@
                                                 <p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
                                                 <div class='dt-sc-hr-invisible-small  '></div>
                                                 <div class="dt-sc-clear"></div>
-                                                <ul class='dt-sc-fancy-list  green  tick'>
-                                                    <li>Makes the body slenderer and the figure more beautiful</li>
-                                                    <li>Effectively reduces cellulite problems</li>
-                                                    <li>Cleanses the body of waste substances and repairs blood and lymphatic circulation</li>
-                                                    <li>Makes the skin smoother, more elastic, softer and revitalises dry skin</li>
-                                                    <li>Reduces muscular and joint pains</li>
-                                                    <li>Relaxes, refreshes and gives a wonderful feeling, reduces fatigue and stress</li>
-                                                </ul>
+                                                <div class='dt-sc-fancy-list  green  tick'>
+                                                    @item.Description
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -220,7 +183,7 @@
 
 
 
-                <div class='fullwidth-section ' style="background-image:url(@Url.Content("~/Images/border.png"));background-repeat:repeat-x;padding-top:95px;">
+                <div class='fullwidth-section' style="background-image:url(@Url.Content("~/Images/border.png"));background-repeat:repeat-x;padding-top:95px;">
                     <div class="container">
                         <h2>KHUYẾN MÃI ĐẶC BIỆT TRONG NGÀY HÔM NAY</h2>
                         @if (Model.LstDiscount != null && Model.LstDiscount.Any())

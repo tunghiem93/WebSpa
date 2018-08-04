@@ -1,5 +1,6 @@
 ﻿using CMS_DTO.CMSProcedures;
 using CMS_Shared.CMSDiscount;
+using CMS_Shared.CMSProcedures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,11 @@ namespace CMS_Web.Controllers
 {
     public class ProceduresController : Controller
     {
+        private CMSProcedureFactory _facProce;
         private CMSDiscountFactory _facDis;
         public ProceduresController()
         {
+            _facProce = new CMSProcedureFactory();
             _facDis = new CMSDiscountFactory();
         }
         // GET: Procedures
@@ -21,6 +24,7 @@ namespace CMS_Web.Controllers
             var models = new CMS_ProceduresViewModels();
             try
             {
+                models.ListProcedures = _facProce.GetList();
                 models.LstDiscount = _facDis.GetList();
             }
             catch (Exception ex)
