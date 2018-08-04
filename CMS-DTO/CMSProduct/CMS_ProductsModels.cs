@@ -39,8 +39,6 @@ namespace CMS_DTO.CMSProduct
         public HttpPostedFileBase[] PictureUpload { get; set; }
         public byte[] PictureByte { get; set; }
         public string ImageURL { get; set; }
-
-        public int TypeCode { get; set; }
         public string BarCode { get; set; }
         public int Unit { get; set; }
         public string Measure { get; set; }

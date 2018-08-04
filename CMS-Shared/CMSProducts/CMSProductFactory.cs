@@ -32,7 +32,7 @@ namespace CMS_Shared.CMSProducts
                             var e = new CMS_Products
                             {
                                 ID = _Id,
-                                TypeCode = model.TypeCode,
+                                TypeCode = model.ProductTypeCode,
                                 CategoryID = model.CategoryId,
                                 Name = model.ProductName,
                                 ProductCode = model.ProductCode,
@@ -102,7 +102,7 @@ namespace CMS_Shared.CMSProducts
                             var proCheck = cxt.CMS_Products.Find(model.Id);
                             if (proCheck != null)
                             {
-                                proCheck.TypeCode = model.TypeCode;
+                                proCheck.TypeCode = model.ProductTypeCode;
                                 proCheck.CategoryID = model.CategoryId;
                                 proCheck.Name = model.ProductName;
                                 proCheck.ProductCode = model.ProductCode;
@@ -228,7 +228,7 @@ namespace CMS_Shared.CMSProducts
                         .Select(o => new CMS_ProductsModels
                         {
                             Id = o.ID,
-                            TypeCode = o.TypeCode,
+                            ProductTypeCode = o.TypeCode,
                             CategoryId = o.CategoryID,
                             ProductName = o.Name,
                             ProductCode = o.ProductCode,
@@ -291,7 +291,7 @@ namespace CMS_Shared.CMSProducts
                         .Select(o => new CMS_ProductsModels
                         {
                             Id = o.p.ID,
-                            TypeCode = o.p.TypeCode,
+                            ProductTypeCode = o.p.TypeCode,
                             CategoryId = o.p.CategoryID,
                             CategoryName = o.c.Name,
                             ProductName = o.p.Name,
@@ -317,7 +317,6 @@ namespace CMS_Shared.CMSProducts
                             IsShowInReservation = o.p.IsShowInReservation,
                             IsRecommend = o.p.IsRecommend,
                             StoreID = o.p.StoreID,
-                            ProductTypeCode = o.c.ProductTypeCode
                         }).ToList();
 
                     var listProductID = data.Select(o => o.Id).ToList();
