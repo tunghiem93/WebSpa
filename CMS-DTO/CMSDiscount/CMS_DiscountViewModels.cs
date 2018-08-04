@@ -8,10 +8,10 @@ namespace CMS_DTO.CMSDiscount
 {
     public class CMS_DiscountViewModels
     {
-        public List<CMSDiscountModels> LstChildren { get; set; }
+        public List<CMS_DiscountModels> LstChildren { get; set; }
         public CMS_DiscountViewModels()
         {
-            LstChildren = new List<CMSDiscountModels>();
+            LstChildren = new List<CMS_DiscountModels>();
         }
     }
 }

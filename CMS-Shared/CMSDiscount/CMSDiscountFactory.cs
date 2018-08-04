@@ -11,7 +11,7 @@ namespace CMS_Shared.CMSDiscount
 {
     public class CMSDiscountFactory
     {
-        public bool CreateOrUpdate(CMSDiscountModels model, ref string Id, ref string msg)
+        public bool CreateOrUpdate(CMS_DiscountModels model, ref string Id, ref string msg)
         {
             NSLog.Logger.Info("DiscountCreateOrUpdate", model);
             var Result = true;
@@ -135,17 +135,17 @@ namespace CMS_Shared.CMSDiscount
             return result;
         }
 
-        public CMSDiscountModels GetDetail(string Id)
+        public CMS_DiscountModels GetDetail(string Id)
         {
             NSLog.Logger.Info("DiscountGetDetail", Id);
-            CMSDiscountModels result = null;
+            CMS_DiscountModels result = null;
 
             try
             {
                 using (var cxt = new CMS_Context())
                 {
                     var data = cxt.CMS_Discount.Where(o => o.ID == Id && o.Status != (byte)Commons.EStatus.Deleted)
-                        .Select(o => new CMSDiscountModels
+                        .Select(o => new CMS_DiscountModels
                         {
                             Id = o.ID,
                             StoreID = o.StoreID,
@@ -172,17 +172,17 @@ namespace CMS_Shared.CMSDiscount
             return result;
         }
 
-        public List<CMSDiscountModels> GetList()
+        public List<CMS_DiscountModels> GetList()
         {
             NSLog.Logger.Info("DiscountGetList");
 
-            List<CMSDiscountModels> result = null;
+            List<CMS_DiscountModels> result = null;
             try
             {
                 using (var cxt = new CMS_Context())
                 {
                     var data = cxt.CMS_Discount.Where(o => o.Status != (byte)Commons.EStatus.Deleted)
-                        .Select(o => new CMSDiscountModels
+                        .Select(o => new CMS_DiscountModels
                         {
                             Id = o.ID,
                             StoreID = o.StoreID,

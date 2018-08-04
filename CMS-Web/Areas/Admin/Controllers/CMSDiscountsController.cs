@@ -40,17 +40,17 @@ namespace CMS_Web.Areas.Admin.Controllers
 
         public ActionResult Create()
         {
-            CMSDiscountModels model = new CMSDiscountModels();
+            CMS_DiscountModels model = new CMS_DiscountModels();
             return PartialView("_Create", model);
         }
 
-        public CMSDiscountModels GetDetail(string Id)
+        public CMS_DiscountModels GetDetail(string Id)
         {
             return _factory.GetDetail(Id);
         }
 
         [HttpPost]
-        public ActionResult Create(CMSDiscountModels model)
+        public ActionResult Create(CMS_DiscountModels model)
         {
             try
             {
@@ -84,7 +84,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                         ms.Write(photoByte, 0, photoByte.Length);
                         System.Drawing.Image imageTmp = System.Drawing.Image.FromStream(ms, true);
 
-                        ImageHelper.Me.SaveCroppedImage(imageTmp, path, model.ImageURL, ref photoByte, Commons.WidthCate, Commons.WidthCate, Commons.HeightCate);
+                        ImageHelper.Me.SaveCroppedImage(imageTmp, path, model.ImageURL, ref photoByte, Commons.WidthDisc, Commons.WidthDisc, Commons.HeightDisc);
                     }
                     return RedirectToAction("Index");
                 }
@@ -107,7 +107,7 @@ namespace CMS_Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(CMSDiscountModels model)
+        public ActionResult Edit(CMS_DiscountModels model)
         {
             var temp = model.ImageURL;
             try
@@ -152,7 +152,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                         ms.Write(photoByte, 0, photoByte.Length);
                         System.Drawing.Image imageTmp = System.Drawing.Image.FromStream(ms, true);
 
-                        ImageHelper.Me.SaveCroppedImage(imageTmp, path, model.ImageURL, ref photoByte, Commons.WidthCate, Commons.WidthCate, Commons.HeightCate);
+                        ImageHelper.Me.SaveCroppedImage(imageTmp, path, model.ImageURL, ref photoByte, Commons.WidthDisc, Commons.WidthDisc, Commons.HeightDisc);
                     }
                     return RedirectToAction("Index");
                 }
@@ -184,7 +184,7 @@ namespace CMS_Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(CMSDiscountModels model)
+        public ActionResult Delete(CMS_DiscountModels model)
         {
             try
             {
