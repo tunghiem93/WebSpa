@@ -27,6 +27,7 @@ namespace CMS_DTO.CMSProcedures
         public string Preparation { get; set; }
         public string Process { get; set; }
         public string SpaTreatment { get; set; }
+        public string Effect { get; set; }
         public string Duration { get; set; }
         public decimal Price { get; set; }
         public string CategoryId { get; set; }
