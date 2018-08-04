@@ -3,6 +3,9 @@
 }
 @model CMS_DTO.CMSNews.CMS_NewsViewModel
 @using CMS_Common;
+<style>
+    
+</style>
 
 <html>
 <body>
@@ -27,16 +30,16 @@
                         <div class="entry-meta">
                             <div class="date">
                                 <span>
-                                    @Html.Raw(string.Format("{0}", item.UpdatedDate.Day))
-                                    <br> @Html.Raw(string.Format("{0}", item.UpdatedDate.Month))
+                                    @Html.Raw(string.Format("{0}", item.UpdatedDate.Day.ToString("00")))
+                                    <br> @Html.Raw(string.Format("{0}", item.UpdatedDate.Month.ToString("00")))
                                     <br> @Html.Raw(string.Format("{0}", item.UpdatedDate.Year))
                                 </span>
                             </div>
-                            <p class="comments comments">
+                            @*<p class="comments comments">
                                 <a href="#">
                                     <span class="fa fa-comments"> </span> 0
                                 </a>
-                            </p>
+                            </p>*@
                         </div>
 
                         <div class="entry-thumb">
@@ -123,7 +126,7 @@
                 </article>
                 <div class="commententries" style="background-color: #fff; padding: 15px !important;">
                     <h3>NO COMMENTS</h3>
-                    <div class="fb-comments" data-href="http://cmsdemo.site/" data-numposts="5"></div>
+                    <div class="fb-comments" data-width="100%"  data-href="http://cmsdemo.site/" data-numposts="5" data-colorscheme="light"></div>
                 </div>
                 @*<div class="commententries">
                     <h3>NO COMMENTS</h3>

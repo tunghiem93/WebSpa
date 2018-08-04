@@ -2969,11 +2969,18 @@ img.size-auto, img.size-large, img.size-full, img.size-medium {
 }
 
 .commententries {
+    width: 84%;
+    float: right;
+    margin: 10px 0 0;
+    padding: 0
+}
+
+/*.commententries {
     width: 100%;
     float: left;
     margin: 10px 0 0;
     padding: 0
-}
+}*/
 
     .commententries h3 {
         font-size: 24px;
