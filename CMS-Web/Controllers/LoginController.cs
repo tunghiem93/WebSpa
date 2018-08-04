@@ -63,6 +63,11 @@ namespace CMS_Web.Controllers
                 userSession.Email = result.Email;
                 userSession.UserName = result.DisplayName;
                 userSession.IsAdminClient = result.IsAdmin;
+                userSession.FirstName = result.FirstName;
+                userSession.LastName = result.LastName;
+                userSession.Phone = result.Phone;
+                userSession.Address = result.Address;
+                userSession.UserId = result.Id;
                 Session.Add("UserClient", userSession);
                 string myObjectJson = JsonConvert.SerializeObject(userSession);  //new JavaScriptSerializer().Serialize(userSession);
                 HttpCookie cookie = new HttpCookie("UserClientCookie");

@@ -1,5 +1,6 @@
 ﻿using CMS_DTO.CMSCategories;
 using CMS_DTO.CMSOrder;
+using CMS_DTO.CMSSession;
 using CMS_DTO.CMSShop;
 using CMS_Shared;
 using CMS_Shared.CMSCategories;
@@ -114,8 +115,60 @@ namespace CMS_Web.Controllers
                         model.SubTotalPrice = data.Sum(o => o.TotalPrice);
                     }
                 }
+
+                /* get information customer from session */
+                if(Session["UserClient"] != null)
+                {
+                    var CusInfo = Session["UserClient"] as UserSession;
+                    model.Customer.FirstName = CusInfo.FirstName;
+                    model.Customer.LastName = CusInfo.LastName;
+                    model.Customer.Phone = CusInfo.Phone;
+                    model.Customer.Email = CusInfo.Email;
+                    model.Customer.Address = CusInfo.Address;
+                    model.Customer.Id = CusInfo.UserId;
+                }
+                
             }
             catch(Exception ex)
+            {
+                NSLog.Logger.Error("CheckOut", ex);
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult CheckOut(CMS_CheckOutModels model)
+        {
+            try
+            {
+                var _Orders = GetListOrderCookie();
+                NSLog.Logger.Info("List Order Cookie", JsonConvert.SerializeObject(_Orders));
+                if (_Orders != null && _Orders.Any())
+                {
+                    var ItemIds = _Orders.Select(x => x.ItemId).ToList();
+                    var data = _fac.GetList().Where(o => ItemIds.Contains(o.Id))
+                                             .Select(o => new CMS_ItemModels
+                                             {
+                                                 Price = o.ProductPrice,
+                                                 ProductID = o.Id,
+                                                 ProductName = o.ProductName,
+                                                 Quantity = o.Quantity
+                                             }).ToList();
+                    if (data != null && data.Any())
+                    {
+                        data.ForEach(o =>
+                        {
+                            var item = _Orders.FirstOrDefault(z => z.ItemId.Equals(o.ProductID));
+                            o.Quantity = item.Quantity;
+                            o.TotalPrice = Convert.ToDouble(o.Price * item.Quantity);
+                        });
+                        model.ListItem = data;
+                        model.TotalPrice = data.Sum(o => o.TotalPrice);
+                        model.SubTotalPrice = data.Sum(o => o.TotalPrice);
+                    }
+                }
+            }
+            catch (Exception ex)
             {
                 NSLog.Logger.Error("CheckOut", ex);
             }
