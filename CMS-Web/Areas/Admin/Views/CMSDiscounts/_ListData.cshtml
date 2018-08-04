@@ -12,7 +12,7 @@
                     <i class="fa fa-cogs"></i>Discount
                 </div>
                 <div class="actions">
-                    <a href="javascript:;" class="btn btn-default btn-sm" onclick='ShowView("@Url.Action("Create","CMSEmployees")")'>
+                    <a href="javascript:;" class="btn btn-default btn-sm" onclick='ShowView("@Url.Action("Create","CMSDiscounts")")'>
                         <i class="fa fa-plus"></i> Thêm mới
                     </a>
                 </div>
@@ -33,33 +33,23 @@
                             foreach (var item in Model)
                             {
                                 <tr class="odd gradeX">
+                                    <td class="text-center"> @item.Name </td>
                                     <td class="text-center">
-                                        @item.
+                                        @item.ValueType
                                     </td>
-                                    <td class="text-center"> @item.Employee_Email </td>
-                                    <td class="text-center">
-                                        @item.Employee_Phone
-                                    </td>
-                                    <td class="text-center">@item.BirthDate.ToString("dd/MM/yyyy")</td>
-                                    <td>@item.Employee_Address</td>
                                     <td class="text-center">
                                         <span class="label label-sm label-success"> @item.sStatus </span>
                                     </td>
                                     <td class="text-center">
                                         <a href="javascript:void(0)"
-                                           onclick='ShowView("@Url.Action("View", "CMSEmployees", new { Id = item.Id })")'
+                                           onclick='ShowView("@Url.Action("View", "CMSDiscounts", new { Id = item.Id })")'
                                            class="btn btn-primary btn-xs view details"><i class="fa fa-eye"></i>&nbsp;Xem</a>&nbsp;&nbsp;
                                         <a href="javascript:void(0)"
-                                           onclick='ShowView("@Url.Action("Edit", "CMSEmployees", new { Id = item.Id })")'
+                                           onclick='ShowView("@Url.Action("Edit", "CMSDiscounts", new { Id = item.Id })")'
                                            class="btn btn-info btn-xs edit details"><i class="fa fa-edit"></i>&nbsp;Cập nhập</a>&nbsp;&nbsp;
-                                        @{
-                                            if (!item.IsSupperAdmin)
-                                            {
-                                                <a href="javascript:void(0)"
-                                                   onclick='ShowView("@Url.Action("Delete","CMSEmployees",new { Id=item.Id})")'
-                                                   class="btn btn-danger btn-xs delete details"><i class="fa fa-trash-o"></i>&nbsp;Xóa</a>
-                                            }
-                                        }
+                                        <a href="javascript:void(0)"
+                                           onclick='ShowView("@Url.Action("Delete","CMSDiscounts",new { Id=item.Id})")'
+                                           class="btn btn-danger btn-xs delete details"><i class="fa fa-trash-o"></i>&nbsp;Xóa</a>
                                     </td>
                                 </tr>
                             }
@@ -74,7 +64,7 @@
 
 <script type="text/javascript">
     var _tableEmployee = null;
-    var _settingsOptionTableEmployee = {
+    var _settingsOptionTableDicount = {
         "language": {
             "aria": {
                 "sortAscending": ": activate to sort column ascending",
@@ -107,15 +97,14 @@
         },
         "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
         "lengthMenu": [
-            [6, 15, 20, -1],
-            [6, 15, 20, "All"] // change per page values here
+            [100, 150, 200, -1],
+            [100, 150, 200, "All"] // change per page values here
         ],
-        "pageLength": 6,
+        "pageLength": 100,
         "columnDefs": [
-            { "orderable": false, "targets": [6] },
-            { "width": "8%", "targets": [0] },
-            { "width": "5%", "targets": [1, 2, 3, 4, 5] },
-            { "width": "20%", "targets": [6] },
+            { "orderable": true, "targets": [0, 1, 2, 3] },
+            { "width": "33%", "targets": [3] },
+
         ],
         "order": [
             [1, "asc"]
@@ -123,7 +112,7 @@
     };
 
     $(document).ready(function () {
-        _tableEmployee = $('#sample_3').DataTable($.extend(true, {}, _settingsOptionTableEmployee));
+        _tableEmployee = $('#sample_3').DataTable($.extend(true, {}, _settingsOptionTableDicount));
     })
 
     function ShowView(url) {

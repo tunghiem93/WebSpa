@@ -16,16 +16,18 @@ namespace CMS_DTO.CMSDiscount
         [Required(ErrorMessage="Vui lòng nhập tên giảm giá")]
         [MaxLength(60,ErrorMessage ="Tên giảm giá tối đa 250 kí tự")]
         public string Name { get; set; }
-        public bool IsActive { get; set; }
-        public bool IsAllowOpenValue { get; set; }
-        public bool IsApplyTotalBill { get; set; }
         public string Description { get; set; }
-        public string ImageUrl { get; set; }
-        public byte ValueType { get; set; }
+        public double Value { get; set; }
+        public bool IsAllowOpenValue { get; set; }
+        public bool IsActive { get; set; }
+        public string sStatus { get; set; }
         public DateTime CreatedDate { get; set; }
         public string CreatedBy { get; set; }
         public DateTime UpdatedDate { get; set; }
         public string UpdatedBy { get; set; }
+        public string ImageUrl { get; set; }
+        public bool IsApplyTotalBill { get; set; }
+        public byte ValueType { get; set; }
         public CMSDiscountModels()
         {            
         }

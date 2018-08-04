@@ -1,9 +1,9 @@
-﻿@model CMS_DTO.CMSEmployee.CMS_EmployeeModels
+﻿@model CMS_DTO.CMSDiscount.CMSDiscountModels
 <div role="main" style="display:inline-block;height:100%;width:100%">
     @*<div class="se-pre-con" style="display: none;"></div>*@
     <div class="page-title">
         <!-- BEGIN PAGE BAR -->
-        @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Trang chủ" }, { "B", "Nhân viên - Thêm mới" } })
+        @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Trang chủ" }, { "B", "Mã giảm giá - Thêm mới" } })
         <!-- END PAGE BAR -->
     </div>
     <div class="page-main">
@@ -26,7 +26,7 @@
                     </ul>
                 </div>
                 <div class="box-body" style="display: block;">
-                    @using (@Html.BeginForm("Create", "CMSEmployees", FormMethod.Post, new { @id = "form-create", @class = "form-horizontal", @enctype = "multipart/form-data" }))
+                    @using (@Html.BeginForm("Create", "CMSDiscounts", FormMethod.Post, new { @id = "form-create", @class = "form-horizontal", @enctype = "multipart/form-data" }))
                     {
                         @Html.Partial("_Form", Model)
                     }
