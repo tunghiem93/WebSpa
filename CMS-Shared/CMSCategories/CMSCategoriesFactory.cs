@@ -174,6 +174,14 @@ namespace CMS_Shared.CMSCategories
                             Sequence = x.Sequence,
                         }).ToList();
 
+                    var listCountProductCate = cxt.CMS_Products.Where(o => o.Status != (byte)Commons.EStatus.Deleted)
+                        .GroupBy(o => o.CategoryID).Select(o => new
+                        {
+                            CateID = o.Key,
+                            Count = o.Count(),
+                        }).ToList();
+                    data.ForEach(o => o.NumberOfProduct = listCountProductCate.Where(c => c.CateID == o.Id).Select(c => c.Count).FirstOrDefault());
+                    
                     /* response data */
                     result = data;
                     NSLog.Logger.Info("ResponseCateGetList", result);
@@ -201,17 +209,17 @@ namespace CMS_Shared.CMSCategories
                                                             (c, p) => new { c, p })
                                                   .Where(o => o.c.Status != (byte)Commons.EStatus.Deleted /*&& o.c.ProductTypeCode == (int)Commons.EProductType.Product*/)
                                                   .Select(o => new CMS_CategoryViewModels
-                                                   {
-                                                       Id = o.c.ID,
-                                                       Name = o.c.Name,
-                                                       ParentId = o.c.ParentID,
-                                                       TotalProduct = o.c.CMS_Products.Count
-                                                   }).ToList();
+                                                  {
+                                                      Id = o.c.ID,
+                                                      Name = o.c.Name,
+                                                      ParentId = o.c.ParentID,
+                                                      TotalProduct = o.c.CMS_Products.Count
+                                                  }).ToList();
                     result = data;
                     NSLog.Logger.Info("ResponseGetListProductCate", result);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 NSLog.Logger.Error("ErrorGetListProductCate", ex);
             }
