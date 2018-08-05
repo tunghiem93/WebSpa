@@ -232,6 +232,10 @@ namespace CMS_Shared.CMSCustomers
                                                   DisplayName = x.FirstName + " " + x.LastName,
                                                   Password = x.Password,
                                                   IsAdmin = false,
+                                                  FirstName = x.FirstName,
+                                                  LastName = x.LastName,
+                                                  Phone = x.Phone,
+                                                  Id = x.ID
                                               })
                                               .FirstOrDefault();
                     return data;

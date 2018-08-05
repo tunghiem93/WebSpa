@@ -16,6 +16,11 @@ namespace CMS_DTO.CMSCustomer
         public bool IsRemember { get; set; }
         public string DisplayName { get; set; }
         public bool IsAdmin { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Address { get; set; }
+        public string Phone { get; set; }
+        public string Id { get; set; }
         public ClientLoginModel()
         {
             IsRemember = true;
