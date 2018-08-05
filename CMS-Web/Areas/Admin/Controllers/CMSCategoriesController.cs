@@ -195,13 +195,21 @@ namespace CMS_Web.Areas.Admin.Controllers
                     Response.StatusCode = (int)HttpStatusCode.BadRequest;
                     return PartialView("_Delete", model);
                 }
+
+                var orgImageUrl = "";
+                if (!string.IsNullOrEmpty(model.ImageURL))
+                {
+                    model.ImageURL = model.ImageURL.Replace(Commons._PublicImages, "").Replace("Discounts/", "").Replace(Commons.Image200_100, "");
+                    orgImageUrl = model.ImageURL;
+                }
+
                 var msg = "";
                 var result = _factory.Delete(model.Id, ref msg);
                 if (result)
                 {
-                    if (System.IO.File.Exists(Server.MapPath("~/Uploads/Categories/" + model.ImageURL)))
+                    if (System.IO.File.Exists(Server.MapPath("~/Uploads/Categories/" + orgImageUrl)))
                     {
-                        ImageHelper.Me.TryDeleteImageUpdated(Server.MapPath("~/Uploads/Categories/" + model.ImageURL));
+                        ImageHelper.Me.TryDeleteImageUpdated(Server.MapPath("~/Uploads/Categories/" + orgImageUrl));
                     }
 
                     return RedirectToAction("Index");

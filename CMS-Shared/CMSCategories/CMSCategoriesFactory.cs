@@ -199,7 +199,7 @@ namespace CMS_Shared.CMSCategories
                                                             c => c.ID,
                                                             p => p.CategoryID,
                                                             (c, p) => new { c, p })
-                                                  .Where(o => o.c.Status != (byte)Commons.EStatus.Deleted && o.c.ProductTypeCode == (int)Commons.EProductType.Product)
+                                                  .Where(o => o.c.Status != (byte)Commons.EStatus.Deleted /*&& o.c.ProductTypeCode == (int)Commons.EProductType.Product*/)
                                                   .Select(o => new CMS_CategoryViewModels
                                                    {
                                                        Id = o.c.ID,
