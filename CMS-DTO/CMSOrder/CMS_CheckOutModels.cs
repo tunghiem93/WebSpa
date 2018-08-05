@@ -14,6 +14,9 @@ namespace CMS_DTO.CMSOrder
         public double TotalPrice { get; set; }
         public double SubTotalPrice { get; set; }
         public string StoreID { get; set; }
+        public string CreatedUser { get; set; }
+        public string ModifiedUser { get; set; }
+        public bool IsError { get; set; }
         public CMS_CheckOutModels()
         {
             ListItem = new List<CMS_ItemModels>();

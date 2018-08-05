@@ -1,4 +1,5 @@
-﻿using CMS_DataModel.Models;
+﻿using CMS_Common;
+using CMS_DataModel.Models;
 using CMS_DTO.CMSOrder;
 using CMS_Shared.Utilities;
 using System;
@@ -23,8 +24,26 @@ namespace CMS_Shared.CMSOrders
                         if(string.IsNullOrEmpty(model.Customer.Id))
                         {
                             // create new customer 
-                        }
+                            model.Customer.Id = Guid.NewGuid().ToString();
+                            var eCus = new CMS_Customer
+                            {
+                                ID = model.Customer.Id,
+                                FirstName = model.Customer.FirstName,
+                                LastName = model.Customer.LastName,
+                                Email = model.Customer.Email,
+                                Phone = model.Customer.Phone,
+                                CreatedDate = DateTime.Now,
+                                LastModified = DateTime.Now,
+                                CustomerType = (int)CMS_Common.Commons.ECustomerType.Anonymous,
+                                HomeCountry = model.Customer.Country,
+                                OfficeZipCode = model.Customer.PostCode,
+                                Status = (byte)CMS_Common.Commons.EStatus.Actived,
+                                Anniversary = Commons.MinDate,
+                                ValidTo = Commons.MinDate,
 
+                            };
+                            db.CMS_Customer.Add(eCus);
+                        }
                         // create order
                         var _OrderId = Guid.NewGuid().ToString();
                         var eOrder = new CMS_Order
@@ -37,8 +56,8 @@ namespace CMS_Shared.CMSOrders
                             SubTotal = model.SubTotalPrice,
                             CreatedDate = DateTime.Now,
                             LastModified = DateTime.Now,
-                            CreatedUser = model.Customer.Id,
-                            ModifiedUser = model.Customer.Id,
+                            CreatedUser = string.IsNullOrEmpty(model.CreatedUser) ? model.Customer.Id : model.CreatedUser,
+                            ModifiedUser = string.IsNullOrEmpty(model.ModifiedUser) ? model.Customer.Id : model.ModifiedUser,
                             Status = (byte)CMS_Common.Commons.EStatus.Actived
                         };
                         db.CMS_Order.Add(eOrder);
@@ -57,8 +76,8 @@ namespace CMS_Shared.CMSOrders
                                     Quantity = (decimal)item.Quantity,
                                     Description = model.Customer.Description,
                                     CreatedDate = DateTime.Now,
-                                    CreatedUser = model.Customer.Id,
-                                    ModifiedUser = model.Customer.Id,
+                                    CreatedUser = string.IsNullOrEmpty(model.CreatedUser) ? model.Customer.Id : model.CreatedUser,
+                                    ModifiedUser = string.IsNullOrEmpty(model.ModifiedUser) ? model.Customer.Id : model.ModifiedUser,
                                     LastModified = DateTime.Now,
                                 });
                             }

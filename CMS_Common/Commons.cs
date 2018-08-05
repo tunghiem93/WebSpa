@@ -71,6 +71,12 @@ namespace CMS_Common
             Percent = 0,
             Currency = 1,
         }
+
+        public enum ECustomerType
+        {
+            Customer = 0,
+            Anonymous = 1
+        }
         #endregion
     }
 }

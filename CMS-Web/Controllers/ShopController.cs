@@ -169,7 +169,15 @@ namespace CMS_Web.Controllers
                         model.TotalPrice = data.Sum(o => o.TotalPrice);
                         model.SubTotalPrice = data.Sum(o => o.TotalPrice);
                     }
-                    _facOrder.CreateOrder(model);
+                    var result =  _facOrder.CreateOrder(model);
+                    if(result)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        model.IsError = true;
+                    }
                 }
             }
             catch (Exception ex)
