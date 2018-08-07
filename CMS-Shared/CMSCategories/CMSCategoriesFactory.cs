@@ -91,8 +91,17 @@ namespace CMS_Shared.CMSCategories
                     var e = cxt.CMS_Categories.Find(Id);
                     if (e != null)
                     {
-                        e.Status = (byte)Commons.EStatus.Deleted;
-                        cxt.SaveChanges();
+                        var isExistProduct = cxt.CMS_Products.Where(o => o.CategoryID == Id && o.Status != (byte)Commons.EStatus.Deleted).Count() > 0;
+                        if (!isExistProduct)
+                        {
+                            e.Status = (byte)Commons.EStatus.Deleted;
+                            cxt.SaveChanges();
+                        }
+                        else
+                        {
+                            result = false;
+                            msg = "Have product in this cate, unable to delete cate.";
+                        }
                     }
                     else
                     {
