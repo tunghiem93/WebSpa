@@ -48,6 +48,7 @@ namespace CMS_DTO.CMSEmployee
 
         public byte[] PictureByte { get; set; }
         public string ImageURL { get; set; }
+        public string Quote { get; set; }
         public CMS_EmployeeModels()
         {
             IsActive = true;

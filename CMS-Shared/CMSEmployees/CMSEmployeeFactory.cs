@@ -47,6 +47,7 @@ namespace CMS_Shared.CMSEmployees
                             CreatedUser = model.CreatedBy,
                             ModifiedUser = model.CreatedBy,
                             LastModified = DateTime.Now,
+                            Quote = model.Quote,
                         };
                         cxt.CMS_Employee.Add(e);
                     }
@@ -75,6 +76,7 @@ namespace CMS_Shared.CMSEmployees
                             e.Status = (byte)Commons.EStatus.Actived;
                             e.ModifiedUser = model.CreatedBy;
                             e.LastModified = DateTime.Now;
+                            e.Quote = model.Quote;
                         }
                         else
                         {
@@ -160,7 +162,7 @@ namespace CMS_Shared.CMSEmployees
                             ImageURL = string.IsNullOrEmpty(o.ImageUrl) ? "" : o.ImageUrl,
                             StoreID = o.StoreID,
                             IsSupperAdmin = o.IsSupperAdmin,
-                            
+                            Quote = o.Quote,
                         }).FirstOrDefault();
 
                     result = data;
@@ -205,6 +207,7 @@ namespace CMS_Shared.CMSEmployees
                             ImageURL = string.IsNullOrEmpty(o.ImageUrl) ? "" : o.ImageUrl,
                             StoreID = o.StoreID,
                             IsSupperAdmin = o.IsSupperAdmin,
+                            Quote = o.Quote,
                         }).ToList();
 
                     /* response data */

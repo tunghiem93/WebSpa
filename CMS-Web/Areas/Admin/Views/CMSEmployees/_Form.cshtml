@@ -36,17 +36,9 @@
         </div>
 
         <div class="form-group">
-            <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Tên</label>
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Họ và Tên</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Họ", @autocomplete = "off" })
-                @Html.ValidationMessageFor(model => model.Name, null, new { @class = "label label-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Name</label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Name", @autocomplete = "off" })
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Họ và Tên", @autocomplete = "off" })
                 @Html.ValidationMessageFor(model => model.Name, null, new { @class = "label label-danger" })
             </div>
         </div>
@@ -60,15 +52,7 @@
         </div>*@
 
         <div class="form-group">
-            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Email (VN)</label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                @Html.TextBoxFor(model => model.Employee_Email, new { @class = "form-control", @placeholder = "Địa chỉ email", @autocomplete = "off" })
-                @Html.ValidationMessageFor(model => model.Employee_Email, null, new { @class = "label label-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Email (US)</label>
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Email</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 @Html.TextBoxFor(model => model.Employee_Email, new { @class = "form-control", @placeholder = "Địa chỉ email", @autocomplete = "off" })
                 @Html.ValidationMessageFor(model => model.Employee_Email, null, new { @class = "label label-danger" })
@@ -83,24 +67,8 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Phone</label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                @Html.TextBoxFor(model => model.Employee_Phone, new { @class = "form-control", @placeholder = "Điện thoại", @autocomplete = "off" })
-                @Html.ValidationMessageFor(model => model.Employee_Phone, null, new { @class = "label label-danger" })
-            </div>
-        </div>
-
         <div class="form-group form-inline">
             <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Ngày sinh</label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                @Html.TextBoxFor(model => model.BirthDate, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Ngày sinh", @autocomplete = "off" })
-                @Html.ValidationMessageFor(model => model.BirthDate, null, new { @class = "label label-danger" })
-            </div>
-        </div>
-
-        <div class="form-group form-inline">
-            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">BirthDate</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 @Html.TextBoxFor(model => model.BirthDate, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Ngày sinh", @autocomplete = "off" })
                 @Html.ValidationMessageFor(model => model.BirthDate, null, new { @class = "label label-danger" })
@@ -124,19 +92,21 @@
         </div>
 
         <div class="form-group">
-            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Street</label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                @Html.TextBoxFor(model => model.Street, new { @class = "form-control", @placeholder = "Địa chỉ", @autocomplete = "off" })
-                @Html.ValidationMessageFor(model => model.Street, null, new { @class = "label label-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Trạng thái</label>
             <div class="col-md-1 col-sm-1 col-xs-12">
                 <label>@Html.CheckBoxFor(model => model.IsActive, new { @class = "icheck" })</label>
             </div>
         </div>
+
+        <!--Description-->
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Lời hay ý đẹp</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+                @Html.TextAreaFor(model => model.Quote, new { @class = "form-control textcontent", placeholder = "Châm ngôn sống" })
+                @Html.ValidationMessageFor(model => model.Quote, null, new { @class = "label" })
+            </div>
+        </div>
+
     </fieldset>
 </div>
 <script src="@Url.Content("~/Scripts/InputCustom.js")"></script>

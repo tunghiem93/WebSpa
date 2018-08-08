@@ -245,11 +245,22 @@
                                     <li>
                                         <div class='dt-sc-testimonial'>
                                             <blockquote>
-                                                <q>
-                                                    Cho mọi vẻ đẹp đều có một con mắt nhìn thấy vẻ đẹp ấy  ở một nơi nào đó. Cho mọi sự thực luôn có một cái tai  nghe thấu sự thực ấy . Cho mọi tình yêu đều có một trái tim ở  một nơi nào đó để đón nhận tình yêu ấy.
-                                                </q>
+                                                @{
+                                                    if (!string.IsNullOrEmpty(item.Quote))
+                                                    {
+                                                        <q>
+                                                            @item.Quote
+                                                        </q>
+                                                    }
+                                                    else
+                                                    {
+                                                        <q>
+                                                            Cho mọi vẻ đẹp đều có một con mắt nhìn thấy vẻ đẹp ấy  ở một nơi nào đó. Cho mọi sự thực luôn có một cái tai  nghe thấu sự thực ấy . Cho mọi tình yêu đều có một trái tim ở  một nơi nào đó để đón nhận tình yêu ấy.
+                                                        </q>
+                                                    }
+                                                }
                                             </blockquote>
-                                            <cite> - @item.Name </cite>
+                                            <cite> - @item.Name -</cite>
                                             <div class='author'>
                                                 <span>
                                                     <img src='@item.ImageURL' alt='<cite> - @item.Name </cite>'
