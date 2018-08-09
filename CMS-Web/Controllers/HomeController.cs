@@ -6,6 +6,7 @@ using CMS_Shared.CMSCategories;
 using CMS_Shared.CMSCompanies;
 using CMS_Shared.CMSEmployees;
 using CMS_Shared.CMSNews;
+using CMS_Shared.CMSProcedures;
 using CMS_Shared.CMSProducts;
 using CMS_Shared.Utilities;
 using System;
@@ -23,6 +24,7 @@ namespace CMS_Web.Controllers
         private CMSCategoriesFactory _facCate;
         private CMSNewsFactory _facNews;
         private CMSEmployeeFactory _facEmp;
+        private CMSProcedureFactory _facProce;
         public HomeController()
         {
             _fac = new CMSProductFactory();
@@ -30,6 +32,7 @@ namespace CMS_Web.Controllers
             _facCate = new CMSCategoriesFactory();
             _facNews = new CMSNewsFactory();
             _facEmp = new CMSEmployeeFactory();
+            _facProce = new CMSProcedureFactory();
         }
         // GET: Clients/Home
         public ActionResult Index()
@@ -46,7 +49,9 @@ namespace CMS_Web.Controllers
 
                 //Product
                 model.ListProduct = _fac.GetList().Where(o => !string.IsNullOrEmpty(o.ImageURL)).OrderByDescending(x => x.CreatedDate).Skip(0).Take(8).ToList();
-                
+
+                //Procedures
+                model.ListProcedures = _facProce.GetList().OrderBy(o => o.CreatedDate).Skip(0).Take(3).ToList();
                 //News
                 model.ListNews = _facNews.GetList().OrderByDescending(x => x.CreatedDate).Skip(0).Take(3).ToList();
                 if(model.ListNews != null && model.ListNews.Any())
@@ -56,7 +61,7 @@ namespace CMS_Web.Controllers
                         if (!string.IsNullOrEmpty(x.ImageURL))
                             x.ImageURL = "~/Uploads/News/" + x.ImageURL;
                     });
-                }
+                }                
 
                 model.ListEmployee = _facEmp.GetList().OrderBy(o => o.CreatedDate).Skip(0).Take(10).ToList();
                 if(model.ListEmployee != null)
