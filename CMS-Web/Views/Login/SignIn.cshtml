@@ -35,8 +35,7 @@
                                 Tên đăng nhập hoặc email
                                 <span class="required">*</span>
                             </label>
-                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control input-text", @id = "username", @placeholder = "*Tên đăng nhập", @type = "email", })
-                            @Html.ValidationMessageFor(model => model.Email, null, new { @class = "label label-danger", })
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control input-text", @id = "username", @placeholder = "*Tên đăng nhập", @type = "email", })                            
                         </p>
                         <p class="form-row form-row-wide">
                             <label for="password">
@@ -44,16 +43,16 @@
                                 <span class="required">*</span>
                             </label>
                             @Html.PasswordFor(model => model.Password, new { @class = "form-control input-text", @id = "password", @placeholder = "*Mật khẩu", @type = "password" })
-                            @Html.ValidationMessageFor(model => model.Password, null, new { @class = "label label-danger", })
                         </p>
-                            <p class="form-row">
-                                <input type="hidden" id="_wpnonce" name="_wpnonce" value="e8f5622d97" />
-                                <input type="hidden" name="_wp_http_referer" value="/shop/my-account/" />
-                                <input type="submit" class="button" name="login" value="Đăng nhập" />
-                                <label for="rememberme" class="inline">
-                                    <input name="rememberme" type="checkbox" id="rememberme" value="forever" /> Ghi nhớ mật khẩu
-                                </label>
-                            </p>
+                        <p class="form-row">
+                            <input type="hidden" id="_wpnonce" name="_wpnonce" value="e8f5622d97" />
+                            <input type="hidden" name="_wp_http_referer" value="/shop/my-account/" />
+                            <input type="submit" class="button" name="login" value="Đăng nhập" />
+                            <label for="rememberme" class="inline">
+                                <input name="rememberme" type="checkbox" id="rememberme" value="forever" /> Ghi nhớ mật khẩu
+                            </label>
+                            @Html.ValidationMessageFor(model => model.Email, null, new { @class = "label label-danger", })
+                        </p>
                             <p class="lost_password">
                                 <a href="javascript:void(0)">Quên mật khẩu?</a>
                             </p>
