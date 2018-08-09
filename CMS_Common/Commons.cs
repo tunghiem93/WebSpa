@@ -24,6 +24,8 @@ namespace CMS_Common
         public static int HeightEmp = Convert.ToInt16(ConfigurationManager.AppSettings["HeightEmp"]);
         public static int WidthDisc = Convert.ToInt16(ConfigurationManager.AppSettings["WidthDisc"]);
         public static int HeightDisc = Convert.ToInt16(ConfigurationManager.AppSettings["HeightDisc"]);
+        public static int WidthProcedure = Convert.ToInt16(ConfigurationManager.AppSettings["WidthProcedure"]);
+        public static int HeightProcedure = Convert.ToInt16(ConfigurationManager.AppSettings["HeightProcedure"]);
 
         public static int WidthImageNews = Convert.ToInt16(ConfigurationManager.AppSettings["WidthImageNews"]);
         public static int HeightImageNews = Convert.ToInt16(ConfigurationManager.AppSettings["HeightImageNews"]);
