@@ -11,6 +11,7 @@ namespace CMS_Common
     {
         public const string Image100_50 = "http://placehold.it/100x50";
         public const string Image200_100 = "http://placehold.it/200x100";
+        public const string Image382_382 = "http://placehold.it/382x382";
         public const string Image500_500 = "http://placehold.it/500x500";
         public const string Image600_450 = "http://placehold.it/600x450";
         public const string Image920_535 = "http://placehold.it/920x535";
