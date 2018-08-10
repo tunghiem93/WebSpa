@@ -55,8 +55,6 @@ namespace CMS_Web.Areas.Admin.Controllers
         {
             try
             {
-                byte[] photoByte = null;
-
                 if (!ModelState.IsValid)
                 {
                     Response.StatusCode = (int)HttpStatusCode.BadRequest;
@@ -136,7 +134,7 @@ namespace CMS_Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(CMS_DiscountModels model)
+        public ActionResult Delete(CMS_RoleModels model)
         {
             try
             {

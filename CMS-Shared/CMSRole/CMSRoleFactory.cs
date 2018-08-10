@@ -26,18 +26,19 @@ namespace CMS_Shared.CMSRole
                         var checkDup = cxt.CMS_Role.Where(o => o.Name.Trim() == model.Name.Trim()).FirstOrDefault();
                         if (checkDup == null)
                         {
-                            var e = new CMS_Discount
+                            var e = new CMS_Role
                             {
                                 ID = Id,
                                 StoreID = model.StoreID,
                                 Name = model.Name,
+                                IsActive = model.IsActive,
                                 Status = (byte)Commons.EStatus.Actived,
                                 CreatedDate = DateTime.Now,
                                 CreatedUser = model.CreatedBy,
                                 ModifiedUser = model.CreatedBy,
                                 LastModified = DateTime.Now,
                             };
-                            cxt.CMS_Discount.Add(e);
+                            cxt.CMS_Role.Add(e);
                         }
                         else
                         {
