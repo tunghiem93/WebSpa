@@ -143,24 +143,25 @@
     <!-- END THEME LAYOUT SCRIPTS -->
     <script src="@Url.Content("~/Scripts/Common.js")"></script>
    @* <script src="@Url.Content("~/Scripts/custom.js")"></script>*@
+    <script type="text/javascript">
+        var CURRENT_URL = window.location.href.split('?')[0],
+            $BODY = $('body'),
+            $MENU_TOGGLE = $('#menu_toggle'),
+            $SIDEBAR_MENU = $('#sidebar-menu');
+        
+
+        $(document).ready(function () {
+
+            $SIDEBAR_MENU.find('li').removeClass("active");
+
+            $SIDEBAR_MENU.find('a[href="' + CURRENT_URL + '"]').parent('li').addClass('current-page');
+
+            $SIDEBAR_MENU.find('a').filter(function () {
+                return this.href.toLowerCase() == CURRENT_URL.toLowerCase();
+            }).parent('li').addClass('current-page').addClass("active");
+        })
+    </script>
 </body>
 </html>
 
-<script type="text/javascript">
-    var CURRENT_URL = window.location.href.split('?')[0],
-        $BODY = $('body'),
-        $MENU_TOGGLE = $('#menu_toggle'),
-        $SIDEBAR_MENU = $('#sidebar-menu');
-        
 
-    $(document).ready(function () {
-
-        $SIDEBAR_MENU.find('li').removeClass("active");
-
-        $SIDEBAR_MENU.find('a[href="' + CURRENT_URL + '"]').parent('li').addClass('current-page');
-
-        $SIDEBAR_MENU.find('a').filter(function () {
-            return this.href.toLowerCase() == CURRENT_URL.toLowerCase();
-        }).parent('li').addClass('current-page').addClass("active");
-    })
-</script>
