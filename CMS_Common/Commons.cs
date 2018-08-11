@@ -89,6 +89,7 @@ namespace CMS_Common
             REPORT = 400,
             ROLE = 500,
             Order = 600,
+            News = 700,
         }
         #endregion
     }

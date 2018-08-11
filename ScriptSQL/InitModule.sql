@@ -7,6 +7,7 @@ INSERT INTO [dbo].[CMS_Module]  VALUES   ('b42f50c3-6b0a-4e63-8e37-72cca4794414'
 INSERT INTO [dbo].[CMS_Module]  VALUES   ('33d934d6-8e09-40e7-832e-da76403ecc50' ,'Report' ,'' ,1  ,getdate() ,'admin'  ,'admin' ,getdate(),400)
 INSERT INTO [dbo].[CMS_Module]  VALUES   ('58bc9836-e3c9-4c0d-9d7b-daeb1f0035a4' ,'Role' ,'' ,1  ,getdate() ,'admin'  ,'admin' ,getdate(),500)
 INSERT INTO [dbo].[CMS_Module]  VALUES   ('87011665-cf9e-4019-a417-bd3312b2d6f7' ,'Order' ,'' ,1  ,getdate() ,'admin'  ,'admin' ,getdate(),600)
+INSERT INTO [dbo].[CMS_Module]  VALUES   ('90202b80-be7c-4e55-8e40-b68f642fe71f' ,'News' ,'' ,1  ,getdate() ,'admin'  ,'admin' ,getdate(),700)
 
 GO
 
