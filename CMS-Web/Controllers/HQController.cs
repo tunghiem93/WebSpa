@@ -1,4 +1,6 @@
-﻿using CMS_DTO.CMSSession;
+﻿using CMS_DTO.CMSProcedures;
+using CMS_DTO.CMSSession;
+using CMS_Shared.CMSProcedures;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -28,6 +30,24 @@ namespace CMS_Web.Controllers
                 }
             }
             System.Web.HttpContext.Current.Session["SliderSession"] = ListSlider;
+
+            //For Procedures
+            CMSProcedureFactory _facPro = new CMSProcedureFactory();
+            var ListProce = new List<ProcedureUI>();
+            var LstPro = _facPro.GetList().Skip(0).Take(9).OrderBy(o=>o.ProceduresName).ToList();
+            if (LstPro != null && LstPro.Count > 0)
+            {
+                for (var i = 0; i < LstPro.Count; i++)
+                {
+                    ListProce.Add(new ProcedureUI
+                    {
+                        ID = LstPro[i].Id,
+                        Name = LstPro[i].ProceduresName
+                    });
+                }
+            }
+            System.Web.HttpContext.Current.Session["ProcedureUI"] = ListProce;
+
         }
 
         public List<OrderCookie> GetListOrderCookie()
