@@ -80,6 +80,16 @@ namespace CMS_Common
             Customer = 0,
             Anonymous = 1
         }
+
+        public enum ESetting
+        {
+            EMPLOYEE = 100,
+            CUSTOMER = 200,
+            PRODUCT = 300,
+            REPORT = 400,
+            ROLE = 500,
+            Order = 600,
+        }
         #endregion
     }
 }

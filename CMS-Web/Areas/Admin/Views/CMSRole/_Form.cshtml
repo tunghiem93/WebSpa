@@ -29,6 +29,10 @@
                 <label>@Html.CheckBoxFor(model => model.IsActive, new { @class = "icheck" })</label>
             </div>
         </div>
+        <div class="detail-view" style="height:100%;">
+            <!-- detail partial view -->
+            @Html.Partial("_ListDataPermission", Model.ListPermission)
+        </div>
     </fieldset>
 </div>
 <script src="@Url.Content("~/Scripts/InputCustom.js")"></script>

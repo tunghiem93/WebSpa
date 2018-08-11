@@ -23,12 +23,19 @@
                             {
                                 <tr class="odd gradeX">
                                     <td class="text-center"> @item.ModuleName </td>
-                                    <label>@Html.CheckBoxFor(item => item.IsView, new { @class = "icheck" })</label>
-                                    <label>@Html.CheckBoxFor(item => item.IsAction, new { @class = "icheck" })</label>
+                                    <td>
+                                        <label>@Html.CheckBox(@item.ModuleName + "_IsView", item.IsView, new { @class = "icheck" })</label>
+                                    </td>
+                                    <td>
+                                        <label>@Html.CheckBox(@item.ModuleName + "_IsAction", item.IsAction, new { @class = "icheck" })</label>
+                                    </td>
                                 </tr>
+                                @Html.Hidden(item.Id, item.Id);
+                                @Html.Hidden(item.ModuleID, item.ModuleID);
                             }
                         }
                     </tbody>
+
                 </table>
             </div>
         </div>

@@ -23,6 +23,7 @@ namespace CMS_Shared.CMSRole
                     if (string.IsNullOrEmpty(model.Id)) /* insert */
                     {
                         Id = Guid.NewGuid().ToString();
+                        model.Id = Id;
                         var checkDup = cxt.CMS_Role.Where(o => o.Name.Trim() == model.Name.Trim()).FirstOrDefault();
                         if (checkDup == null)
                         {
@@ -45,7 +46,7 @@ namespace CMS_Shared.CMSRole
                             msg = "Duplicate Name";
                             Result = false;
                         }
-                        
+
                     }
                     else /* updated */
                     {
@@ -74,6 +75,12 @@ namespace CMS_Shared.CMSRole
                         }
                     }
 
+                    if (Result == true)
+                    {
+                        /* insert list module permission */
+                        CreateOrUpdatePermission(model);
+                    }
+
                     cxt.SaveChanges();
                     NSLog.Logger.Info("ResponseRoleCreateOrUpdate", new { Result, msg });
 
@@ -87,6 +94,70 @@ namespace CMS_Shared.CMSRole
             }
             return Result;
         }
+
+        public bool CreateOrUpdatePermission(CMS_RoleModels model)
+        {
+            NSLog.Logger.Info("RoleCreateOrUpdatePermission", model);
+
+            var result = false;
+            try
+            {
+                using (var cxt = new CMS_Context())
+                {
+                    var listInsertPermission = model.ListPermission.Where(o => string.IsNullOrEmpty(o.Id)).ToList();
+                    if (listInsertPermission.Count > 0) /* insert */
+                    {
+                        var listInrtPerDB = new List<CMS_ModulePermission>();
+                        listInsertPermission.ForEach(o =>
+                        {
+                            listInrtPerDB.Add(new CMS_ModulePermission()
+                            {
+                                ID = Guid.NewGuid().ToString(),
+                                ModuleID = o.ModuleID,
+                                RoleID = model.Id,
+                                StoreID = model.StoreID,
+                                IsView = o.IsView,
+                                IsAction = o.IsAction,
+                                IsActive = true,
+                                Status = (byte)Commons.EStatus.Actived,
+                                CreatedDate = DateTime.Now,
+                                CreatedUser = model.CreatedBy,
+                                ModifiedUser = model.CreatedBy,
+                                LastModified = DateTime.Now,
+                            });
+                        });
+                        cxt.CMS_ModulePermission.AddRange(listInrtPerDB);
+                    }
+
+                    var listUpdatePermission = model.ListPermission.Where(o => !string.IsNullOrEmpty(o.Id)).ToList();
+                    if (listUpdatePermission.Count > 0) /* update permission */
+                    {
+                        var listModulePerID = listUpdatePermission.Select(o => o.Id).ToList();
+                        var listPerDB = cxt.CMS_ModulePermission.Where(o => listModulePerID.Contains(o.ID)).ToList();
+                        foreach (var per in listPerDB)
+                        {
+                            var updatePer = listUpdatePermission.Where(o => o.Id == per.ID).FirstOrDefault();
+                            per.IsAction = updatePer.IsAction;
+                            per.IsView = updatePer.IsView;
+                            per.ModifiedUser = model.CreatedBy;
+                            per.LastModified = DateTime.Now;
+                        }
+
+                    }
+
+                    if (cxt.SaveChanges() > 0)
+                        result = true;
+                    NSLog.Logger.Info("ResponseRolemodelCreateOrUpdatePermission", new { result });
+                }
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                NSLog.Logger.Error("ErrorRoleCreateOrUpdatePermission", ex);
+            }
+            return result;
+        }
+
 
         public bool Delete(string Id, ref string msg)
         {
@@ -139,6 +210,23 @@ namespace CMS_Shared.CMSRole
                             IsActive = o.IsActive ?? false,
                         }).FirstOrDefault();
 
+                    /* get list module */
+                    var listModule = cxt.CMS_Module.Select(o => new CMS_PermissionModels()
+                    {
+                        ModuleID = o.ID,
+                        ModuleName = o.Name,
+
+                    }).ToList();
+
+                    /* get list permission*/
+                    var listPermission = cxt.CMS_ModulePermission.Where(o => o.RoleID == Id).ToList();
+                    listModule.ForEach(o =>
+                    {
+                        o.Id = listPermission.Where(p => p.ModuleID == o.ModuleID).Select(p => p.ID).FirstOrDefault();
+                        o.IsAction = listPermission.Where(p => p.ModuleID == o.ModuleID).Select(p => p.IsAction).FirstOrDefault() ?? false;
+                        o.IsView = listPermission.Where(p => p.ModuleID == o.ModuleID).Select(p => p.IsView).FirstOrDefault() ?? false;
+                    });
+
                     result = data;
 
                     NSLog.Logger.Info("ResponseRoleGetDetail", result);
@@ -168,6 +256,8 @@ namespace CMS_Shared.CMSRole
                             Name = o.Name,
                             IsActive = o.IsActive ?? false,
                         }).ToList();
+
+
 
                     /* response data */
                     result = data;
