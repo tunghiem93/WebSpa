@@ -120,6 +120,8 @@ namespace CMS_Shared.CMSProcedures
 
                                 proCheck.ModifiedUser = model.UpdatedBy;
                                 proCheck.LastModified = DateTime.Now;
+
+                                cxt.SaveChanges();
                             }
                             else
                             {
@@ -135,7 +137,6 @@ namespace CMS_Shared.CMSProcedures
 
                     }
 
-                    cxt.SaveChanges();
                     NSLog.Logger.Info("ResponseProcedureCreateOrUpdate", new { Result, msg });
 
                 }

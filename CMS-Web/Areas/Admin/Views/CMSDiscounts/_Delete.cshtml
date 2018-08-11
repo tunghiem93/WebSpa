@@ -35,6 +35,7 @@
                                 <br />
                                 @Html.HiddenFor(model => model.Id)
                                 @Html.HiddenFor(model => model.Name)
+                                @Html.HiddenFor(model => model.DiscountCode)
                                 @Html.HiddenFor(model => model.ImageURL)
                                 @Html.ValidationMessageFor(model => model.Name, null, new { @class = "label" })
                             </div>

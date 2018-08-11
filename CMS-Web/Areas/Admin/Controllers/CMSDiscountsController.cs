@@ -118,6 +118,10 @@ namespace CMS_Web.Areas.Admin.Controllers
                     Response.StatusCode = (int)HttpStatusCode.BadRequest;
                     return PartialView("_Edit", model);
                 }
+
+                var bkPictureUpdate = model.PictureUpload;
+                var bkImageURL = model.ImageURL;
+
                 if (!string.IsNullOrEmpty(model.ImageURL))
                 {
                     model.ImageURL = model.ImageURL.Replace(Commons._PublicImages, "").Replace("Discounts/", "").Replace(Commons.Image200_100, "");
@@ -158,6 +162,8 @@ namespace CMS_Web.Areas.Admin.Controllers
                 }
                 ModelState.AddModelError("DiscountCode", msg);
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                model.PictureUpload = bkPictureUpdate;
+                model.ImageURL = bkImageURL;
                 return PartialView("_Edit", model);
             }
             catch (Exception ex)

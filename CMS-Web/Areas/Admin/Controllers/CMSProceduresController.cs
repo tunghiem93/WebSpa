@@ -117,6 +117,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                     Response.StatusCode = (int)HttpStatusCode.BadRequest;
                     return PartialView("_Edit", model);
                 }
+                var bkImageUrl = model.ImageUrl;
                 if (!string.IsNullOrEmpty(model.ImageUrl))
                 {
                     model.ImageUrl = model.ImageUrl.Replace(Commons._PublicImages, "").Replace("Procedures/", "").Replace(Commons.Image500_500, "");
@@ -154,8 +155,9 @@ namespace CMS_Web.Areas.Admin.Controllers
                     }
                     return RedirectToAction("Index");
                 }
-                ModelState.AddModelError("ProcedureCode", msg);
+                ModelState.AddModelError("ProductCode", msg);
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                model.ImageUrl = bkImageUrl;
                 return PartialView("_Edit", model);
             }
             catch (Exception ex)
