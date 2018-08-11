@@ -11,6 +11,7 @@
                 <table class="table table-striped table-bordered table-hover dt-responsive" id="sample_3">
                     <thead>
                         <tr>
+                            <th class="text-center"> Module code </th>
                             <th class="text-center"> Tên Module </th>
                             <th class="text-center"> Được xem </th>
                             <th class="text-center"> Được chỉnh sửa</th>
@@ -22,6 +23,7 @@
                             foreach (var item in Model)
                             {
                                 <tr class="odd gradeX">
+                                    <td class="text-center"> @item.ModeuleCode </td>
                                     <td class="text-center"> @item.ModuleName </td>
                                     <td>
                                         <label>@Html.CheckBox(@item.ModuleName + "_IsView", item.IsView, new { @class = "icheck" })</label>
@@ -30,8 +32,8 @@
                                         <label>@Html.CheckBox(@item.ModuleName + "_IsAction", item.IsAction, new { @class = "icheck" })</label>
                                     </td>
                                 </tr>
-                                @Html.Hidden(item.Id, item.Id);
-                                @Html.Hidden(item.ModuleID, item.ModuleID);
+                                @*@Html.Hidden(item.Id, item.Id);
+                                    @Html.Hidden(item.ModuleID, item.ModuleID);*@
                             }
                         }
                     </tbody>
@@ -83,11 +85,11 @@
         ],
         "pageLength": 100,
         "columnDefs": [
-            { "orderable": true, "targets": [0, 1, 2] },
-            { "width": "33%", "targets": [2] },
+            { "orderable": true, "targets": [0, 1, 2, 3] },
+            { "width": "33%", "targets": [3] },
         ],
         "order": [
-            [1, "asc"]
+            [0, "asc"]
         ]
     };
 

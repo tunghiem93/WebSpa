@@ -211,12 +211,13 @@ namespace CMS_Shared.CMSRole
                         }).FirstOrDefault();
 
                     /* get list module */
-                    var listModule = cxt.CMS_Module.Select(o => new CMS_PermissionModels()
-                    {
-                        ModuleID = o.ID,
-                        ModuleName = o.Name,
-
-                    }).ToList();
+                    var listModule = cxt.CMS_Module.OrderBy(o => o.Code)
+                        .Select(o => new CMS_PermissionModels()
+                        {
+                            ModuleID = o.ID,
+                            ModuleName = o.Name,
+                            ModeuleCode = o.Code,
+                        }).ToList();
 
                     /* get list permission*/
                     var listPermission = cxt.CMS_ModulePermission.Where(o => o.RoleID == Id).ToList();
@@ -258,8 +259,6 @@ namespace CMS_Shared.CMSRole
                             IsActive = o.IsActive ?? false,
                         }).ToList();
 
-
-
                     /* response data */
                     result = data;
                     NSLog.Logger.Info("ResponseRoleGetList", result);
@@ -269,6 +268,33 @@ namespace CMS_Shared.CMSRole
             catch (Exception ex)
             {
                 NSLog.Logger.Error("ErrorRoleGetList", ex);
+            }
+            return result;
+        }
+
+        public List<CMS_PermissionModels> GetListModule()
+        {
+            NSLog.Logger.Info("RoleGetListModule");
+            List<CMS_PermissionModels> result = null;
+
+            try
+            {
+                using (var cxt = new CMS_Context())
+                {
+                    /* get list module */
+                    result = cxt.CMS_Module.OrderBy(o => o.Code)
+                        .Select(o => new CMS_PermissionModels()
+                        {
+                            ModuleID = o.ID,
+                            ModuleName = o.Name,
+                            ModeuleCode = o.Code,
+                        }).ToList();
+                    NSLog.Logger.Info("ResponseRoleGetListModule", result);
+                }
+            }
+            catch (Exception ex)
+            {
+                NSLog.Logger.Error("ErrorRoleGetListModule", ex);
             }
             return result;
         }

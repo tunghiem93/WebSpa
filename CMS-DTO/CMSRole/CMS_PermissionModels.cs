@@ -16,6 +16,7 @@ namespace CMS_DTO.CMSRole
         public string RoleID { get; set; }
         public string ModuleID { get; set; }
         public string ModuleName { get; set; }
+        public int ModeuleCode { get; set; }
         public bool IsView { get; set; }
         public bool IsAction { get; set; }
         public CMS_PermissionModels()

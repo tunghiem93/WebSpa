@@ -42,6 +42,7 @@ namespace CMS_Web.Areas.Admin.Controllers
         public ActionResult Create()
         {
             CMS_RoleModels model = new CMS_RoleModels();
+            model.ListPermission = _factory.GetListModule();
             return PartialView("_Create", model);
         }
 
