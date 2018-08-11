@@ -172,7 +172,7 @@ namespace CMS_Shared.CMSDiscount
             return result;
         }
 
-        public List<CMS_DiscountModels> GetList(bool isActive = true)
+        public List<CMS_DiscountModels> GetList(bool isActive = false)
         {
             NSLog.Logger.Info("DiscountGetList");
 
