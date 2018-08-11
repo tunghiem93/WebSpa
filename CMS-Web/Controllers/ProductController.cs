@@ -65,7 +65,7 @@ namespace CMS_Web.Controllers
             models.CategoryName = d;
             try
             {
-                var data = _fac.GetList().Where(o => o.ProductTypeCode == (int)CMS_Common.Commons.EProductType.Product).ToList();
+                var data = _fac.GetList();
                 if (data != null)
                 {
                     models.ProductNew = data.OrderByDescending(x => x.CreatedDate).Skip(0).Take(3).ToList();
