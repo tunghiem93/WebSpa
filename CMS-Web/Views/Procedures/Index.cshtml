@@ -61,7 +61,7 @@
                     {
                         if (_index % 2 != 0)
                         {
-                            <div id='goto@_index' class='fullwidth-section skin-white' style="background-color:#fcfcf7;background-image:url(@Url.Content("~/Images/border.png"));background-repeat:repeat-x;background-position:left top;padding-top:60px;padding-bottom:50px;">
+                            <div id='goto_@item.Id' class='fullwidth-section skin-white' style="background-color:#fcfcf7;background-image:url(@Url.Content("~/Images/border.png"));background-repeat:repeat-x;background-position:left top;padding-top:60px;padding-bottom:50px;">
                                 <div class="container">
                                     <div class='column dt-sc-one-third  space first'>
                                         <div class="dt-sc-popular-procedures with-image">
@@ -119,7 +119,7 @@
                         }
                         else
                         {
-                            <div id='goto@_index' class='fullwidth-section skin-white' style="background-color:#fcfcf7;background-image:url(@Url.Content("~/Images/border.png"));background-repeat:repeat-x;background-position:left top;padding-top:60px;padding-bottom:50px;">
+                            <div id='goto_@item.Id' class='fullwidth-section skin-white' style="background-color:#fcfcf7;background-image:url(@Url.Content("~/Images/border.png"));background-repeat:repeat-x;background-position:left top;padding-top:60px;padding-bottom:50px;">
                                 <div class="container">
                                     <div class='column dt-sc-two-third  space first'>
                                         <div class='dt-sc-hr-invisible-medium  '></div>
@@ -178,10 +178,6 @@
                         _index = _index + 1;
                     }
                 }
-
-
-
-
 
                 <div class='fullwidth-section' style="background-image:url(@Url.Content("~/Images/border.png"));background-repeat:repeat-x;padding-top:95px;">
                     <div class="container">
