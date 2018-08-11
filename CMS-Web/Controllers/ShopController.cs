@@ -172,6 +172,11 @@ namespace CMS_Web.Controllers
                     var result =  _facOrder.CreateOrder(model);
                     if(result)
                     {
+                        HttpCookie currentUserCookie = HttpContext.Request.Cookies["cms-order"];
+                        HttpContext.Response.Cookies.Remove("cms-order");
+                        currentUserCookie.Expires = DateTime.Now.AddDays(-10);
+                        currentUserCookie.Value = null;
+                        HttpContext.Response.SetCookie(currentUserCookie);
                         return RedirectToAction("Index", "Home");
                     }
                     else

@@ -100,5 +100,76 @@ namespace CMS_Shared.CMSOrders
                 }
             }
         }
+
+        public List<CMS_OrderModels> GetListOrder()
+        {
+            try
+            {
+                using (var db = new CMS_Context())
+                {
+                    var data = db.CMS_Order.Join(db.CMS_Customer, o => o.CustomerID, c => c.ID, (o, c) => new { o, c })
+                                           .Select(o => new CMS_OrderModels
+                                           {
+                                               CreatedDate = o.o.CreatedDate,
+                                               CustomerId = o.o.CustomerID,
+                                               CustomerName = o.c.FirstName + " " + o.c.LastName,
+                                               Id = o.o.ID,
+                                               OrderNo = o.o.OrderNo,
+                                               TotalBill = o.o.TotalBill,
+                                               Phone = o.c.Phone,
+                                           }).ToList();
+                    return data;
+                }
+            }
+            catch(Exception ex)
+            {
+                NSLog.Logger.Error("GetListOrder :", ex);
+            }
+            return null;
+        }
+
+        public CMS_OrderModels GetDetailOrder(string OrderId)
+        {
+            var data = new CMS_OrderModels();
+            try
+            {
+                NSLog.Logger.Info("GetDetailOrder_Request : ", OrderId);
+                using (var db = new CMS_Context())
+                {
+                   data = db.CMS_Order.GroupJoin(db.CMS_OrderDetail, o => o.ID, d => d.OrderID, (o, d) => new { o, d })
+                                           .Join(db.CMS_Customer, o => o.o.CustomerID, c => c.ID, (o, c) => new { o = o.o, d = o.d, c })
+                                           .Where(o => o.o.ID.Equals(OrderId))
+                                           .Select(r => new CMS_OrderModels
+                                           {
+                                                CreatedDate  = r.o.CreatedDate,
+                                                CustomerId = r.o.CustomerID,
+                                                CustomerName = r.c.FirstName + " " + r.c.LastName,
+                                                OrderNo = r.o.OrderNo,
+                                                Id = r.o.ID,
+                                                Phone = r.c.Phone,
+                                                TotalBill = r.o.TotalBill,
+                                                City = r.c.HomeCity,
+                                                Country = r.c.HomeCountry,
+                                                Email = r.c.Email,
+                                                PostCode  = r.c.HomeZipCode,
+                                                Description = r.d.Select( x => x.Description).FirstOrDefault(),
+                                                Items = r.d.Select(x => new CMS_ItemModels
+                                                {
+                                                    Price = x.Price.HasValue ? x.Price.Value : 0,
+                                                    ProductID = x.ProductID,
+                                                    ProductName = x.CMS_Products.Name,
+                                                    Quantity = x.Quantity.HasValue ? (double)x.Quantity.Value : 0,
+                                                    TotalPrice = (x.Price.Value * (double) x.Quantity.Value)
+                                                }).ToList()
+                                           }).FirstOrDefault();
+                    NSLog.Logger.Info("GetDetailOrder_Response : ", data);
+                }
+            }
+            catch(Exception ex)
+            {
+                NSLog.Logger.Error("GetDetailOrder :", ex);
+            }
+            return data;
+        }
     }
 }
