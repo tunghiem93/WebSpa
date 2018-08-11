@@ -20,7 +20,7 @@ namespace CMS_Web.Areas.Admin.Controllers
         public CMSProceduresController()
         {
             _factory = new CMSProcedureFactory();
-            //ViewBag.Category = GetListCategorySelectItem();
+            ViewBag.Category = GetListCategorySelectItem();
         }
         // GET: Admin/CMSProcedures
         public ActionResult Index()

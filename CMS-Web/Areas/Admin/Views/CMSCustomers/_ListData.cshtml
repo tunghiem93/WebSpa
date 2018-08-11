@@ -3,18 +3,18 @@
 }
 @model List<CMS_DTO.CMSCustomer.CustomerModels>
 @*<style type="text/css">
-    #sample_3 ul {
-        width: 100% !important;
-    }
-
-        #sample_3 ul li .dtr-title {
-            width: 25% !important;
+        #sample_3 ul {
+            width: 100% !important;
         }
 
-        #sample_3 ul li .dtr-data {
-            width: 75% !important;
-        }
-</style>*@
+            #sample_3 ul li .dtr-title {
+                width: 25% !important;
+            }
+
+            #sample_3 ul li .dtr-data {
+                width: 75% !important;
+            }
+    </style>*@
 <div class="table-responsive">
     <div class="col-md-12">
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -37,7 +37,7 @@
                             <th class="text-center"> Email </th>
                             <th class="text-center"> Điện thoại </th>
                             <th class="text-center"> Ngày sinh</th>
-                            <th class="text-center"> Địa chỉ</th>
+                            <th class="text-center"> Đơn hàng</th>
                             <th class="text-center"> Trạng thái </th>
                             <th class="text-center"> Tùy chỉnh </th>
                         </tr>
@@ -56,7 +56,11 @@
                                         @item.Phone
                                     </td>
                                     <td class="text-center">@item.BirthDate.ToString("dd/MM/yyyy")</td>
-                                    <td>@item.Address</td>
+                                    <td class="text-center">
+                                        <a href="javascript:void(0)"
+                                           data-toggle="modal" data-target="#modal-choose-keys" data-whatever="2" data-cus-id="@item.Name"
+                                           class="a-fnb btn btn-primary btn-xs view details"><i class="fa fa-eye"></i>&nbsp;Lịch sử</a>&nbsp;&nbsp;
+                                    </td>
                                     <td class="text-center">
                                         @if (item.IsActive)
                                         {
@@ -89,7 +93,72 @@
     </div>
 </div>
 
+
+<!-- Modal History Order-->
+<div class="modal fade second cls-modal-chosse-key" id="modal-choose-keys" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">@Html.Raw("Danh sách đơn hàng của khách hàng ")<span id="idCusName" style="font-weight: bold"></span> </h4>
+            </div>
+            <div class="modal-body scroll popupTabKey">
+                <div class="form-group">
+                    <div class="col-md-12 col-xs-12" style="margin-bottom: 15px;">
+                        <div class="input-group">
+                            <input type="text" class="form-control col-md-10" placeholder="@Html.Raw("Nhập đơn hàng bạn muốn tìm kiếm")"
+                                   onkeypress="HandleKeyPress(event)" id="txtSearchKey" />
+                            <div class="input-group-btn">
+                                <button type="button" onclick="SearchOrder(this); return false;" class="btn bg-fnb">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group-sm">
+                    <table class="table table-striped table-hover marginbottomTable">
+                        <thead>
+                            <tr style="background-color:#007bff; color:#fff;">
+                                <th style="width: 60%">@Html.Raw("Đơn hàng")</th>
+                                <th style="text-align: center">@Html.Raw("Ngày đặt hàng")</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div id="tbl-choose-keys" class="form-group-sm">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" data-dismiss="modal">@Html.Raw("Cancel")</button>
+                <button onclick="AddKeywords(this)" type="button" class="btn btn-primary">@Html.Raw("Add")</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<!-- Large modal -->
+<div class="modal fade bd-example-modal-lg" id="modalOrderDetail" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Chi tiết đơn hàng <span style="color:#d9534f;font-weight:bold" id="idOrderNo"></span></h4>
+            </div>
+            <div class="modal-body" style="display:initial">
+                <div id="idOrderDetail">                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
+    var btnGlobal;
+    var listItem;
     var _tableEmployee = null;
     var _settingsOptionTableEmployee = {
         "language": {
@@ -145,5 +214,122 @@
 
     function ShowView(url) {
         ShowViewOrEdit(url);
+    }
+    
+    $("#modal-choose-keys").on('show.bs.modal', function (event) {
+        debugger;
+        var cusName = $(event.relatedTarget).data('cus-id');
+        $('#modal-choose-keys #idCusName').text(cusName);
+        $('#chkAllRule_').attr('checked', false);
+        btnGlobal = $(event.relatedTarget); // Button that triggered the modal
+        ////=========
+        //var OffSet = btnGlobal.data('whatever');
+        listItem = [];
+        $('.key_' + ':visible').each(function (index, value) {
+            listItem.push($(this).attr('data-id'));
+        });
+        $('#txtSearchKey').val('');
+        ////==========
+        //$("#tbl-choose-dishes_").html('');
+        //$('.popupTabConent').css({ "overflow": "auto", "height": $(window).height() - 200 + "px" });
+        $('.popupTabKey').css({ "overflow": "auto", "margin-left": "10px", "height": $(window).height() - 210 + "px" });
+        $('.cls-modal-chosse-key .modal-content').css({ "margin-left": "10px" });
+        LoadOrders("#tbl-choose-keys");
+    });
+
+    function LoadOrders(container) {
+        $.ajax({
+            url: '@Url.Action("LoadOrders", "CMSCustomers")',
+            type: 'get',
+            data: { },
+            dataType: 'html',
+            traditional: true,
+            error: function (e) {
+            },
+            success: function (data) {
+                $(container).html(data);
+                //ResizeModal(container, 300);
+                $('.SpecificItems').each(function (index, value) {
+                    var dataId = $(this).attr('data-id');
+                    if (listItem.indexOf(dataId) != -1) {
+                        $(this).addClass('hide');//.hide();
+                    }
+                });
+            },
+            beforeSend: function () {
+                $('.se-pre-con').show();
+            },
+            complete: function () {
+                $('.se-pre-con').hide();
+            }
+        });
+    }
+
+    function SearchOrder(btn) {
+        var keySearch = $(btn).parents('div.form-group:first').find('input').val().toLowerCase();
+        var trs = $(btn).parents('.modal-body:first').find('tbody tr');
+
+        var arrKeySearch = keySearch.split(' ');
+        if (keySearch != '') {
+            for (var i = 0; i < trs.length; i++) {
+                var name = $.trim($(trs[i]).find('td:first').text());
+                for (var j = 0; j < arrKeySearch.length; j++) {
+                    if (name.toLowerCase().indexOf(arrKeySearch[j]) != -1) {
+                        if ($(trs[i]).css('display') == 'none')
+                            $(trs[i]).css('display', 'table-row');
+                        break;
+                    }
+                    else
+                        if ($(trs[i]).css('display') == 'table-row')
+                            $(trs[i]).css('display', 'none');
+                }
+            }
+        }
+        else {
+            $(trs).each(function (e) {
+                if ($(this).css('display') == 'none')
+                    $(this).css('display', 'table-row');
+            });
+        }
+    }
+
+    function ShowOrderDetail(orderID, orderNo) {
+        var modal = $("#modalOrderDetail");
+        $('#modalOrderDetail #idOrderNo').text(orderNo);
+        $(modal).modal({
+            keyboard: false,
+            show: true,
+            //backdrop: false
+        });
+        LoadOrderDetail("#idOrderDetail", orderID);
+    }
+
+    function LoadOrderDetail(btn, orderID) {
+        debugger;
+        $.ajax({
+            url: '@Url.Action("LoadOrderDetail", "CMSCustomers")',
+            type: 'get',
+            data: { OrderID: orderID},
+            dataType: 'html',
+            traditional: true,
+            error: function (e) {
+            },
+            success: function (data) {                
+                $(btn).html(data);
+            },
+            beforeSend: function () {
+                $('.se-pre-con').show();
+            },
+            complete: function () {
+                $('.se-pre-con').hide();
+            }
+        });
+    }
+
+    function HandleKeyPress(e) {
+        var key = e.keyCode || e.which;
+        if (key == 13) {
+            e.preventDefault();
+        }
     }
 </script>

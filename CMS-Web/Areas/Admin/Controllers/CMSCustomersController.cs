@@ -1,7 +1,9 @@
 ﻿using CMS_Common;
 using CMS_DTO.CMSCustomer;
+using CMS_DTO.CMSOrder;
 using CMS_Shared;
 using CMS_Shared.CMSCustomers;
+using CMS_Shared.CMSOrders;
 using CMS_Shared.Utilities;
 using CMS_Web.Web.App_Start;
 using System;
@@ -18,9 +20,11 @@ namespace CMS_Web.Areas.Admin.Controllers
     public class CMSCustomersController : HQController
     {
         private CMSCustomersFactory _factory;
+        private CMSOrderFactory _facOrder;
         public CMSCustomersController()
         {
             _factory = new CMSCustomersFactory();
+            _facOrder = new CMSOrderFactory();
         }
         // GET: Admin/CMSCategories
         public ActionResult Index()
@@ -228,6 +232,35 @@ namespace CMS_Web.Areas.Admin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return PartialView("_Delete", model);
             }
+        }
+
+        public ActionResult LoadOrders()
+        {
+            var model = new CustomerModels();
+            model.ListOrders = _facOrder.GetListOrder();
+            if (model.ListOrders != null && model.ListOrders.Any())
+            {
+                int index = 0;
+                model.ListOrders.ForEach(o => {
+                    o.OffSet = index++;
+                });
+            }
+            return PartialView("_TableChooseOrders", model);
+        }
+
+        public ActionResult LoadOrderDetail(string OrderID)
+        {
+            try
+            {
+                var model = new CMS_OrderModels();
+                model = _facOrder.GetDetailOrder(OrderID);
+                return PartialView("_OrderDetail", model);
+            }
+            catch (Exception ex)
+            {
+                NSLog.Logger.Error("GetOrderDetail", ex);
+                return new HttpStatusCodeResult(400, ex.Message);
+            }            
         }
     }
 }

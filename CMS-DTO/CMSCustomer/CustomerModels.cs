@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMS_DTO.CMSOrder;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -54,6 +55,7 @@ namespace CMS_DTO.CMSCustomer
         public HttpPostedFileBase PictureUpload { get; set; }
         public byte[] PictureByte { get; set; }
 
+        public List<CMS_OrderModels> ListOrders { get; set; }
         public CustomerModels()
         {
             IsActive = true;
@@ -69,6 +71,7 @@ namespace CMS_DTO.CMSCustomer
                 new SelectListItem() { Text = "Nam", Value = "False"},
                 new SelectListItem() {  Text = "Nữ", Value = "True"},
             };
+            ListOrders = new List<CMS_OrderModels>();
         }
     }
 }

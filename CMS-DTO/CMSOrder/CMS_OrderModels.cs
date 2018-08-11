@@ -23,6 +23,12 @@ namespace CMS_DTO.CMSOrder
         public string PostCode { get; set; }
         public string Address { get; set; }
         public string Description { get; set; }
+
+        public byte Status { get; set; }
+        public int OffSet { get; set; }
+        public string StrLastUpdate { get; set; }
+        public bool Checked { get; set; }
+
         public List<CMS_ItemModels> Items { get; set; }
 
         public CMS_OrderModels()
