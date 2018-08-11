@@ -227,6 +227,7 @@ namespace CMS_Shared.CMSRole
                         o.IsView = listPermission.Where(p => p.ModuleID == o.ModuleID).Select(p => p.IsView).FirstOrDefault() ?? false;
                     });
 
+                    data.ListPermission = listModule;
                     result = data;
 
                     NSLog.Logger.Info("ResponseRoleGetDetail", result);
