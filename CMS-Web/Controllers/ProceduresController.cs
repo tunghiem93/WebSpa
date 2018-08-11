@@ -25,7 +25,7 @@ namespace CMS_Web.Controllers
             try
             {
                 models.ListProcedures = _facProce.GetList();
-                models.LstDiscount = _facDis.GetList();
+                models.LstDiscount = _facDis.GetList(true);
             }
             catch (Exception ex)
             {

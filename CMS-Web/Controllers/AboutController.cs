@@ -39,7 +39,7 @@ namespace CMS_Web.Controllers
                         o.ImageURL = !string.IsNullOrEmpty(o.ImageURL) ? Commons._PublicImages + "Employees/" + o.ImageURL : "";
                     });
                 }
-                model.LstDiscount = _facDis.GetList();
+                model.LstDiscount = _facDis.GetList(true);
 
             }
             catch (Exception ex)

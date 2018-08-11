@@ -21,7 +21,7 @@ namespace CMS_Web.Controllers
         public ActionResult Index()
         {
             CMSLocationModels model = new CMSLocationModels();
-            model.LstDiscount = _facDis.GetList();
+            model.LstDiscount = _facDis.GetList(true);
             return View(model);
         }
 

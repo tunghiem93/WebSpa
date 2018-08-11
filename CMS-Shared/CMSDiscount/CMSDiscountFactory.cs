@@ -172,7 +172,7 @@ namespace CMS_Shared.CMSDiscount
             return result;
         }
 
-        public List<CMS_DiscountModels> GetList()
+        public List<CMS_DiscountModels> GetList(bool isActive = true)
         {
             NSLog.Logger.Info("DiscountGetList");
 
@@ -181,8 +181,11 @@ namespace CMS_Shared.CMSDiscount
             {
                 using (var cxt = new CMS_Context())
                 {
-                    var data = cxt.CMS_Discount.Where(o => o.Status != (byte)Commons.EStatus.Deleted)
-                        .Select(o => new CMS_DiscountModels
+                    var query = cxt.CMS_Discount.Where(o => o.Status != (byte)Commons.EStatus.Deleted);
+                    if (isActive == true)
+                        query = query.Where(o => o.IsActive == true);
+
+                    var data = query.Select(o => new CMS_DiscountModels
                         {
                             Id = o.ID,
                             StoreID = o.StoreID,
@@ -196,6 +199,8 @@ namespace CMS_Shared.CMSDiscount
                             Value = o.Value ?? 0,
                             IsPercent = (o.ValueType ?? (byte)Commons.EValueType.Percent) == (byte)Commons.EValueType.Percent,
                         }).ToList();
+
+                    
 
                     /* response data */
                     result = data;
