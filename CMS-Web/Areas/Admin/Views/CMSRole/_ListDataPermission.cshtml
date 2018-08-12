@@ -23,7 +23,7 @@
                             for (int i = 0; i < Model.ListPermission.Count; i++)
                             {
                                 <tr class="odd gradeX">
-                                    <td class="text-center"> @Model.ListPermission[i].ModeuleCode </td>
+                                    <td class="text-center"> @Model.ListPermission[i].ModuleCode </td>
                                     <td class="text-center"> @Model.ListPermission[i].ModuleName </td>
                                     <td class="text-center">
                                         <label>@Html.CheckBoxFor(model => model.ListPermission[i].IsView, new { @class = "icheck" })</label>
@@ -31,6 +31,8 @@
                                     <td class="text-center">
                                         <label>@Html.CheckBoxFor(model => model.ListPermission[i].IsAction, new { @class = "icheck" })</label>
                                     </td>
+                                    @Html.HiddenFor(model => model.ListPermission[i].Id);
+                                    @Html.HiddenFor(model => model.ListPermission[i].ModuleID);
                                 </tr>
                             }
                         }
