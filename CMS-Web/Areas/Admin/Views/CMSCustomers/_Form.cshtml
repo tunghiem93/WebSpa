@@ -87,7 +87,7 @@
         <div class="form-group">
             <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Xác nhận mật khẩu: </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control has-feedback-left txtConfirmPassword", placeholder = "", autocomplete = "off" })
+                @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control has-feedback-left", placeholder = "", autocomplete = "off", @id = "txtConfirmPassword" })
                 @Html.ValidationMessageFor(model => model.ConfirmPassword, null, new { @class = "label label-danger" })
             </div>
         </div>
@@ -126,7 +126,7 @@
             });
 
         $('[id=txtPassword]').val('@Model.Password');
-        $('[id=txtConfirmPassword]').val('@Model.ConfirmPassword');
+        $('[id=txtConfirmPassword]').val('@Model.Password');
     });
 
     function showPictureUpload() {

@@ -100,7 +100,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                     return RedirectToAction("Index");
                 }
 
-                ModelState.AddModelError("Name", msg);
+                ModelState.AddModelError("FirstName", msg);
                 model.Password = CommonHelper.Decrypt(model.Password);
                 model.ConfirmPassword = model.Password;
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
@@ -177,7 +177,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                     return RedirectToAction("Index");
                 }
 
-                ModelState.AddModelError("Name", msg);
+                ModelState.AddModelError("FirstName", msg);
                 model.Password = CommonHelper.Decrypt(model.Password);
                 model.ConfirmPassword = model.Password;
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;

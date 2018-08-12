@@ -17,66 +17,83 @@ namespace CMS_Shared.CMSEmployees
             var Result = true;
             using (var cxt = new CMS_Context())
             {
+                var _isExits = cxt.CMS_Employee.Any(x => x.Email.Equals(model.Employee_Email) && x.IsActive.HasValue);
                 try
                 {
                     if (string.IsNullOrEmpty(model.Id)) /* insert */
                     {
-                        Id = Guid.NewGuid().ToString();
-                        var e = new CMS_Employee
+                        if (_isExits)
                         {
-                            ID = Id,
-                            Name = model.Name,
-                            Email = model.Employee_Email,
-                            Password = model.Password,
-                            IsActive = model.IsActive,
-                            Phone = model.Employee_Phone,
-                            PinCode = model.PinCode,
-                            Gender = model.Gender,
-                            Marital = model.Marital,
-                            HiredDate = model.HiredDate,
-                            BirthDate = model.BirthDate,
-                            Street = model.Street,
-                            City = model.City,
-                            Country = model.Country,
-                            ZipCode = model.ZipCode,
-                            ImageUrl = model.ImageURL,
-                            StoreID = model.StoreID,
-                            IsSupperAdmin = model.IsSupperAdmin,
-                            Status = (byte)Commons.EStatus.Actived,
-                            CreatedDate = DateTime.Now,
-                            CreatedUser = model.CreatedBy,
-                            ModifiedUser = model.CreatedBy,
-                            LastModified = DateTime.Now,
-                            Quote = model.Quote,
-                        };
-                        cxt.CMS_Employee.Add(e);
+                            msg = "Địa chỉ email đã tồn tại";
+                            Result = false;
+                        }
+                        else
+                        {
+                            Id = Guid.NewGuid().ToString();
+                            var e = new CMS_Employee
+                            {
+                                ID = Id,
+                                Name = model.Name,
+                                Email = model.Employee_Email,
+                                Password = model.Password,
+                                IsActive = model.IsActive,
+                                Phone = model.Employee_Phone,
+                                PinCode = model.PinCode,
+                                Gender = model.Gender,
+                                Marital = model.Marital,
+                                HiredDate = model.HiredDate,
+                                BirthDate = model.BirthDate,
+                                Street = model.Street,
+                                City = model.City,
+                                Country = model.Country,
+                                ZipCode = model.ZipCode,
+                                ImageUrl = model.ImageURL,
+                                StoreID = model.StoreID,
+                                IsSupperAdmin = model.IsSupperAdmin,
+                                Status = (byte)Commons.EStatus.Actived,
+                                CreatedDate = DateTime.Now,
+                                CreatedUser = model.CreatedBy,
+                                ModifiedUser = model.CreatedBy,
+                                LastModified = DateTime.Now,
+                                Quote = model.Quote,
+                            };
+                            cxt.CMS_Employee.Add(e);
+                        }                        
                     }
                     else /* updated */
                     {
                         var e = cxt.CMS_Employee.Find(model.Id);
                         if (e != null)
                         {
-                            e.Name = model.Name;
-                            e.Email = model.Employee_Email;
-                            //Password = model.Password,
-                            e.IsActive = model.IsActive;
-                            e.Phone = model.Employee_Phone;
-                            e.PinCode = model.PinCode;
-                            e.Gender = model.Gender;
-                            e.Marital = model.Marital;
-                            e.HiredDate = model.HiredDate;
-                            e.BirthDate = model.BirthDate;
-                            e.Street = model.Street;
-                            e.City = model.City;
-                            e.Country = model.Country;
-                            e.ZipCode = model.ZipCode;
-                            e.ImageUrl = model.ImageURL;
-                            e.StoreID = model.StoreID;
-                            e.IsSupperAdmin = model.IsSupperAdmin;
-                            e.Status = (byte)Commons.EStatus.Actived;
-                            e.ModifiedUser = model.CreatedBy;
-                            e.LastModified = DateTime.Now;
-                            e.Quote = model.Quote;
+                            if (e.Email.Equals(model.Employee_Email) || !_isExits)
+                            {
+                                e.Name = model.Name;
+                                e.Email = model.Employee_Email;
+                                //Password = model.Password,
+                                e.IsActive = model.IsActive;
+                                e.Phone = model.Employee_Phone;
+                                e.PinCode = model.PinCode;
+                                e.Gender = model.Gender;
+                                e.Marital = model.Marital;
+                                e.HiredDate = model.HiredDate;
+                                e.BirthDate = model.BirthDate;
+                                e.Street = model.Street;
+                                e.City = model.City;
+                                e.Country = model.Country;
+                                e.ZipCode = model.ZipCode;
+                                e.ImageUrl = model.ImageURL;
+                                e.StoreID = model.StoreID;
+                                e.IsSupperAdmin = model.IsSupperAdmin;
+                                e.Status = (byte)Commons.EStatus.Actived;
+                                e.ModifiedUser = model.CreatedBy;
+                                e.LastModified = DateTime.Now;
+                                e.Quote = model.Quote;
+                            }
+                            else
+                            {
+                                msg = "Địa chỉ email đã tồn tại";
+                                Result = false;
+                            }                                
                         }
                         else
                         {

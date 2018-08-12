@@ -19,16 +19,16 @@ namespace CMS_Shared.CMSCustomers
             using (var cxt = new CMS_Context())
             {
                 var _isExits = cxt.CMS_Customer.Any(x => x.Email.Equals(model.Email) && x.IsActive.HasValue);
-                if (_isExits)
+                try
                 {
-                    msg = "Địa chỉ email đã tồn tại";
-                    Result = false;
-                }
-                else
-                {
-                    try
+                    if (string.IsNullOrEmpty(model.ID)) /* insert */
                     {
-                        if (string.IsNullOrEmpty(model.ID)) /* insert */
+                        if (_isExits)
+                        {
+                            msg = "Địa chỉ email đã tồn tại";
+                            Result = false;
+                        }
+                        else
                         {
                             Id = Guid.NewGuid().ToString();
                             var e = new CMS_Customer
@@ -58,11 +58,14 @@ namespace CMS_Shared.CMSCustomers
                                 ValidTo = Commons.MinDate,
                             };
                             cxt.CMS_Customer.Add(e);
-                        }
-                        else /* updated */
+                        }                        
+                    }
+                    else /* updated */
+                    {
+                        var e = cxt.CMS_Customer.Find(model.ID);
+                        if (e != null)
                         {
-                            var e = cxt.CMS_Customer.Find(model.ID);
-                            if (e != null)
+                            if (e.Email.Equals(model.Email) || !_isExits)
                             {
                                 e.FirstName = model.FirstName;
                                 e.LastName = model.LastName;
@@ -83,21 +86,24 @@ namespace CMS_Shared.CMSCustomers
                             }
                             else
                             {
+                                msg = "Địa chỉ email đã tồn tại";
                                 Result = false;
-                                msg = "Unable to find Discount.";
-                            }
+                            }                            
                         }
-
-                        cxt.SaveChanges();
-                        NSLog.Logger.Info("ResponseCustomersCreateOrUpdate", new { Result, msg });
-
+                        else
+                        {
+                            Result = false;
+                            msg = "Unable to find Discount.";
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        Result = false;
-                        msg = "System Error.";
-                        NSLog.Logger.Error("ErrorCustomersCreateOrUpdate", ex);
-                    }
+                    cxt.SaveChanges();
+                    NSLog.Logger.Info("ResponseCustomersCreateOrUpdate", new { Result, msg });
+                }
+                catch (Exception ex)
+                {
+                    Result = false;
+                    msg = "System Error.";
+                    NSLog.Logger.Error("ErrorCustomersCreateOrUpdate", ex);
                 }
             }
             return Result;
