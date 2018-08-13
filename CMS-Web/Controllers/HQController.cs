@@ -25,7 +25,7 @@ namespace CMS_Web.Controllers
                 {
                     ListSlider.Add(new SliderSession
                     {
-                        ImageUrl = "~/Uploads/Silder/" +  list[i]
+                        ImageUrl = "~/Uploads/Silder/" + list[i]
                     });
                 }
             }
@@ -34,18 +34,19 @@ namespace CMS_Web.Controllers
             //For Procedures
             CMSProcedureFactory _facPro = new CMSProcedureFactory();
             var ListProce = new List<ProcedureUI>();
-            var LstPro = _facPro.GetList().Skip(0).Take(9).OrderBy(o=>o.ProceduresName).ToList();
+            var LstPro = _facPro.GetList();
             if (LstPro != null && LstPro.Count > 0)
             {
-                ListProce = LstPro.GroupBy(o => new { o.CategoryId, o.CategoryName }).Select(s=> new ProcedureUI
+                ListProce = LstPro.GroupBy(o => new { o.CategoryId, o.CategoryName }).Select(s => new ProcedureUI
                 {
-                     CateID = s.Key.CategoryId,
-                     CateName = s.Key.CategoryName,
-                     ListProcedureUI = LstPro.OrderBy(p=>p.ProceduresName).Where(w=>w.CategoryId == s.Key.CategoryId).Select(q=> new ProcedureUI {
-                         ID = q.Id,
-                         Name = q.ProceduresName,
-                     }).ToList()
-                }).ToList();
+                    CateID = s.Key.CategoryId,
+                    CateName = s.Key.CategoryName,
+                    ListProcedureUI = LstPro.OrderBy(p => p.ProceduresName).Where(w => w.CategoryId == s.Key.CategoryId).Select(q => new ProcedureUI
+                                        {
+                                            ID = q.Id,
+                                            Name = q.ProceduresName,
+                                        }).OrderBy(p => p.Name).ToList()
+                }).OrderBy(o => o.CateName).ToList();
             }
             System.Web.HttpContext.Current.Session["ProcedureUI"] = ListProce;
 

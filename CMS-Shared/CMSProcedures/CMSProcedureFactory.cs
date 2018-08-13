@@ -96,7 +96,7 @@ namespace CMS_Shared.CMSProcedures
                                 proCheck.PrintOutText = model.PrintOutText;
                                 proCheck.IsActive = model.IsActive;
                                 proCheck.ImageURL = model.ImageUrl;
-                                proCheck.Cost = (double) model.Price;
+                                proCheck.Cost = (double)model.Price;
                                 //proCheck.Unit = model.Unit;
                                 //proCheck.Measure = model.Measure;
                                 proCheck.Quantity = (decimal)model.Quantity;
@@ -228,7 +228,7 @@ namespace CMS_Shared.CMSProcedures
                             Effect = o.Effect,
                             Duration = o.Duration,
                         }).FirstOrDefault();
-                    
+
 
                     /* response data */
                     result = data;
@@ -253,43 +253,44 @@ namespace CMS_Shared.CMSProcedures
                 using (var cxt = new CMS_Context())
                 {
                     var data = cxt.CMS_Products.Where(o => o.Status != (byte)Commons.EStatus.Deleted && o.TypeCode == (byte)Commons.EProductType.Procudure)
+                        .Join(cxt.CMS_Categories, p => p.CategoryID, c => c.ID, (p, c) => new { p, c })
                         .Select(o => new CMS_ProceduresModels
                         {
-                            Id = o.ID,
-                            ProductTypeCode = o.TypeCode,
-                            CategoryId = o.CategoryID,
-                            CategoryName = o.Name,
-                            ProceduresName = o.Name,
-                            ProductCode = o.ProductCode,
-                            BarCode = o.BarCode,
-                            Description = o.Description,
-                            ShortDescription = o.ShortDescription,
-                            PrintOutText = o.PrintOutText,
-                            IsActive = o.IsActive,
-                            ImageUrl = string.IsNullOrEmpty(o.ImageURL) ? "" : Commons._PublicImages + "Procedures/" + o.ImageURL,
-                            Price = o.Cost,
+                            Id = o.p.ID,
+                            ProductTypeCode = o.p.TypeCode,
+                            CategoryId = o.p.CategoryID,
+                            CategoryName = o.c.Name,
+                            ProceduresName = o.p.Name,
+                            ProductCode = o.p.ProductCode,
+                            BarCode = o.p.BarCode,
+                            Description = o.p.Description,
+                            ShortDescription = o.p.ShortDescription,
+                            PrintOutText = o.p.PrintOutText,
+                            IsActive = o.p.IsActive,
+                            ImageUrl = string.IsNullOrEmpty(o.p.ImageURL) ? "" : Commons._PublicImages + "Procedures/" + o.p.ImageURL,
+                            Price = o.p.Cost,
                             //Unit = o.p.Unit ?? 1,
                             //Measure = o.p.Measure,
-                            Quantity = o.Quantity ?? 0,
-                            Limit = o.Limit,
-                            ExtraPrice = o.ExtraPrice,
+                            Quantity = o.p.Quantity ?? 0,
+                            Limit = o.p.Limit,
+                            ExtraPrice = o.p.ExtraPrice,
                             //IsAllowedDiscount = o.p.IsAllowedDiscount,
                             //IsCheckedStock = o.p.IsCheckedStock,
                             //IsAllowedOpenPrice = o.p.IsAllowedOpenPrice,
                             ///IsPrintedOnCheck = o.p.IsPrintedOnCheck,
-                            ExpiredDate = o.ExpiredDate,
-                            IsAutoAddToOrder = o.IsAutoAddToOrder,
-                            IsComingSoon = o.IsComingSoon,
-                            IsShowInReservation = o.IsShowInReservation,
-                            IsRecommend = o.IsRecommend,
-                            StoreID = o.StoreID,
-                            Process = o.Process,
-                            Preparation = o.Preparation,
-                            SpaTreatment = o.SpaTreatment,
-                            Effect = o.Effect,
-                            Duration = o.Duration,
+                            ExpiredDate = o.p.ExpiredDate,
+                            IsAutoAddToOrder = o.p.IsAutoAddToOrder,
+                            IsComingSoon = o.p.IsComingSoon,
+                            IsShowInReservation = o.p.IsShowInReservation,
+                            IsRecommend = o.p.IsRecommend,
+                            StoreID = o.p.StoreID,
+                            Process = o.p.Process,
+                            Preparation = o.p.Preparation,
+                            SpaTreatment = o.p.SpaTreatment,
+                            Effect = o.p.Effect,
+                            Duration = o.p.Duration,
                         }).ToList();
-                   
+
                     /* response data */
                     result = data;
                     NSLog.Logger.Info("ResponseProcedureGetList", result);
@@ -302,6 +303,6 @@ namespace CMS_Shared.CMSProcedures
             }
             return result;
         }
-        
+
     }
 }
