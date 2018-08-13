@@ -14,7 +14,7 @@ namespace CMS_DTO.CMSProcedures
     {
         public string Id { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập mã sản phẩm")]
-        [MaxLength(50, ErrorMessage = "Mã sản phẩm tối đa 50 kí tự")]
+        [MaxLength(20, ErrorMessage = "Mã sản phẩm tối đa 50 kí tự")]
         public string ProductCode { get; set; }
         public string BarCode { get; set; }
         [DataType(DataType.Upload)]
@@ -28,8 +28,10 @@ namespace CMS_DTO.CMSProcedures
         public string ShortDescription { get; set; }
         public string Preparation { get; set; }
         [AllowHtml]
+        [MaxLength(500, ErrorMessage = "Mô tả tối đa 500 kí tự")]
         public string Process { get; set; }
         [AllowHtml]
+        [MaxLength(500, ErrorMessage = "Mô tả tối đa 500 kí tự")]
         public string SpaTreatment { get; set; }
         public string Effect { get; set; }
         public string Duration { get; set; }
