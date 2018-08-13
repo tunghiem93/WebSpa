@@ -27,7 +27,9 @@ namespace CMS_DTO.CMSProcedures
         public string PrintOutText { get; set; }
         public string ShortDescription { get; set; }
         public string Preparation { get; set; }
+        [AllowHtml]
         public string Process { get; set; }
+        [AllowHtml]
         public string SpaTreatment { get; set; }
         public string Effect { get; set; }
         public string Duration { get; set; }
