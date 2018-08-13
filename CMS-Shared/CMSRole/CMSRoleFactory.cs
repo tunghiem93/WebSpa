@@ -216,7 +216,7 @@ namespace CMS_Shared.CMSRole
                         {
                             ModuleID = o.ID,
                             ModuleName = o.Name,
-                            ModeuleCode = o.Code,
+                            ModuleCode = o.Code,
                         }).ToList();
 
                     /* get list permission*/
@@ -287,7 +287,7 @@ namespace CMS_Shared.CMSRole
                         {
                             ModuleID = o.ID,
                             ModuleName = o.Name,
-                            ModeuleCode = o.Code,
+                            ModuleCode = o.Code,
                         }).ToList();
                     NSLog.Logger.Info("ResponseRoleGetListModule", result);
                 }
