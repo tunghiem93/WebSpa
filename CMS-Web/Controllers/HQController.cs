@@ -37,14 +37,15 @@ namespace CMS_Web.Controllers
             var LstPro = _facPro.GetList().Skip(0).Take(9).OrderBy(o=>o.ProceduresName).ToList();
             if (LstPro != null && LstPro.Count > 0)
             {
-                for (var i = 0; i < LstPro.Count; i++)
+                ListProce = LstPro.GroupBy(o => new { o.CategoryId, o.CategoryName }).Select(s=> new ProcedureUI
                 {
-                    ListProce.Add(new ProcedureUI
-                    {
-                        ID = LstPro[i].Id,
-                        Name = LstPro[i].ProceduresName
-                    });
-                }
+                     CateID = s.Key.CategoryId,
+                     CateName = s.Key.CategoryName,
+                     ListProcedureUI = LstPro.OrderBy(p=>p.ProceduresName).Where(w=>w.CategoryId == s.Key.CategoryId).Select(q=> new ProcedureUI {
+                         ID = q.Id,
+                         Name = q.ProceduresName,
+                     }).ToList()
+                }).ToList();
             }
             System.Web.HttpContext.Current.Session["ProcedureUI"] = ListProce;
 

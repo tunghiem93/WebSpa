@@ -58,32 +58,32 @@
                         <i class='fa fa-home'></i>Trang chủ
                     </a>
                     @*<ul class="sub-menu">
-                <li id="menu-item-113" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-1">
-                    <a href="https://dreamspa.dttheme.com/home/home-ii/">Home II</a>
-                </li>
-                <li id="menu-item-114" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-1">
-                    <a href="https://dreamspa.dttheme.com/home/home-iii/">Home III</a>
-                </li>
-                <li id="menu-item-511" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-depth-1">
-                    <a href="https://dreamspa.dttheme.com/headers/">Headers</a>
-                    <ul class="sub-menu">
-                        <li id="menu-item-507" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                            <a href="https://dreamspa.dttheme.com/headers/">Header 1</a>
+                        <li id="menu-item-113" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-1">
+                            <a href="https://dreamspa.dttheme.com/home/home-ii/">Home II</a>
                         </li>
-                        <li id="menu-item-510" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                            <a href="https://dreamspa.dttheme.com/headers/header-2/">Header 2</a>
+                        <li id="menu-item-114" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-1">
+                            <a href="https://dreamspa.dttheme.com/home/home-iii/">Home III</a>
                         </li>
-                        <li id="menu-item-509" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                            <a href="https://dreamspa.dttheme.com/headers/header-3/">Header 3</a>
-                        </li>
-                        <li id="menu-item-508" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
-                            <a href="https://dreamspa.dttheme.com/headers/header-4/">Header 4</a>
+                        <li id="menu-item-511" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-depth-1">
+                            <a href="https://dreamspa.dttheme.com/headers/">Headers</a>
+                            <ul class="sub-menu">
+                                <li id="menu-item-507" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                    <a href="https://dreamspa.dttheme.com/headers/">Header 1</a>
+                                </li>
+                                <li id="menu-item-510" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                    <a href="https://dreamspa.dttheme.com/headers/header-2/">Header 2</a>
+                                </li>
+                                <li id="menu-item-509" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                    <a href="https://dreamspa.dttheme.com/headers/header-3/">Header 3</a>
+                                </li>
+                                <li id="menu-item-508" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                    <a href="https://dreamspa.dttheme.com/headers/header-4/">Header 4</a>
+                                </li>
+                            </ul>
+                            <a class="dt-menu-expand">+</a>
                         </li>
                     </ul>
-                    <a class="dt-menu-expand">+</a>
-                </li>
-            </ul>*@
-                    <a class="dt-menu-expand">+</a>
+                    <a class="dt-menu-expand">+</a>*@
                 </li>                
                 <li id="" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-depth-0 menu-item-simple-parent procedures_index">
                     <a href="@Url.Action("Index","Procedures")">
@@ -94,12 +94,31 @@
                         {
                             foreach (var item in _ListProce)
                             {
-                                <li id="@item.ID" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-0">
-                                    <a href="Procedures#goto_@item.ID">@item.Name</a>
-                                </li>
+
+                                if (item.ListProcedureUI != null && item.ListProcedureUI.Count == 0)
+                                {
+                                    <li id="@item.CateID" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-0">
+                                        <a href="@Url.Action("Index","Procedures")">@item.CateName</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li id="@item.CateID" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-depth-1">
+                                        <a href="@Url.Action("Index","Procedures")">@item.CateName</a>
+                                        <ul class="sub-menu">
+                                            @foreach (var child in item.ListProcedureUI)
+                                            {
+                                                <li id="@child.ID" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-2">
+                                                    <a href="Procedures#goto_@child.ID">@child.Name</a>
+                                                </li>
+                                            }
+                                        </ul>
+                                        <a class="dt-menu-expand">+</a>
+                                    </li>                                    
+                                }
                             }
                         }
-                        
+
                         @*<li id="menu-item-511" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-depth-1">
             <a href="https://dreamspa.dttheme.com/headers/">Headers</a>
             <ul class="sub-menu">

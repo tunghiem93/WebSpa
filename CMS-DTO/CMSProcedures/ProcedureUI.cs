@@ -10,6 +10,8 @@ namespace CMS_DTO.CMSProcedures
     {
         public string ID { get; set; }
         public string Name { get; set; }
+        public string CateID { get; set; }
+        public string CateName { get; set; }
         public List<ProcedureUI> ListProcedureUI { get; set; }
         public ProcedureUI()
         {

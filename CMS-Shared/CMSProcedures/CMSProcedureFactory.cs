@@ -257,8 +257,8 @@ namespace CMS_Shared.CMSProcedures
                         {
                             Id = o.ID,
                             ProductTypeCode = o.TypeCode,
-                            //CategoryId = o.p.CategoryID,
-                            //CategoryName = o.c.Name,
+                            CategoryId = o.CategoryID,
+                            CategoryName = o.Name,
                             ProceduresName = o.Name,
                             ProductCode = o.ProductCode,
                             BarCode = o.BarCode,

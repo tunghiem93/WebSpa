@@ -39,7 +39,7 @@
 
                 </div>
 
-                <div class='fullwidth-section skin-color' style="background-color:#e7e5d9;background-image:url(/Content/border/border.png);background-repeat:repeat-x;background-position:left top;padding-top:75px;padding-bottom:20px;">
+                @*<div class='fullwidth-section skin-color' style="background-color:#e7e5d9;background-image:url(/Content/border/border.png);background-repeat:repeat-x;background-position:left top;padding-top:75px;padding-bottom:20px;">
                     <div class="container">
                         @if (Model.ListProcedures != null && Model.ListProcedures.Any())
                         {
@@ -53,7 +53,7 @@
                             }
                         }                        
                     </div>
-                </div>
+                </div>*@
                 @if (Model != null && Model.ListProcedures != null && Model.ListProcedures.Any())
                 {
                     var _index = 1;
@@ -78,31 +78,31 @@
                                         <div class='dt-sc-hr-invisible'></div>
                                         <div class='dt-sc-tabs-container aligncenter'>
                                             <ul class="dt-sc-tabs-frame">
-                                                <li><a href="#"><span>01</span> Chuẩn bị</a></li>
-                                                <li><a href="#"><span>02</span> Trình tự</a></li>
-                                                <li><a href="#"><span>03</span> Điều trị</a></li>
+                                                <li><a href="#"><span>01</span> Trình tự</a></li>
+                                                <li><a href="#"><span>02</span> Điều trị</a></li>
+                                                @*<li><a href="#"><span>03</span> Điều trị</a></li>*@
                                             </ul>
                                             <div class="dt-sc-tabs-frame-content">
-                                                <p>@item.Preparation</p>
+                                                <p>@Html.Raw(item.Process)</p>
                                                 <div class='dt-sc-hr-invisible'></div>
-                                                <p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
+                                                @*<p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
                                                 <div class='dt-sc-hr-invisible-small'></div>
                                                 <div class="dt-sc-clear"></div>
                                                 <div class='dt-sc-fancy-list green tick'>
                                                     @Html.Raw(item.Description)
-                                                </div>
+                                                </div>*@
                                             </div>
                                             <div class="dt-sc-tabs-frame-content">
-                                                <p>@item.Process</p>
+                                                <p>@Html.Raw(item.SpaTreatment)</p>
                                                 <div class='dt-sc-hr-invisible'></div>
-                                                <p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
+                                                @*<p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
                                                 <div class='dt-sc-hr-invisible-small  '></div>
                                                 <div class="dt-sc-clear"></div>
                                                 <div class='dt-sc-fancy-list green tick'>
                                                     @Html.Raw(item.Description)
-                                                </div>
+                                                </div>*@
                                             </div>
-                                            <div class="dt-sc-tabs-frame-content">
+                                            @*<div class="dt-sc-tabs-frame-content">
                                                 <p>@item.SpaTreatment</p>
                                                 <div class='dt-sc-hr-invisible'></div>
                                                 <p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
@@ -111,7 +111,7 @@
                                                 <div class='dt-sc-fancy-list green tick'>
                                                     @Html.Raw(item.Description)
                                                 </div>
-                                            </div>
+                                            </div>*@
                                         </div>
                                     </div>
                                 </div>
@@ -126,31 +126,31 @@
                                         <div class='dt-sc-hr-invisible  '></div>
                                         <div class='dt-sc-tabs-container aligncenter'>
                                             <ul class="dt-sc-tabs-frame">
-                                                <li><a href="#"><span>01</span> Chuẩn bị</a></li>
-                                                <li><a href="#"><span>02</span> Trình tự</a></li>
-                                                <li><a href="#"><span>03</span> Điều trị</a></li>
+                                                <li><a href="#"><span>01</span> Trình tự</a></li>
+                                                <li><a href="#"><span>02</span> Điều trị</a></li>
+                                                @*<li><a href="#"><span>03</span> Điều trị</a></li>*@
                                             </ul>
                                             <div class="dt-sc-tabs-frame-content">
-                                                <p>@item.Preparation</p>
+                                                <p>@Html.Raw(item.Process)</p>
                                                 <div class='dt-sc-hr-invisible'></div>
-                                                <p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
+                                                @*<p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
                                                 <div class='dt-sc-hr-invisible-small'></div>
                                                 <div class="dt-sc-clear"></div>
                                                 <div class='dt-sc-fancy-list green tick'>
                                                     @Html.Raw(item.Description)
-                                                </div>
+                                                </div>*@
                                             </div>
                                             <div class="dt-sc-tabs-frame-content">
-                                                <p>@item.Process</p>
+                                                <p>@Html.Raw(item.SpaTreatment)</p>
                                                 <div class='dt-sc-hr-invisible'></div>
-                                                <p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
+                                                @*<p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
                                                 <div class='dt-sc-hr-invisible-small'></div>
                                                 <div class="dt-sc-clear"></div>
                                                 <div class='dt-sc-fancy-list green tick'>
                                                     @Html.Raw(item.Description)
-                                                </div>
+                                                </div>*@
                                             </div>
-                                            <div class="dt-sc-tabs-frame-content">
+                                            @*<div class="dt-sc-tabs-frame-content">
                                                 <p>@item.SpaTreatment</p>
                                                 <div class='dt-sc-hr-invisible  '></div>
                                                 <p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
@@ -159,7 +159,7 @@
                                                 <div class='dt-sc-fancy-list  green  tick'>
                                                     @Html.Raw(item.Description)
                                                 </div>
-                                            </div>
+                                            </div>*@
                                         </div>
                                     </div>
                                     <div class='column dt-sc-one-third  space '>
