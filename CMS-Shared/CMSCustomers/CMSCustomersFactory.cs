@@ -38,6 +38,7 @@ namespace CMS_Shared.CMSCustomers
                                 LastName = model.LastName,
                                 IsActive = model.IsActive,
                                 Email = model.Email,
+                                Phone = model.Phone,
                                 Password = model.Password,
                                 Gender = model.Gender,
                                 Marital = model.MaritalStatus,
@@ -71,6 +72,7 @@ namespace CMS_Shared.CMSCustomers
                                 e.LastName = model.LastName;
                                 e.IsActive = model.IsActive;
                                 e.Email = model.Email;
+                                e.Phone = model.Phone;
                                 e.Password = model.Password;
                                 e.Gender = model.Gender;
                                 e.Marital = model.MaritalStatus;
@@ -159,6 +161,7 @@ namespace CMS_Shared.CMSCustomers
                                                     LastName = o.LastName,
                                                     IsActive = o.IsActive ?? true,
                                                     Email = o.Email,
+                                                    Phone = o.Phone,
                                                     Password = o.Password,
                                                     Gender = o.Gender ?? true,
                                                     MaritalStatus = o.Marital ?? false,
@@ -200,6 +203,7 @@ namespace CMS_Shared.CMSCustomers
                                                     LastName = o.LastName,
                                                     IsActive = o.IsActive ?? true,
                                                     Email = o.Email,
+                                                    Phone = o.Phone,
                                                     Gender = o.Gender ?? true,
                                                     MaritalStatus = o.Marital ?? false,
                                                     BirthDate = o.BirthDate ?? Commons.MinDate,
