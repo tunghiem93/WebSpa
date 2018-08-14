@@ -90,7 +90,7 @@
                                         <div class='dt-sc-team'>
                                             <div class="team-details">
                                                 <h5> @item.Name</h5>
-                                                <h6>Chuyên gia thảo dược</h6>
+                                                <h6>Chuyên gia sắc đẹp</h6>
                                             </div>
                                             <div class='image'>
                                                 @if (string.IsNullOrEmpty(item.ImageURL))
@@ -105,10 +105,20 @@
                                                 }
 
                                             </div>
-                                            <p>
-                                                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti
-                                                atque corrupti quos dolores et quas molestias provident destiny is about voles.
-                                            </p>
+                                            @{
+                                                if (!string.IsNullOrEmpty(item.Quote))
+                                                {
+                                                    <p>
+                                                        @Html.Raw(item.Quote)
+                                                    </p>
+                                                }
+                                                else
+                                                {
+                                                    <p>
+                                                        Cho mọi vẻ đẹp đều có một con mắt nhìn thấy vẻ đẹp ấy  ở một nơi nào đó. Cho mọi sự thực luôn có một cái tai  nghe thấu sự thực ấy . Cho mọi tình yêu đều có một trái tim ở  một nơi nào đó để đón nhận tình yêu ấy.
+                                                    </p>
+                                                }
+                                            }
                                             <ul class='dt-sc-social-icons'>
                                                 <li class='google'>
                                                     <a href='javascript:void(0)' target='_blank'>
