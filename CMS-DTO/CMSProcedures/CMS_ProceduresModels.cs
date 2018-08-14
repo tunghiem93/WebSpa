@@ -56,12 +56,15 @@ namespace CMS_DTO.CMSProcedures
         public double ExtraPrice { get; set; }
         public bool IsRecommend { get; set; }
         public string Measure { get; set; }
+
+        public List<CMS_ProceduresModels> ListProceduresDTOChild { get; set; }
         public CMS_ProceduresModels()
         {
             IsActive = true;
             Measure = "0";
             ExpiredDate = Commons.MaxDate;
             ProductTypeCode = (byte)Commons.EProductType.Procudure;
+            ListProceduresDTOChild = new List<CMS_ProceduresModels>();
         }
     }
 }

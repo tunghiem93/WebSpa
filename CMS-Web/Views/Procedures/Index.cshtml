@@ -7,6 +7,45 @@
     .dt-sc-hr-invisible{
         margin-top: 0px !important;
     }
+
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    /*border: 1px solid #ccc;
+background-color: #f1f1f1;*/
+    margin-bottom: 15px;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    /*background-color: inherit;*/
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 13px 16px;
+    transition: 0.3s;
+    font-size: 13px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    -webkit-animation: fadeEffect 1s;
+    animation: fadeEffect 1s;
+}
+
 </style>
 
 <div class="wrapper">
@@ -39,143 +78,177 @@
 
                 </div>
 
-                @*<div class='fullwidth-section skin-color' style="background-color:#e7e5d9;background-image:url(/Content/border/border.png);background-repeat:repeat-x;background-position:left top;padding-top:75px;padding-bottom:20px;">
+                <div class='fullwidth-section skin-color' style="background-color:#e7e5d9;background-image:url(/Content/border/border.png);background-repeat:repeat-x;background-position:left top;padding-top:75px;padding-bottom:20px;">
                     <div class="container">
-                        @if (Model.ListProcedures != null && Model.ListProcedures.Any())
-                        {
-                            foreach (var item in Model.ListProcedures)
-                            {
-                                <div class='column dt-sc-one-fourth space first'>
-                                    <ul class='dt-sc-fancy-list onepage arrow'>
-                                        <li><a href="#goto_@item.Id">@item.ProceduresName</a></li>  
-                                    </ul>
+                        <div class='column dt-sc-two-third  space'>
+                            @*<div class='dt-sc-hr-invisible-medium'></div>
+                            <div class='dt-sc-hr-invisible'></div>*@
+                            <div class='dt-sc-tabs-container aligncenter'>
+                                <div class="tab">
+                                    @if (Model.ListProcedures != null && Model.ListProcedures.Any())
+                                    {
+                                        var _index = 1;
+                                        foreach (var item in Model.ListProcedures)
+                                        {
+                                            <button class="tablinks" onclick="openCity(event, '@item.CategoryId')"><span>@_index.ToString("00")</span>&nbsp; @item.CategoryName</button>
+                                            _index = _index + 1;
+                                        }
+                                    }
                                 </div>
-                            }
-                        }                        
+                                @if (Model.ListProcedures != null && Model.ListProcedures.Any())
+                                {
+                                    foreach (var item in Model.ListProcedures)
+                                    {
+                                        <div id="@item.CategoryId" class="tabcontent">
+                                            @if (item.ListProceduresDTOChild != null && item.ListProceduresDTOChild.Any())
+                                            {
+                                                foreach (var child in item.ListProceduresDTOChild)
+                                                {
+                                                    <div class='column dt-sc-one-fourth space first'>
+                                                        <ul class='dt-sc-fancy-list'>
+                                                            <li><a href="#goto_@child.Id">@child.ProceduresName</a></li>
+                                                        </ul>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
                     </div>
-                </div>*@
+                </div>
+
                 @if (Model != null && Model.ListProcedures != null && Model.ListProcedures.Any())
                 {
                     var _index = 1;
                     foreach (var item in Model.ListProcedures)
                     {
-                        if (_index % 2 != 0)
+                        if (item.ListProceduresDTOChild != null && item.ListProceduresDTOChild.Any())
                         {
-                            <div id='goto_@item.Id' class='fullwidth-section skin-white' style="background-color:#fcfcf7;background-image:url(@Url.Content("~/Images/border.png"));background-repeat:repeat-x;background-position:left top;padding-top:60px;padding-bottom:50px;">
-                                <div class="container">
-                                    <div class='column dt-sc-one-third  space first'>
-                                        <div class="dt-sc-popular-procedures with-image">
-                                            <div class="dt-sc-popular-procedures-wrapper">
-                                                <div class="border"></div>
-                                                <div class='image'><img src='@item.ImageUrl' alt='@item.ProceduresName' /></div>
-                                                <h2>@item.ProceduresName</h2><span class='duration'>Thời gian: @item.Duration</span><span class='price'>@item.Price.ToString("#,0")VNĐ</span>
-                                                <p>@item.ShortDescription</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class='column dt-sc-two-third  space '>
-                                        <div class='dt-sc-hr-invisible-medium  '></div>
-                                        <div class='dt-sc-hr-invisible'></div>
-                                        <div class='dt-sc-tabs-container aligncenter'>
-                                            <ul class="dt-sc-tabs-frame">
-                                                <li><a href="#"><span>01</span> Trình tự</a></li>
-                                                <li><a href="#"><span>02</span> Điều trị</a></li>
-                                                @*<li><a href="#"><span>03</span> Điều trị</a></li>*@
-                                            </ul>
-                                            <div class="dt-sc-tabs-frame-content">
-                                                <p>@Html.Raw(item.Process)</p>
-                                                <div class='dt-sc-hr-invisible'></div>
-                                                @*<p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
-                                                <div class='dt-sc-hr-invisible-small'></div>
-                                                <div class="dt-sc-clear"></div>
-                                                <div class='dt-sc-fancy-list green tick'>
-                                                    @Html.Raw(item.Description)
-                                                </div>*@
-                                            </div>
-                                            <div class="dt-sc-tabs-frame-content">
-                                                <p>@Html.Raw(item.SpaTreatment)</p>
-                                                <div class='dt-sc-hr-invisible'></div>
-                                                @*<p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
-                                                <div class='dt-sc-hr-invisible-small  '></div>
-                                                <div class="dt-sc-clear"></div>
-                                                <div class='dt-sc-fancy-list green tick'>
-                                                    @Html.Raw(item.Description)
-                                                </div>*@
-                                            </div>
-                                            @*<div class="dt-sc-tabs-frame-content">
-                                                <p>@item.SpaTreatment</p>
-                                                <div class='dt-sc-hr-invisible'></div>
-                                                <p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
-                                                <div class='dt-sc-hr-invisible-small'></div>
-                                                <div class="dt-sc-clear"></div>
-                                                <div class='dt-sc-fancy-list green tick'>
-                                                    @Html.Raw(item.Description)
+                            <div id="goto_@item.CategoryId">
+                                @foreach (var child in item.ListProceduresDTOChild)
+                                {
+                                    if (_index % 2 != 0)
+                                    {
+                                        <div id="goto_@child.Id" class='fullwidth-section skin-white' style="background-color:#fcfcf7;background-image:url(@Url.Content("~/Images/border.png"));background-repeat:repeat-x;background-position:left top;padding-top:60px;padding-bottom:50px;">
+                                            <div class="container">
+                                                <div class='column dt-sc-one-third  space first'>
+                                                    <div class="dt-sc-popular-procedures with-image">
+                                                        <div class="dt-sc-popular-procedures-wrapper">
+                                                            <div class="border"></div>
+                                                            <div class='image'><img src='@child.ImageUrl' alt='@child.ProceduresName' /></div>
+                                                            <h2>@child.ProceduresName</h2><span class='duration'>Thời gian: @child.Duration</span><span class='price'>@item.Price.ToString("#,0")VNĐ</span>
+                                                            <p>@child.ShortDescription</p>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>*@
+                                                <div class='column dt-sc-two-third  space '>
+                                                    <div class='dt-sc-hr-invisible-medium  '></div>
+                                                    <div class='dt-sc-hr-invisible'></div>
+                                                    <div class='dt-sc-tabs-container aligncenter'>
+                                                        <ul class="dt-sc-tabs-frame">
+                                                            <li><a href="javascript:void(0)"><span>01</span> Quy trình thực hiện</a></li>
+                                                            <li><a href="javascript:void(0)"><span>02</span> Điều trị</a></li>
+                                                            @*<li><a href="#"><span>03</span> Điều trị</a></li>*@
+                                                        </ul>
+                                                        <div class="dt-sc-tabs-frame-content">
+                                                            <p>@Html.Raw(child.Process)</p>
+                                                            <div class='dt-sc-hr-invisible'></div>
+                                                            @*<p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
+                                                    <div class='dt-sc-hr-invisible-small'></div>
+                                                    <div class="dt-sc-clear"></div>
+                                                    <div class='dt-sc-fancy-list green tick'>
+                                                        @Html.Raw(item.Description)
+                                                    </div>*@
+                                                        </div>
+                                                        <div class="dt-sc-tabs-frame-content">
+                                                            <p>@Html.Raw(child.SpaTreatment)</p>
+                                                            <div class='dt-sc-hr-invisible'></div>
+                                                            @*<p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
+                                                    <div class='dt-sc-hr-invisible-small  '></div>
+                                                    <div class="dt-sc-clear"></div>
+                                                    <div class='dt-sc-fancy-list green tick'>
+                                                        @Html.Raw(item.Description)
+                                                    </div>*@
+                                                        </div>
+                                                        @*<div class="dt-sc-tabs-frame-content">
+                                                    <p>@item.SpaTreatment</p>
+                                                    <div class='dt-sc-hr-invisible'></div>
+                                                    <p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
+                                                    <div class='dt-sc-hr-invisible-small'></div>
+                                                    <div class="dt-sc-clear"></div>
+                                                    <div class='dt-sc-fancy-list green tick'>
+                                                        @Html.Raw(item.Description)
+                                                    </div>
+                                                </div>*@
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    }
+                                    else
+                                    {
+                                        <div id="goto_@child.Id" class='fullwidth-section skin-white' style="background-color:#fcfcf7;background-image:url(@Url.Content("~/Images/border.png"));background-repeat:repeat-x;background-position:left top;padding-top:60px;padding-bottom:50px;">
+                                            <div class="container">
+                                                <div class='column dt-sc-two-third  space first'>
+                                                    <div class='dt-sc-hr-invisible-medium  '></div>
+                                                    <div class='dt-sc-hr-invisible  '></div>
+                                                    <div class='dt-sc-tabs-container aligncenter'>
+                                                        <ul class="dt-sc-tabs-frame">
+                                                            <li><a href="javascript:void(0)"><span>01</span> Quy trình thực hiện</a></li>
+                                                            <li><a href="javascript:void(0)"><span>02</span> Điều trị</a></li>
+                                                            @*<li><a href="#"><span>03</span> Điều trị</a></li>*@
+                                                        </ul>
+                                                        <div class="dt-sc-tabs-frame-content">
+                                                            <p>@Html.Raw(child.Process)</p>
+                                                            <div class='dt-sc-hr-invisible'></div>
+                                                            @*<p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
+                                                    <div class='dt-sc-hr-invisible-small'></div>
+                                                    <div class="dt-sc-clear"></div>
+                                                    <div class='dt-sc-fancy-list green tick'>
+                                                        @Html.Raw(item.Description)
+                                                    </div>*@
+                                                        </div>
+                                                        <div class="dt-sc-tabs-frame-content">
+                                                            <p>@Html.Raw(child.SpaTreatment)</p>
+                                                            <div class='dt-sc-hr-invisible'></div>
+                                                            @*<p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
+                                                    <div class='dt-sc-hr-invisible-small'></div>
+                                                    <div class="dt-sc-clear"></div>
+                                                    <div class='dt-sc-fancy-list green tick'>
+                                                        @Html.Raw(item.Description)
+                                                    </div>*@
+                                                        </div>
+                                                        @*<div class="dt-sc-tabs-frame-content">
+                                                    <p>@item.SpaTreatment</p>
+                                                    <div class='dt-sc-hr-invisible  '></div>
+                                                    <p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
+                                                    <div class='dt-sc-hr-invisible-small  '></div>
+                                                    <div class="dt-sc-clear"></div>
+                                                    <div class='dt-sc-fancy-list  green  tick'>
+                                                        @Html.Raw(item.Description)
+                                                    </div>
+                                                </div>*@
+                                                    </div>
+                                                </div>
+                                                <div class='column dt-sc-one-third  space '>
+                                                    <div class="dt-sc-popular-procedures with-image">
+                                                        <div class="dt-sc-popular-procedures-wrapper">
+                                                            <div class="border"></div>
+                                                            <div class='image'><img src='@child.ImageUrl' alt='@child.ProceduresName' /></div>
+                                                            <h2>@child.ProceduresName</h2><span class='duration'>Thời gian: @child.Duration</span><span class='price'>@item.Price.ToString("#,0")VNĐ</span>
+                                                            <p>@child.ShortDescription</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    _index = _index + 1;
+                                }
                             </div>
                         }
-                        else
-                        {
-                            <div id='goto_@item.Id' class='fullwidth-section skin-white' style="background-color:#fcfcf7;background-image:url(@Url.Content("~/Images/border.png"));background-repeat:repeat-x;background-position:left top;padding-top:60px;padding-bottom:50px;">
-                                <div class="container">
-                                    <div class='column dt-sc-two-third  space first'>
-                                        <div class='dt-sc-hr-invisible-medium  '></div>
-                                        <div class='dt-sc-hr-invisible  '></div>
-                                        <div class='dt-sc-tabs-container aligncenter'>
-                                            <ul class="dt-sc-tabs-frame">
-                                                <li><a href="#"><span>01</span> Trình tự</a></li>
-                                                <li><a href="#"><span>02</span> Điều trị</a></li>
-                                                @*<li><a href="#"><span>03</span> Điều trị</a></li>*@
-                                            </ul>
-                                            <div class="dt-sc-tabs-frame-content">
-                                                <p>@Html.Raw(item.Process)</p>
-                                                <div class='dt-sc-hr-invisible'></div>
-                                                @*<p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
-                                                <div class='dt-sc-hr-invisible-small'></div>
-                                                <div class="dt-sc-clear"></div>
-                                                <div class='dt-sc-fancy-list green tick'>
-                                                    @Html.Raw(item.Description)
-                                                </div>*@
-                                            </div>
-                                            <div class="dt-sc-tabs-frame-content">
-                                                <p>@Html.Raw(item.SpaTreatment)</p>
-                                                <div class='dt-sc-hr-invisible'></div>
-                                                @*<p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
-                                                <div class='dt-sc-hr-invisible-small'></div>
-                                                <div class="dt-sc-clear"></div>
-                                                <div class='dt-sc-fancy-list green tick'>
-                                                    @Html.Raw(item.Description)
-                                                </div>*@
-                                            </div>
-                                            @*<div class="dt-sc-tabs-frame-content">
-                                                <p>@item.SpaTreatment</p>
-                                                <div class='dt-sc-hr-invisible  '></div>
-                                                <p style="font-size: 16px; color: #37251b;">Hiệu quả</p>
-                                                <div class='dt-sc-hr-invisible-small  '></div>
-                                                <div class="dt-sc-clear"></div>
-                                                <div class='dt-sc-fancy-list  green  tick'>
-                                                    @Html.Raw(item.Description)
-                                                </div>
-                                            </div>*@
-                                        </div>
-                                    </div>
-                                    <div class='column dt-sc-one-third  space '>
-                                        <div class="dt-sc-popular-procedures with-image">
-                                            <div class="dt-sc-popular-procedures-wrapper">
-                                                <div class="border"></div>
-                                                <div class='image'><img src='@item.ImageUrl' alt='@item.ProceduresName' /></div>
-                                                <h2>@item.ProceduresName</h2><span class='duration'>Thời gian: @item.Duration</span><span class='price'>@item.Price.ToString("#,0")VNĐ</span>
-                                                <p>@item.ShortDescription</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                        _index = _index + 1;
                     }
                 }
 
@@ -218,3 +291,19 @@
         </div>
     </div>
 </div>
+
+<script>
+    function openCity(evt, cityName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>

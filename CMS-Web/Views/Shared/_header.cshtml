@@ -1,5 +1,6 @@
 ﻿@{
     Layout = null;
+    string controller = (string)ViewContext.RouteData.Values["controller"];
     var _ListProce = Session["ProcedureUI"] as List<CMS_DTO.CMSProcedures.ProcedureUI>;
 }
 
@@ -89,7 +90,7 @@
                     <a href="@Url.Action("Index","Procedures")">
                         <i class="fa fa-trophy"></i>Liệu trình
                     </a>
-                    <ul class="sub-menu" style="display: none; opacity: 1;">
+                    @*<ul class="sub-menu" style="display: none; opacity: 1;">
                         @if (_ListProce != null && _ListProce.Any())
                         {
                             foreach (var item in _ListProce)
@@ -98,13 +99,13 @@
                                 if (item.ListProcedureUI != null && item.ListProcedureUI.Count == 0)
                                 {
                                     <li id="@item.CateID" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-depth-0">
-                                        <a href="@Url.Action("Index","Procedures")">@item.CateName</a>
+                                        <a href="@string.Format("{0}", controller == "Procedures" ? ("#goto_" + item.CateID) : ("Procedures#goto_" + item.CateID))">@item.CateName</a>
                                     </li>
                                 }
                                 else
                                 {
-                                    <li id="@item.CateID" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-depth-1">
-                                        <a href="@Url.Action("Index","Procedures")">@item.CateName</a>
+                                    <li id="'@item.CateID'" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-depth-1">
+                                        <a href="@string.Format("{0}", controller == "Procedures" ? ("#goto_" + item.CateID) : ("Procedures#goto_" + item.CateID))">@item.CateName</a>
                                         <ul class="sub-menu">
                                             @foreach (var child in item.ListProcedureUI)
                                             {
@@ -136,8 +137,8 @@
                 </li>
             </ul>
             <a class="dt-menu-expand">+</a>
-        </li>*@
-                    </ul>
+        </li>
+                    </ul>*@
                     <a class="dt-menu-expand dt-mean-clicked">-</a>
                 </li>
                 <li id="menu-item-187" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-depth-0 menu-item-megamenu-parent  megamenu-4-columns-group gallery_index">
