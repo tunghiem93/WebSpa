@@ -34,7 +34,7 @@ namespace CMS_Shared.CMSCustomers
                             var e = new CMS_Customer
                             {
                                 ID = Id,
-                                FirstName = model.Name,
+                                FirstName = model.FirstName,
                                 LastName = model.LastName,
                                 IsActive = model.IsActive,
                                 Email = model.Email,

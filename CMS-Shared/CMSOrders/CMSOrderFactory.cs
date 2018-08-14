@@ -6,12 +6,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CMS_Shared.CMSOrders
 {
     public class CMSOrderFactory
     {
+        private static Semaphore m_Semaphore = new Semaphore(1, 1);
+
         public bool CreateOrder(CMS_CheckOutModels model)
         {
             NSLog.Logger.Info("CreateOrder_Request:", model);
@@ -19,6 +22,7 @@ namespace CMS_Shared.CMSOrders
             {
                 using (var trans = db.Database.BeginTransaction())
                 {
+                    m_Semaphore.WaitOne();
                     try
                     {
                         if(string.IsNullOrEmpty(model.Customer.Id))
@@ -46,11 +50,13 @@ namespace CMS_Shared.CMSOrders
                         }
                         // create order
                         var _OrderId = Guid.NewGuid().ToString();
+                        var _OrderNo = CommonHelper.GenerateOrderNo(model.StoreID, (byte)Commons.EStatus.Actived);
                         var eOrder = new CMS_Order
                         {
                             ID = _OrderId,
                             StoreID = model.StoreID,
-                            OrderNo = CommonHelper.RandomNumberOrder(),
+                            //OrderNo = CommonHelper.RandomNumberOrder(),
+                            OrderNo = _OrderNo,
                             CustomerID = model.Customer.Id,
                             TotalBill = model.TotalPrice,
                             SubTotal = model.SubTotalPrice,
@@ -95,6 +101,7 @@ namespace CMS_Shared.CMSOrders
                     }
                     finally
                     {
+                        m_Semaphore.Release();
                         db.Dispose();
                     }
                 }

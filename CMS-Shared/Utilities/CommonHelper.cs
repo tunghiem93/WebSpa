@@ -1,4 +1,5 @@
 ﻿using CMS_Common;
+using CMS_DataModel.Models;
 using CMS_DTO.CMSContact;
 using System;
 using System.Collections.Generic;
@@ -146,6 +147,46 @@ namespace CMS_Shared.Utilities
             return "NO_" +((long)R.Next(0, 100000) * (long)R.Next(0, 100000)).ToString().PadLeft(10, '0');
         }
 
+        public static string GenerateOrderNo(string _storeID, byte mode)
+        {
+            string no = string.Empty;
+            try
+            {
+                using (var _db = new CMS_Context())
+                {
+                    int startNo = 1;
+                    string prefix = "OR" + DateTime.Now.ToString("yyyyMMdd") + "-";
+                    
+                    int nextNum = startNo;
+                    int currentNum = 0;
+                    string currentOrderNo = _db.CMS_Order.Where(o => o.StoreID == _storeID && o.OrderNo.Contains(prefix) && !string.IsNullOrEmpty(o.OrderNo)).OrderByDescending(o => o.OrderNo).Select(o => o.OrderNo).FirstOrDefault();
+                    if (!string.IsNullOrEmpty(currentOrderNo))
+                    {
+                        currentOrderNo = currentOrderNo.Replace(prefix, "");
+                        currentNum = int.Parse(currentOrderNo);
+                        if (currentNum >= startNo)
+                            nextNum = currentNum + 1;
+                    }
+
+                    if (nextNum.ToString().Length > 2)
+                        no = prefix + nextNum.ToString();
+                    else
+                        no = prefix + CreateStringLengthDigit(nextNum, 3);
+                }
+            }
+            catch { }
+            return no;
+        }
+
+        private static string CreateStringLengthDigit(int number, int length)
+        {
+            string result = number.ToString();
+            while (result.Length < length)
+            {
+                result = "0" + result;
+            }
+            return result;
+        }
 
         public static bool ContactAdmin(CMS_ContactModels _ctInfo )
         {
