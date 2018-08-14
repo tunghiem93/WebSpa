@@ -21,7 +21,9 @@ a, h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover, .dt-s
 }
 
 th, .dt-sc-button, .dt-sc-sorting-container a.active-sort, .dt-sc-sorting-container a:hover, .pagination .prev-post a, .pagination .next-post a, .post-nav-container .post-prev-link a, .post-nav-container .post-next-link a, .widget.widget_tag_cloud .tagcloud a:hover, .widget.widget_product_tag_cloud .tagcloud a:hover, input[type="submit"], button, input[type="button"], .dt-sc-ico-content.type2 .icon:after, .sticky .entry-meta .date, .widget.flickrbox .flickr-widget div a, .post-edit-link:hover, #header .dt-sc-social-icons li:hover, #header #searchform input[type="submit"]:hover, #primary #searchform input[type="submit"]:hover, ul.time-table > li:before, ul.time-table > li.selected {
-    background-color: #d77d31
+    /*background-color: #d77d31*/
+    /*Edit by tu 14/08/2018*/
+    background-color: gray
 }
 
     .dt-sc-button:hover, .pagination .prev-post a:hover, .pagination .next-post a:hover, .post-nav-container .post-prev-link a:hover, .post-nav-container .post-next-link a:hover, input[type="submit"]:hover, button:hover, input[type="button"]:hover {
