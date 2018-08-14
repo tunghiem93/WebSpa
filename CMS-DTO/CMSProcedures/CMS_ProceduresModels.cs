@@ -25,13 +25,14 @@ namespace CMS_DTO.CMSProcedures
         [AllowHtml]
         public string Description { get; set; }
         public string PrintOutText { get; set; }
+        [MaxLength(2000, ErrorMessage = "Mô tả tối đa 2000 kí tự")]
         public string ShortDescription { get; set; }
         public string Preparation { get; set; }
         [AllowHtml]
-        [MaxLength(500, ErrorMessage = "Mô tả tối đa 500 kí tự")]
+        [MaxLength(2000, ErrorMessage = "Mô tả tối đa 2000 kí tự")]
         public string Process { get; set; }
         [AllowHtml]
-        [MaxLength(500, ErrorMessage = "Mô tả tối đa 500 kí tự")]
+        [MaxLength(2000, ErrorMessage = "Mô tả tối đa 2000 kí tự")]
         public string SpaTreatment { get; set; }
         public string Effect { get; set; }
         public string Duration { get; set; }

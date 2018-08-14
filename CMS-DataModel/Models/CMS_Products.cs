@@ -53,13 +53,13 @@ namespace CMS_DataModel.Models
         public bool IsActive { get; set; }
 
         public string ImageURL { get; set; }
-        [StringLength(500)]
+        [StringLength(2000)]
         public string ShortDescription { get; set; }
         [StringLength(500)]
         public string Preparation { get; set; }
-        [StringLength(500)]
+        [StringLength(2000)]
         public string Process { get; set; }
-        [StringLength(500)]
+        [StringLength(2000)]
         public string SpaTreatment { get; set; }
         [StringLength(500)]
         public string Effect { get; set; }
