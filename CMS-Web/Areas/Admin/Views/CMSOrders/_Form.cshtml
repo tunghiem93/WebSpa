@@ -1,0 +1,309 @@
+﻿
+@model CMS_DTO.CMSOrder.CMS_OrderAdminModels
+@using CMS_Common
+@{
+    Html.EnableUnobtrusiveJavaScript(true);
+    var _ID = Model.Id;
+}
+@Html.HiddenFor(model =>model.Id)
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font: 16px Arial;
+    }
+
+    .autocomplete {
+        /*the container must be positioned relative:*/
+        position: relative;
+        display: inline-block;
+    }
+
+    input {
+        border: 1px solid transparent;
+        background-color: #f1f1f1;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+        input[type=text] {
+            background-color: #f1f1f1;
+            width: 100%;
+        }
+
+        input[type=submit] {
+            background-color: DodgerBlue;
+            color: #fff;
+            cursor: pointer;
+        }
+
+    .autocomplete-items {
+        position: absolute;
+        border: 1px solid #d4d4d4;
+        border-bottom: none;
+        border-top: none;
+        z-index: 99;
+        /*position the autocomplete items to be the same width as the container:*/
+        top: 100%;
+        left: 0;
+        right: 0;
+    }
+
+        .autocomplete-items div {
+            padding: 10px;
+            cursor: pointer;
+            background-color: #fff;
+            border-bottom: 1px solid #d4d4d4;
+        }
+
+            .autocomplete-items div:hover {
+                /*when hovering an item:*/
+                background-color: #e9e9e9;
+            }
+
+    .autocomplete-active {
+        /*when navigating through the items using the arrow keys:*/
+        background-color: DodgerBlue !important;
+        color: #ffffff;
+    }
+
+    .list-group-item:hover {
+        background-color: #e9e9e9;
+        cursor:pointer;
+    }
+</style>
+<div class="row form-horizontal form-label-left" style="margin-bottom:15px;">
+    <fieldset>
+        <legend>Thông tin khách hàng</legend>
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Họ</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text" class="form-control" placeholder="Họ" autocomplete="off" ng-model="FirstName" />
+                @*@Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", @placeholder = "Họ", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.FirstName, null, new { @class = "label label-danger" })*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Tên</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text" class="form-control" placeholder="Tên" autocomplete="off" ng-model="LastName" />
+                @*@Html.TextBoxFor(model => model.LastName, new { @class = "form-control", @placeholder = "Tên thể loại", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.LastName, null, new { @class = "label label-danger" })*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Email</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text" class="form-control" placeholder="Email" autocomplete="off" ng-model="Email" />
+                @*@Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "Email", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Email, null, new { @class = "label label-danger" })*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Điện thoại</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text" class="form-control" placeholder="Điện thoại" autocomplete="off" ng-model="Phone" />
+                @*@Html.TextBoxFor(model => model.Phone, new { @class = "form-control", @placeholder = "Điện thoại", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Phone, null, new { @class = "label label-danger" })*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Tên công ty</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text" placeholder="Tên công ty" class="form-control" autocomplete="off" ng-model="Company" />
+                @*@Html.TextBoxFor(model => model.Company, new { @class = "form-control", @placeholder = "Tên công ty", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Company, null, new { @class = "label label-danger" })*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Quốc gia</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text" class="form-control" placeholder="Quốc gia" autocomplete="off" ng-model="Country" />
+                @*@Html.TextBoxFor(model => model.Country, new { @class = "form-control", @placeholder = "Quốc gia", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Country, null, new { @class = "label label-danger" })*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Thành phố</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text" class="form-control" placeholder="Thành phố" autocomplete="off" ng-model="City" />
+                @*@Html.TextBoxFor(model => model.City, new { @class = "form-control", @placeholder = "Thành phố", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.City, null, new { @class = "label label-danger" })*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Địa chỉ</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text" class="form-control" placeholder="Địa chỉ" autocomplete="off" ng-model="Address" />
+                @*@Html.TextBoxFor(model => model.Address, new { @class = "form-control", @placeholder = "Địa chỉ", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Address, null, new { @class = "label label-danger" })*@
+            </div>
+        </div>
+
+        <!--Description-->
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Mô tả</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <textarea class="form-control" placeholder="Mô tả đơn hàng" ng-model="Description"></textarea>
+                @*@Html.TextAreaFor(model => model.Description, new { @class = "form-control", placeholder = "Mô tả đơn hàng" })
+                @Html.ValidationMessageFor(model => model.Description, null, new { @class = "label" })*@
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Thông tin đơn hàng:</legend>
+        <div class="form-group">
+            <form name="OrderFrm">
+                <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Tên sản phẩm</label>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <input type="text" placeholder="Tên sản phẩm" ng-required="true" autocomplete="off" ng-model="productName" name="productName" ng-keyup="complete(productName)" class="form-control" />
+                    <input type="hidden" ng-model="ProductId" />
+                    <input type="hidden" ng-model="ProductPrice" />
+                    <ul class="list-group">
+                        <li class="list-group-item" ng-repeat="productdata in filterProduct" ng-click="fillTextbox(productdata)">{{productdata.ProductName}}</li>
+                    </ul>
+                    @* <input type="text" class="form-control" auto-complete ui-items="names" ng-model="selected" placeholder="Tên sản phẩm" autocomplete="off" id="txtProductName" />*@
+                </div>
+
+                <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Số lượng</label>
+                <div class="col-md-2 col-sm-2 col-xs-12">
+                    <input type="text" class="form-control" restrict-to="[0-9]" placeholder="Số lượng" ng-model="Qty" ng-init="Qty = 1" autocomplete="off" id="txtQty" />
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-12">
+                    <button type="button" class="btn btn-primary" ng-click="fnAddItem();" ng-disabled="OrderFrm.productName.$invalid">Thêm</button>
+                </div>
+            </form>
+        </div>
+        <div class="form-group">
+            <table class="table table-striped table-bordered table-hover dt-responsive" id="sample_4">
+                <thead>
+                    <tr>
+                        <th class="text-center">
+                            Tên sản phẩm
+                        </th>
+                        <th class="text-center"> Giá </th>
+                        <th class="text-center">Số lượng</th>
+                        <th class="text-center"> Thành tiền </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="odd gradeX" ng-repeat="item in Items">
+                        <td class="text-center">
+                            {{item.ProductName}}
+                        </td>
+                        <td class="text-center"> {{item.Price | currency :"": 0}} đ</td>
+                        <td class="text-center">
+                            {{item.Quantity}}
+                        </td>
+                        <td class="text-center">{{item.TotalPrice | currency :"": 0}} đ</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </fieldset>
+</div>
+<script src="@Url.Content("~/Scripts/InputCustom.js")"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+    })
+    var app = angular.module("appOrder", []);
+    app.directive('restrictTo', function () {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                var re = RegExp(attrs.restrictTo);
+                var exclude = /Backspace|Enter|Tab|Delete|Del|ArrowUp|Up|ArrowDown|Down|ArrowLeft|Left|ArrowRight|Right/;
+
+                element[0].addEventListener('keypress', function (event) {
+                    if (!exclude.test(event.key) && !re.test(event.key)) {
+                        event.preventDefault();
+                    }
+                });
+            }
+        }
+    });
+    app.controller("OrderFrmCtrl", ["$scope", "$http", "$window", function ($scope, $http, $window) {
+        $scope.productList = JSON.parse('@Html.Raw(Json.Encode(Model.Items))');
+        $scope.complete = function (string) {
+            var output = [];
+            if (string == undefined || string === "")
+            {
+                output = null;
+            }
+            else {
+                angular.forEach($scope.productList, function (product) {
+                    if (product.ProductName.toLowerCase().indexOf(string.toLowerCase()) >= 0) {
+                        output.push(product);
+                    }
+                });
+            }
+            $scope.filterProduct = output;
+        }
+        $scope.fillTextbox = function (obj) {
+            $scope.productName = obj.ProductName;
+            $scope.ProductId = obj.ProductID;
+            $scope.ProductPrice = obj.Price;
+            $scope.filterProduct = null;
+        }
+        $scope.Items = [];
+        $scope.fnAddItem = function () {
+            $scope.Items.push({
+                Price: $scope.ProductPrice,
+                ProductID: $scope.ProductId,
+                ProductName: $scope.productName,
+                Quantity: $scope.Qty,
+                TotalPrice: $scope.Qty * $scope.ProductPrice
+            });
+            /* reset value */
+            $scope.ProductPrice = 0;
+            $scope.ProductId = "";
+            $scope.productName = "";
+            $scope.Qty = 1;
+
+        }
+
+        $scope.SaveOrder = function () {
+            $('.se-pre-con').show();
+            var _order = {
+                FirstName: $scope.FirstName,
+                LastName: $scope.LastName,
+                Address: $scope.Address,
+                Email: $scope.Email,
+                Company: $scope.Company,
+                City: $scope.City,
+                Phone: $scope.Phone,
+                Country: $scope.Country,
+                Description: $scope.Description,
+                Items: $scope.Items
+            };
+            $http({
+                method: 'POST',
+                url: '@Url.Action("Create", "CMSOrders")',
+                data: { Order: _order },
+            })
+                .then(function successCallback(response)
+                {
+                    $('.se-pre-con').hide();
+                    var status = response.data.Status;
+                    if (status == 200)
+                    {
+                        $window.location.href = '@Url.Action("Index","CMSOrders")';
+                    }
+                },
+                function errorCallback(response) {
+                    $('.se-pre-con').hide();
+                    alert('e')
+            });
+        }
+    }]);
+</script>

@@ -32,19 +32,20 @@ namespace CMS_Shared.CMSOrders
                             var eCus = new CMS_Customer
                             {
                                 ID = model.Customer.Id,
-                                FirstName = model.Customer.FirstName,
-                                LastName = model.Customer.LastName,
-                                Email = model.Customer.Email,
+                                FirstName = string.IsNullOrEmpty(model.Customer.FirstName) ? "Anonymous" : model.Customer.FirstName,
+                                LastName = string.IsNullOrEmpty(model.Customer.LastName) ? "" : model.Customer.LastName,
+                                Email = string.IsNullOrEmpty(model.Customer.Email) ? "Anonymous@gmail.com" : model.Customer.Email,
                                 Phone = model.Customer.Phone,
                                 CreatedDate = DateTime.Now,
                                 LastModified = DateTime.Now,
                                 CustomerType = (int)CMS_Common.Commons.ECustomerType.Anonymous,
-                                HomeCountry = model.Customer.Country,
+                                HomeCountry = string.IsNullOrEmpty(model.Customer.Country) ? "Việt Nam" : model.Customer.Country,
                                 OfficeZipCode = model.Customer.PostCode,
                                 Status = (byte)CMS_Common.Commons.EStatus.Actived,
                                 Anniversary = Commons.MinDate,
                                 ValidTo = Commons.MinDate,
-
+                                HomeStreet = string.IsNullOrEmpty(model.Customer.Address) ? Commons.AddressCompany : model.Customer.Address,
+                                OfficeStreet = string.IsNullOrEmpty(model.Customer.Address) ? Commons.AddressCompany : model.Customer.Address,
                             };
                             db.CMS_Customer.Add(eCus);
                         }
@@ -64,7 +65,7 @@ namespace CMS_Shared.CMSOrders
                             LastModified = DateTime.Now,
                             CreatedUser = string.IsNullOrEmpty(model.CreatedUser) ? model.Customer.Id : model.CreatedUser,
                             ModifiedUser = string.IsNullOrEmpty(model.ModifiedUser) ? model.Customer.Id : model.ModifiedUser,
-                            Status = (byte)CMS_Common.Commons.EStatus.Actived
+                            Status = (byte)CMS_Common.Commons.EStatus.Actived,
                         };
                         db.CMS_Order.Add(eOrder);
                         // create order detail
@@ -124,6 +125,7 @@ namespace CMS_Shared.CMSOrders
                                                OrderNo = o.o.OrderNo,
                                                TotalBill = o.o.TotalBill,
                                                Phone = o.c.Phone,
+                                               Address = o.c.OfficeStreet
                                            }).ToList();
                     return data;
                 }
@@ -160,6 +162,7 @@ namespace CMS_Shared.CMSOrders
                                                 Email = r.c.Email,
                                                 PostCode  = r.c.HomeZipCode,
                                                 Description = r.d.Select( x => x.Description).FirstOrDefault(),
+                                                Address = r.c.OfficeStreet,
                                                 Items = r.d.Select(x => new CMS_ItemModels
                                                 {
                                                     Price = x.Price.HasValue ? x.Price.Value : 0,
