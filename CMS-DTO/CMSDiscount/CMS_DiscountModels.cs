@@ -33,6 +33,7 @@ namespace CMS_DTO.CMSDiscount
         public CMS_DiscountModels()
         {
             StoreID = "Spa";
+            IsActive = true;
         }
     }
 }

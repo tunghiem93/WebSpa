@@ -26,6 +26,7 @@ namespace CMS_DTO.CMSRole
         {
             StoreID = "Spa";
             ListPermission = new List<CMS_PermissionModels>();
+            IsActive = true;
         }
     }
 }
