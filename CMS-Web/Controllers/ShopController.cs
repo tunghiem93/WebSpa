@@ -129,6 +129,9 @@ namespace CMS_Web.Controllers
                     model.Customer.Email = CusInfo.Email;
                     model.Customer.Address = CusInfo.Address;
                     model.Customer.Id = CusInfo.UserId;
+                    model.Customer.PostCode = CusInfo.PostCode;
+                    model.Customer.City = CusInfo.City;
+                    model.Customer.Country = CusInfo.Country;
                 }
                 
             }

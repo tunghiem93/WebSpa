@@ -245,7 +245,11 @@ namespace CMS_Shared.CMSCustomers
                                                   FirstName = x.FirstName,
                                                   LastName = x.LastName,
                                                   Phone = x.Phone,
-                                                  Id = x.ID
+                                                  Id = x.ID,
+                                                  PostCode = x.HomeZipCode,
+                                                  Address  = x.HomeStreet,
+                                                  Country = x.HomeCountry,
+                                                  City =  x.HomeCity,
                                               })
                                               .FirstOrDefault();
                     return data;

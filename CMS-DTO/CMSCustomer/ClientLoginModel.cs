@@ -21,6 +21,9 @@ namespace CMS_DTO.CMSCustomer
         public string Address { get; set; }
         public string Phone { get; set; }
         public string Id { get; set; }
+        public string PostCode { get; set; }
+        public string Country { get; set; }
+        public string City { get; set; }
         public ClientLoginModel()
         {
             IsRemember = true;

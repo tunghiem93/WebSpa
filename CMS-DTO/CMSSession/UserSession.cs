@@ -23,6 +23,9 @@ namespace CMS_DTO.CMSSession
         public string LastName { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
+        public string PostCode { get; set; }
+        public string Country { get; set; }
+        public string City { get; set; }
         public List<CMS_PermissionModels> ListPermision { get; set; }
 
         public UserSession()

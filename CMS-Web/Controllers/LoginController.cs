@@ -68,6 +68,9 @@ namespace CMS_Web.Controllers
                 userSession.Phone = result.Phone;
                 userSession.Address = result.Address;
                 userSession.UserId = result.Id;
+                userSession.PostCode = result.PostCode;
+                userSession.Country = result.Country;
+                userSession.City = result.City;
                 Session.Add("UserClient", userSession);
                 string myObjectJson = JsonConvert.SerializeObject(userSession);  //new JavaScriptSerializer().Serialize(userSession);
                 HttpCookie cookie = new HttpCookie("UserClientCookie");
@@ -109,7 +112,15 @@ namespace CMS_Web.Controllers
                     var data = _factory.GetDetail(cusId);
                     UserSession userSession = new UserSession();
                     userSession.Email = data.Email;
-                    userSession.UserName = data.Name;
+                    userSession.UserName = data.FirstName + " " + data.LastName;
+                    userSession.FirstName = data.FirstName;
+                    userSession.LastName = data.LastName;
+                    userSession.Phone = data.Phone;
+                    userSession.Address = data.Address;
+                    userSession.UserId = data.ID;
+                    userSession.PostCode = data.Postcode;
+                    userSession.Country = data.Country;
+                    userSession.City = data.City;
                     Session.Add("UserClient", userSession);
                     string myObjectJson = JsonConvert.SerializeObject(userSession);  //new JavaScriptSerializer().Serialize(userSession);
                     HttpCookie cookie = new HttpCookie("UserClientCookie");
