@@ -84,6 +84,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                 var model = new CMS_CheckOutModels
                 {
                     CreatedUser = CurrentUser.UserId,
+                    ModifiedUser = CurrentUser.UserId,
                     Customer = new CMS_DTO.CMSCustomer.CMS_CustomerAnonymousModels
                     {
                         Address = Order.Address,
@@ -99,6 +100,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                     ListItem = Order.Items,
                     TotalPrice = Order.Items != null ? Order.Items.Sum(o => o.TotalPrice) : 0,
                     SubTotalPrice = Order.Items != null ? Order.Items.Sum(o => o.TotalPrice) : 0,
+                    IsTemp = false //admin
                 };
                 var result = _fac.CreateOrder(model);
                 if (!result)

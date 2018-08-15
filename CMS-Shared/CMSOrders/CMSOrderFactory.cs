@@ -25,7 +25,7 @@ namespace CMS_Shared.CMSOrders
                     m_Semaphore.WaitOne();
                     try
                     {
-                        if(string.IsNullOrEmpty(model.Customer.Id))
+                        if(string.IsNullOrEmpty(model.Customer.Id) && !string.IsNullOrEmpty(model.Customer.LastName))
                         {
                             // create new customer 
                             model.Customer.Id = Guid.NewGuid().ToString();
@@ -66,6 +66,7 @@ namespace CMS_Shared.CMSOrders
                             CreatedUser = string.IsNullOrEmpty(model.CreatedUser) ? model.Customer.Id : model.CreatedUser,
                             ModifiedUser = string.IsNullOrEmpty(model.ModifiedUser) ? model.Customer.Id : model.ModifiedUser,
                             Status = (byte)CMS_Common.Commons.EStatus.Actived,
+                            IsTemp = model.IsTemp,
                         };
                         db.CMS_Order.Add(eOrder);
                         // create order detail
@@ -115,17 +116,17 @@ namespace CMS_Shared.CMSOrders
             {
                 using (var db = new CMS_Context())
                 {
-                    var data = db.CMS_Order.Join(db.CMS_Customer, o => o.CustomerID, c => c.ID, (o, c) => new { o, c })
+                    var data = db.CMS_Order.GroupJoin(db.CMS_Customer, o => o.CustomerID, c => c.ID, (o, c) => new { o, c })
                                            .Select(o => new CMS_OrderModels
                                            {
                                                CreatedDate = o.o.CreatedDate,
                                                CustomerId = o.o.CustomerID,
-                                               CustomerName = o.c.FirstName + " " + o.c.LastName,
+                                               CustomerName = string.IsNullOrEmpty(o.o.CustomerID) ? "" : o.c.Select( x => x.FirstName + " " + x.LastName).FirstOrDefault(),
                                                Id = o.o.ID,
                                                OrderNo = o.o.OrderNo,
                                                TotalBill = o.o.TotalBill,
-                                               Phone = o.c.Phone,
-                                               Address = o.c.OfficeStreet
+                                               Phone = string.IsNullOrEmpty(o.o.CustomerID) ? "" : o.c.Select(x => x.Phone).FirstOrDefault(),
+                                               Address = string.IsNullOrEmpty(o.o.CustomerID) ? "" : o.c.Select(x => x.HomeStreet).FirstOrDefault()
                                            }).ToList();
                     return data;
                 }
@@ -146,23 +147,23 @@ namespace CMS_Shared.CMSOrders
                 using (var db = new CMS_Context())
                 {
                    data = db.CMS_Order.GroupJoin(db.CMS_OrderDetail, o => o.ID, d => d.OrderID, (o, d) => new { o, d })
-                                           .Join(db.CMS_Customer, o => o.o.CustomerID, c => c.ID, (o, c) => new { o = o.o, d = o.d, c })
+                                           .GroupJoin(db.CMS_Customer, o => o.o.CustomerID, c => c.ID, (o, c) => new { o = o.o, d = o.d, c })
                                            .Where(o => o.o.ID.Equals(OrderId))
                                            .Select(r => new CMS_OrderModels
                                            {
                                                 CreatedDate  = r.o.CreatedDate,
                                                 CustomerId = r.o.CustomerID,
-                                                CustomerName = r.c.FirstName + " " + r.c.LastName,
+                                                CustomerName = string.IsNullOrEmpty(r.o.CustomerID) ? "" : r.c.Select(x => x.FirstName + " " + x.LastName).FirstOrDefault(),
                                                 OrderNo = r.o.OrderNo,
                                                 Id = r.o.ID,
-                                                Phone = r.c.Phone,
+                                                Phone = string.IsNullOrEmpty(r.o.CustomerID) ? "" : r.c.Select(x => x.Phone).FirstOrDefault(),
                                                 TotalBill = r.o.TotalBill,
-                                                City = r.c.HomeCity,
-                                                Country = r.c.HomeCountry,
-                                                Email = r.c.Email,
-                                                PostCode  = r.c.HomeZipCode,
+                                                City = string.IsNullOrEmpty(r.o.CustomerID) ? "" : r.c.Select(x => x.HomeCity).FirstOrDefault(),
+                                                Country = string.IsNullOrEmpty(r.o.CustomerID) ? "" : r.c.Select(x => x.HomeCountry).FirstOrDefault(),
+                                                Email = string.IsNullOrEmpty(r.o.CustomerID) ? "" : r.c.Select(x => x.Email).FirstOrDefault(),
+                                                PostCode  = string.IsNullOrEmpty(r.o.CustomerID) ? "" : r.c.Select(x => x.HomeZipCode).FirstOrDefault(),
                                                 Description = r.d.Select( x => x.Description).FirstOrDefault(),
-                                                Address = r.c.OfficeStreet,
+                                                Address = string.IsNullOrEmpty(r.o.CustomerID) ? "" : r.c.Select(x => x.HomeStreet).FirstOrDefault(),
                                                 Items = r.d.Select(x => new CMS_ItemModels
                                                 {
                                                     Price = x.Price.HasValue ? x.Price.Value : 0,

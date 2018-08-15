@@ -17,11 +17,13 @@ namespace CMS_DTO.CMSOrder
         public string CreatedUser { get; set; }
         public string ModifiedUser { get; set; }
         public bool IsError { get; set; }
+        public bool IsTemp { get; set; }
         public CMS_CheckOutModels()
         {
             ListItem = new List<CMS_ItemModels>();
             StoreID = "Spa";
             Customer = new CMS_CustomerAnonymousModels();
+            IsTemp = true;// client
         }
     }
 }
