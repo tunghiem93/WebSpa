@@ -104,8 +104,8 @@ background-color: #f1f1f1;*/
                                                 foreach (var child in item.ListProceduresDTOChild)
                                                 {
                                                     <div class='column dt-sc-one-fourth space first'>
-                                                        <ul class='dt-sc-fancy-list'>
-                                                            <li style="text-align: left !important; padding-left: 0px !important;"><a href="#goto_@child.Id" style="color: #37251b !important; ">@string.Format("{0}", child.ProceduresName.Length < 30 ? child.ProceduresName : child.ProceduresName.Substring(0, 30) + "...")</a></li>
+                                                        <ul class='dt-sc-fancy-list arrow'>
+                                                            <li style="text-align: left !important; padding-left: 0px !important;"><a href="#goto_@child.Id" style="color: #37251b !important; ">@string.Format("» {0}", child.ProceduresName.Length < 30 ? child.ProceduresName : child.ProceduresName.Substring(0, 27) + "...")</a></li>
                                                         </ul>
                                                     </div>
                                                 }
