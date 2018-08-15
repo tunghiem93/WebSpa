@@ -77,19 +77,21 @@
 <div class="row form-horizontal form-label-left" style="margin-bottom:15px;">
     <fieldset>
         <legend>Thông tin khách hàng</legend>
-        <div class="form-group">
+        @*<div class="form-group">
             <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Họ</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <input type="text" class="form-control" placeholder="Họ" autocomplete="off" ng-model="FirstName" />
-                @*@Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", @placeholder = "Họ", @autocomplete = "off" })
-                @Html.ValidationMessageFor(model => model.FirstName, null, new { @class = "label label-danger" })*@
             </div>
-        </div>
+        </div>*@
 
-        <div class="form-group">
+        <div class="form-group" style="margin-bottom:0px !important">
             <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Tên</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" class="form-control" placeholder="Tên" autocomplete="off" ng-model="LastName" />
+                <input type="text" class="form-control" placeholder="Tên" autocomplete="off" ng-model="Name" ng-keyup="completeCus(Name)" />
+                <input type="hidden" ng-model="Id" />
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="customerdata in filterCustomer" ng-click="fillTextboxCus(customerdata)">{{customerdata.Name}}</li>
+                </ul>
                 @*@Html.TextBoxFor(model => model.LastName, new { @class = "form-control", @placeholder = "Tên thể loại", @autocomplete = "off" })
                 @Html.ValidationMessageFor(model => model.LastName, null, new { @class = "label label-danger" })*@
             </div>
@@ -234,6 +236,7 @@
     });
     app.controller("OrderFrmCtrl", ["$scope", "$http", "$window", function ($scope, $http, $window) {
         $scope.productList = JSON.parse('@Html.Raw(Json.Encode(Model.Items))');
+        $scope.customerList = JSON.parse('@Html.Raw(Json.Encode(Model.Customers))');
         $scope.complete = function (string) {
             var output = [];
             if (string == undefined || string === "")
@@ -249,6 +252,36 @@
             }
             $scope.filterProduct = output;
         }
+
+        $scope.completeCus = function (name) {
+            var output = [];
+            if (name == undefined || name === "") {
+                output = null;
+            }
+            else {
+                angular.forEach($scope.customerList, function (customer) {
+                    if (customer.Name.toLowerCase().indexOf(name.toLowerCase()) >= 0) {
+                        output.push(customer);
+                    }
+                });
+            }
+            $scope.filterCustomer = output;
+        }
+
+        $scope.fillTextboxCus = function (obj)
+        {
+            $scope.Id = obj.Id;
+            $scope.Name = obj.Name;
+            $scope.Email = obj.Email;
+            $scope.Address = obj.Address;
+            $scope.Company = obj.Company;
+            $scope.City = obj.City;
+            $scope.Phone = obj.Phone;
+            $scope.Country = obj.Country;
+
+            $scope.filterCustomer = null;
+        }
+
         $scope.fillTextbox = function (obj) {
             $scope.productName = obj.ProductName;
             $scope.ProductId = obj.ProductID;
@@ -275,8 +308,9 @@
         $scope.SaveOrder = function () {
             $('.se-pre-con').show();
             var _order = {
+                Id: $scope.Id,
                 FirstName: $scope.FirstName,
-                LastName: $scope.LastName,
+                LastName: $scope.Name,
                 Address: $scope.Address,
                 Email: $scope.Email,
                 Company: $scope.Company,
@@ -284,7 +318,7 @@
                 Phone: $scope.Phone,
                 Country: $scope.Country,
                 Description: $scope.Description,
-                Items: $scope.Items
+                Items: $scope.Items,
             };
             $http({
                 method: 'POST',

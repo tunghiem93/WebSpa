@@ -30,5 +30,6 @@ namespace CMS_DTO.CMSCustomer
         public string Description { get; set; }
         [Required(ErrorMessage = "Làm ơn nhập mã bưu điện")]
         public string PostCode { get; set; }
+        public string Name { get { return this.FirstName + " " + this.LastName; } }
     }
 }

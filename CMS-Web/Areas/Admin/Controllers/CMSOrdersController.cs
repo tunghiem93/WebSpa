@@ -1,4 +1,6 @@
-﻿using CMS_DTO.CMSOrder;
+﻿using CMS_DTO.CMSCustomer;
+using CMS_DTO.CMSOrder;
+using CMS_Shared.CMSCustomers;
 using CMS_Shared.CMSOrders;
 using CMS_Shared.CMSProducts;
 using CMS_Web.Web.App_Start;
@@ -15,10 +17,12 @@ namespace CMS_Web.Areas.Admin.Controllers
     {
         private CMSOrderFactory _fac;
         private CMSProductFactory _facPro;
+        private CMSCustomersFactory _facCus;
         public CMSOrdersController()
         {
             _fac = new CMSOrderFactory();
-            _facPro = new CMSProductFactory(); 
+            _facPro = new CMSProductFactory();
+            _facCus = new CMSCustomersFactory();
         }
         // GET: Admin/CMSOrders
         public ActionResult Index()
@@ -73,6 +77,20 @@ namespace CMS_Web.Areas.Admin.Controllers
                 ProductID = o.Id,
                 ProductName = o.ProductName,
             }).OrderBy(o => o.ProductName).ToList();
+
+            model.Customers = _facCus.GetList().Select(o => new CMS_CustomerAnonymousModels
+            {
+                FirstName = o.FirstName,
+                LastName = o.LastName,
+                Address = o.Address,
+                Id = o.ID,
+                City = o.City,
+                Company = o.CompanyName,
+                Country = o.Country,
+                Email = o.Email,
+                Phone = o.Phone,
+                PostCode = o.Postcode
+            }).OrderBy(o => o.Name).ToList();
             return PartialView("_Create", model);
         }
         [HttpPost]
@@ -96,6 +114,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                         FirstName = Order.FirstName,
                         LastName = Order.LastName,
                         Phone = Order.Phone,
+                        Id = Order.Id
                     },
                     ListItem = Order.Items,
                     TotalPrice = Order.Items != null ? Order.Items.Sum(o => o.TotalPrice) : 0,

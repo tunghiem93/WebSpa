@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMS_DTO.CMSCustomer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,10 +20,12 @@ namespace CMS_DTO.CMSOrder
         public string Country { get; set; }
         public string Description { get; set; }
         public List<CMS_ItemModels> Items { get; set; }
+        public List<CMS_CustomerAnonymousModels> Customers { get; set; }
 
         public CMS_OrderAdminModels()
         {
             Items = new List<CMS_ItemModels>();
+            Customers = new List<CMS_CustomerAnonymousModels>();
         }
     }
 }
