@@ -133,6 +133,10 @@
         }, function (start, end, label) {
             });
 
+        $("#CategoryDdl").select2({
+            placeholder: "Vui lòng chọn quyền",
+            //allowClear: true
+        });
         $('[id=txtPassword]').val('@Model.Password')
     });
 
