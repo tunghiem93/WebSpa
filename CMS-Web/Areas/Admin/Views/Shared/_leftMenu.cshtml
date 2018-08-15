@@ -1,5 +1,11 @@
 ﻿@{
     Layout = null;
+    var user = Session["User"] as CMS_DTO.CMSSession.UserSession;
+    List<int> listIsView = new List<int>();
+    if (user != null)
+    {
+        listIsView = user.ListPermision.Where(o => o.IsView).Select(o => o.ModuleCode).ToList();
+    }
 }
 
 <!-- BEGIN SIDEBAR -->
@@ -15,77 +21,106 @@
                 <div class="sidebar-toggler"> </div>
                 <!-- END SIDEBAR TOGGLER BUTTON -->
             </li>
-            <li class="nav-item active">
-                <a href="@Url.Action("Index","Home")" class="nav-link nav-toggle">
-                    <i class="fa fa-dot-circle-o"></i>
-                    <span class="title">Trang Chủ</span>
-                </a>
-            </li>
-            <li class="nav-item active">
-                <a href="@Url.Action("Index","CMSCategories")" class="nav-link nav-toggle">
-                    <i class="fa fa-dot-circle-o"></i>
-                    <span class="title">Thể Loại</span>
-                </a>
-            </li>
+            @if (listIsView.Contains((int)CMS_Common.Commons.EModuleCode.HOME))
+            {
+                <li class="nav-item active">
+                    <a href="@Url.Action("Index","Home")" class="nav-link nav-toggle">
+                        <i class="fa fa-dot-circle-o"></i>
+                        <span class="title">Trang Chủ</span>
+                    </a>
+                </li>
+            }
 
-            <li class="nav-item">
-                <a href="@Url.Action("Index","CMSProducts")" class="nav-link nav-toggle">
-                    <i class="fa fa-dot-circle-o"></i>
-                    <span class="title">Sản Phẩm</span>
-                </a>
-            </li>
+            @if (listIsView.Contains((int)CMS_Common.Commons.EModuleCode.PRODUCT))
+            {
+                <li class="nav-item active">
+                    <a href="@Url.Action("Index","CMSCategories")" class="nav-link nav-toggle">
+                        <i class="fa fa-dot-circle-o"></i>
+                        <span class="title">Thể Loại</span>
+                    </a>
+                </li>
+            }
 
-            <li class="nav-item">
-                <a href="@Url.Action("Index","CMSProcedures")" class="nav-link nav-toggle">
-                    <i class="fa fa-dot-circle-o"></i>
-                    <span class="title">Liệu trình</span>
-                </a>
-            </li>
 
-            <li class="nav-item">
-                <a href="@Url.Action("Index","CMSEmployees")" class="nav-link nav-toggle">
-                    <i class="fa fa-dot-circle-o"></i>
-                    <span class="title">Nhân Viên</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="@Url.Action("Index","CMSRole")" class="nav-link nav-toggle">
-                    <i class="fa fa-dot-circle-o"></i>
-                    <span class="title">Quyền truy cập</span>
-                </a>
-            </li>
+            @if (listIsView.Contains((int)CMS_Common.Commons.EModuleCode.PRODUCT))
+            {
+                <li class="nav-item">
+                    <a href="@Url.Action("Index","CMSProducts")" class="nav-link nav-toggle">
+                        <i class="fa fa-dot-circle-o"></i>
+                        <span class="title">Sản Phẩm</span>
+                    </a>
+                </li>
+            }
+            @if (listIsView.Contains((int)CMS_Common.Commons.EModuleCode.PRODUCT))
+            {
+                <li class="nav-item">
+                    <a href="@Url.Action("Index","CMSProcedures")" class="nav-link nav-toggle">
+                        <i class="fa fa-dot-circle-o"></i>
+                        <span class="title">Liệu trình</span>
+                    </a>
+                </li>
+            }
 
-            <li class="nav-item">
-                <a href="@Url.Action("Index","CMSCustomers")" class="nav-link nav-toggle">
-                    <i class="fa fa-dot-circle-o"></i>
-                    <span class="title">Khách Hàng</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="@Url.Action("Index","CMSDiscounts")" class="nav-link nav-toggle">
-                    <i class="fa fa-dot-circle-o"></i>
-                    <span class="title">Mã giảm giá</span>
-                </a>
-            </li>
-            @*<li class="nav-item">
-            <a href="@Url.Action("Index","CMSPolicy")" class="nav-link nav-toggle">
-                <i class="fa fa-dot-circle-o"></i>
-                <span class="title">Chính Sách</span>
-            </a>
-        </li>*@
+            @if (listIsView.Contains((int)CMS_Common.Commons.EModuleCode.PRODUCT))
+            {
+                <li class="nav-item">
+                    <a href="@Url.Action("Index","CMSDiscounts")" class="nav-link nav-toggle">
+                        <i class="fa fa-dot-circle-o"></i>
+                        <span class="title">Mã giảm giá</span>
+                    </a>
+                </li>
+            }
 
-            <li class="nav-item">
-                <a href="@Url.Action("Index","CMSNews")" class="nav-link nav-toggle">
-                    <i class="fa fa-dot-circle-o"></i>
-                    <span class="title">Tin Tức</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="@Url.Action("Index","CMSOrders")" class="nav-link nav-toggle">
-                    <i class="fa fa-dot-circle-o"></i>
-                    <span class="title">Đơn hàng</span>
-                </a>
-            </li>
+            @if (listIsView.Contains((int)CMS_Common.Commons.EModuleCode.NEWS))
+            {
+                <li class="nav-item">
+                    <a href="@Url.Action("Index","CMSNews")" class="nav-link nav-toggle">
+                        <i class="fa fa-dot-circle-o"></i>
+                        <span class="title">Tin Tức</span>
+                    </a>
+                </li>
+            }
+
+            @if (listIsView.Contains((int)CMS_Common.Commons.EModuleCode.EMPLOYEE))
+            {
+                <li class="nav-item">
+                    <a href="@Url.Action("Index","CMSEmployees")" class="nav-link nav-toggle">
+                        <i class="fa fa-dot-circle-o"></i>
+                        <span class="title">Nhân Viên</span>
+                    </a>
+                </li>
+            }
+            @if (listIsView.Contains((int)CMS_Common.Commons.EModuleCode.ROLE))
+            {
+                <li class="nav-item">
+                    <a href="@Url.Action("Index","CMSRole")" class="nav-link nav-toggle">
+                        <i class="fa fa-dot-circle-o"></i>
+                        <span class="title">Quyền truy cập</span>
+                    </a>
+                </li>
+            }
+
+            @if (listIsView.Contains((int)CMS_Common.Commons.EModuleCode.CUSTOMER))
+            {
+
+                <li class="nav-item">
+                    <a href="@Url.Action("Index","CMSCustomers")" class="nav-link nav-toggle">
+                        <i class="fa fa-dot-circle-o"></i>
+                        <span class="title">Khách Hàng</span>
+                    </a>
+                </li>
+            }
+
+            @if (listIsView.Contains((int)CMS_Common.Commons.EModuleCode.ORDER))
+            {
+                <li class="nav-item">
+                    <a href="@Url.Action("Index","CMSOrders")" class="nav-link nav-toggle">
+                        <i class="fa fa-dot-circle-o"></i>
+                        <span class="title">Đơn hàng</span>
+                    </a>
+                </li>
+            }
+
         </ul>
         <!-- END SIDEBAR MENU -->
         <!-- END SIDEBAR MENU -->

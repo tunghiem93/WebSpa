@@ -14,7 +14,8 @@ namespace CMS_DTO.CMSEmployee
         public string Id { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập tên")]
         [MaxLength(50, ErrorMessage = "Họ tên tối đa 50 kí tự")]
-        public string Name { get; set; } 
+        public string Name { get; set; }
+        public string RoleID { get; set; }
         public string Employee_Address { get; set; }
         [RegularExpression("([0-9]+)", ErrorMessage = "Vui lòng nhập số")]
         public string Employee_Phone { get; set; }

@@ -91,7 +91,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                         userSession.ImageUrl = User.EmployeeImageURL;
                         userSession.IsSuperAdmin = User.IsSupperAdmin;
                         userSession.RememberMe = model.RememberMe;
-
+                        userSession.ListPermision = User.ListPermision;
                         Session.Add("User", userSession);
                         //
                         if (!string.IsNullOrEmpty(mController))

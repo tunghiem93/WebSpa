@@ -7,6 +7,11 @@
     <div class="col-md-12">
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet box red">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Quyền truy cập module
+                </div>
+            </div>
             <div class="portlet-body">
                 <table class="table table-striped table-bordered table-hover dt-responsive" id="sample_3">
                     <thead>
@@ -31,8 +36,8 @@
                                     <td class="text-center">
                                         <label>@Html.CheckBoxFor(model => model.ListPermission[i].IsAction, new { @class = "icheck" })</label>
                                     </td>
-                                    @Html.HiddenFor(model => model.ListPermission[i].Id);
-                                    @Html.HiddenFor(model => model.ListPermission[i].ModuleID);
+                                    @Html.HiddenFor(model => model.ListPermission[i].Id)
+                                    @Html.HiddenFor(model => model.ListPermission[i].ModuleID)
                                 </tr>
                             }
                         }

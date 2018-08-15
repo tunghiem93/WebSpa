@@ -81,15 +81,16 @@ namespace CMS_Common
             Anonymous = 1
         }
 
-        public enum ESetting
+        public enum EModuleCode
         {
             EMPLOYEE = 100,
             CUSTOMER = 200,
             PRODUCT = 300,
             REPORT = 400,
             ROLE = 500,
-            Order = 600,
-            News = 700,
+            ORDER = 600,
+            NEWS = 700,
+            HOME = 800,
         }
         #endregion
     }

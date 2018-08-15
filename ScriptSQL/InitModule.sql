@@ -9,6 +9,7 @@ INSERT INTO [dbo].[CMS_Module]  VALUES   ('58bc9836-e3c9-4c0d-9d7b-daeb1f0035a4'
 INSERT INTO [dbo].[CMS_Module]  VALUES   ('87011665-cf9e-4019-a417-bd3312b2d6f7' ,'Order' ,'' ,1  ,getdate() ,'admin'  ,'admin' ,getdate(),600)
 INSERT INTO [dbo].[CMS_Module]  VALUES   ('90202b80-be7c-4e55-8e40-b68f642fe71f' ,'News' ,'' ,1  ,getdate() ,'admin'  ,'admin' ,getdate(),700)
 
+
 GO
 
 

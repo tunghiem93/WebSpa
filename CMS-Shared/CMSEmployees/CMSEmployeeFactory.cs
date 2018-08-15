@@ -34,6 +34,7 @@ namespace CMS_Shared.CMSEmployees
                             {
                                 ID = Id,
                                 Name = model.Name,
+                                RoleID = model.RoleID,
                                 Email = model.Employee_Email,
                                 Password = model.Password,
                                 IsActive = model.IsActive,
@@ -68,6 +69,7 @@ namespace CMS_Shared.CMSEmployees
                             if (e.Email.Equals(model.Employee_Email) || !_isExits)
                             {
                                 e.Name = model.Name;
+                                e.RoleID = model.RoleID;
                                 e.Email = model.Employee_Email;
                                 //Password = model.Password,
                                 e.IsActive = model.IsActive;
@@ -163,6 +165,7 @@ namespace CMS_Shared.CMSEmployees
                         {
                             Id = o.ID,
                             Name = o.Name,
+                            RoleID = o.RoleID,
                             Employee_Email = o.Email,
                             Password = o.Password,
                             IsActive = o.IsActive?? true,

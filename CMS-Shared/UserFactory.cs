@@ -20,6 +20,7 @@ namespace CMS_Shared.Factory
                 return _instance;
             }
         }
+
         public LoginResponseModel Login(LoginRequestModel info)
         {
             NSLog.Logger.Info("Employee Login Start", info);
@@ -40,8 +41,34 @@ namespace CMS_Shared.Factory
                             EmployeeName = emp.Name,
                             EmployeeEmail = emp.Email,
                             EmployeeImageURL = string.IsNullOrEmpty(emp.ImageUrl) ? "" : serverImage + "Employees/" + emp.ImageUrl,
-                            //IsSupperAdmin = emp.IsSupperAdmin,
+                            IsSupperAdmin = emp.IsSupperAdmin,
                         };
+
+                        if (!user.IsSupperAdmin) /* not supper admin */
+                        {
+                            user.ListPermision = _db.CMS_ModulePermission.Where(o => o.RoleID == emp.RoleID)
+                                                                        .Join(_db.CMS_Module, p => p.ModuleID, m => m.ID, (p, m) => new CMS_DTO.CMSRole.CMS_PermissionModels
+                                                                        {
+                                                                            Id = p.ID,
+                                                                            ModuleID = m.ID,
+                                                                            ModuleName = m.Name,
+                                                                            ModuleCode = m.Code,
+                                                                            IsAction = p.IsAction ?? true,
+                                                                            IsView = p.IsView ?? true,
+                                                                        }).ToList();
+                        }
+                        else /* is supper admin */
+                        {
+                            user.ListPermision = _db.CMS_Module.Select(o => new CMS_DTO.CMSRole.CMS_PermissionModels
+                                                    {
+                                                        Id = o.ID,
+                                                        ModuleID = o.ID,
+                                                        ModuleName = o.Name,
+                                                        ModuleCode = o.Code,
+                                                        IsAction = true,
+                                                        IsView = true,
+                                                    }).ToList();
+                        }
                     }
                     NSLog.Logger.Info("Employee Login Done", user);
                 }

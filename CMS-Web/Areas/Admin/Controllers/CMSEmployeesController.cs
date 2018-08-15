@@ -20,6 +20,7 @@ namespace CMS_Web.Areas.Admin.Controllers
         public CMSEmployeesController()
         {
             _factory = new CMSEmployeeFactory();
+            ViewBag.Role = GetListRoleSelectItem();
         }
         // GET: Admin/CMSCategories
         public ActionResult Index()

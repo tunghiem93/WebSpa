@@ -3,6 +3,7 @@ using CMS_DTO.CMSBase;
 using CMS_DTO.CMSSession;
 using CMS_Shared;
 using CMS_Shared.CMSCategories;
+using CMS_Shared.CMSRole;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,23 @@ namespace CMS_Web.Areas.Admin.Controllers
                 {
                     Value = x.Id,
                     Text = x.CategoryName,
+                }).ToList();
+            }
+            return data;
+        }
+
+        public List<SelectListItem> GetListRoleSelectItem()
+        {
+            var _factory = new CMSRoleFactory();
+            List<SelectListItem> data = null;
+
+            var listCate = _factory.GetList();
+            if (listCate != null)
+            {
+                data = listCate.Select(x => new SelectListItem
+                {
+                    Value = x.Id,
+                    Text = x.Name,
                 }).ToList();
             }
             return data;

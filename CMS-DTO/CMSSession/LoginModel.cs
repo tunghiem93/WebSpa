@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMS_DTO.CMSRole;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -36,8 +37,8 @@ namespace CMS_DTO.Models
         public string EmployeeImageURL { get; set; }
         public bool IsSupperAdmin { get; set; }
         public string RoleID { get; set; }
-        public string RoleName { get; set; }        
-
+        public string RoleName { get; set; }
+        public List<CMS_PermissionModels> ListPermision { get; set; }
         public LoginResponseModel()
         {
             

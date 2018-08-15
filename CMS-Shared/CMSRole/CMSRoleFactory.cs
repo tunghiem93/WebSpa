@@ -75,13 +75,12 @@ namespace CMS_Shared.CMSRole
                         }
                     }
 
-                    if (Result == true)
+                    if (cxt.SaveChanges() > 0 && Result == true)
                     {
                         /* insert list module permission */
                         CreateOrUpdatePermission(model);
                     }
 
-                    cxt.SaveChanges();
                     NSLog.Logger.Info("ResponseRoleCreateOrUpdate", new { Result, msg });
 
                 }
