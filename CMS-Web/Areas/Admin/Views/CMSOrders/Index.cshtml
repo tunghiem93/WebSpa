@@ -76,6 +76,9 @@
                                             <a href=""
                                                ng-click='ShowOrderDetail(item.Id)'
                                                class="btn btn-primary btn-xs view details"><i class="fa fa-eye"></i>&nbsp;Xem</a>&nbsp;&nbsp;
+                                            <a href=""
+                                               ng-click="DeleteOrder($index)"
+                                               class="btn btn-danger btn-xs delete details"><i class="fa fa-trash-o"></i>&nbsp;Xóa</a>
                                             @*<a href="javascript:void(0)"
                                                    onclick='ShowView("@Url.Action("Edit","CMSCategories",new { Id=item.Id})")'
                                                    class="btn btn-info btn-xs edit details"><i class="fa fa-edit"></i>&nbsp;Cập nhập</a>&nbsp;&nbsp;
@@ -252,9 +255,8 @@
 
 
     var app = angular.module("appOrder", []);
-    app.controller("OrderCtrl", ["$scope","$http", function ($scope,$http) {
-        $scope.ShowOrderDetail = function (OrderId)
-        {
+    app.controller("OrderCtrl", ["$scope", "$http", "$window", function ($scope, $http, $window) {
+        $scope.ShowOrderDetail = function (OrderId) {
             $http.get("/CMSOrders/getDetail/" + OrderId + "").then(function (data) {
                 $scope.Order = data.data;
                 console.log(data.data);
@@ -273,6 +275,40 @@
             });
         }
         $scope.getDataOrder();
+
+        $scope.DeleteOrder = function ($index) {
+            //alert($scope.Orders[$index].OrderNo);
+            $.confirm({
+                title: 'Confirm!',
+                content: 'Bạn có muốn xóa đơn hàng [' + $scope.Orders[$index].OrderNo+']!',
+                buttons: {
+                    Xóa: function () {
+                        $http.get("/CMSOrders/Delete/" + $scope.Orders[$index].Id + "")
+                            .then(function (data) {
+                                var status = data.data.Status;
+                                if (status == 200)
+                                {
+                                    $.confirm({
+                                        title: '',
+                                        content: 'Bạn đã xóa thành công đơn hàng [' + $scope.Orders[$index].OrderNo + ']!',
+                                        buttons: {
+                                            OK: function () {
+                                                 $window.location.href = '@Url.Action("Index","CMSOrders")';
+                                            },
+                                        }
+                                    });
+                                }
+                                else {
+                                    $.alert('Bạn không thể xóa đơn hàng [' + $scope.Orders[$index].OrderNo + ']!');
+                                }
+                            })
+                    },
+                    Cancel: function () {
+                        //$.alert('Canceled!');
+                    },
+                }
+            });
+        }
     }]);
 
 

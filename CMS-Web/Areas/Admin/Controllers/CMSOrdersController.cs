@@ -117,5 +117,26 @@ namespace CMS_Web.Areas.Admin.Controllers
             };
             return Json(obj,JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult Delete(string id)
+        {
+            var status = 200;
+            try
+            {
+                var result = _fac.Delete(id);
+                if (!result)
+                    status = 500;
+                NSLog.Logger.Info("Delete_Request:", id);
+            }
+            catch(Exception ex)
+            {
+                NSLog.Logger.Error("Delete_Order:", ex);
+            }
+            var obj = new
+            {
+                Status = status
+            };
+            return Json(obj, JsonRequestBehavior.AllowGet);
+        }
     }
 }

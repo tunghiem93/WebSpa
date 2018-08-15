@@ -182,5 +182,38 @@ namespace CMS_Shared.CMSOrders
             }
             return data;
         }
+
+        public bool Delete(string Id)
+        {
+            var result = true;
+            using (var db = new CMS_Context())
+            {
+                using (var trans = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var _detail = db.CMS_OrderDetail.Where(o => o.OrderID.Equals(Id)).ToList();
+                        if (_detail != null)
+                            db.CMS_OrderDetail.RemoveRange(_detail);
+                        var _master = db.CMS_Order.Where(o => o.ID.Equals(Id)).FirstOrDefault();
+                        if (_master != null)
+                            db.CMS_Order.Remove(_master);
+                        db.SaveChanges();
+                        trans.Commit();
+                    }
+                    catch(Exception ex)
+                    {
+                        result = false;
+                        NSLog.Logger.Error("Delete_Order:", ex);
+                        trans.Rollback();
+                    }
+                    finally
+                    {
+                        db.Dispose();
+                    }
+                }
+            }
+            return result;
+        }
     }
 }
