@@ -173,7 +173,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="odd gradeX" ng-repeat="item in Order.Items">
+                                <tr class="odd gradeX" ng-repeat="item in Order.Items" ng-if="item.ProductID != null">
                                     <td class="text-center">
                                         {{item.ProductName}}
                                     </td>
