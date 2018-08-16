@@ -35,7 +35,8 @@
                                 Tên đăng nhập hoặc email
                                 <span class="required">*</span>
                             </label>
-                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control input-text", @id = "username", @placeholder = "*Tên đăng nhập", @type = "email", })                            
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control input-text", @id = "username", @placeholder = "*Tên đăng nhập", @type = "email", })
+                            @Html.ValidationMessageFor(model => model.Email, null, new { @class = "label label-danger", @style = "color: red; "})
                         </p>
                         <p class="form-row form-row-wide">
                             <label for="password">
@@ -50,8 +51,7 @@
                             <input type="submit" class="button" name="login" value="Đăng nhập" />
                             <label for="rememberme" class="inline">
                                 <input name="rememberme" type="checkbox" id="rememberme" value="forever" /> Ghi nhớ mật khẩu
-                            </label>
-                            @Html.ValidationMessageFor(model => model.Email, null, new { @class = "label label-danger", })
+                            </label>                            
                         </p>
                             <p class="lost_password">
                                 <a href="javascript:void(0)">Quên mật khẩu?</a>
