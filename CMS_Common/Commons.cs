@@ -96,7 +96,7 @@ namespace CMS_Common
         public enum EOrderType
         {
             Normal = 0,  // normal order, sale order
-            EXPENSE = 1, // order chi
+            Expense = 1, // order chi
         }
         #endregion
     }
