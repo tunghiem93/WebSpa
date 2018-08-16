@@ -55,6 +55,7 @@ namespace CMS_DataModel.Models
         public double? Remaining { get; set; }
 
         public double? ServiceCharged { get; set; }
+        public byte OrderType { get; set; }
 
         public byte Status { get; set; }
 
