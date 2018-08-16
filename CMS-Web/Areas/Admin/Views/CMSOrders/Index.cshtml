@@ -76,6 +76,11 @@
                                             <a href=""
                                                ng-click='ShowOrderDetail(item.Id)'
                                                class="btn btn-primary btn-xs view details"><i class="fa fa-eye"></i>&nbsp;Xem</a>&nbsp;&nbsp;
+
+                                            <a href=""
+                                               ng-click="PrintOrder($index)"
+                                               class="btn btn-danger btn-xs delete details"><i class="fa fa-print"></i>&nbsp;Xem & In</a>&nbsp;&nbsp;
+
                                             <a href=""
                                                ng-click="DeleteOrder($index)"
                                                class="btn btn-danger btn-xs delete details"><i class="fa fa-trash-o"></i>&nbsp;Xóa</a>
@@ -308,6 +313,11 @@
                     },
                 }
             });
+        }
+
+        $scope.PrintOrder = function ($index)
+        {
+            $window.location.href = "/Admin/CMSOrders/Print?Id=" + $scope.Orders[$index].Id+"";
         }
     }]);
 

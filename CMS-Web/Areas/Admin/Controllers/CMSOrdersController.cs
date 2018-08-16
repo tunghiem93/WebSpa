@@ -157,5 +157,10 @@ namespace CMS_Web.Areas.Admin.Controllers
             };
             return Json(obj, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult Print(string Id)
+        {
+            return View();
+        }
     }
 }
