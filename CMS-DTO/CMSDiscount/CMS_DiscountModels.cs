@@ -30,6 +30,7 @@ namespace CMS_DTO.CMSDiscount
         public string UpdatedBy { get; set; }
         public bool IsApplyTotalBill { get; set; }
         public bool IsPercent { get; set; }
+        public byte? ValueType { get; set; }
         public CMS_DiscountModels()
         {
             StoreID = "Spa";

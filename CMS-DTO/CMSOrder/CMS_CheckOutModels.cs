@@ -13,11 +13,15 @@ namespace CMS_DTO.CMSOrder
         public CMS_CustomerAnonymousModels Customer { get; set; }
         public double TotalPrice { get; set; }
         public double SubTotalPrice { get; set; }
+        public double TotalDiscount { get; set; }
         public string StoreID { get; set; }
         public string CreatedUser { get; set; }
         public string ModifiedUser { get; set; }
         public bool IsError { get; set; }
         public bool IsTemp { get; set; }
+        public string DiscountID { get; set; }
+        public float DiscountValue { get; set; }
+        public byte DiscountType { get; set; }
         public CMS_CheckOutModels()
         {
             ListItem = new List<CMS_ItemModels>();

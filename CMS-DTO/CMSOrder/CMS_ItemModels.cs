@@ -13,5 +13,8 @@ namespace CMS_DTO.CMSOrder
         public double Price { get; set; }
         public string ProductName { get; set; }
         public double TotalPrice { get; set; }
+        public string DiscountID { get; set; }
+        public float DiscountValue { get; set; }
+        public byte DiscountType { get; set; }
     }
 }

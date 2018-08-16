@@ -1,5 +1,6 @@
 ﻿using CMS_Common;
 using CMS_DataModel.Models;
+using CMS_DTO.CMSDiscount;
 using CMS_DTO.CMSOrder;
 using CMS_Shared.Utilities;
 using System;
@@ -61,6 +62,7 @@ namespace CMS_Shared.CMSOrders
                             CustomerID = model.Customer.Id,
                             TotalBill = model.TotalPrice,
                             SubTotal = model.SubTotalPrice,
+                            TotalDiscount = model.TotalDiscount,
                             CreatedDate = DateTime.Now,
                             LastModified = DateTime.Now,
                             CreatedUser = string.IsNullOrEmpty(model.CreatedUser) ? model.Customer.Id : model.CreatedUser,
@@ -87,6 +89,9 @@ namespace CMS_Shared.CMSOrders
                                     CreatedUser = string.IsNullOrEmpty(model.CreatedUser) ? model.Customer.Id : model.CreatedUser,
                                     ModifiedUser = string.IsNullOrEmpty(model.ModifiedUser) ? model.Customer.Id : model.ModifiedUser,
                                     LastModified = DateTime.Now,
+                                    DiscountID = item.DiscountID,
+                                    DiscountValue = item.DiscountValue,
+                                    DiscountType = item.DiscountType,
                                 });
                             }
                             db.CMS_OrderDetail.AddRange(lstOrderDetail);
@@ -214,6 +219,35 @@ namespace CMS_Shared.CMSOrders
                         db.Dispose();
                     }
                 }
+            }
+            return result;
+        }
+
+        public bool Discount(string coupon_code, ref CMS_DiscountModels model)
+        {
+            var result = true;
+            try
+            {
+                using (var db = new CMS_Context())
+                {
+                    var data = db.CMS_Discount.Where(o => o.DiscountCode.Equals(coupon_code))
+                                              .Select(o => new CMS_DiscountModels
+                                              {
+                                                  DiscountCode = o.DiscountCode,
+                                                  Id = o.ID,
+                                                  Value = o.Value.HasValue ? o.Value.Value : 0,
+                                                  IsPercent = o.ValueType == (byte)Commons.EValueType.Percent ? true : false,
+                                                  ValueType = o.ValueType
+                                              }).FirstOrDefault();
+                    if (data == null)
+                        result = false;
+                    model = data;
+                }
+            }
+            catch (Exception ex)
+            {
+                NSLog.Logger.Error("Discount:", ex);
+                result = false;
             }
             return result;
         }
