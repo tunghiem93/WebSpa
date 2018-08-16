@@ -48,7 +48,7 @@
                             </div>
                         </div>
                         <div class="portlet-body">
-                            <table class="table table-striped table-bordered table-hover @*dt-responsive*@" id="sample_3">
+                            <table class="table table-striped table-bordered table-hover" id="sample_3">
                                 <thead>
                                     <tr>
                                         <th class="text-center">
@@ -184,6 +184,20 @@
                                     <td class="text-center">{{item.TotalPrice | currency :"": 0}} đ</td>
                                 </tr>
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td class="text-right" colspan="3">SubTotal</td>
+                                    <td class="text-center">{{Order.SubTotal | currency :"": 0}} đ</td>
+                                </tr>
+                                <tr ng-if="Order.ValueDiscount != null">
+                                    <td class="text-right" colspan="3">Giảm giá</td>
+                                    <td class="text-center" ng-bind="Order.ValueDiscount"></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right" colspan="3">Tổng tiền</td>
+                                    <td class="text-center">{{Order.TotalBill | currency :"": 0}} đ</td>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
@@ -240,7 +254,7 @@
             { "orderable": false, "targets": [0, 5] },
             { "width": "3%", "targets": [0] },
             { "width": "3%", "targets": [1] },
-            { "width": "5%", "targets": [5] },
+            { "width": "8%", "targets": [5] },
             { "width": "3%", "targets": [2, 3, 4] },
         ],
         //"responsive": true,

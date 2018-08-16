@@ -1,4 +1,5 @@
 ﻿using CMS_DTO.CMSCategories;
+using CMS_DTO.CMSDiscount;
 using CMS_DTO.CMSOrder;
 using CMS_DTO.CMSSession;
 using CMS_DTO.CMSShop;
@@ -169,8 +170,28 @@ namespace CMS_Web.Controllers
                             o.TotalPrice = Convert.ToDouble(o.Price * item.Quantity);
                         });
                         model.ListItem = data;
+
                         model.TotalPrice = data.Sum(o => o.TotalPrice);
                         model.SubTotalPrice = data.Sum(o => o.TotalPrice);
+
+                        if (!string.IsNullOrEmpty(model.DiscountID))
+                        {
+                            model.ListItem.Add(new CMS_ItemModels
+                            {
+                                DiscountID = model.DiscountID,
+                                DiscountType = model.DiscountType,
+                                DiscountValue = model.DiscountValue
+                            });
+
+                            if (model.DiscountType == (byte)CMS_Common.Commons.EValueType.Percent)
+                            {
+                                model.TotalDiscount = model.TotalPrice - (model.TotalPrice * (model.DiscountValue / 100));
+                            }
+                            else
+                            {
+                                model.TotalDiscount = model.TotalPrice - model.DiscountValue;
+                            }
+                        }
                     }
                     var result =  _facOrder.CreateOrder(model);
                     if(result)
@@ -193,6 +214,29 @@ namespace CMS_Web.Controllers
                 NSLog.Logger.Error("CheckOut", ex);
             }
             return View(model);
+        }
+
+        public JsonResult Discount(string coupon_code)
+        {
+            CMS_DiscountModels models = new CMS_DiscountModels();
+            var status = 200;
+            try
+            {
+                NSLog.Logger.Info("Discount_Request:", coupon_code);
+                var result = _facOrder.Discount(coupon_code,ref models);
+                if (!result)
+                    status = 500;
+            }
+            catch(Exception ex)
+            {
+                NSLog.Logger.Error("Discount:", ex);
+            }
+            var obj = new
+            {
+                data = models,
+                Status = status
+            };
+            return Json(obj, JsonRequestBehavior.AllowGet);
         }
     }
 }
