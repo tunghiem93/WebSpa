@@ -160,7 +160,20 @@ namespace CMS_Web.Areas.Admin.Controllers
 
         public ActionResult Print(string Id)
         {
-            return View();
+            var model = new CMS_OrderModels();
+            try
+            {
+                model = _fac.GetDetailOrder(Id);
+                if (model != null)
+                {
+                    model.sCreatedDate = model.CreatedDate.ToString("dd/MM/yyyy hh:mm tt");
+                }
+            }
+            catch (Exception ex)
+            {
+                NSLog.Logger.Error("getDetail_Order:", ex);
+            }
+            return View("Print", model);
         }
     }
 }

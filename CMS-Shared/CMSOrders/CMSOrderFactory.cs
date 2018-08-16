@@ -173,6 +173,8 @@ namespace CMS_Shared.CMSOrders
                                                     TotalPrice = (x.Price.Value * (double) x.Quantity.Value)
                                                 }).ToList()
                                            }).FirstOrDefault();
+                    if (string.IsNullOrEmpty(data.Description))
+                        data.Description = "Không có ghi chú.";
                     NSLog.Logger.Info("GetDetailOrder_Response : ", data);
                 }
             }
