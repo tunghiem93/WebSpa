@@ -285,6 +285,25 @@
             $scope.DiscountValue = obj.Value;
             $scope.ValueText = obj.ValueText;
             $scope.filterDiscount = null;
+
+            $scope.TotalPrice = 0;
+            $scope.SubTotal = 0;
+            if ($scope.Items != null && $scope.Items != undefined) {
+                $.each($scope.Items, function (index, item) {
+                    $scope.TotalPrice += item.TotalPrice;
+                    $scope.SubTotal += item.TotalPrice;
+                });
+
+                if ($scope.DiscountValue != undefined) {
+                    if ($scope.DiscountType == 0)//percent
+                    {
+                        $scope.TotalPrice = $scope.TotalPrice - ($scope.TotalPrice * ($scope.DiscountValue / 100));
+                    }
+                    else {
+                        $scope.TotalPrice = $scope.TotalPrice - $scope.DiscountValue;
+                    }
+                }
+            }
         }
 
         $scope.removeDiscount = function () {
