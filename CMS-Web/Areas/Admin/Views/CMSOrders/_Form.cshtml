@@ -77,13 +77,6 @@
 <div class="row form-horizontal form-label-left" style="margin-bottom:15px;">
     <fieldset>
         <legend>Thông tin khách hàng</legend>
-        @*<div class="form-group">
-            <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Họ</label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" class="form-control" placeholder="Họ" autocomplete="off" ng-model="FirstName" />
-            </div>
-        </div>*@
-
         <div class="form-group" style="margin-bottom:0px !important">
             <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Tên</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -92,8 +85,6 @@
                 <ul class="list-group">
                     <li class="list-group-item" ng-repeat="customerdata in filterCustomer" ng-click="fillTextboxCus(customerdata)">{{customerdata.Name}}</li>
                 </ul>
-                @*@Html.TextBoxFor(model => model.LastName, new { @class = "form-control", @placeholder = "Tên thể loại", @autocomplete = "off" })
-                @Html.ValidationMessageFor(model => model.LastName, null, new { @class = "label label-danger" })*@
             </div>
         </div>
 
@@ -101,8 +92,6 @@
             <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Email</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <input type="text" class="form-control" placeholder="Email" autocomplete="off" ng-model="Email" />
-                @*@Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "Email", @autocomplete = "off" })
-                @Html.ValidationMessageFor(model => model.Email, null, new { @class = "label label-danger" })*@
             </div>
         </div>
 
@@ -110,35 +99,6 @@
             <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Điện thoại</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <input type="text" class="form-control" placeholder="Điện thoại" autocomplete="off" ng-model="Phone" />
-                @*@Html.TextBoxFor(model => model.Phone, new { @class = "form-control", @placeholder = "Điện thoại", @autocomplete = "off" })
-                @Html.ValidationMessageFor(model => model.Phone, null, new { @class = "label label-danger" })*@
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Tên công ty</label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" placeholder="Tên công ty" class="form-control" autocomplete="off" ng-model="Company" />
-                @*@Html.TextBoxFor(model => model.Company, new { @class = "form-control", @placeholder = "Tên công ty", @autocomplete = "off" })
-                @Html.ValidationMessageFor(model => model.Company, null, new { @class = "label label-danger" })*@
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Quốc gia</label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" class="form-control" placeholder="Quốc gia" autocomplete="off" ng-model="Country" />
-                @*@Html.TextBoxFor(model => model.Country, new { @class = "form-control", @placeholder = "Quốc gia", @autocomplete = "off" })
-                @Html.ValidationMessageFor(model => model.Country, null, new { @class = "label label-danger" })*@
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Thành phố</label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" class="form-control" placeholder="Thành phố" autocomplete="off" ng-model="City" />
-                @*@Html.TextBoxFor(model => model.City, new { @class = "form-control", @placeholder = "Thành phố", @autocomplete = "off" })
-                @Html.ValidationMessageFor(model => model.City, null, new { @class = "label label-danger" })*@
             </div>
         </div>
 
@@ -146,8 +106,6 @@
             <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Địa chỉ</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <input type="text" class="form-control" placeholder="Địa chỉ" autocomplete="off" ng-model="Address" />
-                @*@Html.TextBoxFor(model => model.Address, new { @class = "form-control", @placeholder = "Địa chỉ", @autocomplete = "off" })
-                @Html.ValidationMessageFor(model => model.Address, null, new { @class = "label label-danger" })*@
             </div>
         </div>
 
@@ -158,10 +116,16 @@
                 <input type="hidden" ng-model="DiscountType" />
                 <input type="hidden" ng-model="DiscountValue" />
                 <input type="hidden" ng-model="ValueText" />
-                <input type="text" class="form-control" placeholder="Mã giảm giá" autocomplete="off" ng-model="DiscountCode" ng-keyup="completeDiscount(DiscountCode)" />
+                <div class="input-group">
+                    
+                    <input type="text" class="form-control" placeholder="Mã giảm giá" autocomplete="off" ng-model="DiscountCode" ng-keyup="completeDiscount(DiscountCode)" />
+                    <span class="input-group-addon" style="cursor:pointer;" ng-click="removeDiscount();"><i class="glyphicon glyphicon-remove"></i></span>
+
+                </div>
                 <ul class="list-group">
                     <li class="list-group-item" ng-repeat="discounttdata in filterDiscount" ng-click="fillTextboxDiscount(discounttdata)">{{discounttdata.DiscountCode}}</li>
                 </ul>
+
             </div>
         </div>
 
@@ -170,8 +134,6 @@
             <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Mô tả</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <textarea class="form-control" placeholder="Mô tả đơn hàng" ng-model="Description"></textarea>
-                @*@Html.TextAreaFor(model => model.Description, new { @class = "form-control", placeholder = "Mô tả đơn hàng" })
-                @Html.ValidationMessageFor(model => model.Description, null, new { @class = "label" })*@
             </div>
         </div>
     </fieldset>
@@ -188,7 +150,6 @@
                     <ul class="list-group">
                         <li class="list-group-item" ng-repeat="productdata in filterProduct" ng-click="fillTextbox(productdata)">{{productdata.ProductName}}</li>
                     </ul>
-                    @* <input type="text" class="form-control" auto-complete ui-items="names" ng-model="selected" placeholder="Tên sản phẩm" autocomplete="off" id="txtProductName" />*@
                 </div>
 
                 <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Số lượng</label>
@@ -318,7 +279,6 @@
         }
 
         $scope.fillTextboxDiscount = function (obj) {
-            console.log(obj);
             $scope.DiscountID = obj.Id;
             $scope.DiscountCode = obj.DiscountCode;
             $scope.DiscountType = obj.ValueType;
@@ -327,16 +287,32 @@
             $scope.filterDiscount = null;
         }
 
+        $scope.removeDiscount = function () {
+            $scope.DiscountID = null;
+            $scope.DiscountCode = null;
+            $scope.DiscountType = null;
+            $scope.DiscountValue = null;
+            $scope.ValueText = null;
+            $scope.TotalPrice = 0;
+            $scope.SubTotal = 0;
+            if ($scope.Items != null && $scope.Items != undefined) {
+                $.each($scope.Items, function (index, item) {
+                    $scope.TotalPrice += item.TotalPrice;
+                    $scope.SubTotal += item.TotalPrice;
+                });
+            }
+        }
+
         $scope.fillTextboxCus = function (obj)
         {
             $scope.Id = obj.Id;
             $scope.Name = obj.Name;
             $scope.Email = obj.Email;
             $scope.Address = obj.Address;
-            $scope.Company = obj.Company;
-            $scope.City = obj.City;
+            //$scope.Company = obj.Company;
+            //$scope.City = obj.City;
             $scope.Phone = obj.Phone;
-            $scope.Country = obj.Country;
+            //$scope.Country = obj.Country;
 
             $scope.filterCustomer = null;
         }
@@ -417,10 +393,10 @@
                 LastName: $scope.Name,
                 Address: $scope.Address,
                 Email: $scope.Email,
-                Company: $scope.Company,
-                City: $scope.City,
+                //Company: $scope.Company,
+                //City: $scope.City,
                 Phone: $scope.Phone,
-                Country: $scope.Country,
+                //Country: $scope.Country,
                 Description: $scope.Description,
                 DiscountType: $scope.DiscountType,
                 DiscountValue: $scope.DiscountValue,
