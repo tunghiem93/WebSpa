@@ -21,10 +21,14 @@
                             </a>
                         </li>
                         <li>
-                            <a href="" class="btn btn-success" id="btn-edit-save" ng-click="SaveOrder();">
+                            <button type="button" class="btn btn-success" id="btn-edit-save" ng-click="SaveOrder();" ng-disabled="Items.length == 0">
                                 <i class="fa fa-save"></i>
                                 &nbsp;Lưu
-                            </a>
+                            </button>
+                            @*<a href="" class="btn btn-success" id="btn-edit-save" ng-click="SaveOrder();" ng-if="Items.length > 0" >
+                                <i class="fa fa-save"></i>
+                                &nbsp;Lưu
+                            </a>*@
                         </li>
                     </ul>
                 </div>
