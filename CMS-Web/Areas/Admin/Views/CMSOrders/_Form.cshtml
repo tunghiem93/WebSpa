@@ -210,6 +210,7 @@
                         <th class="text-center"> Giá </th>
                         <th class="text-center">Số lượng</th>
                         <th class="text-center"> Thành tiền </th>
+                        <th class="text-center"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -222,19 +223,22 @@
                             {{item.Quantity}}
                         </td>
                         <td class="text-center">{{item.TotalPrice | currency :"": 0}} đ</td>
+                        <td class="text-center">
+                            <a href="" ng-click="deleteItem(item)">Xóa</a>
+                        </td>
                     </tr>
                 </tbody>
-                <tfoot ng-if="TotalPrice !=undefined">
+                <tfoot ng-if="TotalPrice !=undefined && TotalPrice != 0 ">
                     <tr>
-                        <td class="text-right" colspan="3">SubTotal</td>
+                        <td class="text-right" colspan="4">SubTotal</td>
                         <td class="text-center">{{SubTotal | currency :"": 0}} đ</td>
                     </tr>
                     <tr ng-if="DiscountValue != undefined ">
-                        <td class="text-right" colspan="3">Giảm giá</td>
+                        <td class="text-right" colspan="4">Giảm giá</td>
                         <td class="text-center">{{ValueText}}</td>
                     </tr>
                     <tr>
-                        <td class="text-right" colspan="3">Tổng tiền</td>
+                        <td class="text-right" colspan="4">Tổng tiền</td>
                         <td class="text-center">{{TotalPrice | currency :"": 0}} đ</td>
                     </tr>
                 </tfoot>
@@ -379,6 +383,30 @@
             $scope.productName = "";
             $scope.Qty = 1;
 
+        }
+
+        $scope.deleteItem = function (item)
+        {
+            var index = $scope.Items.indexOf(item);
+            $scope.Items.splice(index, 1);  
+            $scope.TotalPrice = 0;
+            $scope.SubTotal = 0;
+            if ($scope.Items != null && $scope.Items != undefined) {
+                $.each($scope.Items, function (index, item) {
+                    $scope.TotalPrice += item.TotalPrice;
+                    $scope.SubTotal += item.TotalPrice;
+                });
+
+                if ($scope.DiscountValue != undefined) {
+                    if ($scope.DiscountType == 0)//percent
+                    {
+                        $scope.TotalPrice = $scope.TotalPrice - ($scope.TotalPrice * ($scope.DiscountValue / 100));
+                    }
+                    else {
+                        $scope.TotalPrice = $scope.TotalPrice - $scope.DiscountValue;
+                    }
+                }
+            }
         }
 
         $scope.SaveOrder = function () {
