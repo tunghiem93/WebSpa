@@ -151,6 +151,19 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Mã giảm giá</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="hidden" ng-model="DiscountID" />
+                <input type="hidden" ng-model="DiscountType" />
+                <input type="hidden" ng-model="DiscountValue" />
+                <input type="text" class="form-control" placeholder="Mã giảm giá" autocomplete="off" ng-model="DiscountCode" ng-keyup="completeDiscount(DiscountCode)" />
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="discounttdata in filterDiscount" ng-click="fillTextboxDiscount(discounttdata)">{{discounttdata.DiscountCode}}</li>
+                </ul>
+            </div>
+        </div>
+
         <!--Description-->
         <div class="form-group">
             <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Mô tả</label>
@@ -237,6 +250,8 @@
     app.controller("OrderFrmCtrl", ["$scope", "$http", "$window", function ($scope, $http, $window) {
         $scope.productList = JSON.parse('@Html.Raw(Json.Encode(Model.Items))');
         $scope.customerList = JSON.parse('@Html.Raw(Json.Encode(Model.Customers))');
+        $scope.discountList = JSON.parse('@Html.Raw(Json.Encode(Model.Discounts))');
+        console.log($scope.discountList);
         $scope.complete = function (string) {
             var output = [];
             if (string == undefined || string === "")
@@ -266,6 +281,31 @@
                 });
             }
             $scope.filterCustomer = output;
+        }
+
+        $scope.completeDiscount = function (string) {
+            var output = [];
+            if (string == undefined || string === "") {
+                output = null;
+            }
+            else {
+                angular.forEach($scope.discountList, function (discount) {
+                    if (discount.DiscountCode.toLowerCase().indexOf(string.toLowerCase()) >= 0) {
+                        output.push(discount);
+                    }
+                });
+            }
+            $scope.filterDiscount = output;
+        }
+
+        $scope.fillTextboxDiscount = function (obj) {
+            console.log(obj);
+            $scope.DiscountID = obj.Id;
+            $scope.DiscountCode = obj.DiscountCode;
+            $scope.DiscountType = obj.ValueType;
+            $scope.DiscountValue = obj.Value;
+
+            $scope.filterDiscount = null;
         }
 
         $scope.fillTextboxCus = function (obj)
@@ -318,8 +358,12 @@
                 Phone: $scope.Phone,
                 Country: $scope.Country,
                 Description: $scope.Description,
+                DiscountType: $scope.DiscountType,
+                DiscountValue: $scope.DiscountValue,
+                DiscountID: $scope.DiscountID,
                 Items: $scope.Items,
             };
+            console.log(_order);
             $http({
                 method: 'POST',
                 url: '@Url.Action("Create", "CMSOrders")',

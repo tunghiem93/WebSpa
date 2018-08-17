@@ -197,6 +197,7 @@ namespace CMS_Shared.CMSDiscount
                             IsApplyTotalBill = o.IsApplyTotalBill,
                             IsActive = o.IsActive ?? false,
                             Value = o.Value ?? 0,
+                            ValueType = o.ValueType,
                             IsPercent = (o.ValueType ?? (byte)Commons.EValueType.Percent) == (byte)Commons.EValueType.Percent,
                         }).ToList();
 

@@ -1,6 +1,7 @@
 ﻿using CMS_DTO.CMSCustomer;
 using CMS_DTO.CMSOrder;
 using CMS_Shared.CMSCustomers;
+using CMS_Shared.CMSDiscount;
 using CMS_Shared.CMSOrders;
 using CMS_Shared.CMSProducts;
 using CMS_Web.Web.App_Start;
@@ -18,11 +19,14 @@ namespace CMS_Web.Areas.Admin.Controllers
         private CMSOrderFactory _fac;
         private CMSProductFactory _facPro;
         private CMSCustomersFactory _facCus;
+        private CMSDiscountFactory _facDiscount;
+
         public CMSOrdersController()
         {
             _fac = new CMSOrderFactory();
             _facPro = new CMSProductFactory();
             _facCus = new CMSCustomersFactory();
+            _facDiscount = new CMSDiscountFactory();
         }
         // GET: Admin/CMSOrders
         public ActionResult Index()
@@ -106,6 +110,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                 Phone = o.Phone,
                 PostCode = o.Postcode
             }).OrderBy(o => o.Name).ToList();
+            model.Discounts = _facDiscount.GetList();
             return PartialView("_Create", model);
         }
         [HttpPost]
@@ -136,6 +141,23 @@ namespace CMS_Web.Areas.Admin.Controllers
                     SubTotalPrice = Order.Items != null ? Order.Items.Sum(o => o.TotalPrice) : 0,
                     IsTemp = false //admin
                 };
+                if(model != null && model.ListItem != null && model.ListItem.Any() && !string.IsNullOrEmpty(Order.DiscountID))
+                {
+                    model.ListItem.Add(new CMS_ItemModels
+                    {
+                        DiscountID = Order.DiscountID,
+                        DiscountType = Order.DiscountType,
+                        DiscountValue = Order.DiscountValue
+                    });
+                    if(Order.DiscountType == (byte)CMS_Common.Commons.EValueType.Percent)
+                    {
+                        model.TotalDiscount = model.TotalPrice - (model.TotalPrice * (Order.DiscountValue / 100));
+                    }
+                    else
+                    {
+                        model.TotalDiscount = model.TotalPrice - Order.DiscountValue;
+                    }
+                }
                 var result = _fac.CreateOrder(model);
                 if (!result)
                     status = 500;

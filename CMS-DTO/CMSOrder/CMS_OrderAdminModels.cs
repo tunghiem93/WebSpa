@@ -1,4 +1,5 @@
 ﻿using CMS_DTO.CMSCustomer;
+using CMS_DTO.CMSDiscount;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,13 +20,19 @@ namespace CMS_DTO.CMSOrder
         public string Phone { get; set; }
         public string Country { get; set; }
         public string Description { get; set; }
+        public string DiscountID { get; set; }
+        public float DiscountValue { get; set; }
+        public byte DiscountType { get; set; }
+        public string DiscountCode { get; set; }
         public List<CMS_ItemModels> Items { get; set; }
         public List<CMS_CustomerAnonymousModels> Customers { get; set; }
+        public List<CMS_DiscountModels> Discounts { get; set; }
 
         public CMS_OrderAdminModels()
         {
             Items = new List<CMS_ItemModels>();
             Customers = new List<CMS_CustomerAnonymousModels>();
+            Discounts = new List<CMS_DiscountModels>();
         }
     }
 }
