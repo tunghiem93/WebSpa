@@ -36,9 +36,24 @@ namespace CMS_Web.Areas.Admin.Controllers
             try
             {
                 model = _fac.GetDetailOrder(id);
+                
                 if(model != null)
                 {
                     model.sCreatedDate = model.CreatedDate.ToString("dd/MM/yyyy hh:mm tt");
+                    if(model.Items != null && model.Items.Any())
+                    {
+                        model.ValueDiscount = model.Items.Where(o => string.IsNullOrEmpty(o.ProductID)).Select(o => o.DiscountValue + " " + (o.DiscountType == (byte)CMS_Common.Commons.EValueType.Percent ? "%" : "Vnd")).FirstOrDefault();
+                        var valueDiscount = model.Items.Where(o => string.IsNullOrEmpty(o.ProductID)).FirstOrDefault();
+                        if(valueDiscount.DiscountType == (byte)CMS_Common.Commons.EValueType.Percent)
+                        {
+                            model.TotalBill = model.TotalBill - (model.TotalBill * valueDiscount.DiscountValue / 100);
+                        }
+                        else
+                        {
+                            model.TotalBill = model.TotalBill - valueDiscount.DiscountValue;
+                        }
+                    }
+                    
                 }
             }
             catch(Exception ex)

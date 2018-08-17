@@ -163,6 +163,7 @@ namespace CMS_Shared.CMSOrders
                                                 Id = r.o.ID,
                                                 Phone = string.IsNullOrEmpty(r.o.CustomerID) ? "" : r.c.Select(x => x.Phone).FirstOrDefault(),
                                                 TotalBill = r.o.TotalBill,
+                                                SubTotal =  r.o.SubTotal,
                                                 City = string.IsNullOrEmpty(r.o.CustomerID) ? "" : r.c.Select(x => x.HomeCity).FirstOrDefault(),
                                                 Country = string.IsNullOrEmpty(r.o.CustomerID) ? "" : r.c.Select(x => x.HomeCountry).FirstOrDefault(),
                                                 Email = string.IsNullOrEmpty(r.o.CustomerID) ? "" : r.c.Select(x => x.Email).FirstOrDefault(),
@@ -175,7 +176,10 @@ namespace CMS_Shared.CMSOrders
                                                     ProductID = x.ProductID,
                                                     ProductName = x.CMS_Products.Name,
                                                     Quantity = x.Quantity.HasValue ? (double)x.Quantity.Value : 0,
-                                                    TotalPrice = (x.Price.Value * (double) x.Quantity.Value)
+                                                    TotalPrice = (x.Price.Value * (double) x.Quantity.Value),
+                                                    DiscountID = x.DiscountID,
+                                                    DiscountType = x.DiscountType,
+                                                    DiscountValue =(float)x.DiscountValue
                                                 }).ToList()
                                            }).FirstOrDefault();
                     if (string.IsNullOrEmpty(data.Description))
