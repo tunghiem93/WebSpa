@@ -234,10 +234,10 @@ namespace CMS_Web.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult LoadOrders()
+        public ActionResult LoadOrders(string cusID)
         {
             var model = new CustomerModels();
-            model.ListOrders = _facOrder.GetListOrder();
+            model.ListOrders = _facOrder.GetListOrder(cusID);
             if (model.ListOrders != null && model.ListOrders.Any())
             {
                 int index = 0;

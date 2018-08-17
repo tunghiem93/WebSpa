@@ -68,7 +68,7 @@
                                     <td class="text-center">@item.BirthDate.ToString("dd/MM/yyyy")</td>
                                     <td class="text-center">
                                         <a href="javascript:void(0)"
-                                           data-toggle="modal" data-target="#modal-choose-keys" data-whatever="2" data-cus-id="@item.Name"
+                                           data-toggle="modal" data-target="#modal-choose-keys" data-whatever="2" data-cus-name="@item.Name" data-cus-id="@item.ID"
                                            class="a-fnb btn btn-primary btn-xs view details"><i class="fa fa-eye"></i>&nbsp;Lịch sử</a>&nbsp;&nbsp;
                                     </td>
                                     <td class="text-center">
@@ -144,7 +144,6 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-danger" data-dismiss="modal">@Html.Raw("Cancel")</button>
-                <button onclick="AddKeywords(this)" type="button" class="btn btn-primary">@Html.Raw("Add")</button>
             </div>
         </div>
     </div>
@@ -232,7 +231,8 @@
 
     $("#modal-choose-keys").on('show.bs.modal', function (event) {
         debugger;
-        var cusName = $(event.relatedTarget).data('cus-id');
+        var cusName = $(event.relatedTarget).data('cus-name');
+        var cusID = $(event.relatedTarget).data('cus-id');
         $('#modal-choose-keys #idCusName').text(cusName);
         $('#chkAllRule_').attr('checked', false);
         btnGlobal = $(event.relatedTarget); // Button that triggered the modal
@@ -248,14 +248,14 @@
         //$('.popupTabConent').css({ "overflow": "auto", "height": $(window).height() - 200 + "px" });
         $('.popupTabKey').css({ "overflow": "auto", "margin-left": "10px", "height": $(window).height() - 210 + "px" });
         $('.cls-modal-chosse-key .modal-content').css({ "margin-left": "10px" });
-        LoadOrders("#tbl-choose-keys");
+        LoadOrders("#tbl-choose-keys", cusID);
     });
 
-    function LoadOrders(container) {
+    function LoadOrders(container, cusID) {
         $.ajax({
             url: '@Url.Action("LoadOrders", "CMSCustomers")',
             type: 'get',
-            data: { },
+            data: { cusID : cusID },
             dataType: 'html',
             traditional: true,
             error: function (e) {
