@@ -132,7 +132,8 @@ namespace CMS_Shared.CMSOrders
                                                TotalBill = o.o.TotalBill,
                                                Phone = string.IsNullOrEmpty(o.o.CustomerID) ? "" : o.c.Select(x => x.Phone).FirstOrDefault(),
                                                Address = string.IsNullOrEmpty(o.o.CustomerID) ? "" : o.c.Select(x => x.HomeStreet).FirstOrDefault(),
-                                               TotalDiscount = o.o.TotalDiscount
+                                               TotalDiscount = o.o.TotalDiscount,
+                                               OrderType = o.o.OrderType,
                                            }).ToList();
                     return data;
                 }

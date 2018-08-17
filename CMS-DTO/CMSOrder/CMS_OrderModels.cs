@@ -31,6 +31,7 @@ namespace CMS_DTO.CMSOrder
         public bool Checked { get; set; }
         public string ValueDiscount { get; set; }
         public double? SubTotal { get; set; }
+        public byte OrderType { get; set; }
         public List<CMS_ItemModels> Items { get; set; }
 
         public CMS_OrderModels()
