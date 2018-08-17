@@ -98,6 +98,12 @@ namespace CMS_Common
             Normal = 0,  // normal order, sale order
             Expense = 1, // order chi
         }
+
+        public enum EExpenseType
+        {
+            System = 0,  
+            Service = 1,
+        }
         #endregion
     }
 }

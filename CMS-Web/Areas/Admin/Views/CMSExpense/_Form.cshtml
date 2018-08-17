@@ -1,0 +1,148 @@
+﻿
+@model CMS_DTO.CMSOrder.CMS_OrderModels
+
+@using CMS_Common
+@{
+    Html.EnableUnobtrusiveJavaScript(true);
+    var _ID = Model.Id;
+}
+@Html.HiddenFor(model => model.Id)
+
+<div class="row form-horizontal form-label-left" style="margin-bottom:15px;">
+    @*Image*@
+    <fieldset>
+        <legend>THÔNG TIN CHUNG</legend>
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">OrderNo</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.DisplayFor(model => model.OrderNo)
+                @Html.ValidationMessageFor(model => model.OrderNo, null, new { @class = "label label-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight">Khách hàng</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.DropDownListFor(model => model.CustomerId,
+                    new SelectList(ViewBag.ListCus, "Value", "Text", Model.CustomerId),"Vui lòng chọn khách hàng",
+                    new
+                    {
+                        @class = "form-control select2_multiple",
+                        @id = "CustomerDdl",
+                        @style = "width:100%;"
+                    })
+                @Html.ValidationMessageFor(model => model.CustomerId, null, new { @class = "label label-danger" })
+            </div>
+        </div>       
+
+    </fieldset>
+</div>
+
+<script src="@Url.Content("~/Scripts/InputCustom.js")"></script>
+<script type="text/javascript">
+    var btnGlobal;
+    var listItem;
+
+    $(document).ready(function () {
+        $('.datepicker1').daterangepicker({
+            singleDatePicker: true,
+            calender_style: "picker_2",
+            maxDate: new Date(),
+            //==========
+            showDropdowns: true,
+            locale: {
+                format: 'DD/MM/YYYY',
+                daysOfWeek: ['CN', 'Hai', 'Ba', 'Tư', 'Năm', 'Sáu', 'Bảy'],
+                monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12']
+            }
+        }, function (start, end, label) {
+        });
+
+        $("#CustomerDdl").select2({
+            placeholder: "Vui lòng chọn khách hàng",
+            allowClear: true
+        });
+
+        $("#ExpenseTypeDdl").select2({
+            placeholder: "Vui lòng chọn thể loại",
+            allowClear: true
+        });
+    });
+
+    $("#modal-choose-keys").on('show.bs.modal', function (event) {
+        debugger;
+        var cusName = $(event.relatedTarget).data('cus-id');
+        //$('#modal-choose-keys #idCusName').text(cusName);
+        $('#chkAllRule_').attr('checked', false);
+        btnGlobal = $(event.relatedTarget); // Button that triggered the modal
+        ////=========
+        //var OffSet = btnGlobal.data('whatever');
+        listItem = [];
+        $('.key_' + ':visible').each(function (index, value) {
+            listItem.push($(this).attr('data-id'));
+        });
+        $('#txtSearchKey').val('');
+        ////==========
+        //$("#tbl-choose-dishes_").html('');
+        //$('.popupTabConent').css({ "overflow": "auto", "height": $(window).height() - 200 + "px" });
+        $('.popupTabKey').css({ "overflow": "auto", "margin-left": "10px", "height": $(window).height() - 210 + "px" });
+        $('.cls-modal-chosse-key .modal-content').css({ "margin-left": "10px" });
+        LoadProducts("#tbl-choose-keys");
+    });
+
+    function LoadProducts(container) {
+        $.ajax({
+            url: '@Url.Action("LoadProducts", "CMSExpense")',
+            type: 'get',
+            data: { },
+            dataType: 'html',
+            traditional: true,
+            error: function (e) {
+            },
+            success: function (data) {
+                $(container).html(data);
+                //ResizeModal(container, 300);
+                $('.SpecificItems').each(function (index, value) {
+                    var dataId = $(this).attr('data-id');
+                    if (listItem.indexOf(dataId) != -1) {
+                        $(this).addClass('hide');//.hide();
+                    }
+                });
+            },
+            beforeSend: function () {
+                $('.se-pre-con').show();
+            },
+            complete: function () {
+                $('.se-pre-con').hide();
+            }
+        });
+    }
+
+    function SearchOrder(btn) {
+        var keySearch = $(btn).parents('div.form-group:first').find('input').val().toLowerCase();
+        var trs = $(btn).parents('.modal-body:first').find('tbody tr');
+
+        var arrKeySearch = keySearch.split(' ');
+        if (keySearch != '') {
+            for (var i = 0; i < trs.length; i++) {
+                var name = $.trim($(trs[i]).find('td:first').text());
+                for (var j = 0; j < arrKeySearch.length; j++) {
+                    if (name.toLowerCase().indexOf(arrKeySearch[j]) != -1) {
+                        if ($(trs[i]).css('display') == 'none')
+                            $(trs[i]).css('display', 'table-row');
+                        break;
+                    }
+                    else
+                        if ($(trs[i]).css('display') == 'table-row')
+                            $(trs[i]).css('display', 'none');
+                }
+            }
+        }
+        else {
+            $(trs).each(function (e) {
+                if ($(this).css('display') == 'none')
+                    $(this).css('display', 'table-row');
+            });
+        }
+    }
+</script>

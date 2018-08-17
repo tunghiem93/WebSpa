@@ -58,6 +58,10 @@ namespace CMS_DTO.CMSProduct
         public int ProductTypeCode { get; set; }
         public List<CMS_ImagesModels> ListImages { get; set; }
 
+        public byte Status { get; set; }
+        public int OffSet { get; set; }
+        public bool Checked { get; set; }
+
         public CMS_ProductsModels()
         {
             IsActive = true;

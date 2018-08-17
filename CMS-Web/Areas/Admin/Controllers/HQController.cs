@@ -3,6 +3,7 @@ using CMS_DTO.CMSBase;
 using CMS_DTO.CMSSession;
 using CMS_Shared;
 using CMS_Shared.CMSCategories;
+using CMS_Shared.CMSCustomers;
 using CMS_Shared.CMSRole;
 using System;
 using System.Collections.Generic;
@@ -103,6 +104,32 @@ namespace CMS_Web.Areas.Admin.Controllers
                  //new SelectListItem() {Text = "Video", Value= Commons.EBlogType.Video.ToString("d") },
                  //new SelectListItem() {Text = "Audio", Value= Commons.EBlogType.Audio.ToString("d") },
             };
+            return data;
+        }
+
+        public List<SelectListItem> GetListExpenseType()
+        {
+            List<SelectListItem> data = new List<SelectListItem>()
+            {
+                 new SelectListItem() {Text = "Dịch vụ hệ thống", Value= Commons.EExpenseType.System.ToString("d") },
+                 new SelectListItem() {Text = "Dịch vụ ngoài", Value= Commons.EExpenseType.Service.ToString("d") },
+            };
+            return data;
+        }
+
+        public List<SelectListItem> GetListCustomer()
+        {
+            var _factory = new CMSCustomersFactory();
+            List<SelectListItem> data = null;
+            var listCus = _factory.GetList();
+            if (listCus != null)
+            {
+                data = listCus.Select(x => new SelectListItem
+                {
+                    Value = x.ID,
+                    Text = x.Name,
+                }).ToList();
+            }
             return data;
         }
     }

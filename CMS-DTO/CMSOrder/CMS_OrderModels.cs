@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMS_DTO.CMSProduct;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,10 +34,16 @@ namespace CMS_DTO.CMSOrder
         public double? SubTotal { get; set; }
         public byte OrderType { get; set; }
         public List<CMS_ItemModels> Items { get; set; }
+        
+        public string ExpenseType { get; set; }
+        public string StoreID { get; set; }
+        public List<CMS_ProductsModels> LstProduct { get; set; }
 
         public CMS_OrderModels()
         {
+            StoreID = "Spa";
             Items = new List<CMS_ItemModels>();
+            LstProduct = new List<CMS_ProductsModels>();
         }
     }
 }
