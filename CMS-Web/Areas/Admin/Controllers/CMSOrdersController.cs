@@ -78,6 +78,8 @@ namespace CMS_Web.Areas.Admin.Controllers
                     model.ForEach(o =>
                     {
                         o.sCreatedDate = o.CreatedDate.ToString("dd/MM/yyyy hh:mm tt");
+                        if (o.TotalDiscount.HasValue)
+                            o.TotalBill = o.TotalDiscount;
                     });
                 }
             }

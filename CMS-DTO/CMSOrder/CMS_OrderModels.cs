@@ -14,6 +14,7 @@ namespace CMS_DTO.CMSOrder
         public string CustomerId { get; set; }
         public string CustomerName { get; set; }
         public double? TotalBill { get; set; }
+        public double? TotalDiscount { get; set; }
         public string Phone { get; set; }
         public string sCreatedDate { get; set; }
         public string Email { get; set; }
