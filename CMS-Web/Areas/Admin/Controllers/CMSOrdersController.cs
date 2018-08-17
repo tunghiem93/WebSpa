@@ -44,20 +44,6 @@ namespace CMS_Web.Areas.Admin.Controllers
                 if(model != null)
                 {
                     model.sCreatedDate = model.CreatedDate.ToString("dd/MM/yyyy hh:mm tt");
-                    if(model.Items != null && model.Items.Any())
-                    {
-                        model.ValueDiscount = model.Items.Where(o => string.IsNullOrEmpty(o.ProductID)).Select(o => o.DiscountValue + " " + (o.DiscountType == (byte)CMS_Common.Commons.EValueType.Percent ? "%" : "Vnd")).FirstOrDefault();
-                        var valueDiscount = model.Items.Where(o => string.IsNullOrEmpty(o.ProductID)).FirstOrDefault();
-                        if(valueDiscount.DiscountType == (byte)CMS_Common.Commons.EValueType.Percent)
-                        {
-                            model.TotalBill = model.TotalBill - (model.TotalBill * valueDiscount.DiscountValue / 100);
-                        }
-                        else
-                        {
-                            model.TotalBill = model.TotalBill - valueDiscount.DiscountValue;
-                        }
-                    }
-                    
                 }
             }
             catch(Exception ex)
@@ -78,8 +64,6 @@ namespace CMS_Web.Areas.Admin.Controllers
                     model.ForEach(o =>
                     {
                         o.sCreatedDate = o.CreatedDate.ToString("dd/MM/yyyy hh:mm tt");
-                        if (o.TotalDiscount.HasValue && o.TotalDiscount != 0)
-                            o.TotalBill = o.TotalDiscount;
                     });
                 }
             }
@@ -153,12 +137,13 @@ namespace CMS_Web.Areas.Admin.Controllers
                     });
                     if(Order.DiscountType == (byte)CMS_Common.Commons.EValueType.Percent)
                     {
-                        model.TotalDiscount = model.TotalPrice - (model.TotalPrice * (Order.DiscountValue / 100));
+                        model.TotalDiscount =(model.TotalPrice * (Order.DiscountValue / 100));
                     }
                     else
                     {
-                        model.TotalDiscount = model.TotalPrice - Order.DiscountValue;
+                        model.TotalDiscount = Order.DiscountValue;
                     }
+                    model.TotalPrice = model.SubTotalPrice - model.TotalDiscount;
                 }
                 var result = _fac.CreateOrder(model);
                 if (!result)

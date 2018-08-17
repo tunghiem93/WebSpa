@@ -53,12 +53,16 @@ namespace CMS_Shared.CMSOrders
                         // create order
                         var _OrderId = Guid.NewGuid().ToString();
                         var _OrderNo = CommonHelper.GenerateOrderNo(model.StoreID, (byte)Commons.EStatus.Actived);
+                        var _ReceiptNo = model.IsTemp ? "" : CommonHelper.GenerateReceiptNo(model.StoreID, (byte)Commons.EStatus.Actived);
+                        var _RcCreateDate = model.IsTemp ? Commons.MinDate : DateTime.Now;
                         var eOrder = new CMS_Order
                         {
                             ID = _OrderId,
                             StoreID = model.StoreID,
                             //OrderNo = CommonHelper.RandomNumberOrder(),
                             OrderNo = _OrderNo,
+                            ReceiptNo = _ReceiptNo,
+                            ReceiptCreatedDate = _RcCreateDate,
                             CustomerID = model.Customer.Id,
                             TotalBill = model.TotalPrice,
                             SubTotal = model.SubTotalPrice,
@@ -92,6 +96,7 @@ namespace CMS_Shared.CMSOrders
                                     DiscountID = item.DiscountID,
                                     DiscountValue = item.DiscountValue,
                                     DiscountType = item.DiscountType,
+                                    Status = (byte)CMS_Common.Commons.EStatus.Actived,
                                 });
                             }
                             db.CMS_OrderDetail.AddRange(lstOrderDetail);
@@ -121,7 +126,7 @@ namespace CMS_Shared.CMSOrders
             {
                 using (var db = new CMS_Context())
                 {
-                    var query = db.CMS_Order.Where(o => !string.IsNullOrEmpty(o.ID));
+                    var query = db.CMS_Order.Where(o => o.Status == (byte)Commons.EStatus.Actived);
                     if (!string.IsNullOrEmpty(cusID))
                         query = query.Where(o => o.CustomerID == cusID);
 
@@ -157,7 +162,7 @@ namespace CMS_Shared.CMSOrders
                 NSLog.Logger.Info("GetDetailOrder_Request : ", OrderId);
                 using (var db = new CMS_Context())
                 {
-                    data = db.CMS_Order.GroupJoin(db.CMS_OrderDetail, o => o.ID, d => d.OrderID, (o, d) => new { o, d })
+                    data = db.CMS_Order.GroupJoin(db.CMS_OrderDetail.Where(o => !string.IsNullOrEmpty(o.ProductID)), o => o.ID, d => d.OrderID, (o, d) => new { o, d })
                                             .GroupJoin(db.CMS_Customer, o => o.o.CustomerID, c => c.ID, (o, c) => new { o = o.o, d = o.d, c })
                                             .Where(o => o.o.ID.Equals(OrderId))
                                             .Select(r => new CMS_OrderModels
@@ -170,6 +175,7 @@ namespace CMS_Shared.CMSOrders
                                                 Phone = string.IsNullOrEmpty(r.o.CustomerID) ? "" : r.c.Select(x => x.Phone).FirstOrDefault(),
                                                 TotalBill = r.o.TotalBill,
                                                 SubTotal = r.o.SubTotal,
+                                                TotalDiscount = r.o.TotalDiscount,
                                                 City = string.IsNullOrEmpty(r.o.CustomerID) ? "" : r.c.Select(x => x.HomeCity).FirstOrDefault(),
                                                 Country = string.IsNullOrEmpty(r.o.CustomerID) ? "" : r.c.Select(x => x.HomeCountry).FirstOrDefault(),
                                                 Email = string.IsNullOrEmpty(r.o.CustomerID) ? "" : r.c.Select(x => x.Email).FirstOrDefault(),
@@ -188,8 +194,6 @@ namespace CMS_Shared.CMSOrders
                                                     DiscountValue = (float)x.DiscountValue
                                                 }).ToList()
                                             }).FirstOrDefault();
-                    if (string.IsNullOrEmpty(data.Description))
-                        data.Description = "Không có ghi chú.";
                     NSLog.Logger.Info("GetDetailOrder_Response : ", data);
                 }
             }

@@ -24,12 +24,29 @@
                                 <td class="text-center"> @Model.Items[i].ProductName </td>
                                 <td class="text-center"> @Model.Items[i].Price </td>
                                 <td class="text-center"> @Model.Items[i].Quantity </td>
-                                <td class="text-center"> @Model.Items[i].TotalPrice </td>
+                                <td class="text-center"> @string.Format("{0:0,0 VNĐ}", Model.Items[i].TotalPrice)</td>
                             </tr>
                         }
                     }
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="text-right" colspan="3">SubTotal</td>
+                        <td class="text-center">@string.Format("{0:0,0 VNĐ}", Model.SubTotal)</td>
+                    </tr>
+                    @if (@Model.TotalDiscount > 0)
+                    {
+                        <tr>
+                            <td class="text-right" colspan="3">Giảm giá</td>
+                            <td class="text-center">@string.Format("{0:0,0 VNĐ}", Model.TotalDiscount)</td>
+                        </tr>
+                    }
 
+                    <tr>
+                        <td class="text-right" colspan="3">Tổng tiền</td>
+                        <td class="text-center"><span style="color:#d9534f;font-weight:bold">@string.Format("{0:0,0 VNĐ}", Model.TotalBill)</span></td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
         <!-- END EXAMPLE TABLE PORTLET-->
@@ -89,5 +106,5 @@
     $(document).ready(function () {
         _tableEmployee = $('#sample_3').DataTable($.extend(true, {}, _settingsOptionTableDicount));
     })
-   
+
 </script>

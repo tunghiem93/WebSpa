@@ -34,13 +34,13 @@
                                 <i class="fa fa-cogs"></i>Đơn hàng
                             </div>
                             @*@if (isAction)
-                            {
-                                <div class="actions">
-                                    <a href="@Url.Action("Create","CMSOrders")" class="btn btn-default btn-sm">
-                                        <i class="fa fa-plus"></i> Thêm mới
-                                    </a>
-                                </div>
-                            }*@
+                                {
+                                    <div class="actions">
+                                        <a href="@Url.Action("Create","CMSOrders")" class="btn btn-default btn-sm">
+                                            <i class="fa fa-plus"></i> Thêm mới
+                                        </a>
+                                    </div>
+                                }*@
                             <div class="actions">
                                 <a href="@Url.Action("Create","CMSOrders")" class="btn btn-default btn-sm">
                                     <i class="fa fa-plus"></i> Thêm mới
@@ -189,9 +189,9 @@
                                     <td class="text-right" colspan="3">SubTotal</td>
                                     <td class="text-center">{{Order.SubTotal | currency :"": 0}} đ</td>
                                 </tr>
-                                <tr ng-if="Order.ValueDiscount != null">
+                                <tr ng-if="Order.TotalDiscount != null">
                                     <td class="text-right" colspan="3">Giảm giá</td>
-                                    <td class="text-center" ng-bind="Order.ValueDiscount"></td>
+                                    <td class="text-center">{{Order.TotalDiscount | currency :"": 0}} đ</td>
                                 </tr>
                                 <tr>
                                     <td class="text-right" colspan="3">Tổng tiền</td>
@@ -211,7 +211,7 @@
 
 <script type="text/javascript">
     var _tableCategory = null;
-    var _settingsOptionTableCategory = {
+    var _settingsOptionTableListOrder = {
         "language": {
             "aria": {
                 "sortAscending": ": activate to sort column ascending",
@@ -245,13 +245,13 @@
         "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
 
         "lengthMenu": [
-            [6, 15, 20, -1],
-            [6, 15, 20, "All"] // change per page values here
+            [50, 100, 150, -1],
+            [50, 100, 150, "All"] // change per page values here
         ],
         // set the initial value
         "pageLength": 6,
         "columnDefs": [
-            { "orderable": false, "targets": [0, 5] },
+            //{ "orderable": false, "targets": [0, 5] },
             { "width": "3%", "targets": [0] },
             { "width": "3%", "targets": [1] },
             { "width": "8%", "targets": [5] },
@@ -260,7 +260,7 @@
         //"responsive": true,
         //"autoWitdh": false,
         "order": [
-            [1, "asc"]
+            [0, "desc"]
         ] // set first column as a default sort by asc
     };
 
@@ -288,7 +288,7 @@
                 $scope.Orders = data.data;
 
                 setTimeout(function () {
-                    _tableCategory = $('#sample_3').DataTable($.extend(true, {}, _settingsOptionTableCategory));
+                    _tableCategory = $('#sample_3').DataTable($.extend(true, {}, _settingsOptionTableListOrder));
                 },500);
 
             });

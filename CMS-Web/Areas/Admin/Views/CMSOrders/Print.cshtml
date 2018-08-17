@@ -21,15 +21,43 @@
         <div class="modal-body" style="display:initial">
             <div class="form-group" style="padding-top:15px;">
                 <label class="control-label col-md-2 col-sm-2 col-xs-4 lineHeight fontLighter">Tên khách hàng:</label>
-                <label class="control-label col-md-4 col-sm-4 col-xs-8 lineHeight"><span style="color:#d9534f; font-weight:bold">@Model.CustomerName</span></label>
+                @{
+                    if (!string.IsNullOrEmpty(Model.CustomerName))
+                    {
+                        <label class="control-label col-md-4 col-sm-4 col-xs-8 lineHeight"><span style="color:#d9534f; font-weight:bold">@Model.CustomerName</span></label>
+                    }
+                    else
+                    {
+                        <label class="control-label col-md-4 col-sm-4 col-xs-8 lineHeight">No</label>
+                    }
+                }
 
                 <label class="control-label col-md-2 col-sm-2 col-xs-4 lineHeight fontLighter">E-mail:</label>
-                <label class="control-label col-md-4 col-sm-4 col-xs-8 lineHeight"><span style="font-weight:bold">@Model.Email</span></label>
+
+                @{
+                    if (!string.IsNullOrEmpty(Model.Email))
+                    {
+                        <label class="control-label col-md-4 col-sm-4 col-xs-8 lineHeight"><span style="font-weight:bold">@Model.Email</span></label>
+                    }
+                    else
+                    {
+                        <label class="control-label col-md-4 col-sm-4 col-xs-8 lineHeight">No</label>
+                    }
+                }
             </div>
 
             <div class="form-group" style="padding-top:25px;">
                 <label class="control-label col-md-2 col-sm-2 col-xs-4 lineHeight fontLighter">Điện thoại:</label>
-                <label class="control-label col-md-4 col-sm-4 col-xs-8 lineHeight"><span style="font-weight:bold">@Model.Phone</span></label>
+                @{
+                    if (!string.IsNullOrEmpty(Model.Phone))
+                    {
+                        <label class="control-label col-md-4 col-sm-4 col-xs-8 lineHeight"><span style="font-weight:bold">@Model.Phone</span></label>
+                    }
+                    else
+                    {
+                        <label class="control-label col-md-4 col-sm-4 col-xs-8 lineHeight">No</label>
+                    }
+                }
 
                 <label class="control-label col-md-2 col-sm-2 col-xs-4 lineHeight fontLighter">Ngày đặt hàng:</label>
                 <label class="control-label col-md-4 col-sm-4 col-xs-8 lineHeight">@Model.sCreatedDate</label>
@@ -37,23 +65,26 @@
 
             <div class="form-group" style="padding-top:25px;">
                 <label class="control-label col-md-2 col-sm-2 col-xs-4 lineHeight fontLighter">Ghi chú:</label>
-                <label class="control-label col-md-8 col-sm-8 col-xs-8 lineHeight">@Model.Description</label>
+                @{
+                    if (!string.IsNullOrEmpty(Model.Description))
+                    {
+                        <label class="control-label col-md-8 col-sm-8 col-xs-8 lineHeight">@Model.Description</label>
+                    }
+                    else
+                    {
+                        <label class="control-label col-md-8 col-sm-8 col-xs-8 lineHeight">No</label>
+                    }
+                }
             </div>
-
-            <div class="form-group" style="padding-top:25px;">
-                <label class="control-label col-md-2 col-sm-2 col-xs-4 lineHeight fontLighter">Tổng cộng:</label>
-                <label class="control-label col-md-8 col-sm-8 col-xs-8 lineHeight"><span style="color:#d9534f;font-weight:bold">@string.Format("{0:0,0 VNĐ}", Model.TotalBill)</span></label>
-            </div>
-
         </div>
     </div>
 
-    <div class="form-group" style="height:100%; padding-top:25px;">
+    <div class="form-group" style="height:100%; padding-top:15px;">
         <!-- detail partial view -->
         @Html.Partial("_ListItem", Model)
     </div>
 
-    <div class="form-group" style="padding-top:25px;">
+    <div class="form-group" style="padding-top:15px;">
         <label class="control-label col-md-2 col-sm-2 col-xs-4 lineHeight fontLighter">Địa chỉ: </label>
         <label class="control-label col-md-8 col-sm-8 col-xs-8 lineHeight">181/29 Âu Dương Lân, P.2, Q.8, HCM</label>
     </div>
@@ -68,7 +99,7 @@
 </body>
 </html>
 <script type="text/javascript">
-    
+
     $(document).ready(function () {
     })
 
