@@ -157,6 +157,7 @@
                 <input type="hidden" ng-model="DiscountID" />
                 <input type="hidden" ng-model="DiscountType" />
                 <input type="hidden" ng-model="DiscountValue" />
+                <input type="hidden" ng-model="ValueText" />
                 <input type="text" class="form-control" placeholder="Mã giảm giá" autocomplete="off" ng-model="DiscountCode" ng-keyup="completeDiscount(DiscountCode)" />
                 <ul class="list-group">
                     <li class="list-group-item" ng-repeat="discounttdata in filterDiscount" ng-click="fillTextboxDiscount(discounttdata)">{{discounttdata.DiscountCode}}</li>
@@ -223,6 +224,20 @@
                         <td class="text-center">{{item.TotalPrice | currency :"": 0}} đ</td>
                     </tr>
                 </tbody>
+                <tfoot ng-if="TotalPrice !=undefined">
+                    <tr>
+                        <td class="text-right" colspan="3">SubTotal</td>
+                        <td class="text-center">{{SubTotal | currency :"": 0}} đ</td>
+                    </tr>
+                    <tr ng-if="DiscountValue != undefined ">
+                        <td class="text-right" colspan="3">Giảm giá</td>
+                        <td class="text-center">{{ValueText}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right" colspan="3">Tổng tiền</td>
+                        <td class="text-center">{{TotalPrice | currency :"": 0}} đ</td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </fieldset>
@@ -304,7 +319,7 @@
             $scope.DiscountCode = obj.DiscountCode;
             $scope.DiscountType = obj.ValueType;
             $scope.DiscountValue = obj.Value;
-
+            $scope.ValueText = obj.ValueText;
             $scope.filterDiscount = null;
         }
 
@@ -337,6 +352,27 @@
                 Quantity: $scope.Qty,
                 TotalPrice: $scope.Qty * $scope.ProductPrice
             });
+            $scope.TotalPrice = 0;
+            $scope.SubTotal = 0;
+            if ($scope.Items != null && $scope.Items != undefined)
+            {
+                $.each($scope.Items, function (index, item) {
+                    $scope.TotalPrice += item.TotalPrice;
+                    $scope.SubTotal += item.TotalPrice;
+                });
+
+                if ($scope.DiscountValue != undefined)
+                {
+                    if ($scope.DiscountType == 0)//percent
+                    {
+                        $scope.TotalPrice = $scope.TotalPrice - ($scope.TotalPrice * ($scope.DiscountValue / 100));
+                    }
+                    else {
+                        $scope.TotalPrice = $scope.TotalPrice - $scope.DiscountValue;
+                    }
+                }
+            }
+            
             /* reset value */
             $scope.ProductPrice = 0;
             $scope.ProductId = "";
