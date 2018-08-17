@@ -72,7 +72,7 @@ namespace CMS_Web.Areas.Admin.Controllers
             var model = new List<CMS_OrderModels>();
             try
             {
-                model = _fac.GetListOrder();
+                model = _fac.GetListOrder().Where(o => o.OrderType == (byte)CMS_Common.Commons.EOrderType.Normal).ToList();
                 if(model != null && model.Any())
                 {
                     model.ForEach(o =>
