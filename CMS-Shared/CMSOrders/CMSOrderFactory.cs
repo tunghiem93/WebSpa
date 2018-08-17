@@ -33,20 +33,20 @@ namespace CMS_Shared.CMSOrders
                             var eCus = new CMS_Customer
                             {
                                 ID = model.Customer.Id,
-                                FirstName = string.IsNullOrEmpty(model.Customer.FirstName) ? "Anonymous" : model.Customer.FirstName,
-                                LastName = string.IsNullOrEmpty(model.Customer.LastName) ? "" : model.Customer.LastName,
-                                Email = string.IsNullOrEmpty(model.Customer.Email) ? "Anonymous@gmail.com" : model.Customer.Email,
+                                FirstName = model.Customer.FirstName,
+                                LastName = model.Customer.LastName,
+                                Email = model.Customer.Email,
                                 Phone = model.Customer.Phone,
                                 CreatedDate = DateTime.Now,
                                 LastModified = DateTime.Now,
                                 CustomerType = (int)CMS_Common.Commons.ECustomerType.Anonymous,
-                                HomeCountry = string.IsNullOrEmpty(model.Customer.Country) ? "Việt Nam" : model.Customer.Country,
+                                HomeCountry = model.Customer.Country,
                                 OfficeZipCode = model.Customer.PostCode,
                                 Status = (byte)CMS_Common.Commons.EStatus.Actived,
                                 Anniversary = Commons.MinDate,
                                 ValidTo = Commons.MinDate,
-                                HomeStreet = string.IsNullOrEmpty(model.Customer.Address) ? Commons.AddressCompany : model.Customer.Address,
-                                OfficeStreet = string.IsNullOrEmpty(model.Customer.Address) ? Commons.AddressCompany : model.Customer.Address,
+                                HomeStreet = model.Customer.Address,
+                                OfficeStreet = model.Customer.Address,
                             };
                             db.CMS_Customer.Add(eCus);
                         }
