@@ -26,7 +26,7 @@ namespace CMS_Shared.CMSOrders
                     m_Semaphore.WaitOne();
                     try
                     {
-                        if(string.IsNullOrEmpty(model.Customer.Id) && !string.IsNullOrEmpty(model.Customer.LastName))
+                        if (string.IsNullOrEmpty(model.Customer.Id) && !string.IsNullOrEmpty(model.Customer.LastName))
                         {
                             // create new customer 
                             model.Customer.Id = Guid.NewGuid().ToString();
@@ -72,10 +72,10 @@ namespace CMS_Shared.CMSOrders
                         };
                         db.CMS_Order.Add(eOrder);
                         // create order detail
-                        if(model.ListItem != null && model.ListItem.Any())
+                        if (model.ListItem != null && model.ListItem.Any())
                         {
                             var lstOrderDetail = new List<CMS_OrderDetail>();
-                            foreach(var item in model.ListItem)
+                            foreach (var item in model.ListItem)
                             {
                                 lstOrderDetail.Add(new CMS_OrderDetail
                                 {
@@ -100,7 +100,7 @@ namespace CMS_Shared.CMSOrders
                         trans.Commit();
                         return true;
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         NSLog.Logger.Error("CreateOrder_Error:", ex);
                         trans.Rollback();
@@ -115,18 +115,22 @@ namespace CMS_Shared.CMSOrders
             }
         }
 
-        public List<CMS_OrderModels> GetListOrder()
+        public List<CMS_OrderModels> GetListOrder(string cusID = "")
         {
             try
             {
                 using (var db = new CMS_Context())
                 {
-                    var data = db.CMS_Order.GroupJoin(db.CMS_Customer, o => o.CustomerID, c => c.ID, (o, c) => new { o, c })
+                    var query = db.CMS_Order.Where(o => !string.IsNullOrEmpty(o.ID));
+                    if (!string.IsNullOrEmpty(cusID))
+                        query = query.Where(o => o.CustomerID == cusID);
+
+                    var data = query.GroupJoin(db.CMS_Customer, o => o.CustomerID, c => c.ID, (o, c) => new { o, c })
                                            .Select(o => new CMS_OrderModels
                                            {
                                                CreatedDate = o.o.CreatedDate,
                                                CustomerId = o.o.CustomerID,
-                                               CustomerName = string.IsNullOrEmpty(o.o.CustomerID) ? "" : o.c.Select( x => x.FirstName + " " + x.LastName).FirstOrDefault(),
+                                               CustomerName = string.IsNullOrEmpty(o.o.CustomerID) ? "" : o.c.Select(x => x.FirstName + " " + x.LastName).FirstOrDefault(),
                                                Id = o.o.ID,
                                                OrderNo = o.o.OrderNo,
                                                TotalBill = o.o.TotalBill,
@@ -138,7 +142,7 @@ namespace CMS_Shared.CMSOrders
                     return data;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 NSLog.Logger.Error("GetListOrder :", ex);
             }
@@ -153,24 +157,24 @@ namespace CMS_Shared.CMSOrders
                 NSLog.Logger.Info("GetDetailOrder_Request : ", OrderId);
                 using (var db = new CMS_Context())
                 {
-                   data = db.CMS_Order.GroupJoin(db.CMS_OrderDetail, o => o.ID, d => d.OrderID, (o, d) => new { o, d })
-                                           .GroupJoin(db.CMS_Customer, o => o.o.CustomerID, c => c.ID, (o, c) => new { o = o.o, d = o.d, c })
-                                           .Where(o => o.o.ID.Equals(OrderId))
-                                           .Select(r => new CMS_OrderModels
-                                           {
-                                                CreatedDate  = r.o.CreatedDate,
+                    data = db.CMS_Order.GroupJoin(db.CMS_OrderDetail, o => o.ID, d => d.OrderID, (o, d) => new { o, d })
+                                            .GroupJoin(db.CMS_Customer, o => o.o.CustomerID, c => c.ID, (o, c) => new { o = o.o, d = o.d, c })
+                                            .Where(o => o.o.ID.Equals(OrderId))
+                                            .Select(r => new CMS_OrderModels
+                                            {
+                                                CreatedDate = r.o.CreatedDate,
                                                 CustomerId = r.o.CustomerID,
                                                 CustomerName = string.IsNullOrEmpty(r.o.CustomerID) ? "" : r.c.Select(x => x.FirstName + " " + x.LastName).FirstOrDefault(),
                                                 OrderNo = r.o.OrderNo,
                                                 Id = r.o.ID,
                                                 Phone = string.IsNullOrEmpty(r.o.CustomerID) ? "" : r.c.Select(x => x.Phone).FirstOrDefault(),
                                                 TotalBill = r.o.TotalBill,
-                                                SubTotal =  r.o.SubTotal,
+                                                SubTotal = r.o.SubTotal,
                                                 City = string.IsNullOrEmpty(r.o.CustomerID) ? "" : r.c.Select(x => x.HomeCity).FirstOrDefault(),
                                                 Country = string.IsNullOrEmpty(r.o.CustomerID) ? "" : r.c.Select(x => x.HomeCountry).FirstOrDefault(),
                                                 Email = string.IsNullOrEmpty(r.o.CustomerID) ? "" : r.c.Select(x => x.Email).FirstOrDefault(),
-                                                PostCode  = string.IsNullOrEmpty(r.o.CustomerID) ? "" : r.c.Select(x => x.HomeZipCode).FirstOrDefault(),
-                                                Description = r.d.Select( x => x.Description).FirstOrDefault(),
+                                                PostCode = string.IsNullOrEmpty(r.o.CustomerID) ? "" : r.c.Select(x => x.HomeZipCode).FirstOrDefault(),
+                                                Description = r.d.Select(x => x.Description).FirstOrDefault(),
                                                 Address = string.IsNullOrEmpty(r.o.CustomerID) ? "" : r.c.Select(x => x.HomeStreet).FirstOrDefault(),
                                                 Items = r.d.Select(x => new CMS_ItemModels
                                                 {
@@ -178,18 +182,18 @@ namespace CMS_Shared.CMSOrders
                                                     ProductID = x.ProductID,
                                                     ProductName = x.CMS_Products.Name,
                                                     Quantity = x.Quantity.HasValue ? (double)x.Quantity.Value : 0,
-                                                    TotalPrice = (x.Price.Value * (double) x.Quantity.Value),
+                                                    TotalPrice = (x.Price.Value * (double)x.Quantity.Value),
                                                     DiscountID = x.DiscountID,
                                                     DiscountType = x.DiscountType,
-                                                    DiscountValue =(float)x.DiscountValue
+                                                    DiscountValue = (float)x.DiscountValue
                                                 }).ToList()
-                                           }).FirstOrDefault();
+                                            }).FirstOrDefault();
                     if (string.IsNullOrEmpty(data.Description))
                         data.Description = "Không có ghi chú.";
                     NSLog.Logger.Info("GetDetailOrder_Response : ", data);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 NSLog.Logger.Error("GetDetailOrder :", ex);
             }
@@ -214,7 +218,7 @@ namespace CMS_Shared.CMSOrders
                         db.SaveChanges();
                         trans.Commit();
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         result = false;
                         NSLog.Logger.Error("Delete_Order:", ex);
