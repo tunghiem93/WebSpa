@@ -6,6 +6,7 @@
     var _ID = Model.Id;
 }
 @Html.HiddenFor(model => model.Id)
+@Html.HiddenFor(model => model.ProductTypeCode)
 <style>
     input[type="file"] {
         display: block;
@@ -99,7 +100,7 @@
             <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Mô tả</label>
             <div class="col-md-9 col-sm-9 col-xs-12">
                 @Html.TextAreaFor(model => model.Description, new { @class = "form-control ckeditor", placeholder = "Mô tả" })
-                @Html.ValidationMessageFor(model => model.Description, null, new { @class = "label" })
+                @Html.ValidationMessageFor(model => model.Description, null, new { @class = "label label-danger" })
             </div>
         </div>
     </fieldset>
@@ -135,7 +136,7 @@
     function showPictureUpload() {
         $('[id=upload_file]').click();
     }
-    
+
     function preview_image(e) {
         var _Files = document.getElementById("upload_file").files;
         var filesLength = _Files.length;

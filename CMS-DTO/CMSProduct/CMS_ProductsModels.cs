@@ -30,6 +30,7 @@ namespace CMS_DTO.CMSProduct
         public DateTime UpdatedDate { get; set; }
         public bool IsActive { get; set; }
         [AllowHtml]
+        [MaxLength(16000, ErrorMessage = "Mô tả sản phẩm tối đa 16000 kí tự")]
         public string Description { get; set; }
         public string PrintOutText { get; set; }
 
@@ -69,6 +70,7 @@ namespace CMS_DTO.CMSProduct
             ProductCode = "";
             BarCode = "";
             ExpiredDate = Commons.MaxDate;
+            ProductTypeCode = (int) Commons.EProductType.Product;
             ListImages = new List<CMS_ImagesModels>();
         }
     }

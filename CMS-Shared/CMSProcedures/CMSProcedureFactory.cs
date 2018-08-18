@@ -90,6 +90,7 @@ namespace CMS_Shared.CMSProcedures
                                 proCheck.CategoryID = model.CategoryId;
                                 proCheck.Name = model.ProceduresName;
                                 proCheck.ProductCode = model.ProductCode;
+                                proCheck.TypeCode = model.ProductTypeCode;
                                 proCheck.BarCode = model.BarCode;
                                 proCheck.Description = model.Description;
                                 proCheck.ShortDescription = model.ShortDescription;
