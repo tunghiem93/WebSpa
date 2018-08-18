@@ -53,7 +53,7 @@ namespace CMS_Shared.CMSOrders
                         // create order
                         var _OrderId = Guid.NewGuid().ToString();
                         var _OrderNo = CommonHelper.GenerateOrderNo(model.StoreID, (byte)Commons.EStatus.Actived);
-                        var _ReceiptNo = model.IsTemp ? "" : CommonHelper.GenerateReceiptNo(model.StoreID, (byte)Commons.EStatus.Actived);
+                        var _ReceiptNo = ""; //model.IsTemp ? "" : CommonHelper.GenerateReceiptNo(model.StoreID, (byte)Commons.EStatus.Actived);
                         var _RcCreateDate = model.IsTemp ? Commons.MinDate : DateTime.Now;
                         var eOrder = new CMS_Order
                         {
@@ -73,6 +73,7 @@ namespace CMS_Shared.CMSOrders
                             ModifiedUser = string.IsNullOrEmpty(model.ModifiedUser) ? model.Customer.Id : model.ModifiedUser,
                             Status = (byte)CMS_Common.Commons.EStatus.Actived,
                             IsTemp = model.IsTemp,
+                            OrderType = model.OrderType,
                         };
                         db.CMS_Order.Add(eOrder);
                         // create order detail
@@ -88,7 +89,7 @@ namespace CMS_Shared.CMSOrders
                                     ProductID = item.ProductID,
                                     Price = item.Price,
                                     Quantity = (decimal)item.Quantity,
-                                    Description = model.Customer.Description,
+                                    Description = string.IsNullOrEmpty(model.Customer.Description) ? item.Description : model.Customer.Description,
                                     CreatedDate = DateTime.Now,
                                     CreatedUser = string.IsNullOrEmpty(model.CreatedUser) ? model.Customer.Id : model.CreatedUser,
                                     ModifiedUser = string.IsNullOrEmpty(model.ModifiedUser) ? model.Customer.Id : model.ModifiedUser,
@@ -143,6 +144,7 @@ namespace CMS_Shared.CMSOrders
                                                Address = string.IsNullOrEmpty(o.o.CustomerID) ? "" : o.c.Select(x => x.HomeStreet).FirstOrDefault(),
                                                TotalDiscount = o.o.TotalDiscount,
                                                OrderType = o.o.OrderType,
+                                               EmployeeName = o.o.CreatedUser,
                                            }).ToList();
                     return data;
                 }
@@ -162,7 +164,7 @@ namespace CMS_Shared.CMSOrders
                 NSLog.Logger.Info("GetDetailOrder_Request : ", OrderId);
                 using (var db = new CMS_Context())
                 {
-                    data = db.CMS_Order.GroupJoin(db.CMS_OrderDetail.Where(o => !string.IsNullOrEmpty(o.ProductID)), o => o.ID, d => d.OrderID, (o, d) => new { o, d })
+                    data = db.CMS_Order.GroupJoin(db.CMS_OrderDetail, o => o.ID, d => d.OrderID, (o, d) => new { o, d })
                                             .GroupJoin(db.CMS_Customer, o => o.o.CustomerID, c => c.ID, (o, c) => new { o = o.o, d = o.d, c })
                                             .Where(o => o.o.ID.Equals(OrderId))
                                             .Select(r => new CMS_OrderModels
@@ -191,7 +193,8 @@ namespace CMS_Shared.CMSOrders
                                                     TotalPrice = (x.Price.Value * (double)x.Quantity.Value),
                                                     DiscountID = x.DiscountID,
                                                     DiscountType = x.DiscountType,
-                                                    DiscountValue = (float)x.DiscountValue
+                                                    DiscountValue = (float)x.DiscountValue,
+                                                    Description = x.Description,
                                                 }).ToList()
                                             }).FirstOrDefault();
                     NSLog.Logger.Info("GetDetailOrder_Response : ", data);

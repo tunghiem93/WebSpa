@@ -17,5 +17,6 @@ namespace CMS_DTO.CMSOrder
         public string DiscountID { get; set; }
         public double DiscountValue { get; set; }
         public byte DiscountType { get; set; }
+        public string Description { get; set; }
     }
 }

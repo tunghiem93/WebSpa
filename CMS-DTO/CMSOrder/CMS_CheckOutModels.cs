@@ -22,6 +22,7 @@ namespace CMS_DTO.CMSOrder
         public string DiscountID { get; set; }
         public float DiscountValue { get; set; }
         public byte DiscountType { get; set; }
+        public byte OrderType { get; set; }
         public CMS_CheckOutModels()
         {
             ListItem = new List<CMS_ItemModels>();
