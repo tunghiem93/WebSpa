@@ -32,6 +32,9 @@ namespace CMS_DTO.CMSProduct
         [AllowHtml]
         [MaxLength(16000, ErrorMessage = "Mô tả sản phẩm tối đa 16000 kí tự")]
         public string Description { get; set; }
+        [AllowHtml]
+        [MaxLength(2000, ErrorMessage = "Mô tả tối đa 2000 kí tự")]
+        public string ShortDescription { get; set; }
         public string PrintOutText { get; set; }
 
         public string CategoryName { get; set; }
