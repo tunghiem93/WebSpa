@@ -38,6 +38,7 @@ namespace CMS_Shared.CMSProducts
                                 ProductCode = model.ProductCode,
                                 BarCode = model.BarCode,
                                 Description = model.Description,
+                                ShortDescription = model.ShortDescription,
                                 PrintOutText = model.PrintOutText,
                                 IsActive = model.IsActive,
                                 ImageURL = model.ImageURL,
@@ -108,6 +109,7 @@ namespace CMS_Shared.CMSProducts
                                 proCheck.ProductCode = model.ProductCode;
                                 proCheck.BarCode = model.BarCode;
                                 proCheck.Description = model.Description;
+                                proCheck.ShortDescription = model.ShortDescription;
                                 proCheck.PrintOutText = model.PrintOutText;
                                 proCheck.IsActive = model.IsActive;
                                 proCheck.ImageURL = model.ImageURL;
@@ -234,6 +236,7 @@ namespace CMS_Shared.CMSProducts
                             ProductCode = o.ProductCode,
                             BarCode = o.BarCode,
                             Description = o.Description,
+                            ShortDescription = o.ShortDescription,
                             PrintOutText = o.PrintOutText,
                             IsActive = o.IsActive,
                             ImageURL = o.ImageURL,
