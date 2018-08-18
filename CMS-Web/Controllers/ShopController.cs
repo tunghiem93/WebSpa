@@ -185,12 +185,13 @@ namespace CMS_Web.Controllers
 
                             if (model.DiscountType == (byte)CMS_Common.Commons.EValueType.Percent)
                             {
-                                model.TotalDiscount = model.TotalPrice - (model.TotalPrice * (model.DiscountValue / 100));
+                                model.TotalDiscount = (model.TotalPrice * (model.DiscountValue / 100));
                             }
                             else
                             {
-                                model.TotalDiscount = model.TotalPrice - model.DiscountValue;
+                                model.TotalDiscount = model.DiscountValue;
                             }
+                            model.TotalPrice = model.TotalPrice - model.TotalDiscount;
                         }
                     }
                     var result =  _facOrder.CreateOrder(model);
