@@ -64,7 +64,7 @@ namespace CMS_Common
 
         public enum EProductType
         {
-            Service = 1,
+            //Service = 1,
             Product = 2,
             Procudure = 3,
         }

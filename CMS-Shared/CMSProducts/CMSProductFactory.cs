@@ -277,7 +277,7 @@ namespace CMS_Shared.CMSProducts
             return result;
         }
 
-        public List<CMS_ProductsModels> GetList()
+        public List<CMS_ProductsModels> GetList(int productType = 0)
         {
             NSLog.Logger.Info("ProductGetList");
 
@@ -286,7 +286,11 @@ namespace CMS_Shared.CMSProducts
             {
                 using (var cxt = new CMS_Context())
                 {
-                    var data = cxt.CMS_Products.Where(o => o.Status != (byte)Commons.EStatus.Deleted)
+                    var query = cxt.CMS_Products.Where(o => o.Status != (byte)Commons.EStatus.Deleted);
+                    if (productType != 0)
+                        query = query.Where(o => o.TypeCode == productType);
+
+                    var data = query.Where(o => o.Status != (byte)Commons.EStatus.Deleted)
                         .Join(cxt.CMS_Categories, p => p.CategoryID, c => c.ID, (p, c) => new { p, c })
                         .Select(o => new CMS_ProductsModels
                         {

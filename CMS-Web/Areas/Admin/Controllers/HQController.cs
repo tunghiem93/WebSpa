@@ -26,12 +26,12 @@ namespace CMS_Web.Areas.Admin.Controllers
             }
         }
 
-        public List<SelectListItem> GetListCategorySelectItem()
+        public List<SelectListItem> GetListCategorySelectItem(int productType = 0)
         {
             var _factory = new CMSCategoriesFactory();
             List<SelectListItem> data = null;
 
-            var listCate = _factory.GetList();
+            var listCate = _factory.GetList(productType);
             if (listCate != null)
             {
                 data = listCate.Select(x => new SelectListItem

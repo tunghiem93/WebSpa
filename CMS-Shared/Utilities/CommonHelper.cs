@@ -18,22 +18,29 @@ namespace CMS_Shared.Utilities
         static string key { get; set; } = "A!9HHhi%XjjYY4YP2@Nob00900X";
         public static string Encrypt(string text)
         {
-            using (var md5 = new MD5CryptoServiceProvider())
+            var ret = "";
+            try
             {
-                using (var tdes = new TripleDESCryptoServiceProvider())
+                using (var md5 = new MD5CryptoServiceProvider())
                 {
-                    tdes.Key = md5.ComputeHash(UTF8Encoding.UTF8.GetBytes(key));
-                    tdes.Mode = CipherMode.ECB;
-                    tdes.Padding = PaddingMode.PKCS7;
-
-                    using (var transform = tdes.CreateEncryptor())
+                    using (var tdes = new TripleDESCryptoServiceProvider())
                     {
-                        byte[] textBytes = UTF8Encoding.UTF8.GetBytes(text);
-                        byte[] bytes = transform.TransformFinalBlock(textBytes, 0, textBytes.Length);
-                        return Convert.ToBase64String(bytes, 0, bytes.Length);
+                        tdes.Key = md5.ComputeHash(UTF8Encoding.UTF8.GetBytes(key));
+                        tdes.Mode = CipherMode.ECB;
+                        tdes.Padding = PaddingMode.PKCS7;
+
+                        using (var transform = tdes.CreateEncryptor())
+                        {
+                            byte[] textBytes = UTF8Encoding.UTF8.GetBytes(text);
+                            byte[] bytes = transform.TransformFinalBlock(textBytes, 0, textBytes.Length);
+                            ret = Convert.ToBase64String(bytes, 0, bytes.Length);
+                        }
                     }
                 }
             }
+            catch(Exception ex) { };
+            return ret;
+            
         }
 
         public static string Decrypt(string cipher)
@@ -177,6 +184,38 @@ namespace CMS_Shared.Utilities
             catch { }
             return no;
         }
+
+        public static string GenerateReceiptNo(string _storeID, byte mode)
+        {
+            string no = string.Empty;
+            try
+            {
+                using (var _db = new CMS_Context())
+                {
+                    int startNo = 1;
+                    string prefix = "RC" + DateTime.Now.ToString("yyyyMMdd") + "-";
+
+                    int nextNum = startNo;
+                    int currentNum = 0;
+                    string currentReceiptNo = _db.CMS_Order.Where(o => o.StoreID == _storeID && o.ReceiptNo.Contains(prefix) && !string.IsNullOrEmpty(o.ReceiptNo)).OrderByDescending(o => o.ReceiptNo).Select(o => o.ReceiptNo).FirstOrDefault();
+                    if (!string.IsNullOrEmpty(currentReceiptNo))
+                    {
+                        currentReceiptNo = currentReceiptNo.Replace(prefix, "");
+                        currentNum = int.Parse(currentReceiptNo);
+                        if (currentNum >= startNo)
+                            nextNum = currentNum + 1;
+                    }
+
+                    if (nextNum.ToString().Length > 2)
+                        no = prefix + nextNum.ToString();
+                    else
+                        no = prefix + CreateStringLengthDigit(nextNum, 3);
+                }
+            }
+            catch { }
+            return no;
+        }
+
 
         private static string CreateStringLengthDigit(int number, int length)
         {

@@ -18,10 +18,12 @@ namespace CMS_Web.Areas.Admin.Controllers
     public class CMSProductsController : HQController
     {
         private CMSProductFactory _factory;
+        private int ProductType = (int)Commons.EProductType.Product;
+
         public CMSProductsController()
         {
             _factory = new CMSProductFactory();
-            ViewBag.Category = GetListCategorySelectItem();
+            ViewBag.Category = GetListCategorySelectItem(ProductType);
         }
         // GET: Admin/CMSCategories
         public ActionResult Index()
@@ -31,7 +33,7 @@ namespace CMS_Web.Areas.Admin.Controllers
 
         public ActionResult LoadGrid()
         {
-            var model = _factory.GetList();
+            var model = _factory.GetList(ProductType);
             model.ForEach(x =>
             {
                 x.sStatus = x.IsActive ? "Kích hoạt" : "Chưa kích hoạt";

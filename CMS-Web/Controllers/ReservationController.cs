@@ -25,7 +25,7 @@ namespace CMS_Web.Controllers
             var model = new CMS_ReservationViewModels();
             try
             {
-                model.Categories = _facCate.GetList().Where(o => o.ProductTypeCode == (int)CMS_Common.Commons.EProductType.Service).ToList();
+                model.Categories = _facCate.GetList().Where(o => o.ProductTypeCode == (int)CMS_Common.Commons.EProductType.Procudure).ToList();
                 model.Employees = _facEmp.GetList();
             }
             catch (Exception ex)

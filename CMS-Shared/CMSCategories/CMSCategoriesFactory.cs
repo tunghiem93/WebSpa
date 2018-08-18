@@ -158,7 +158,7 @@ namespace CMS_Shared.CMSCategories
             return result;
         }
 
-        public List<CMSCategoriesModels> GetList()
+        public List<CMSCategoriesModels> GetList(int productType = 0)
         {
             NSLog.Logger.Info("CateGetList");
 
@@ -167,7 +167,11 @@ namespace CMS_Shared.CMSCategories
             {
                 using (var cxt = new CMS_Context())
                 {
-                    var data = cxt.CMS_Categories.Where(o => o.Status != (byte)Commons.EStatus.Deleted)
+                    var query = cxt.CMS_Categories.Where(o => o.Status != (byte)Commons.EStatus.Deleted);
+                    if (productType > 0)
+                        query = query.Where(o => o.ProductTypeCode == productType);
+
+                    var data = query.Where(o => o.Status != (byte)Commons.EStatus.Deleted)
                         .Select(x => new CMSCategoriesModels
                         {
                             Id = x.ID,
@@ -190,7 +194,7 @@ namespace CMS_Shared.CMSCategories
                             Count = o.Count(),
                         }).ToList();
                     data.ForEach(o => o.NumberOfProduct = listCountProductCate.Where(c => c.CateID == o.Id).Select(c => c.Count).FirstOrDefault());
-                    
+
                     /* response data */
                     result = data;
                     NSLog.Logger.Info("ResponseCateGetList", result);

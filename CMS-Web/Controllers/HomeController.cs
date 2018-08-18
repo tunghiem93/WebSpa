@@ -45,7 +45,7 @@ namespace CMS_Web.Controllers
                 model.Company = _facCom.GetList().FirstOrDefault();
 
                 //Category
-                model.ListCate = _facCate.GetList().Where(o => o.ProductTypeCode == (int)Commons.EProductType.Service).OrderByDescending(x => x.CreatedDate).Skip(0).Take(3).ToList();
+                model.ListCate = _facCate.GetList().Where(o => o.ProductTypeCode == (int)Commons.EProductType.Procudure).OrderByDescending(x => x.CreatedDate).Skip(0).Take(3).ToList();
 
                 //Product
                 model.ListProduct = _fac.GetList().Where(o => !string.IsNullOrEmpty(o.ImageURL)).OrderByDescending(x => x.CreatedDate).Skip(0).Take(8).ToList();

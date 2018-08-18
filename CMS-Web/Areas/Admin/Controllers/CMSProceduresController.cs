@@ -17,10 +17,12 @@ namespace CMS_Web.Areas.Admin.Controllers
     public class CMSProceduresController : HQController
     {
         private CMSProcedureFactory _factory;
+        private int ProductType = (int)Commons.EProductType.Procudure;
+
         public CMSProceduresController()
         {
             _factory = new CMSProcedureFactory();
-            ViewBag.Category = GetListCategorySelectItem();
+            ViewBag.Category = GetListCategorySelectItem(ProductType);
         }
         // GET: Admin/CMSProcedures
         public ActionResult Index()

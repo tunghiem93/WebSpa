@@ -63,14 +63,14 @@
 
     <div class="form-group">
         <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Loại</label>
-        <div class="col-md-2 col-sm-2 col-xs-12">
+        <div class="col-md-4 col-sm-4 col-xs-12">
             <label class="radio-inline">
                 @Html.RadioButtonFor(model => model.ProductTypeCode, "2", new { @checked = "checked", @class = "icheck", @name = "Sản Phẩm" }) Sản Phẩm
             </label>
         </div>
-        <div class="col-md-2 col-sm-2 col-xs-12">
+        <div class="col-md-4 col-sm-4 col-xs-12">
             <label class="radio-inline">
-                @Html.RadioButtonFor(model => model.ProductTypeCode, "1", new { @class = "icheck", @name = "Dịch Vụ" }) Dịch Vụ
+                @Html.RadioButtonFor(model => model.ProductTypeCode, "3", new { @class = "icheck", @name = "Dịch Vụ" }) Dịch Vụ (liệu trình)
             </label>
         </div>
     </div>
