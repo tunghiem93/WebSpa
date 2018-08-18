@@ -53,7 +53,7 @@ namespace CMS_Shared.CMSOrders
                         // create order
                         var _OrderId = Guid.NewGuid().ToString();
                         var _OrderNo = CommonHelper.GenerateOrderNo(model.StoreID, (byte)Commons.EStatus.Actived);
-                        var _ReceiptNo = ""; //model.IsTemp ? "" : CommonHelper.GenerateReceiptNo(model.StoreID, (byte)Commons.EStatus.Actived);
+                        var _ReceiptNo = model.IsTemp ? "" : CommonHelper.GenerateReceiptNo(model.StoreID, (byte)Commons.EStatus.Actived);
                         var _RcCreateDate = model.IsTemp ? Commons.MinDate : DateTime.Now;
                         var eOrder = new CMS_Order
                         {
