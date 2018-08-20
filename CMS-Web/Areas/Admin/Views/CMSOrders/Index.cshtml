@@ -299,10 +299,11 @@
             //alert($scope.Orders[$index].OrderNo);
             $.confirm({
                 title: 'Confirm!',
-                content: 'Bạn có muốn xóa đơn hàng [' + $scope.Orders[$index].OrderNo+']!',
+                content: 'Bạn có muốn xóa đơn hàng [' + $scope.Orders[$index].OrderNo +']! <br/><br/> <div class="form-group"> <div class="col-md-12 col-sm-12 col-xs-12" style="padding-left:0;padding-right:0"> <input type="text" class="form-control" placeholder="Nguyên nhân xóa" autocomplete="off" id="Reason" /> </div> </div>',
                 buttons: {
                     Xóa: function () {
-                        $http.get("/CMSOrders/Delete/" + $scope.Orders[$index].Id + "")
+                        var Reason = $("[id=Reason]").val();
+                        $http.get("/CMSOrders/Delete/" + $scope.Orders[$index].Id + "?Reason=" + Reason + "")
                             .then(function (data) {
                                 var status = data.data.Status;
                                 if (status == 200)

@@ -161,12 +161,12 @@ namespace CMS_Web.Areas.Admin.Controllers
             return Json(obj,JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Delete(string id)
+        public JsonResult Delete(string id,string Reason)
         {
             var status = 200;
             try
             {
-                var result = _fac.Delete(id);
+                var result = _fac.Delete(id,Reason);
                 if (!result)
                     status = 500;
                 NSLog.Logger.Info("Delete_Request:", id);

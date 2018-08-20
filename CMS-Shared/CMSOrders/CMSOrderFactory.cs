@@ -207,7 +207,7 @@ namespace CMS_Shared.CMSOrders
             return data;
         }
 
-        public bool Delete(string Id)
+        public bool Delete(string Id,string Reason="")
         {
             var result = true;
             using (var db = new CMS_Context())
@@ -227,7 +227,11 @@ namespace CMS_Shared.CMSOrders
                             //db.CMS_OrderDetail.RemoveRange(_detail);
                         var _master = db.CMS_Order.Where(o => o.ID.Equals(Id)).FirstOrDefault();
                         if (_master != null)
+                        {
                             _master.Status = (byte)CMS_Common.Commons.EStatus.Deleted;
+                            _master.Reason = Reason;
+                        }
+                           
                            // db.CMS_Order.Remove(_master);
                         db.SaveChanges();
                         trans.Commit();
