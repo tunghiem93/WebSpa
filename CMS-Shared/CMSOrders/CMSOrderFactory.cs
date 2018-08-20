@@ -53,13 +53,13 @@ namespace CMS_Shared.CMSOrders
                             db.CMS_Customer.Add(eCus);
                         }
                         // create order
-                        var _OrderId = Guid.NewGuid().ToString();
+                        OrderId = Guid.NewGuid().ToString();
                         var _OrderNo = CommonHelper.GenerateOrderNo(model.StoreID, active, model.OrderType);
                         var _ReceiptNo = model.IsTemp ? "" : CommonHelper.GenerateReceiptNo(model.StoreID, active, model.OrderType);
                         var _RcCreateDate = model.IsTemp ? Commons.MinDate : DateTime.Now;
                         var eOrder = new CMS_Order
                         {
-                            ID = _OrderId,
+                            ID = OrderId,
                             StoreID = model.StoreID,
                             //OrderNo = CommonHelper.RandomNumberOrder(),
                             OrderNo = _OrderNo,
@@ -87,7 +87,7 @@ namespace CMS_Shared.CMSOrders
                                 lstOrderDetail.Add(new CMS_OrderDetail
                                 {
                                     ID = Guid.NewGuid().ToString(),
-                                    OrderID = _OrderId,
+                                    OrderID = OrderId,
                                     ProductID = item.ProductID,
                                     Price = item.Price,
                                     Quantity = (decimal)item.Quantity,
