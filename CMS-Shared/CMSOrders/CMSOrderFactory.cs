@@ -218,10 +218,17 @@ namespace CMS_Shared.CMSOrders
                     {
                         var _detail = db.CMS_OrderDetail.Where(o => o.OrderID.Equals(Id)).ToList();
                         if (_detail != null)
-                            db.CMS_OrderDetail.RemoveRange(_detail);
+                        {
+                            foreach(var item in _detail)
+                            {
+                                item.Status = (byte)CMS_Common.Commons.EStatus.Deleted;
+                            }
+                        }
+                            //db.CMS_OrderDetail.RemoveRange(_detail);
                         var _master = db.CMS_Order.Where(o => o.ID.Equals(Id)).FirstOrDefault();
                         if (_master != null)
-                            db.CMS_Order.Remove(_master);
+                            _master.Status = (byte)CMS_Common.Commons.EStatus.Deleted;
+                           // db.CMS_Order.Remove(_master);
                         db.SaveChanges();
                         trans.Commit();
                     }
