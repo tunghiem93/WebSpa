@@ -16,7 +16,7 @@ namespace CMS_Shared.CMSOrders
     {
         private static Semaphore m_Semaphore = new Semaphore(1, 1);
 
-        public bool CreateOrder(CMS_CheckOutModels model)
+        public bool CreateOrder(CMS_CheckOutModels model,ref string OrderId)
         {
             NSLog.Logger.Info("CreateOrder_Request:", model);
             using (var db = new CMS_Context())
@@ -104,6 +104,7 @@ namespace CMS_Shared.CMSOrders
                         }
                         db.SaveChanges();
                         trans.Commit();
+                        OrderId = _OrderId;
                         return true;
                     }
                     catch (Exception ex)

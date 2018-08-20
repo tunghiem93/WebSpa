@@ -88,7 +88,8 @@ namespace CMS_Web.Areas.Admin.Controllers
                     SubTotalPrice = Order.Items != null ? Order.Items.Sum(o => o.TotalPrice) : 0,
                     IsTemp = false //admin
                 };
-                var result = _fac.CreateOrder(model);
+                var OrderId = string.Empty;
+                var result = _fac.CreateOrder(model,ref OrderId);
                 if (!result)
                     status = 500;
 

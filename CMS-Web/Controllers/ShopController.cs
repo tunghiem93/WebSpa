@@ -7,9 +7,11 @@ using CMS_Shared;
 using CMS_Shared.CMSCategories;
 using CMS_Shared.CMSOrders;
 using CMS_Shared.CMSProducts;
+using CMS_Shared.Utilities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -194,9 +196,20 @@ namespace CMS_Web.Controllers
                             model.TotalPrice = model.TotalPrice - model.TotalDiscount;
                         }
                     }
-                    var result =  _facOrder.CreateOrder(model);
+                    var OrderId = string.Empty;
+                    var result =  _facOrder.CreateOrder(model,ref OrderId);
                     if(result)
                     {
+                        //get info order 
+                        if(!string.IsNullOrEmpty(OrderId))
+                        {
+                            var modelOrder = new CMS_OrderModels();
+                            modelOrder = _facOrder.GetDetailOrder(OrderId);
+                            //Send mail admin
+                            var body = CommonHelper.CreateBodyMail(modelOrder);
+                            var subject = "[V/v đơn hàng " + modelOrder.OrderNo + "]";
+                            CommonHelper.SendContentMail(ConfigurationManager.AppSettings["LamodeMail"], body, "", subject, "", "");
+                        }
                         HttpCookie currentUserCookie = HttpContext.Request.Cookies["cms-order"];
                         HttpContext.Response.Cookies.Remove("cms-order");
                         currentUserCookie.Expires = DateTime.Now.AddDays(-10);

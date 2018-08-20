@@ -1,6 +1,7 @@
 ﻿using CMS_Common;
 using CMS_DataModel.Models;
 using CMS_DTO.CMSContact;
+using CMS_DTO.CMSOrder;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -245,6 +246,73 @@ namespace CMS_Shared.Utilities
             }
             catch(Exception ex) { }
             return ret;
+        }
+
+        public static string CreateBodyMail(CMS_OrderModels model)
+        {
+            string body = string.Empty;
+            try
+            {
+                body += "<div class='payment-order clearfix'>";
+                body += "<h3>Mã đơn hàng của bạn: <b>#" + model.OrderNo + "</b></h3>";
+                body += "<p><b>Ngày đặt:</b> <i>" + model.CreatedDate.ToString("dd/MM/yyyy hh:mm tt") + "</i></p>";
+                body += "<p><b>Tên khách hàng:</b> <i>" + model.CustomerName + "</i></p>";
+                body += "<p><b>Số điện thoại:</b> <i>" + model.Phone + "</i></p>";
+                body += "<p><b>Email:</b> <i>" + model.Email + "</i></p>";
+                body += "<p><b>Địa chỉ:</b> <i>" + model.Address + "</i></p>";
+                body += "<p><b>Phương thức thanh toán:</b> <i></i></p>";
+                body += "<h1 class='page-heading' style= 'font-size: 16px;color: #958457;margin-bottom: 5px;'>Thông tin đơn hàng</h1>";
+                body += "<table class='table' style='width: 100%;margin-bottom: 20px;max-width: 100%;border-collapse: collapse;border-spacing: 0;'>";
+                body += "<thead style='background-color: #a0ca50 !important;color:#FFF'>";
+                body += "<tr>";
+                body += "<th style='padding: 15px;vertical-align: bottom;border-bottom: 2px solid #e7ecf1;line-height: 1.42857;'>STT</th>";
+                body += "<th style='padding: 15px;vertical-align: bottom;border-bottom: 2px solid #e7ecf1;line-height: 1.42857;'>SẢN PHẨM</th>";
+                body += "<th style='padding: 15px;vertical-align: bottom;border-bottom: 2px solid #e7ecf1;line-height: 1.42857;'>GIÁ</th>";
+                body += "<th style='padding: 15px;vertical-align: bottom;border-bottom: 2px solid #e7ecf1;line-height: 1.42857;'>SỐ LƯỢNG</th>";
+                body += "<th style='padding: 15px;vertical-align: bottom;border-bottom: 2px solid #e7ecf1;line-height: 1.42857;'>THÀNH TIỀN</th>";
+                body += "</tr>";
+                body += "</thead>";
+                body += " <tbody>";
+                if (model.Items != null && model.Items.Any())
+                {
+                    var Index = 1;
+                    foreach (var item in model.Items)
+                    {
+                        body += "<tr>";
+                        body += " <td style='padding: 8px;line-height: 1.42857;vertical-align: top;border-top: 1px solid #e7ecf1;text-align:center;'>" + Index + "</td>";
+                        body += "<td style='padding: 8px;line-height: 1.42857;vertical-align: top;border-top: 1px solid #e7ecf1;text-align:center;'>";
+                        body += "<span>" + item.ProductName + "</span>";
+                        body += " <p class='note'></p>";
+                        body += "</td>";
+                        body += "<td style='padding: 8px;line-height: 1.42857;vertical-align: top;border-top: 1px solid #e7ecf1;text-align:center;'>" + item.Price.ToString("#,0") + " đ</td>";
+                        body += "<td style='padding: 8px;line-height: 1.42857;vertical-align: top;border-top: 1px solid #e7ecf1;text-align:center;'>" + item.Quantity + "</td>";
+                        body += "<td style='padding: 8px;line-height: 1.42857;vertical-align: top;border-top: 1px solid #e7ecf1;text-align:center;'>" + item.TotalPrice.ToString("#,0") + " đ</td>";
+                        body += "</tr>";
+                        Index = Index + 1;
+                    }
+                }
+                body += "</tbody>";
+                body += "<tfoot>";
+                body += "<tr>";
+                body += "<td class='label-payment' style='text-transform: uppercase;padding: 8px;line-height: 1.42857;vertical-align: top;border-top: 1px solid #e7ecf1;text-align: left;background-color: #a0ca50 !important;color:#FFF'><b>Thành tiền (Chưa VAT)</b></td>";
+                body += "<td colspan='4' class='total-payment text-center' style='color: #ff0000;border-top: 1px solid #e7ecf1;text-align:center'>" + model.SubTotal.Value.ToString("#,0") + " đ</td>";
+                body += "</tr>";
+                body += "<tr>";
+                body += "<td class='label-payment' style='text-transform: uppercase;padding: 8px;line-height: 1.42857;vertical-align: top;border-top: 1px solid #e7ecf1;text-align: left;background-color: #a0ca50 !important;color:#FFF'><b>Vận chuyển</b></td>";
+                body += "<td colspan='4' class='total-payment text-center' style='color: #ff0000;border-top: 1px solid #e7ecf1;text-align:center'>Phí vận chuyển sẽ được ước tính khi bạn nhập địa chỉ.</td>";
+                body += "</tr>";
+                body += "<tr>";
+                body += "<td class='text-right label-payment' style='text-transform: uppercase;padding: 8px;line-height: 1.42857;vertical-align: top;border-top: 1px solid #e7ecf1;text-align: left;background-color: #a0ca50 !important;color:#FFF'><b>Thành tiền</b></td>";
+                body += "<td colspan='4' class='total-payment' style='color: #ff0000;border-top: 1px solid #e7ecf1;text-align:center'>" + model.TotalBill.Value.ToString("#,0") + " đ</td>";
+                body += "</tr>";
+                body += "</tfoot>";
+                body += "</table>";
+                body += "<br clear=\"all\">";
+                body += "</div>";
+            }
+            catch (Exception ex) { }
+
+            return body;
         }
     }
 }
