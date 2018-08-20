@@ -47,7 +47,7 @@
                             <span class='details'>
                                 Mon - Fri 9AM - 8:30PM
                             </span>
-                        </div>                        
+                        </div>
                     </div>
                     <div class='column dt-sc-one-fourth  space '>
                         <h2>Địa chỉ</h2>
@@ -64,7 +64,7 @@
                         <div class="" id="" lang="en-US" dir="ltr">
                             <div class="screen-reader-response"></div>
                             @using (@Html.BeginForm("SendToMail", "Location", FormMethod.Post, new { @class = "form-horizontal create-form", @enctype = "multipart/form-data", @style = "" }))
-                            {                                
+                            {
                                 <div class="column dt-sc-one-half first">
                                     <p>
                                         <span class="">
@@ -105,21 +105,22 @@
                                  alt="callout-image2" width="163" height="154" />
                         </p>
                         <p>
-                            Hãy đến trãi nghiệm sự đa dạng của dịch vụ spa và điều trị thảo dược. 
+                            Hãy đến trãi nghiệm sự đa dạng của dịch vụ spa và điều trị thảo dược.
                             Hãy đặt chổ ngay để đến tận hưởng dịch vụ đẳng cấp tại Lamode Spa.
                         </p>
                         <p style="text-align: right;">
                             @*<a href='#' target='_blank' class='dt-sc-button small without-icon'>
-                                <span>Click me!</span>
-                            </a>*@
+                                    <span>Click me!</span>
+                                </a>*@
                     </div>
                 </div>
             </div>
             <div class='fullwidth-section ' style="background-image:url(/Content/border/border.png);background-repeat:repeat-x;padding-top:95px;padding-bottom:50px;">
                 <div class="container">
-                    <h2> KHUYẾN MÃI ĐẶC BIỆT TRONG NGÀY HÔM NAY </h2>
                     @if (Model.LstDiscount != null && Model.LstDiscount.Any())
                     {
+                        <h2> KHUYẾN MÃI ĐẶC BIỆT TRONG NGÀY HÔM NAY </h2>
+
                         <div class='dt-sc-images-carousel-wrapper' data-min='1' data-max='2' data-width='520'>
                             <ul class='dt-sc-images-carousel'>
                                 @if (Model.LstDiscount != null && Model.LstDiscount.Any())
@@ -146,32 +147,36 @@
                     }
                     else
                     {
-                        @*<div class='dt-sc-images-carousel-wrapper' data-min='1' data-max='2' data-width='520'>
-                            <ul class='dt-sc-images-carousel'>
-                                <li>
-                                    <a href="javascript:void(0)"><img title="Client 1" src="@Url.Content("~/Images/dreamspa-carousel-image1.png")" alt="Client 1" /></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0"><img title="Client 2" src="@Url.Content("~/Images/dreamspa-carousel-image2.png")" alt="Client 2" /></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img title="Client 1" src="@Url.Content("~/Images/dreamspa-carousel-image1.png")" alt="Client 1" /></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0"><img title="Client 2" src="@Url.Content("~/Images/dreamspa-carousel-image2.png")" alt="Client 2" /></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img title="Client 1" src="@Url.Content("~/Images/dreamspa-carousel-image1.png")" alt="Client 1" /></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0"><img title="Client 2" src="@Url.Content("~/Images/dreamspa-carousel-image2.png")" alt="Client 2" /></a>
-                                </li>
-                            </ul>
-                            <div class="carousel-arrows">
-                                <a href="" class="images-carousel-prev"> <span class="fa fa-angle-left"> </span> </a>
-                                <a href="" class="images-carousel-next"> <span class="fa fa-angle-right"> </span> </a>
+                        @*
+
+                            <h2> KHUYẾN MÃI ĐẶC BIỆT TRONG NGÀY HÔM NAY </h2>
+                            <div class='dt-sc-images-carousel-wrapper' data-min='1' data-max='2' data-width='520'>
+                                <ul class='dt-sc-images-carousel'>
+                                    <li>
+                                        <a href="javascript:void(0)"><img title="Client 1" src="@Url.Content("~/Images/dreamspa-carousel-image1.png")" alt="Client 1" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0"><img title="Client 2" src="@Url.Content("~/Images/dreamspa-carousel-image2.png")" alt="Client 2" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)"><img title="Client 1" src="@Url.Content("~/Images/dreamspa-carousel-image1.png")" alt="Client 1" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0"><img title="Client 2" src="@Url.Content("~/Images/dreamspa-carousel-image2.png")" alt="Client 2" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)"><img title="Client 1" src="@Url.Content("~/Images/dreamspa-carousel-image1.png")" alt="Client 1" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0"><img title="Client 2" src="@Url.Content("~/Images/dreamspa-carousel-image2.png")" alt="Client 2" /></a>
+                                    </li>
+                                </ul>
+                                <div class="carousel-arrows">
+                                    <a href="" class="images-carousel-prev"> <span class="fa fa-angle-left"> </span> </a>
+                                    <a href="" class="images-carousel-next"> <span class="fa fa-angle-right"> </span> </a>
+                                </div>
                             </div>
-                        </div>*@
+                        *@
                     }
 
                 </div>

@@ -4,6 +4,7 @@ using CMS_DTO.CMSSession;
 using CMS_Shared;
 using CMS_Shared.CMSCategories;
 using CMS_Shared.CMSCompanies;
+using CMS_Shared.CMSDiscount;
 using CMS_Shared.CMSEmployees;
 using CMS_Shared.CMSNews;
 using CMS_Shared.CMSProcedures;
@@ -25,6 +26,8 @@ namespace CMS_Web.Controllers
         private CMSNewsFactory _facNews;
         private CMSEmployeeFactory _facEmp;
         private CMSProcedureFactory _facProce;
+        private CMSDiscountFactory _facDis;
+
         public HomeController()
         {
             _fac = new CMSProductFactory();
@@ -33,6 +36,7 @@ namespace CMS_Web.Controllers
             _facNews = new CMSNewsFactory();
             _facEmp = new CMSEmployeeFactory();
             _facProce = new CMSProcedureFactory();
+            _facDis = new CMSDiscountFactory();
         }
         // GET: Clients/Home
         public ActionResult Index()
@@ -54,28 +58,31 @@ namespace CMS_Web.Controllers
                 model.ListProcedures = _facProce.GetList().OrderBy(o => o.CreatedDate).Skip(0).Take(3).ToList();
                 //News
                 model.ListNews = _facNews.GetList().OrderByDescending(x => x.CreatedDate).Skip(0).Take(3).ToList();
-                if(model.ListNews != null && model.ListNews.Any())
+                if (model.ListNews != null && model.ListNews.Any())
                 {
                     model.ListNews.ForEach(x =>
                     {
                         if (!string.IsNullOrEmpty(x.ImageURL))
                             x.ImageURL = "~/Uploads/News/" + x.ImageURL;
                     });
-                }                
+                }
 
                 model.ListEmployee = _facEmp.GetList().OrderBy(o => o.CreatedDate).Skip(0).Take(10).ToList();
-                if(model.ListEmployee != null)
+                if (model.ListEmployee != null)
                 {
                     model.ListEmployee.ForEach(o =>
                     {
                         o.ImageURL = !string.IsNullOrEmpty(o.ImageURL) ? Commons._PublicImages + "Employees/" + o.ImageURL : Commons._ImageDefault;
                     });
                 }
+
+                model.LstDiscount = _facDis.GetList(true);
+
                 return View(model);
             }
             catch (Exception ex)
             {
-               // NSLog.Logger.Error("Index: ", ex);
+                // NSLog.Logger.Error("Index: ", ex);
                 return new HttpStatusCodeResult(400, ex.Message);
             }
         }
@@ -180,7 +187,7 @@ namespace CMS_Web.Controllers
                         dataDetail.ListImages = dataDetail.ListImages.OrderBy(x => x.ImageURL).Skip(0).Take(4).ToList();
 
                         var oldData = _fac.GetList().Where(x => !x.Id.Equals(id) && x.CategoryId.Equals(dataDetail.CategoryId)).OrderBy(x => x.CreatedDate).Skip(0).Take(5).ToList();
-                        if(oldData != null && oldData.Any())
+                        if (oldData != null && oldData.Any())
                         {
                             var dataImage = _fac.GetListImage();
                             oldData.ForEach(x =>
@@ -193,7 +200,7 @@ namespace CMS_Web.Controllers
                                 }
                             });
                         }
-                        
+
                         model.ListProduct = oldData;
                         model.Product = dataDetail;
                         return View(model);

@@ -82,12 +82,21 @@
         </div>
 
         <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Số lượng</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.TextBoxFor(model => model.Quantity, new { @class = "form-control keyMoney", @placeholder = "Số lượng sản phẩm", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Quantity, null, new { @class = "label label-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Giá</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 @Html.TextBoxFor(model => model.ProductPrice, new { @class = "form-control keyMoney", @placeholder = "Giá sản phẩm", @autocomplete = "off" })
                 @Html.ValidationMessageFor(model => model.ProductPrice, null, new { @class = "label label-danger" })
             </div>
         </div>
+
         <div class="form-group">
             <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Trạng thái</label>
             <div class="col-md-1 col-sm-1 col-xs-12">
