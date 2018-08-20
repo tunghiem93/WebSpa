@@ -8,6 +8,7 @@ using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -31,7 +32,7 @@ namespace CMS_Shared.CMSReports
                         To = to,
                     };
 
-                    var listOrder = db.CMS_Order.Where(o => o.ReceiptCreatedDate >= from && o.ReceiptCreatedDate <= to && o.Status == (byte)Commons.EStatus.Actived).ToList();
+                    var listOrder = db.CMS_Order.Where(o => DbFunctions.TruncateTime(o.ReceiptCreatedDate) >= from.Date && DbFunctions.TruncateTime(o.ReceiptCreatedDate) <= to.Date && o.Status == (byte)Commons.EStatus.Actived).ToList();
                     var listOrderID = listOrder.Select(o => o.ID).ToList();
                     var listOrderDetail = db.CMS_OrderDetail.Where(o => listOrderID.Contains(o.OrderID) && o.Status == (byte)Commons.EStatus.Actived).ToList();
                     var listProductID = listOrderDetail.Select(o => o.ProductID).ToList();
