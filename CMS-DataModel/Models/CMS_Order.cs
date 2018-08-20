@@ -58,6 +58,7 @@ namespace CMS_DataModel.Models
         public byte OrderType { get; set; }
 
         public byte Status { get; set; }
+        public string Reason { get; set; }
 
         public DateTime CreatedDate { get; set; }
 
