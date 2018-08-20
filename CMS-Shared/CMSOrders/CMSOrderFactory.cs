@@ -117,10 +117,10 @@ namespace CMS_Shared.CMSOrders
 
                                 product.Quantity = product.Quantity + ((sign) *(decimal)(model.ListItem.Where(o => o.ProductID == product.ID).Select(o => o.Quantity).FirstOrDefault()));
 
-                                if (product.Quantity < 0)
-                                {
-                                    ret = false;
-                                }
+                                //if (product.Quantity < 0)
+                                //{
+                                //    ret = false;
+                                //}
                             }
 
                         }
@@ -275,10 +275,10 @@ namespace CMS_Shared.CMSOrders
 
                             product.Quantity = product.Quantity + ((sign) * (decimal)(_detail.Where(o => o.ProductID == product.ID).Select(o => o.Quantity).FirstOrDefault()));
 
-                            if (product.Quantity < 0)
-                            {
-                                result = false;
-                            }
+                            //if (product.Quantity < 0)
+                            //{
+                            //    result = false;
+                            //}
                         }
 
                         if (result == true)
