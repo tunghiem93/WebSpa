@@ -19,6 +19,7 @@ namespace CMS_Shared.CMSOrders
         public bool CreateOrder(CMS_CheckOutModels model,ref string OrderId)
         {
             NSLog.Logger.Info("CreateOrder_Request:", model);
+            var ret = true;
             using (var db = new CMS_Context())
             {
                 using (var trans = db.Database.BeginTransaction())
@@ -26,6 +27,7 @@ namespace CMS_Shared.CMSOrders
                     m_Semaphore.WaitOne();
                     try
                     {
+                        var active = (byte)Commons.EStatus.Actived;
                         if (string.IsNullOrEmpty(model.Customer.Id) && !string.IsNullOrEmpty(model.Customer.LastName))
                         {
                             // create new customer 
@@ -42,7 +44,7 @@ namespace CMS_Shared.CMSOrders
                                 CustomerType = (int)CMS_Common.Commons.ECustomerType.Anonymous,
                                 HomeCountry = model.Customer.Country,
                                 OfficeZipCode = model.Customer.PostCode,
-                                Status = (byte)CMS_Common.Commons.EStatus.Actived,
+                                Status = active,
                                 Anniversary = Commons.MinDate,
                                 ValidTo = Commons.MinDate,
                                 HomeStreet = model.Customer.Address,
@@ -52,8 +54,8 @@ namespace CMS_Shared.CMSOrders
                         }
                         // create order
                         var _OrderId = Guid.NewGuid().ToString();
-                        var _OrderNo = CommonHelper.GenerateOrderNo(model.StoreID, (byte)Commons.EStatus.Actived);
-                        var _ReceiptNo = model.IsTemp ? "" : CommonHelper.GenerateReceiptNo(model.StoreID, (byte)Commons.EStatus.Actived);
+                        var _OrderNo = CommonHelper.GenerateOrderNo(model.StoreID, active, model.OrderType);
+                        var _ReceiptNo = model.IsTemp ? "" : CommonHelper.GenerateReceiptNo(model.StoreID, active, model.OrderType);
                         var _RcCreateDate = model.IsTemp ? Commons.MinDate : DateTime.Now;
                         var eOrder = new CMS_Order
                         {
@@ -101,17 +103,40 @@ namespace CMS_Shared.CMSOrders
                                 });
                             }
                             db.CMS_OrderDetail.AddRange(lstOrderDetail);
+
+                            /* update quantity of product */
+                            var listProductID = model.ListItem.Select(o => o.ProductID).ToList();
+                            var listProductDB = db.CMS_Products.Where(o => listProductID.Contains(o.ID) && o.Status == (byte)Commons.EStatus.Actived && o.TypeCode == (byte)Commons.EProductType.Product).ToList();
+                            foreach (var product in listProductDB)
+                            {
+                                var sign = -1;
+                                if (model.OrderType == (byte)Commons.EOrderType.Expense)
+                                {
+                                    sign = +1;
+                                }
+
+                                product.Quantity = product.Quantity + ((sign) *(decimal)(model.ListItem.Where(o => o.ProductID == product.ID).Select(o => o.Quantity).FirstOrDefault()));
+
+                                if (product.Quantity < 0)
+                                {
+                                    ret = false;
+                                }
+                            }
+
                         }
-                        db.SaveChanges();
-                        trans.Commit();
-                        OrderId = _OrderId;
-                        return true;
+
+                        if (ret == true)
+                        {
+                            db.SaveChanges();
+                            trans.Commit();
+                        }
+               
                     }
                     catch (Exception ex)
                     {
                         NSLog.Logger.Error("CreateOrder_Error:", ex);
                         trans.Rollback();
-                        return false;
+                        ret = false;
                     }
                     finally
                     {
@@ -120,6 +145,7 @@ namespace CMS_Shared.CMSOrders
                     }
                 }
             }
+            return ret;
         }
 
         public List<CMS_OrderModels> GetListOrder(string cusID = "")
@@ -208,7 +234,7 @@ namespace CMS_Shared.CMSOrders
             return data;
         }
 
-        public bool Delete(string Id,string Reason="")
+        public bool Delete(string Id, string Reason = "")
         {
             var result = true;
             using (var db = new CMS_Context())
@@ -217,25 +243,49 @@ namespace CMS_Shared.CMSOrders
                 {
                     try
                     {
-                        var _detail = db.CMS_OrderDetail.Where(o => o.OrderID.Equals(Id)).ToList();
-                        if (_detail != null)
-                        {
-                            foreach(var item in _detail)
-                            {
-                                item.Status = (byte)CMS_Common.Commons.EStatus.Deleted;
-                            }
-                        }
-                            //db.CMS_OrderDetail.RemoveRange(_detail);
                         var _master = db.CMS_Order.Where(o => o.ID.Equals(Id)).FirstOrDefault();
                         if (_master != null)
                         {
                             _master.Status = (byte)CMS_Common.Commons.EStatus.Deleted;
                             _master.Reason = Reason;
                         }
-                           
-                           // db.CMS_Order.Remove(_master);
-                        db.SaveChanges();
-                        trans.Commit();
+
+                        // db.CMS_Order.Remove(_master);
+
+                        var _detail = db.CMS_OrderDetail.Where(o => o.OrderID.Equals(Id)).ToList();
+                        if (_detail != null)
+                        {
+                            foreach (var item in _detail)
+                            {
+                                item.Status = (byte)CMS_Common.Commons.EStatus.Deleted;
+                            }
+                        }
+                        //db.CMS_OrderDetail.RemoveRange(_detail);
+
+                        /* update quantity of product */
+                        var listProductID = _detail.Select(o => o.ProductID).ToList();
+                        var listProductDB = db.CMS_Products.Where(o => listProductID.Contains(o.ID) && o.Status == (byte)Commons.EStatus.Actived && o.TypeCode == (byte)Commons.EProductType.Product).ToList();
+                        foreach (var product in listProductDB)
+                        {
+                            var sign = 1;
+                            if (_master.OrderType == (byte)Commons.EOrderType.Expense)
+                            {
+                                sign = -1;
+                            }
+
+                            product.Quantity = product.Quantity + ((sign) * (decimal)(_detail.Where(o => o.ProductID == product.ID).Select(o => o.Quantity).FirstOrDefault()));
+
+                            if (product.Quantity < 0)
+                            {
+                                result = false;
+                            }
+                        }
+
+                        if (result == true)
+                        {
+                            db.SaveChanges();
+                            trans.Commit();
+                        }
                     }
                     catch (Exception ex)
                     {

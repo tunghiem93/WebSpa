@@ -155,7 +155,7 @@ namespace CMS_Shared.Utilities
             return "NO_" +((long)R.Next(0, 100000) * (long)R.Next(0, 100000)).ToString().PadLeft(10, '0');
         }
 
-        public static string GenerateOrderNo(string _storeID, byte mode)
+        public static string GenerateOrderNo(string _storeID, byte mode, byte orderType)
         {
             string no = string.Empty;
             try
@@ -163,7 +163,10 @@ namespace CMS_Shared.Utilities
                 using (var _db = new CMS_Context())
                 {
                     int startNo = 1;
-                    string prefix = "OR" + DateTime.Now.ToString("yyyyMMdd") + "-";
+                    string prefix = "OR";
+                    if (orderType == (byte)Commons.EOrderType.Expense)
+                        prefix = "EX";
+                    prefix += DateTime.Now.ToString("yyyyMMdd") + "-";
                     
                     int nextNum = startNo;
                     int currentNum = 0;
@@ -186,7 +189,7 @@ namespace CMS_Shared.Utilities
             return no;
         }
 
-        public static string GenerateReceiptNo(string _storeID, byte mode)
+        public static string GenerateReceiptNo(string _storeID, byte mode, byte orderType)
         {
             string no = string.Empty;
             try
@@ -194,7 +197,10 @@ namespace CMS_Shared.Utilities
                 using (var _db = new CMS_Context())
                 {
                     int startNo = 1;
-                    string prefix = "RC" + DateTime.Now.ToString("yyyyMMdd") + "-";
+                    string prefix = "RC";
+                    if (orderType == (byte)Commons.EOrderType.Expense)
+                        prefix = "RCEX";
+                    prefix += DateTime.Now.ToString("yyyyMMdd") + "-";
 
                     int nextNum = startNo;
                     int currentNum = 0;

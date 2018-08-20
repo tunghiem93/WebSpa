@@ -40,7 +40,6 @@ namespace CMS_Web.Areas.Admin.Controllers
         public ActionResult Create()
         {
             CMS_OrderModels model = new CMS_OrderModels();
-            model.OrderNo =  CommonHelper.GenerateOrderNo(model.StoreID, (byte)Commons.EStatus.Actived);
             return PartialView("_Create", model);
         }
 
@@ -90,7 +89,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                     Response.StatusCode = (int)HttpStatusCode.BadRequest;
                     return PartialView("_Edit", model);
                 }
-                var result = _fac.CreateOrder(model);
+                var result = true; // _fac.CreateOrder(model);
                 if (result)
                     return RedirectToAction("Index");
                 ModelState.AddModelError("OrderNo", "Không thể chỉnh order này!");
