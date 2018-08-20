@@ -205,10 +205,13 @@ namespace CMS_Web.Controllers
                         {
                             var modelOrder = new CMS_OrderModels();
                             modelOrder = _facOrder.GetDetailOrder(OrderId);
-                            //Send mail admin
+                            //body mail
                             var body = CommonHelper.CreateBodyMail(modelOrder);
                             var subject = "[V/v đơn hàng " + modelOrder.OrderNo + "]";
+                            //Send to admin
                             CommonHelper.SendContentMail(ConfigurationManager.AppSettings["LamodeMail"], body, "", subject, "", "");
+                            //Send to customer
+                            CommonHelper.SendContentMail(modelOrder.Email, body, "", subject, "", "");
                         }
                         HttpCookie currentUserCookie = HttpContext.Request.Cookies["cms-order"];
                         HttpContext.Response.Cookies.Remove("cms-order");
