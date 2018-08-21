@@ -1,0 +1,34 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "Support";
+}
+@model CMS_DTO.CMSSupport.CMS_SupportModels
+
+<div role="main">
+    <div class="se-pre-con" style="display: none;"></div>
+    <div class="_gridview">
+        <div class="page-title">
+            <!-- BEGIN PAGE BAR -->
+            @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Trang chủ" }, { "B", "Support data base" } })
+            <!-- END PAGE BAR -->
+        </div>
+    </div>
+    <div class="detail-view" style="height:100%;">
+        <!-- detail partial view -->
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Message</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.Raw(Model.Message)
+                @*@Html.TextBoxFor(model => model.Message, new { @class = "form-control", @placeholder = "Message", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Message, null, new { @class = "label label-danger" })*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+    })
+</script>
