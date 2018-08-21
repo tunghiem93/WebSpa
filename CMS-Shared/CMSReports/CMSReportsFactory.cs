@@ -120,14 +120,20 @@ namespace CMS_Shared.CMSReports
             ExcelPackage pck = new ExcelPackage();
             ExcelWorksheet wsReceipt = pck.Workbook.Worksheets.Add("Báo cáo thu");
             ExcelWorksheet wsExpense = pck.Workbook.Worksheets.Add("Báo cáo chi");
-            int totalCols = 14;
+            int totalCols = 12;
             CreateReportHeader(wsReceipt, wsExpense, totalCols, "BÁO CÁO THU CHI", request.From, request.To);
-            // Format hedaer report
+            // Format hedaer report Receipt 
             wsReceipt.Cells[1, 1, 3, totalCols].Style.Border.Top.Style = ExcelBorderStyle.Thin;
             wsReceipt.Cells[1, 1, 3, totalCols].Style.Border.Left.Style = ExcelBorderStyle.Thin;
             wsReceipt.Cells[1, 1, 3, totalCols].Style.Border.Right.Style = ExcelBorderStyle.Thin;
             wsReceipt.Cells[1, 1, 3, totalCols].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-
+            wsReceipt.Cells[4, 1, 4, totalCols].Merge = true;
+            // Format hedaer report Expense 
+            wsExpense.Cells[1, 1, 3, totalCols].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+            wsExpense.Cells[1, 1, 3, totalCols].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+            wsExpense.Cells[1, 1, 3, totalCols].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+            wsExpense.Cells[1, 1, 3, totalCols].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+            wsExpense.Cells[4, 1, 4, totalCols].Merge = true;
             CMS_ReportModels data = new CMS_ReportModels();
             try
             {
@@ -147,8 +153,6 @@ namespace CMS_Shared.CMSReports
                     wsReceipt.Cells[row, 10].Value = "Giá";
                     wsReceipt.Cells[row, 11].Value = "Giá trị giảm giá";
                     wsReceipt.Cells[row, 12].Value = "Tổng giá";
-                    wsReceipt.Cells[row, 13].Value = "Tổng giảm giá hóa đơn";
-                    wsReceipt.Cells[row, 14].Value = "Tổng tiền hóa đơn";
                     wsReceipt.Row(row).Height = 15;
                     wsReceipt.Row(row).Style.Font.Bold = true;
 
@@ -164,24 +168,23 @@ namespace CMS_Shared.CMSReports
                     wsReceipt.Cells[row, 1, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
                     wsReceipt.Cells[row, 1, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
                     //end Columns Name header  
-
+                    row++;
                     int _firstRow = row;
                     //List item in data
-                    row++;
+                    
                     foreach (var item in data.ReportReceipt.ListOrder)
                     {
                         wsReceipt.Cells[row, 1].Value = item.OrderNo;
-                        wsReceipt.Cells[row, 2].Value = item.CreatedDate.ToString();
+                        wsReceipt.Cells[row, 2].Value = item.CreatedDate.ToString("dd/MM/yyyy");
                         wsReceipt.Cells[row, 3].Value = item.EmployeeName;
                         wsReceipt.Cells[row, 4].Value = item.CustomerName;
                         wsReceipt.Cells[row, 5].Value = item.Phone;
                         wsReceipt.Cells[row, 6].Value = item.Email;
-                        wsReceipt.Cells[row, 7].Value = item.Address;                        
-                        wsReceipt.Cells[row, 13].Value = data.ReportReceipt.TotalDiscount;
-                        wsReceipt.Cells[row, 14].Value = data.ReportReceipt.TotalBill;
+                        wsReceipt.Cells[row, 7].Value = item.Address;
+                        double _totalPrice = 0;
+                        int _firstChild = row + 1;
                         if (item.Items != null && item.Items.Any())
                         {
-                            row++;
                             foreach (var itemChild in item.Items)
                             {
                                 wsReceipt.Cells[row, 8].Value = itemChild.ProductName;
@@ -189,15 +192,36 @@ namespace CMS_Shared.CMSReports
                                 wsReceipt.Cells[row, 10].Value = itemChild.Price;
                                 wsReceipt.Cells[row, 11].Value = itemChild.DiscountValue;
                                 wsReceipt.Cells[row, 12].Value = itemChild.TotalPrice;
+                                _totalPrice = _totalPrice + itemChild.TotalPrice;
+                                wsReceipt.Cells[row, 1, row, totalCols].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                                wsReceipt.Cells[row, 1, row, totalCols].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                                // format border
+                                wsReceipt.Cells[row, 1, row, totalCols].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                                wsReceipt.Cells[row, 1, row, totalCols].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                                wsReceipt.Cells[row, 1, row, totalCols].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                                wsReceipt.Cells[row, 1, row, totalCols].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;                                
                                 row++;
                             }
-                        }
+                            wsReceipt.Cells[row, 11].Value = "Tổng";
+                            wsReceipt.Row(row).Style.Font.Bold = true;
+                            wsReceipt.Cells[row, 11, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                            wsReceipt.Cells[row, 11, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
+                            wsReceipt.Cells[row, 12].Value = _totalPrice;
+                            wsReceipt.Cells[row, 8, row, 10].Merge = true;
+                            wsReceipt.Cells[_firstChild, 1, row, 7].Merge = true;
+                        }                        
+                        row++;
                     }
+                    wsReceipt.Cells[row, 11].Value = "Tổng Tiền";
+                    wsReceipt.Row(row).Style.Font.Bold = true;
+                    wsReceipt.Cells[row, 11, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    wsReceipt.Cells[row, 11, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
+                    wsReceipt.Cells[row, 12].Value = data.ReportReceipt.TotalBill;
                     wsReceipt.Cells[_firstRow, 1, row - 1, totalCols].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
                     wsReceipt.Cells[_firstRow, 1, row - 1, totalCols].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                     //format for col 7
                     wsReceipt.Cells[_firstRow, 7, row - 1, totalCols].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-                    wsReceipt.Cells[_firstRow, 7, row - 1, totalCols].Style.HorizontalAlignment = ExcelHorizontalAlignment.Right;
+                    wsReceipt.Cells[_firstRow, 7, row - 1, totalCols].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                     // format border
                     wsReceipt.Cells[_firstRow, 1, row - 1, totalCols].Style.Border.Top.Style = ExcelBorderStyle.Thin;
                     wsReceipt.Cells[_firstRow, 1, row - 1, totalCols].Style.Border.Left.Style = ExcelBorderStyle.Thin;
@@ -206,25 +230,134 @@ namespace CMS_Shared.CMSReports
 
                     wsReceipt.Cells[_firstRow, totalCols].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
                     wsReceipt.Cells[_firstRow, totalCols].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                    wsReceipt.Cells[_firstRow, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                    wsReceipt.Cells[_firstRow, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
 
                     // Format report
-                    wsReceipt.Column(1).Width = 30;
-                    wsReceipt.Column(2).Width = 15;
-                    wsReceipt.Column(3).Width = 15;
-                    wsReceipt.Column(4).Width = 15;
-                    wsReceipt.Column(5).Width = 15;
+                    wsReceipt.Column(1).Width = 20;
+                    wsReceipt.Column(2).Width = 20;
+                    wsReceipt.Column(3).Width = 20;
+                    wsReceipt.Column(4).Width = 20;
+                    wsReceipt.Column(5).Width = 20;
                     wsReceipt.Column(6).Width = 20;
                     wsReceipt.Column(7).Width = 30;
-                    wsReceipt.Column(8).Width = 15;
+                    wsReceipt.Column(8).Width = 30;
                     wsReceipt.Column(9).Width = 15;
                     wsReceipt.Column(10).Width = 15;
                     wsReceipt.Column(11).Width = 15;
-                    wsReceipt.Column(12).Width = 20;
+                    wsReceipt.Column(12).Width = 15;
                     wsReceipt.Column(13).Width = 15;
                     wsReceipt.Column(14).Width = 20;
                     wsReceipt.Cells.Style.WrapText = true;
+                }
+
+                if (data.ReportExpense.ListOrder != null && data.ReportExpense.ListOrder.Any())
+                {
+                    int row = 5;
+                    wsExpense.Cells[row, 1].Value = "Mã hóa đơn";
+                    wsExpense.Cells[row, 2].Value = "Ngày tạo";
+                    wsExpense.Cells[row, 3].Value = "Nhân viên";
+                    wsExpense.Cells[row, 4].Value = "Khách hàng";
+                    wsExpense.Cells[row, 5].Value = "Số điện thoại";
+                    wsExpense.Cells[row, 6].Value = "Email";
+                    wsExpense.Cells[row, 7].Value = "Địa chỉ";
+                    wsExpense.Cells[row, 8].Value = "Tên mặt hàng";
+                    wsExpense.Cells[row, 9].Value = "Số lượng";
+                    wsExpense.Cells[row, 10].Value = "Giá";
+                    wsExpense.Cells[row, 11].Value = "Giá trị giảm giá";
+                    wsExpense.Cells[row, 12].Value = "Tổng giá";
+                    wsExpense.Row(row).Height = 15;
+                    wsExpense.Row(row).Style.Font.Bold = true;
+
+                    // format text
+                    wsExpense.Cells[row, 1, row, totalCols].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                    wsExpense.Cells[row, 1, row, totalCols].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    // format border
+                    wsExpense.Cells[row, 1, row, totalCols].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                    wsExpense.Cells[row, 1, row, totalCols].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                    wsExpense.Cells[row, 1, row, totalCols].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                    wsExpense.Cells[row, 1, row, totalCols].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                    // format backdround color
+                    wsExpense.Cells[row, 1, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    wsExpense.Cells[row, 1, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
+                    //end Columns Name header  
+                    row++;
+                    int _firstRow = row;
+                    //List item in data
+
+                    foreach (var item in data.ReportExpense.ListOrder)
+                    {
+                        wsExpense.Cells[row, 1].Value = item.OrderNo;
+                        wsExpense.Cells[row, 2].Value = item.CreatedDate.ToString("dd/MM/yyyy");
+                        wsExpense.Cells[row, 3].Value = item.EmployeeName;
+                        wsExpense.Cells[row, 4].Value = item.CustomerName;
+                        wsExpense.Cells[row, 5].Value = item.Phone;
+                        wsExpense.Cells[row, 6].Value = item.Email;
+                        wsExpense.Cells[row, 7].Value = item.Address;
+                        double _totalPrice = 0;
+                        int _firstChild = row + 1;
+                        if (item.Items != null && item.Items.Any())
+                        {
+                            foreach (var itemChild in item.Items)
+                            {
+                                wsExpense.Cells[row, 8].Value = itemChild.ProductName;
+                                wsExpense.Cells[row, 9].Value = itemChild.Quantity;
+                                wsExpense.Cells[row, 10].Value = itemChild.Price;
+                                wsExpense.Cells[row, 11].Value = itemChild.DiscountValue;
+                                wsExpense.Cells[row, 12].Value = itemChild.TotalPrice;
+                                _totalPrice = _totalPrice + itemChild.TotalPrice;
+                                wsExpense.Cells[row, 1, row, totalCols].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                                wsExpense.Cells[row, 1, row, totalCols].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                                // format border
+                                wsExpense.Cells[row, 1, row, totalCols].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                                wsExpense.Cells[row, 1, row, totalCols].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                                wsExpense.Cells[row, 1, row, totalCols].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                                wsExpense.Cells[row, 1, row, totalCols].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                                row++;
+                            }
+                            wsExpense.Cells[row, 11].Value = "Tổng";
+                            wsExpense.Row(row).Style.Font.Bold = true;
+                            wsExpense.Cells[row, 11, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                            wsExpense.Cells[row, 11, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
+                            wsExpense.Cells[row, 12].Value = _totalPrice;
+                            wsExpense.Cells[row, 8, row, 10].Merge = true;
+                            wsExpense.Cells[_firstChild, 1, row, 7].Merge = true;
+                        }
+                        row++;
+                    }
+                    wsExpense.Cells[row, 11].Value = "Tổng Tiền";
+                    wsExpense.Row(row).Style.Font.Bold = true;
+                    wsExpense.Cells[row, 11, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    wsExpense.Cells[row, 11, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
+                    wsExpense.Cells[row, 12].Value = data.ReportReceipt.TotalBill;
+                    wsExpense.Cells[_firstRow, 1, row - 1, totalCols].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                    wsExpense.Cells[_firstRow, 1, row - 1, totalCols].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    //format for col 7
+                    wsExpense.Cells[_firstRow, 7, row - 1, totalCols].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                    wsExpense.Cells[_firstRow, 7, row - 1, totalCols].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    // format border
+                    wsExpense.Cells[_firstRow, 1, row - 1, totalCols].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                    wsExpense.Cells[_firstRow, 1, row - 1, totalCols].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                    wsExpense.Cells[_firstRow, 1, row - 1, totalCols].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                    wsExpense.Cells[_firstRow, 1, row - 1, totalCols].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+
+                    wsExpense.Cells[_firstRow, totalCols].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                    wsExpense.Cells[_firstRow, totalCols].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                    // Format report
+                    wsExpense.Column(1).Width = 20;
+                    wsExpense.Column(2).Width = 20;
+                    wsExpense.Column(3).Width = 20;
+                    wsExpense.Column(4).Width = 20;
+                    wsExpense.Column(5).Width = 20;
+                    wsExpense.Column(6).Width = 20;
+                    wsExpense.Column(7).Width = 30;
+                    wsExpense.Column(8).Width = 30;
+                    wsExpense.Column(9).Width = 15;
+                    wsExpense.Column(10).Width = 15;
+                    wsExpense.Column(11).Width = 15;
+                    wsExpense.Column(12).Width = 15;
+                    wsExpense.Column(13).Width = 15;
+                    wsExpense.Column(14).Width = 20;
+                    wsExpense.Cells.Style.WrapText = true;
                 }
             }
             catch (Exception ex)

@@ -25,7 +25,7 @@ namespace CMS_Shared.CMSReports
             wsReceipt.Row(2).Height = 40;
             // Time
             wsReceipt.Cells[3, 1, 3, totalCols].Merge = true;
-            wsReceipt.Cells[3, 1].Value = "Thời gian: Từ " + fromDate.ToString("dd/MM/yyyy HH:mm") + " Đến " + toDate.ToString("dd/MM/yyyy HH:mm");
+            wsReceipt.Cells[3, 1].Value = "Thời gian: Từ " + fromDate.ToString("dd/MM/yyyy") + " Đến " + toDate.ToString("dd/MM/yyyy");
             wsReceipt.Row(3).Style.HorizontalAlignment = ExcelHorizontalAlignment.Right;
 
             wsReceipt.Cells[1, 1, 3, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
@@ -44,7 +44,7 @@ namespace CMS_Shared.CMSReports
             wsExpense.Row(2).Height = 40;
             // Time
             wsExpense.Cells[3, 1, 3, totalCols].Merge = true;
-            wsExpense.Cells[3, 1].Value = "Thời gian: Từ " + fromDate.ToString("dd/MM/yyyy HH:mm") + " Đến " + toDate.ToString("dd/MM/yyyy HH:mm");
+            wsExpense.Cells[3, 1].Value = "Thời gian: Từ " + fromDate.ToString("dd/MM/yyyy") + " Đến " + toDate.ToString("dd/MM/yyyy");
             wsExpense.Row(3).Style.HorizontalAlignment = ExcelHorizontalAlignment.Right;
 
 
