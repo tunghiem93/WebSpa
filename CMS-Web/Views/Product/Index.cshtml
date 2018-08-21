@@ -121,7 +121,7 @@
                             @foreach (var item in Model.ProductNew)
                             {
                                 <li>
-                                    <a href="javascript:void(0)" title="@item.ProductName">
+                                    <a href="@Url.Action("Index","Product",new { product_name = item.ProductName,product_id=item.Id})" title="@item.ProductName">
                                         <img width="90" height="90" src="@item.ImageURL"
                                              class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="" srcset="@item.ImageURL 90w, @item.ImageURL 150w, @item.ImageURL 300w, @item.ImageURL 550w, @item.ImageURL 1000w"
                                              sizes="(max-width: 90px) 100vw, 90px" />
