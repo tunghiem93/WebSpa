@@ -16,7 +16,7 @@ namespace CMS_Shared.CMSOrders
     {
         private static Semaphore m_Semaphore = new Semaphore(1, 1);
 
-        public bool CreateOrder(CMS_CheckOutModels model,ref string OrderId)
+        public bool CreateOrder(CMS_CheckOutModels model, ref string OrderId)
         {
             NSLog.Logger.Info("CreateOrder_Request:", model);
             var ret = true;
@@ -54,26 +54,24 @@ namespace CMS_Shared.CMSOrders
                         }
                         // create order
                         OrderId = Guid.NewGuid().ToString();
-                        var _OrderNo = CommonHelper.GenerateOrderNo(model.StoreID, active, model.OrderType);
-                        var _ReceiptNo = model.IsTemp ? "" : CommonHelper.GenerateReceiptNo(model.StoreID, active, model.OrderType);
-                        var _RcCreateDate = model.IsTemp ? Commons.MinDate : DateTime.Now;
                         var eOrder = new CMS_Order
                         {
                             ID = OrderId,
                             StoreID = model.StoreID,
                             //OrderNo = CommonHelper.RandomNumberOrder(),
-                            OrderNo = _OrderNo,
-                            ReceiptNo = _ReceiptNo,
-                            ReceiptCreatedDate = _RcCreateDate,
+                            OrderNo = CommonHelper.GenerateOrderNo(model.StoreID, active, model.OrderType),
+                            ReceiptNo = model.IsTemp ? "" : CommonHelper.GenerateReceiptNo(model.StoreID, active, model.OrderType),
+                            ReceiptCreatedDate = model.IsTemp ? Commons.MinDate : DateTime.Now,
                             CustomerID = model.Customer.Id,
                             TotalBill = model.TotalPrice,
                             SubTotal = model.SubTotalPrice,
                             TotalDiscount = model.TotalDiscount,
+                            Cashier = model.IsTemp ? model.CreatedUser : "",
                             CreatedDate = DateTime.Now,
                             LastModified = DateTime.Now,
                             CreatedUser = string.IsNullOrEmpty(model.CreatedUser) ? model.Customer.Id : model.CreatedUser,
                             ModifiedUser = string.IsNullOrEmpty(model.ModifiedUser) ? model.Customer.Id : model.ModifiedUser,
-                            Status = (byte)CMS_Common.Commons.EStatus.Actived,
+                            Status = active,
                             IsTemp = model.IsTemp,
                             OrderType = model.OrderType,
                         };
@@ -89,6 +87,7 @@ namespace CMS_Shared.CMSOrders
                                     ID = Guid.NewGuid().ToString(),
                                     OrderID = OrderId,
                                     ProductID = item.ProductID,
+                                    Remark = string.IsNullOrEmpty(item.ProductID) ? item.ProductName : "",
                                     Price = item.Price,
                                     Quantity = (decimal)item.Quantity,
                                     Description = string.IsNullOrEmpty(model.Customer.Description) ? item.Description : model.Customer.Description,
@@ -99,7 +98,7 @@ namespace CMS_Shared.CMSOrders
                                     DiscountID = item.DiscountID,
                                     DiscountValue = item.DiscountValue,
                                     DiscountType = item.DiscountType,
-                                    Status = (byte)CMS_Common.Commons.EStatus.Actived,
+                                    Status = active,
                                 });
                             }
                             db.CMS_OrderDetail.AddRange(lstOrderDetail);
@@ -115,7 +114,7 @@ namespace CMS_Shared.CMSOrders
                                     sign = +1;
                                 }
 
-                                product.Quantity = product.Quantity + ((sign) *(decimal)(model.ListItem.Where(o => o.ProductID == product.ID).Select(o => o.Quantity).FirstOrDefault()));
+                                product.Quantity = product.Quantity + ((sign) * (decimal)(model.ListItem.Where(o => o.ProductID == product.ID).Select(o => o.Quantity).FirstOrDefault()));
 
                                 //if (product.Quantity < 0)
                                 //{
@@ -130,7 +129,7 @@ namespace CMS_Shared.CMSOrders
                             db.SaveChanges();
                             trans.Commit();
                         }
-               
+
                     }
                     catch (Exception ex)
                     {

@@ -1,19 +1,13 @@
 ﻿using CMS_Common;
 using CMS_DataModel.Models;
-using CMS_DTO.CMSDiscount;
 using CMS_DTO.CMSOrder;
 using CMS_DTO.CMSReport;
-using CMS_Shared.Utilities;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CMS_Shared.CMSReports
 {
@@ -35,8 +29,18 @@ namespace CMS_Shared.CMSReports
                     var listOrder = db.CMS_Order.Where(o => DbFunctions.TruncateTime(o.ReceiptCreatedDate) >= from.Date && DbFunctions.TruncateTime(o.ReceiptCreatedDate) <= to.Date && o.Status == (byte)Commons.EStatus.Actived).ToList();
                     var listOrderID = listOrder.Select(o => o.ID).ToList();
                     var listOrderDetail = db.CMS_OrderDetail.Where(o => listOrderID.Contains(o.OrderID) && o.Status == (byte)Commons.EStatus.Actived).ToList();
+
+                    /* get product db */
                     var listProductID = listOrderDetail.Select(o => o.ProductID).ToList();
                     var listProduct = db.CMS_Products.Where(o => listProductID.Contains(o.ID)).ToList();
+
+                    /* get cus db */
+                    var listCusID = listOrder.Select(o => o.CustomerID).ToList();
+                    var listCustomerDB = db.CMS_Customer.Where(o => listCusID.Contains(o.ID)).ToList();
+
+                    /* get list emp db */
+                    var listEmployeeID = listOrder.Select(o => o.Cashier).ToList();
+                    var listEmployeeDb = db.CMS_Employee.Where(o => listEmployeeID.Contains(o.ID)).ToList();
 
                     /* get expense data */
                     var expenseData = new CMS_ReportExpensetModels();
@@ -51,23 +55,32 @@ namespace CMS_Shared.CMSReports
                     {
                         Id = o.ID,
                         OrderNo = o.OrderNo,
+                        ReceiptNo = o.ReceiptNo,
+                        ReceiptCreatedDate = o.ReceiptCreatedDate ?? Commons.MinDate,
                         TotalBill = o.TotalBill,
                         SubTotal = o.SubTotal,
                         TotalDiscount = o.TotalDiscount,
+                        CustomerId = o.CustomerID,
+                        CustomerName = listCustomerDB.Where(c => c.ID == o.CustomerID).Select(c => c.FirstName).FirstOrDefault(),
+                        Phone = listCustomerDB.Where(c => c.ID == o.CustomerID).Select(c => c.Phone).FirstOrDefault(),
+                        Email = listCustomerDB.Where(c => c.ID == o.CustomerID).Select(c => c.Email).FirstOrDefault(),
+                        EmployeeName = listEmployeeDb.Where(e => e.ID == o.Cashier).Select(e => e.Name).FirstOrDefault(),
                     }).ToList();
 
                     foreach (var order in expenseData.ListOrder)
                     {
-                        order.Items = listOrderDetailEx.Where(o => o.OrderID == order.Id).Join(listProduct, od => od.ProductID, p => p.ID, (od, p) => new CMS_ItemModels
-                        {
-                            ID = od.ID,
-                            ProductID = od.ProductID,
-                            ProductName = p != null ? p.Name : od.Remark,
-                            Quantity = (double)(od.Quantity ?? 1),
-                            Price = od.Price ?? 0,
-                            TotalPrice = (double)(od.Price * (double)od.Quantity),
-                            DiscountValue = od.DiscountValue,
-                        }).ToList();
+                        order.Items = listOrderDetailEx.Where(o => o.OrderID == order.Id)
+                            .GroupJoin(listProduct, od => od.ProductID, p => p.ID, (od, p) => new { od, p = p.FirstOrDefault() })
+                            .Select(o => new CMS_ItemModels()
+                            {
+                                ID = o.od.ID,
+                                ProductID = o.od.ProductID,
+                                ProductName = o.p?.Name ?? o.od.Remark,
+                                Quantity = (double)(o.od.Quantity ?? 1),
+                                Price = o.od.Price ?? 0,
+                                TotalPrice = ((double)o.od.Price * (double)o.od.Quantity),
+                                DiscountValue = o.od.DiscountValue,
+                            }).ToList();
                     }
                     data.ReportExpense = expenseData;
 
@@ -85,23 +98,31 @@ namespace CMS_Shared.CMSReports
                     {
                         Id = o.ID,
                         OrderNo = o.OrderNo,
+                        ReceiptNo = o.ReceiptNo,
+                        ReceiptCreatedDate = o.ReceiptCreatedDate ?? Commons.MinDate,
                         TotalBill = o.TotalBill,
                         SubTotal = o.SubTotal,
                         TotalDiscount = o.TotalDiscount,
+                        CustomerName = listCustomerDB.Where(c => c.ID == o.CustomerID).Select(c => c.FirstName).FirstOrDefault(),
+                        Phone = listCustomerDB.Where(c => c.ID == o.CustomerID).Select(c => c.Phone).FirstOrDefault(),
+                        Email = listCustomerDB.Where(c => c.ID == o.CustomerID).Select(c => c.Email).FirstOrDefault(),
+                        EmployeeName = listEmployeeDb.Where(e => e.ID == o.Cashier).Select(e => e.Name).FirstOrDefault(),
                     }).ToList();
 
                     foreach (var order in receiptData.ListOrder)
                     {
-                        order.Items = listOrderDetailRc.Where(o => o.OrderID == order.Id).Join(listProduct, od => od.ProductID, p => p.ID, (od, p) => new CMS_ItemModels
-                        {
-                            ID = od.ID,
-                            ProductID = od.ProductID,
-                            ProductName = p != null ? p.Name : od.Remark,
-                            Quantity = (double)(od.Quantity ?? 1),
-                            Price = od.Price ?? 0,
-                            TotalPrice = (double)(od.Price * (double)od.Quantity),
-                            DiscountValue = od.DiscountValue,
-                        }).ToList();
+                        order.Items = listOrderDetailRc.Where(o => o.OrderID == order.Id)
+                            .GroupJoin(listProduct, od => od.ProductID, p => p.ID, (od, p) => new {od, p=p.FirstOrDefault()})
+                            .Select(o=> new CMS_ItemModels()
+                            {
+                                ID = o.od.ID,
+                                ProductID = o.od.ProductID,
+                                ProductName = o.p?.Name ?? o.od.Remark,
+                                Quantity = (double)(o.od.Quantity ?? 1),
+                                Price = o.od.Price ?? 0,
+                                TotalPrice = ((double)o.od.Price * (double)o.od.Quantity),
+                                DiscountValue = o.od.DiscountValue,
+                            }).ToList();
                     }
                     data.ReportReceipt = receiptData;
 
@@ -127,20 +148,31 @@ namespace CMS_Shared.CMSReports
             wsReceipt.Cells[1, 1, 3, totalCols].Style.Border.Left.Style = ExcelBorderStyle.Thin;
             wsReceipt.Cells[1, 1, 3, totalCols].Style.Border.Right.Style = ExcelBorderStyle.Thin;
             wsReceipt.Cells[1, 1, 3, totalCols].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-            wsReceipt.Cells[4, 1, 4, totalCols].Merge = true;
+            //wsReceipt.Cells[4, 1, 4, totalCols].Merge = true;
             // Format hedaer report Expense 
             wsExpense.Cells[1, 1, 3, totalCols].Style.Border.Top.Style = ExcelBorderStyle.Thin;
             wsExpense.Cells[1, 1, 3, totalCols].Style.Border.Left.Style = ExcelBorderStyle.Thin;
             wsExpense.Cells[1, 1, 3, totalCols].Style.Border.Right.Style = ExcelBorderStyle.Thin;
             wsExpense.Cells[1, 1, 3, totalCols].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-            wsExpense.Cells[4, 1, 4, totalCols].Merge = true;
+            //wsExpense.Cells[4, 1, 4, totalCols].Merge = true;
             CMS_ReportModels data = new CMS_ReportModels();
             try
             {
                 data = GetReportData(request.From, request.To);
                 if (data.ReportReceipt.ListOrder != null && data.ReportReceipt.ListOrder.Any())
                 {
-                    int row = 5;
+                    int row = 4;
+
+                    /* sum total */
+                    wsReceipt.Cells[row, 1].Value = "Tổng Tiền";
+                    wsReceipt.Row(row).Style.Font.Bold = true;
+                    wsReceipt.Cells[row, 1, row, 2].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    wsReceipt.Cells[row, 1, row, 2].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
+                    wsReceipt.Cells[row, 2].Value = string.Format("{0:0,0 VNĐ}", data.ReportReceipt.TotalBill);
+                    row++;
+                    wsReceipt.Cells[row, 1, row, totalCols].Merge = true;
+                    row++;
+
                     wsReceipt.Cells[row, 1].Value = "Mã hóa đơn";
                     wsReceipt.Cells[row, 2].Value = "Ngày tạo";
                     wsReceipt.Cells[row, 3].Value = "Nhân viên";
@@ -171,17 +203,16 @@ namespace CMS_Shared.CMSReports
                     row++;
                     int _firstRow = row;
                     //List item in data
-                    
+
                     foreach (var item in data.ReportReceipt.ListOrder)
                     {
-                        wsReceipt.Cells[row, 1].Value = item.OrderNo;
-                        wsReceipt.Cells[row, 2].Value = item.CreatedDate.ToString("dd/MM/yyyy");
+                        wsReceipt.Cells[row, 1].Value = item.ReceiptNo + " (" + item.OrderNo + ")"; ;
+                        wsReceipt.Cells[row, 2].Value = item.ReceiptCreatedDate.ToString("dd/MM/yyyy");
                         wsReceipt.Cells[row, 3].Value = item.EmployeeName;
                         wsReceipt.Cells[row, 4].Value = item.CustomerName;
                         wsReceipt.Cells[row, 5].Value = item.Phone;
                         wsReceipt.Cells[row, 6].Value = item.Email;
                         wsReceipt.Cells[row, 7].Value = item.Address;
-                        double _totalPrice = 0;
                         int _firstChild = row + 1;
                         if (item.Items != null && item.Items.Any())
                         {
@@ -189,34 +220,47 @@ namespace CMS_Shared.CMSReports
                             {
                                 wsReceipt.Cells[row, 8].Value = itemChild.ProductName;
                                 wsReceipt.Cells[row, 9].Value = itemChild.Quantity;
-                                wsReceipt.Cells[row, 10].Value = itemChild.Price;
+                                wsReceipt.Cells[row, 10].Value = string.Format("{0:0,0 VNĐ}", itemChild.Price);
                                 wsReceipt.Cells[row, 11].Value = itemChild.DiscountValue;
-                                wsReceipt.Cells[row, 12].Value = itemChild.TotalPrice;
-                                _totalPrice = _totalPrice + itemChild.TotalPrice;
+                                wsReceipt.Cells[row, 12].Value = string.Format("{0:0,0 VNĐ}", itemChild.TotalPrice);
                                 wsReceipt.Cells[row, 1, row, totalCols].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
                                 wsReceipt.Cells[row, 1, row, totalCols].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                                 // format border
                                 wsReceipt.Cells[row, 1, row, totalCols].Style.Border.Top.Style = ExcelBorderStyle.Thin;
                                 wsReceipt.Cells[row, 1, row, totalCols].Style.Border.Left.Style = ExcelBorderStyle.Thin;
                                 wsReceipt.Cells[row, 1, row, totalCols].Style.Border.Right.Style = ExcelBorderStyle.Thin;
-                                wsReceipt.Cells[row, 1, row, totalCols].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;                                
+                                wsReceipt.Cells[row, 1, row, totalCols].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
                                 row++;
                             }
+                            wsReceipt.Cells[row, 11].Value = "Giảm giá";
+                            //wsReceipt.Row(row).Style.Font.Bold = true;
+                            wsReceipt.Cells[row, 11, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                            wsReceipt.Cells[row, 11, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
+                            wsReceipt.Cells[row, 12].Value = string.Format("{0:0,0 VNĐ}", item.TotalDiscount);
+                            wsReceipt.Cells[row, 8, row, 10].Merge = true;
+                            wsReceipt.Cells[_firstChild, 1, row, 7].Merge = true;
+                            row++;
+
+                            /*  */
                             wsReceipt.Cells[row, 11].Value = "Tổng";
                             wsReceipt.Row(row).Style.Font.Bold = true;
                             wsReceipt.Cells[row, 11, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             wsReceipt.Cells[row, 11, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
-                            wsReceipt.Cells[row, 12].Value = _totalPrice;
+                            wsReceipt.Cells[row, 12].Value = string.Format("{0:0,0 VNĐ}", item.TotalBill);
                             wsReceipt.Cells[row, 8, row, 10].Merge = true;
                             wsReceipt.Cells[_firstChild, 1, row, 7].Merge = true;
-                        }                        
-                        row++;
+                            row++;
+
+                        }
                     }
-                    wsReceipt.Cells[row, 11].Value = "Tổng Tiền";
-                    wsReceipt.Row(row).Style.Font.Bold = true;
-                    wsReceipt.Cells[row, 11, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                    wsReceipt.Cells[row, 11, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
-                    wsReceipt.Cells[row, 12].Value = data.ReportReceipt.TotalBill;
+
+                    /* sum total */
+                    wsExpense.Cells[row, 11].Value = "Tổng Tiền";
+                    wsExpense.Row(row).Style.Font.Bold = true;
+                    wsExpense.Cells[row, 11, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    wsExpense.Cells[row, 11, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
+                    wsExpense.Cells[row, 12].Value = string.Format("{0:0,0 VNĐ}", data.ReportReceipt.TotalBill);
+
                     wsReceipt.Cells[_firstRow, 1, row - 1, totalCols].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
                     wsReceipt.Cells[_firstRow, 1, row - 1, totalCols].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                     //format for col 7
@@ -251,7 +295,18 @@ namespace CMS_Shared.CMSReports
 
                 if (data.ReportExpense.ListOrder != null && data.ReportExpense.ListOrder.Any())
                 {
-                    int row = 5;
+                    int row = 4;
+                    
+                    /* sum total */
+                    wsExpense.Cells[row, 1].Value = "Tổng Tiền";
+                    wsExpense.Row(row).Style.Font.Bold = true;
+                    wsExpense.Cells[row, 1, row, 2].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    wsExpense.Cells[row, 1, row, 2].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
+                    wsExpense.Cells[row, 2].Value = string.Format("{0:0,0 VNĐ}", data.ReportExpense.TotalBill);
+                    row++;
+                    wsExpense.Cells[row, 1, row, totalCols].Merge = true;
+                    row++;
+
                     wsExpense.Cells[row, 1].Value = "Mã hóa đơn";
                     wsExpense.Cells[row, 2].Value = "Ngày tạo";
                     wsExpense.Cells[row, 3].Value = "Nhân viên";
@@ -278,21 +333,20 @@ namespace CMS_Shared.CMSReports
                     // format backdround color
                     wsExpense.Cells[row, 1, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
                     wsExpense.Cells[row, 1, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
-                    //end Columns Name header  
+                    //end Columns Name header
                     row++;
                     int _firstRow = row;
                     //List item in data
 
                     foreach (var item in data.ReportExpense.ListOrder)
                     {
-                        wsExpense.Cells[row, 1].Value = item.OrderNo;
-                        wsExpense.Cells[row, 2].Value = item.CreatedDate.ToString("dd/MM/yyyy");
+                        wsExpense.Cells[row, 1].Value = item.ReceiptNo + " (" + item.OrderNo + ")";
+                        wsExpense.Cells[row, 2].Value = item.ReceiptCreatedDate.ToString("dd/MM/yyyy");
                         wsExpense.Cells[row, 3].Value = item.EmployeeName;
                         wsExpense.Cells[row, 4].Value = item.CustomerName;
                         wsExpense.Cells[row, 5].Value = item.Phone;
                         wsExpense.Cells[row, 6].Value = item.Email;
                         wsExpense.Cells[row, 7].Value = item.Address;
-                        double _totalPrice = 0;
                         int _firstChild = row + 1;
                         if (item.Items != null && item.Items.Any())
                         {
@@ -300,10 +354,9 @@ namespace CMS_Shared.CMSReports
                             {
                                 wsExpense.Cells[row, 8].Value = itemChild.ProductName;
                                 wsExpense.Cells[row, 9].Value = itemChild.Quantity;
-                                wsExpense.Cells[row, 10].Value = itemChild.Price;
+                                wsExpense.Cells[row, 10].Value = string.Format("{0:0,0 VNĐ}", itemChild.Price);
                                 wsExpense.Cells[row, 11].Value = itemChild.DiscountValue;
-                                wsExpense.Cells[row, 12].Value = itemChild.TotalPrice;
-                                _totalPrice = _totalPrice + itemChild.TotalPrice;
+                                wsExpense.Cells[row, 12].Value = string.Format("{0:0,0 VNĐ}", itemChild.TotalPrice);
                                 wsExpense.Cells[row, 1, row, totalCols].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
                                 wsExpense.Cells[row, 1, row, totalCols].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                                 // format border
@@ -317,17 +370,20 @@ namespace CMS_Shared.CMSReports
                             wsExpense.Row(row).Style.Font.Bold = true;
                             wsExpense.Cells[row, 11, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             wsExpense.Cells[row, 11, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
-                            wsExpense.Cells[row, 12].Value = _totalPrice;
+                            wsExpense.Cells[row, 12].Value = string.Format("{0:0,0 VNĐ}", item.TotalBill);
                             wsExpense.Cells[row, 8, row, 10].Merge = true;
                             wsExpense.Cells[_firstChild, 1, row, 7].Merge = true;
                         }
                         row++;
                     }
+                    
+                    /* sum total */
                     wsExpense.Cells[row, 11].Value = "Tổng Tiền";
                     wsExpense.Row(row).Style.Font.Bold = true;
                     wsExpense.Cells[row, 11, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
                     wsExpense.Cells[row, 11, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
-                    wsExpense.Cells[row, 12].Value = data.ReportReceipt.TotalBill;
+                    wsExpense.Cells[row, 12].Value = string.Format("{0:0,0 VNĐ}", data.ReportExpense.TotalBill);
+
                     wsExpense.Cells[_firstRow, 1, row - 1, totalCols].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
                     wsExpense.Cells[_firstRow, 1, row - 1, totalCols].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                     //format for col 7

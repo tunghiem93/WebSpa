@@ -26,7 +26,7 @@ namespace CMS_Shared.CMSReports
             // Time
             wsReceipt.Cells[3, 1, 3, totalCols].Merge = true;
             wsReceipt.Cells[3, 1].Value = "Thời gian: Từ " + fromDate.ToString("dd/MM/yyyy") + " Đến " + toDate.ToString("dd/MM/yyyy");
-            wsReceipt.Row(3).Style.HorizontalAlignment = ExcelHorizontalAlignment.Right;
+            wsReceipt.Row(3).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
 
             wsReceipt.Cells[1, 1, 3, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
             wsReceipt.Cells[1, 1, 3, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
@@ -45,7 +45,7 @@ namespace CMS_Shared.CMSReports
             // Time
             wsExpense.Cells[3, 1, 3, totalCols].Merge = true;
             wsExpense.Cells[3, 1].Value = "Thời gian: Từ " + fromDate.ToString("dd/MM/yyyy") + " Đến " + toDate.ToString("dd/MM/yyyy");
-            wsExpense.Row(3).Style.HorizontalAlignment = ExcelHorizontalAlignment.Right;
+            wsExpense.Row(3).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
 
 
             wsExpense.Cells[1, 1, 3, totalCols].Style.Border.Top.Style = ExcelBorderStyle.Thin;

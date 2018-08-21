@@ -11,6 +11,8 @@ namespace CMS_DTO.CMSOrder
     {
         public string Id { get; set; }
         public string OrderNo { get; set; }
+        public string ReceiptNo { get; set; }
+        public DateTime ReceiptCreatedDate { get; set; }
         public DateTime CreatedDate { get; set; }
         public string CustomerId { get; set; }
         public string CustomerName { get; set; }
