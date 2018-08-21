@@ -184,7 +184,7 @@
                                 <div class="image-overlay">
                                     <div class="image-overlay-details">
                                         <h5>
-                                            <a href='javascript:void(0)'>@item.ProductName</a>
+                                            <a href="@Url.Action("Index","Product",new { product_name = item.ProductName,product_id=item.Id})">@item.ProductName</a>
                                         </h5>
                                         <div class="links">
                                             <a href='@item.ImageURL' data-gal='prettyPhoto[gallery]'>
