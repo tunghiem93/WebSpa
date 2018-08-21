@@ -171,6 +171,8 @@ namespace CMS_Shared.CMSOrders
                                                TotalDiscount = o.o.TotalDiscount,
                                                OrderType = o.o.OrderType,
                                                EmployeeName = o.o.CreatedUser,
+                                               IsTemp = o.o.IsTemp,
+                                               ReceiptNo = o.o.ReceiptNo,
                                            }).ToList();
                     return data;
                 }
@@ -326,6 +328,31 @@ namespace CMS_Shared.CMSOrders
             {
                 NSLog.Logger.Error("Discount:", ex);
                 result = false;
+            }
+            return result;
+        }
+
+        public bool CheckOut(string OrderId)
+        {
+            var result = true;
+            try
+            {
+                NSLog.Logger.Info("CheckOut_Request:", OrderId);
+                using (var db = new CMS_Context())
+                {
+                    var Order = db.CMS_Order.Find(OrderId);
+                    if(Order != null)
+                    {
+                        Order.ReceiptNo = CommonHelper.GenerateReceiptNo(Order.StoreID, (byte)Commons.EStatus.Actived, (byte)Commons.EOrderType.Normal);
+                        Order.LastModified = DateTime.Now;
+                        db.SaveChanges();
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                result = false;
+                NSLog.Logger.Error("CheckOut_Order:", ex);
             }
             return result;
         }

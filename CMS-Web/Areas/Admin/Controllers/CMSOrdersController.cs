@@ -200,5 +200,27 @@ namespace CMS_Web.Areas.Admin.Controllers
             }
             return View("Print", model);
         }
+
+        public JsonResult Checkout(string id)
+        {
+            var status = 200;
+            try
+            {
+                NSLog.Logger.Info("Checkout_Request:", id);
+                var result = _fac.CheckOut(id);
+                if (!result)
+                    status = 500;
+            }
+            catch(Exception ex)
+            {
+                NSLog.Logger.Error("Checkout_Admin:", ex);
+                status = 500;
+            }
+            var obj = new
+            {
+                Status = status
+            };
+            return Json(obj, JsonRequestBehavior.AllowGet);
+        }
     }
 }

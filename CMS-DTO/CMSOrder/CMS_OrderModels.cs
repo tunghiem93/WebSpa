@@ -40,6 +40,7 @@ namespace CMS_DTO.CMSOrder
         
         public string ExpenseType { get; set; }
         public string StoreID { get; set; }
+        public bool IsTemp { get; set; }
         public List<CMS_ProductsModels> LstProduct { get; set; }
 
         public CMS_OrderModels()
