@@ -57,7 +57,7 @@
                             <div class="ls-slide" data-ls=" transition2d: all;">
                                 <img src="@Url.Content("../Content/LayerSlider/static/css/blank.gif")" class="ls-bg" alt="slider3-bg" />
                                 <img class="ls-l" style="top:0px;left:45px;white-space: nowrap;" data-ls="offsetxin:-100;transformoriginin:right 50% 0;transformoriginout:right 50% 0;"
-                                        src="@Url.Content("/Content/LayerSlider/static/css/blank.gif")" data-src="@Url.Content(item.ImageUrl)" alt="">
+                                     src="@Url.Content("/Content/LayerSlider/static/css/blank.gif")" data-src="@Url.Content(item.ImageUrl)" alt="">
                                 <h2 class="ls-l" style="top:196px;left:505px;font-family:'Open Sans', sans-serif; color:#9cc64d; font-size:26px; border-bottom:1px solid #d5d3c8; padding:0px 0px 10px; margin:0px 0px 10px; font-weight:normal; letter-spacing:0px;white-space: nowrap;"
                                     data-ls="offsetxin:50;delayin:1000;skewxin:-50;offsetxout:-50;durationout:600;">
                                     Hãy đến và trãi nghiệm
@@ -93,7 +93,7 @@
                     {
                         var _first = "first";
                         var _index = 1;
-                        var _types =  new string[] { "green", "chocolate", "blue" };
+                        var _types = new string[] { "green", "chocolate", "blue" };
                         foreach (var item in Model.ListCate)
                         {
                             var _type = _types[_index - 1];
@@ -143,7 +143,7 @@
                                         </div>
                                         <h2>@item.ProceduresName</h2>
                                         <p>
-                                           @item.ShortDescription
+                                            @item.ShortDescription
                                         </p>
                                     </div>
                                     @*   <a href='#' class='dt-sc-button small'>Read More</a>*@
@@ -151,7 +151,7 @@
                             </div>
                             _first = "";
                         }
-                        
+
                         <div class='dt-sc-hr-invisible-medium  '></div>
                         <div class="border-title aligncenter">
                             <h2>
@@ -164,7 +164,7 @@
                     </div>
                 </div>
             }
-            
+
             @if (Model != null && Model.ListProduct != null && Model.ListProduct.Any())
             {
                 var _first = "first";
@@ -185,7 +185,7 @@
                                             <a href='@item.ImageURL' data-gal='prettyPhoto[gallery]'>
                                                 <span class='fa fa-search-plus'> </span>
                                             </a>
-                                            <a href='javascript:void(0)'>
+                                            <a href="@Url.Action("Index","Product",new { product_name = item.ProductName,product_id=item.Id})">
                                                 <span class='fa fa-external-link'> </span>
                                             </a>
                                             <div class='views'>
@@ -211,28 +211,28 @@
                     }
                 }
             }
-           
+
             @*<div class='fullwidth-section '>
-                <div class="container">
-                    <div class='dt-sc-hr-invisible  '></div>
-                    <div class='dt-sc-callout-box with-icon type6 '>
-                        <div class="dt-sc-callout-content">
-                            <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/callout-image.png' alt='' />
-                            <h5>
-                                We care for your beauty and fitness. DreamSpa will be the best suitable theme for your spa business and
-                                needs.
-                            </h5>
+                    <div class="container">
+                        <div class='dt-sc-hr-invisible  '></div>
+                        <div class='dt-sc-callout-box with-icon type6 '>
+                            <div class="dt-sc-callout-content">
+                                <img src='https://dreamspa.dttheme.com/wp-content/uploads/2014/05/callout-image.png' alt='' />
+                                <h5>
+                                    We care for your beauty and fitness. DreamSpa will be the best suitable theme for your spa business and
+                                    needs.
+                                </h5>
+                            </div>
+                            <div class="dt-sc-callout-button">
+                                <a href='#' class='dt-sc-button with-icon small' target='_blank'>
+                                    <span>Purchase Theme</span>
+                                    <i class='fa fa-download'></i>
+                                </a>
+                            </div>
                         </div>
-                        <div class="dt-sc-callout-button">
-                            <a href='#' class='dt-sc-button with-icon small' target='_blank'>
-                                <span>Purchase Theme</span>
-                                <i class='fa fa-download'></i>
-                            </a>
-                        </div>
+                        <div class='dt-sc-hr-invisible  '></div>
                     </div>
-                    <div class='dt-sc-hr-invisible  '></div>
-                </div>
-            </div>*@
+                </div>*@
 
             @if (Model != null && Model.ListEmployee != null && Model.ListEmployee.Any())
             {
@@ -284,37 +284,37 @@
                     </div>
                 </div>
             }
-                <div class='fullwidth-section' style="background-image:url(@Url.Content("~/Images/border.png"));background-repeat:repeat-x;padding-top:95px;">
-                    <div class="container">
-                        @if (Model.LstDiscount != null && Model.LstDiscount.Any())
-                        {
-                            <h2>KHUYẾN MÃI ĐẶC BIỆT TRONG NGÀY HÔM NAY</h2>
-                            <div class='dt-sc-images-carousel-wrapper' data-min='1' data-max='2' data-width='520'>
-                                <ul class='dt-sc-images-carousel'>
-                                    @if (Model.LstDiscount != null && Model.LstDiscount.Any())
+            <div class='fullwidth-section' style="background-image:url(@Url.Content("~/Images/border.png"));background-repeat:repeat-x;padding-top:95px;">
+                <div class="container">
+                    @if (Model.LstDiscount != null && Model.LstDiscount.Any())
+                    {
+                        <h2>KHUYẾN MÃI ĐẶC BIỆT TRONG NGÀY HÔM NAY</h2>
+                        <div class='dt-sc-images-carousel-wrapper' data-min='1' data-max='2' data-width='520'>
+                            <ul class='dt-sc-images-carousel'>
+                                @if (Model.LstDiscount != null && Model.LstDiscount.Any())
+                                {
+                                    foreach (var item in Model.LstDiscount)
                                     {
-                                        foreach (var item in Model.LstDiscount)
-                                        {
-                                            <li>
-                                                <a href="javascript:void(0)">
-                                                    <img title="@item.Name" src="@item.ImageURL" alt="@item.Name" />
-                                                </a>
-                                            </li>
-                                        }
+                                        <li>
+                                            <a href="javascript:void(0)">
+                                                <img title="@item.Name" src="@item.ImageURL" alt="@item.Name" />
+                                            </a>
+                                        </li>
                                     }
-                                </ul>
-                                <div class="carousel-arrows">
-                                    <a href="" class="images-carousel-prev">
-                                        <span class="fa fa-angle-left"> </span>
-                                    </a>
-                                    <a href="" class="images-carousel-next">
-                                        <span class="fa fa-angle-right"> </span>
-                                    </a>
-                                </div>
+                                }
+                            </ul>
+                            <div class="carousel-arrows">
+                                <a href="" class="images-carousel-prev">
+                                    <span class="fa fa-angle-left"> </span>
+                                </a>
+                                <a href="" class="images-carousel-next">
+                                    <span class="fa fa-angle-right"> </span>
+                                </a>
                             </div>
-                        }
-                    </div>
+                        </div>
+                    }
                 </div>
+            </div>
             <div class='dt-sc-hr-invisible-medium  '></div>
             <div class="container">
                 <div class="social-bookmark"></div>

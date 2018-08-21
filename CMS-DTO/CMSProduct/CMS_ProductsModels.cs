@@ -35,6 +35,12 @@ namespace CMS_DTO.CMSProduct
         [AllowHtml]
         [MaxLength(2000, ErrorMessage = "Mô tả tối đa 2000 kí tự")]
         public string ShortDescription { get; set; }
+        [AllowHtml]
+        [MaxLength(2000, ErrorMessage = "Mô tả tối đa 2000 kí tự")]
+        public string Process { get; set; }
+        [AllowHtml]
+        [MaxLength(2000, ErrorMessage = "Mô tả tối đa 2000 kí tự")]
+        public string SpaTreatment { get; set; }
         public string PrintOutText { get; set; }
 
         public string CategoryName { get; set; }

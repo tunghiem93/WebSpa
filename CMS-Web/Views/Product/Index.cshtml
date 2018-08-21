@@ -1,14 +1,14 @@
 ﻿@model CMS_DTO.CMSProduct.ProductDetailViewModels
 
 <style type="text/css">
-    .product_main .images{
-        width : 49% ;
-        float:left;
+    .product_main .images {
+        width: 49%;
+        float: left;
     }
 
-    .product_main .entry-summary{
-        float:right;
-        width:48%;
+    .product_main .entry-summary {
+        float: right;
+        width: 48%;
     }
 
     .product_main .cart {
@@ -22,7 +22,8 @@
         border-top: 1px dashed #d2c4b9;
         padding: 0px 0 60px !important;
         /*clear: both;*/
-    } 
+    }
+
     .product_main .quantity {
         float: left;
         margin: 0 4px 0 0;
@@ -48,11 +49,12 @@
         margin-top: 10px;
     }
 
-    .ppt{
-        display:none !important;
+    .ppt {
+        display: none !important;
     }
-    .product .summary .price{
-        top:unset !important;
+
+    .product .summary .price {
+        top: unset !important;
     }
 </style>
 
@@ -109,7 +111,7 @@
                         </ul>
                     </aside>
                 }
-                
+
                 <!--PRODUCT NEW-->
                 @if (Model.ProductNew != null && Model.ProductNew.Any())
                 {
@@ -134,13 +136,13 @@
 
                     </aside>
                 }
-                
+
                 @*<aside id="text-10" class="widget widget_text">
-                    <div class="textwidget"><img src="@Url.Content("~/Images/shop-widget-discount.png")" alt="" tite="" /></div>
-                </aside>
-                <aside id="text-11" class="widget widget_text">
-                    <div class="textwidget"><img src="@Url.Content("~/Images/shop-widget-special.png")" alt="" tite="" /></div>
-                </aside>*@
+                        <div class="textwidget"><img src="@Url.Content("~/Images/shop-widget-discount.png")" alt="" tite="" /></div>
+                    </aside>
+                    <aside id="text-11" class="widget widget_text">
+                        <div class="textwidget"><img src="@Url.Content("~/Images/shop-widget-special.png")" alt="" tite="" /></div>
+                    </aside>*@
             </section>
             <section id='primary' class='page-with-sidebar with-left-sidebar'>
                 <div class="woocommerce-message hidden"><a href="javascript:void(0)" class="button wc-forward">View Cart</a> “@Model.Product.ProductName” has been added to your cart.</div>
@@ -150,7 +152,7 @@
                         <a href="@Model.Product.ImageURL" itemprop="image" class="woocommerce-main-image zoom" title="" data-rel="prettyPhoto[product-gallery]">
                             <img width="550" height="550" style="height:auto" src="@Model.Product.ImageURL" class="attachment-shop_single size-shop_single wp-post-image" alt="" title="product18" srcset="@Model.Product.ImageURL 550w, @Model.Product.ImageURL 150w, @Model.Product.ImageURL 300w, @Model.Product.ImageURL 90w, @Model.Product.ImageURL 1000w" sizes="(max-width: 550px) 100vw, 550px" />
                         </a>
-                        @if(Model.Product.ListImages != null && Model.Product.ListImages.Any())
+                        @if (Model.Product.ListImages != null && Model.Product.ListImages.Any())
                         {
                             <div class="thumbnails columns-3">
                                 @foreach (var item in Model.Product.ListImages)
@@ -167,8 +169,8 @@
                         <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                             <p class="price" @*style="top:40px !important;"*@><span class="amount"> @Model.Product.ProductPrice.ToString("#,0") đ</span></p>
                             @*<meta itemprop="price" content="3" />
-                            <meta itemprop="priceCurrency" content="GBP" />
-                            <link itemprop="availability" href="http://schema.org/InStock" />*@
+                                <meta itemprop="priceCurrency" content="GBP" />
+                                <link itemprop="availability" href="http://schema.org/InStock" />*@
                         </div>
                         <div itemprop="description">
                             @Html.Raw(Model.Product.ShortDescription)
@@ -185,10 +187,33 @@
                         <ul class="tabs wc-tabs">
                             <li class="description_tab"> <a href="#tab-description">Mô tả</a></li>
                         </ul>
-                        <div class="panel entry-content wc-tab" id="tab-description">
-                            <h2>Mô tả sản phẩm</h2>
-                            @Html.Raw(Model.Product.Description)
-                        </div>
+
+                        @{
+                            if (!string.IsNullOrEmpty(Model.Product.Description))
+                            {
+                                <div class="panel entry-content wc-tab" id="tab-description">
+                                    <h2>Mô tả sản phẩm</h2>
+                                    @Html.Raw(Model.Product.Description)
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="panel entry-content wc-tab" id="tab-description">
+                                    @if (!string.IsNullOrEmpty(Model.Product.Process))
+                                    {
+                                        <h2>Qui trình thực hiện:</h2>
+                                        @Html.Raw(Model.Product.Process)
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.Product.SpaTreatment))
+                                    {
+                                        <h2>Hiệu quả:</h2>
+                                        @Html.Raw(Model.Product.SpaTreatment)
+                                    }
+                                </div>
+
+                            }
+                        }
+
                     </div>
 
                     @if (Model.ListProduct != null && Model.ListProduct.Any())
@@ -230,14 +255,14 @@
                                                             <img width="1000" height="1000" style="height:auto" src="@item.ImageURL" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" srcset="@item.ImageURL 1000w, @item.ImageURL 150w, @item.ImageURL 300w, @item.ImageURL 90w, @item.ImageURL 550w" sizes="(max-width: 1000px) 100vw, 1000px" />
                                                             <img width="500" height="500" src="@item.ImageURL" class="secondary-image attachment-shop-catalog" alt="" srcset="@item.ImageURL 550w, @item.ImageURL 150w, @item.ImageURL 300w, @item.ImageURL 90w, @item.ImageURL 1000w" sizes="(max-width: 500px) 100vw, 500px" />
                                                             @*<div class='product-rating-wrapper'>
-                                                                <div class='product-rating-container'>
-                                                                    <div class="star-rating" title="Rated 4 out of 5"><span style="width:80%"><strong class="rating">4</strong> out of 5</span></div>
-                                                                </div>
-                                                            </div>*@
+                                                                    <div class='product-rating-container'>
+                                                                        <div class="star-rating" title="Rated 4 out of 5"><span style="width:80%"><strong class="rating">4</strong> out of 5</span></div>
+                                                                    </div>
+                                                                </div>*@
                                                         </div>
                                                         <div class='product-title'>
-                                                            <h3>@string.Format("{0}", !string.IsNullOrEmpty(item.ProductName) && item.ProductName.Length > 35 ? item.ProductName.Substring(0,35) + "..." : item.ProductName)</h3>
-                                                           @* <p>@Html.Raw(item.Description)</p>*@
+                                                            <h3>@string.Format("{0}", !string.IsNullOrEmpty(item.ProductName) && item.ProductName.Length > 35 ? item.ProductName.Substring(0, 35) + "..." : item.ProductName)</h3>
+                                                            @* <p>@Html.Raw(item.Description)</p>*@
                                                         </div>
                                                     </a>
                                                     <div class='product-details'>
@@ -245,10 +270,12 @@
                                                         <div class='product-buttons'>
                                                             <a rel="nofollow" href="javascript:void(0)" onclick="AddOrder('@item.Id','@item.Unit',1,@item.ProductPrice)" data-quantity="1" data-product_id="87" data-product_sku="" class="small button button product_type_simple add_to_cart_button ajax_add_to_cart">Thêm giỏ hàng</a>
                                                             <a href="javascript:void(0)" class="added_to_cart wc-forward hidden added_cart_@item.Id" title="View Cart">View Cart</a>
-                                                            
+
                                                             <div class="yith-wcwl-add-to-wishlist add-to-wishlist-87">
-                                                                <div class="yith-wcwl-add-button show" style="display:block"> <a href="javascript:void(0)" rel="nofollow" data-product-id="87" data-product-type="simple" class="add_to_wishlist"> Add to Wishlist</a> 
-                                                                <img src="@Url.Content("~/Images/wpspin_light.gif")" class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" /></div>
+                                                                <div class="yith-wcwl-add-button show" style="display:block">
+                                                                    <a href="javascript:void(0)" rel="nofollow" data-product-id="87" data-product-type="simple" class="add_to_wishlist"> Add to Wishlist</a>
+                                                                    <img src="@Url.Content("~/Images/wpspin_light.gif")" class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" />
+                                                                </div>
                                                                 <div class="yith-wcwl-wishlistaddedbrowse hide" style="display:none;"> <span class="feedback">Product added!</span> <a href="javascript:void(0)" rel="nofollow"> Browse Wishlist </a></div>
                                                                 <div class="yith-wcwl-wishlistexistsbrowse hide" style="display:none"> <span class="feedback">The product is already in the wishlist!</span> <a href="javascript:void(0)" rel="nofollow"> Browse Wishlist </a></div>
                                                                 <div style="clear:both"></div>
@@ -261,31 +288,31 @@
                                             </div>
                                         </li>
 
-                                        
+
                                     }
                                 </ul>
                             </div>
                         </div>
                     }
-                    
-                 @*   <meta itemprop="url" content="https://dreamspa.dttheme.com/product/dry-aroma-petals-for-bath/" />*@
+
+                    @*   <meta itemprop="url" content="https://dreamspa.dttheme.com/product/dry-aroma-petals-for-bath/" />*@
                 </div>
             </section>
             <section id='secondary-right' class='secondary-sidebar secondary-has-left-sidebar'></section>
         </div>
     </div>
 }
-    
-    <script type='text/javascript'>
-        /*  */
-        var wc_single_product_params = {
-            "i18n_required_rating_text": "Please select a rating",
-            "review_rating_required": "yes"
-        };
-        /*  */
-    </script>
-    <script type='text/javascript' src='//dreamspa.dttheme.com/wp-content/plugins/woocommerce/assets/js/frontend/single-product.min.js?ver=2.5.5'></script>
-    <script type='text/javascript' src='//dreamspa.dttheme.com/wp-content/plugins/woocommerce/assets/js/jquery-blockui/jquery.blockUI.min.js?ver=2.70'></script>
+
+<script type='text/javascript'>
+    /*  */
+    var wc_single_product_params = {
+        "i18n_required_rating_text": "Please select a rating",
+        "review_rating_required": "yes"
+    };
+    /*  */
+</script>
+<script type='text/javascript' src='//dreamspa.dttheme.com/wp-content/plugins/woocommerce/assets/js/frontend/single-product.min.js?ver=2.5.5'></script>
+<script type='text/javascript' src='//dreamspa.dttheme.com/wp-content/plugins/woocommerce/assets/js/jquery-blockui/jquery.blockUI.min.js?ver=2.70'></script>
 <script>
     $(document).ready(function () {
         $(".keyNumber").keypress(function (e) {
@@ -303,17 +330,17 @@
         });
     })
     function AddOrderDetail(itemId, unitId, price) {
-            var quantity = $('#txtquantity').val();
-            if ($.trim(quantity) === "")
-                quantity = 1;
-            console.log(itemId + " " + unitId + " " + quantity + " " + price);
-            var _Order = {
-                ItemId : itemId,
-                UnitId : unitId,
-                Quantity : quantity,
-                Price : price
-            };
-            CreateOrUpdateOrder(_Order);
-            $('.woocommerce-message').removeClass("hidden");
-        }
+        var quantity = $('#txtquantity').val();
+        if ($.trim(quantity) === "")
+            quantity = 1;
+        console.log(itemId + " " + unitId + " " + quantity + " " + price);
+        var _Order = {
+            ItemId: itemId,
+            UnitId: unitId,
+            Quantity: quantity,
+            Price: price
+        };
+        CreateOrUpdateOrder(_Order);
+        $('.woocommerce-message').removeClass("hidden");
+    }
 </script>

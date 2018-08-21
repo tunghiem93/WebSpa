@@ -238,6 +238,8 @@ namespace CMS_Shared.CMSProducts
                             Description = o.Description,
                             ShortDescription = o.ShortDescription,
                             PrintOutText = o.PrintOutText,
+                            SpaTreatment = o.SpaTreatment,
+                            Process = o.Process,
                             IsActive = o.IsActive,
                             ImageURL = o.ImageURL,
                             ProductPrice = o.Cost,
