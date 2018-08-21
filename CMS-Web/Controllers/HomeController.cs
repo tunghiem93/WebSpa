@@ -52,7 +52,7 @@ namespace CMS_Web.Controllers
                 model.ListCate = _facCate.GetList().Where(o => o.ProductTypeCode == (int)Commons.EProductType.Procudure).OrderByDescending(x => x.CreatedDate).Skip(0).Take(3).ToList();
 
                 //Product
-                var productType = (byte)Commons.EProductType.Procudure;
+                var productType = (byte)Commons.EProductType.Product;
                 model.ListProduct = _fac.GetList(productType).Where(o => !string.IsNullOrEmpty(o.ImageURL)).OrderByDescending(x => x.CreatedDate).Skip(0).Take(8).ToList();
 
                 //Procedures
