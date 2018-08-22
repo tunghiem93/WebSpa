@@ -14,6 +14,7 @@ namespace CMS_DTO.CMSReport
         public DateTime From { get; set; }
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime To { get; set; }
+        public bool IsIncludeDelete { get; set; }
         public CMS_ReportReceiptModels ReportReceipt { get; set; }
         public CMS_ReportExpensetModels ReportExpense { get; set; }
         public CMS_ReportModels()
