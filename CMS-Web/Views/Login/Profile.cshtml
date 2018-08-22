@@ -1,0 +1,141 @@
+﻿@{
+}
+@model CMS_DTO.CMSCustomer.CustomerModels
+<link href="@Url.Content("~/Libraries/plugins/bootstrap/css/bootstrap.min.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Libraries/plugins/bootstrap/js/bootstrap.min.js")"></script>
+<div id="main">
+    <section class='title-section'>
+        <div class="title-wrapper">
+            <div class="container">
+                <div class="border-title aligncenter">
+                    <h1>Cập nhập thông tin khách hàng</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <section id="primary" class="content-full-width" style="padding-top: 25px;">
+            @if (Model.IsShow)
+            {
+                <div class="">
+                    <div class="alert alert-success fade in">
+                        <i class="fa-fw fa fa-check"></i>
+                        <strong>Success! </strong>
+                        <span>Cập nhập thông tin thành công</span>
+                    </div>
+                </div>
+            }
+            <div id="post-7" class="post-7 page type-page status-publish hentry">
+                <div class="woocommerce">
+                    @using (@Html.BeginForm("Profile", "Login", FormMethod.Post, new { @class = "form-horizontal create-form", @enctype = "multipart/form-data", @style = "" }))
+                    {
+                        <div class="col2-set" id="customer_details">
+                            <div class="col-1">
+                                <div class="">
+                                    <p class="form-row form-row form-row-first validate-required" id="billing_first_name_field">
+                                        <label for="billing_first_name" class="">
+                                            Họ
+                                            <abbr class="required" title="required">*</abbr>
+                                        </label>
+                                        @Html.HiddenFor(model => model.ID)
+                                        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control input-text", @id = "FirstName", @placeholder = "*Họ", })
+                                        @Html.ValidationMessageFor(model => model.FirstName, null, new { @class = "label label-danger", })
+                                    </p>
+                                    <p class="form-row form-row form-row-last validate-required" id="billing_last_name_field">
+                                        <label for="billing_last_name" class="">
+                                            Tên
+                                            <abbr class="required" title="required">*</abbr>
+                                        </label>
+                                        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control input-text", @id = "LastName", @placeholder = "*Tên", })
+                                        @Html.ValidationMessageFor(model => model.LastName, null, new { @class = "label label-danger", })
+                                    </p>
+                                    <div class="clear"></div>
+                                    <p class="form-row form-row form-row-wide" id="billing_company_field">
+                                        <label for="billing_company" class="">Tên công ty</label>
+                                        @Html.TextBoxFor(model => model.CompanyName, new { @class = "form-control input-text", @id = "CompanyName", @placeholder = "*Tên công ty", })
+                                        @Html.ValidationMessageFor(model => model.CompanyName, null, new { @class = "label label-danger", })
+                                    </p>
+                                    <p class="form-row form-row form-row-first validate-required validate-email" id="billing_email_field">
+                                        <label for="billing_email" class="">
+                                            Địa chỉ đăng nhập
+                                            <abbr class="required" title="required">*</abbr>
+                                        </label>
+                                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control input-text", @id = "username", @placeholder = "*Địa chỉ đăng nhập", @type = "email",@readonly="true" })
+                                        @Html.ValidationMessageFor(model => model.Email, null, new { @class = "label label-danger", })
+                                    </p>
+                                    <p class="form-row form-row form-row-last validate-required validate-phone" id="billing_phone_field">
+                                        <label for="billing_phone" class="">
+                                            Số điện thoại
+                                            <abbr class="required" title="required">*</abbr>
+                                        </label>
+                                        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control input-text", @id = "Phone", @placeholder = "*Số điện thoại", @autocomplete = "off" })
+                                        @Html.ValidationMessageFor(model => model.Phone, null, new { @class = "label label-danger", })
+                                    </p>
+                                    <div class="clear"></div>
+                                    <p class="form-row form-row validate-required" id="account_password_field">
+                                        <label for="account_password" class="">
+                                            Mật khẩu
+                                            <abbr class="required" title="required">*</abbr>
+                                        </label>
+                                        @Html.TextBoxFor(model => model.Password, new {@type="password", @class = "form-control", @id = "Password", @placeholder = "*mật khẩu", })
+                                        @Html.ValidationMessageFor(model => model.Password, null, new { @class = "label label-danger", })
+                                    </p>
+                                    <div class="clear"></div>
+
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="">
+                                    <div class="shipping_address">
+                                        <div class="clear"></div>
+                                        <p class="form-row form-row form-row-wide address-field validate-required" id="billing_address_1_field">
+                                            <label for="billing_address_1" class="">
+                                                Địa chỉ
+                                                <abbr class="required" title="required">*</abbr>
+                                            </label>
+                                            @Html.TextBoxFor(model => model.Address, new { @class = "form-control input-text", @id = "Address", @placeholder = "*Địa chỉ", })
+                                            @Html.ValidationMessageFor(model => model.Address, null, new { @class = "label label-danger", })
+                                        </p>
+                                        <div class="clear"></div>
+                                        <p class="form-row form-row form-row-wide address-field validate-required" id="billing_city_field">
+                                            <label for="billing_city" class="">
+                                                Tỉnh/Thành phố
+                                                <abbr class="required" title="required">*</abbr>
+                                            </label>
+                                            @Html.TextBoxFor(model => model.City, new { @class = "form-control input-text", @id = "City", @placeholder = "*Tỉnh/Thành phố", })
+                                            @Html.ValidationMessageFor(model => model.City, null, new { @class = "label label-danger", })
+                                        </p>
+                                        <p class="form-row form-row form-row-first address-field validate-state" id="billing_state_field">
+                                            <label for="billing_state" class="">Quốc gia</label>
+                                            @Html.TextBoxFor(model => model.Country, new { @class = "form-control input-text", @id = "Country", @placeholder = "*Quốc gia", })
+                                            @Html.ValidationMessageFor(model => model.Country, null, new { @class = "label label-danger", })
+                                        </p>
+                                        <p class="form-row form-row form-row-last address-field validate-required validate-postcode" id="billing_postcode_field">
+                                            <label for="billing_postcode" class="">
+                                                Postcode
+                                               @* <abbr class="required" title="required">*</abbr>*@
+                                            </label>
+                                            @Html.TextBoxFor(model => model.Postcode, new { @class = "form-control input-text", @id = "Postcode", @placeholder = "*Postcode", })
+                                            @Html.ValidationMessageFor(model => model.Postcode, null, new { @class = "label label-danger", })
+                                        </p>
+                                        <div class="clear"></div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <p class="form-row form-row notes" id="order_comments_field" style="">
+                            <label for="" class=""></label>
+                            <button type="submit" class="btn btn-info">Cập Nhập</button>
+                        </p>
+                    }
+                </div>
+                <div class="social-bookmark"></div>
+                <div class="social-share"></div>
+            </div>
+        </section>
+    </div>
+</div>

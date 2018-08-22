@@ -22,7 +22,7 @@
                 var user = Session["UserClient"] as CMS_DTO.CMSSession.UserSession;
                 if (user != null)
                 {
-                    <li class=""><a href="javascript:void(0)"><i class="fa fa-user"></i> @user.UserName </a></li>
+                    <li class=""><a href="@Url.Action("Profile","Login",new {q=user.UserId })"><i class="fa fa-user"></i> @user.UserName </a></li>
                     <li class="icofont icofont-logout">
                         <a href="@Url.Action("Logout","Login")"><i class="fa fa-sign-in"></i> Đăng xuất </a>
                     </li>

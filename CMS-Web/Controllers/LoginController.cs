@@ -141,5 +141,46 @@ namespace CMS_Web.Controllers
                 return new HttpStatusCodeResult(400, ex.Message);
             }
         }
+
+        public ActionResult Profile(string q)
+        {
+            var model = new CustomerModels();
+            try
+            {
+                NSLog.Logger.Info("Profile_Request:", q);
+                model = _factory.GetDetail(q);
+                if(model != null)
+                {
+                    model.Password = CommonHelper.Decrypt(model.Password);
+                }
+            }
+            catch(Exception ex)
+            {
+                NSLog.Logger.Error("Profile_Error:", ex);
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Profile(CustomerModels model)
+        {
+            try
+            {
+                NSLog.Logger.Info("Profile_Request:", model);
+                var CusId = string.Empty;
+                var msg = string.Empty;
+                model.Password = CommonHelper.Encrypt(model.Password);
+                var result = _factory.CreateOrUpdate(model,ref CusId,ref msg);
+                if(result)
+                {
+                    model.IsShow = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                NSLog.Logger.Error("Profile_Error:", ex);
+            }
+            return View(model);
+        }
     }
 }

@@ -46,6 +46,8 @@ namespace CMS_Shared.CMSCustomers
                                 BirthDate = model.BirthDate,
                                 HomeStreet = model.Address,
                                 HomeCity = model.City,
+                                HomeCountry = model.Country,
+                                HomeZipCode = model.Postcode,
                                 ImageUrl = model.ImageURL,
                                 /* other info */
 
@@ -80,6 +82,8 @@ namespace CMS_Shared.CMSCustomers
                                 e.HomeStreet = model.Address;
                                 e.HomeCity = model.City;
                                 e.ImageUrl = model.ImageURL;
+                                e.HomeCountry = model.Country;
+                                e.HomeZipCode = model.Postcode;
 
                                 /* other info */
 
@@ -169,6 +173,7 @@ namespace CMS_Shared.CMSCustomers
                                                     Address = o.HomeStreet,
                                                     City = o.HomeCity,
                                                     Country = o.HomeCountry,
+                                                    Postcode = o.HomeZipCode,
                                                     ImageURL = string.IsNullOrEmpty(o.ImageUrl) ? "" : o.ImageUrl,
                                                     /* other info */
 

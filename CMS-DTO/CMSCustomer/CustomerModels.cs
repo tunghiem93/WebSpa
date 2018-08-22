@@ -56,6 +56,7 @@ namespace CMS_DTO.CMSCustomer
         public byte[] PictureByte { get; set; }
 
         public List<CMS_OrderModels> ListOrders { get; set; }
+        public bool IsShow { get; set; }
         public CustomerModels()
         {
             IsActive = true;
