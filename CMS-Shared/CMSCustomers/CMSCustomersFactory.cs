@@ -18,7 +18,7 @@ namespace CMS_Shared.CMSCustomers
             var Result = true;
             using (var cxt = new CMS_Context())
             {
-                var _isExits = cxt.CMS_Customer.Any(x => x.Email.Equals(model.Email) && x.IsActive.HasValue);
+                var _isExits = cxt.CMS_Customer.Any(x => x.Email.Equals(model.Email) && x.IsActive.HasValue && x.Status != (byte)Commons.EStatus.Deleted);
                 try
                 {
                     if (string.IsNullOrEmpty(model.ID)) /* insert */
