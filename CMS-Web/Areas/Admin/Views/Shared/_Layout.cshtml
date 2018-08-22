@@ -55,6 +55,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
     <link href="@Url.Content("~/Content/Common.css")" rel="stylesheet" />
+    <script>
+        var _app = angular.module('appOrder', []);
+    </script>
 </head>
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
     @Html.Partial("_topMenu")
@@ -154,7 +157,7 @@
         
 
         $(document).ready(function () {
-
+           
             $SIDEBAR_MENU.find('li').removeClass("active");
 
             $SIDEBAR_MENU.find('a[href="' + CURRENT_URL + '"]').parent('li').addClass('current-page');
