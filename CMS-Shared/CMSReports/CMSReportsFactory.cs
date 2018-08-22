@@ -13,7 +13,7 @@ namespace CMS_Shared.CMSReports
 {
     public class CMSReportFactory : ReportFactory
     {
-        public CMS_ReportModels GetReportData(DateTime from, DateTime to)
+        public CMS_ReportModels GetReportData(DateTime from, DateTime to, bool isDelete = false)
         {
             CMS_ReportModels ret = null;
             try
@@ -26,9 +26,13 @@ namespace CMS_Shared.CMSReports
                         To = to,
                     };
 
-                    var listOrder = db.CMS_Order.Where(o => DbFunctions.TruncateTime(o.ReceiptCreatedDate) >= from.Date && DbFunctions.TruncateTime(o.ReceiptCreatedDate) <= to.Date && o.Status == (byte)Commons.EStatus.Actived).ToList();
+                    var listOrder = db.CMS_Order.Where(o => DbFunctions.TruncateTime(o.ReceiptCreatedDate) >= from.Date && DbFunctions.TruncateTime(o.ReceiptCreatedDate) <= to.Date).ToList();
+                    if (isDelete == false)
+                    {
+                        listOrder = listOrder.Where(o => o.Status == (byte)Commons.EStatus.Actived).ToList();
+                    }
                     var listOrderID = listOrder.Select(o => o.ID).ToList();
-                    var listOrderDetail = db.CMS_OrderDetail.Where(o => listOrderID.Contains(o.OrderID) && o.Status == (byte)Commons.EStatus.Actived).ToList();
+                    var listOrderDetail = db.CMS_OrderDetail.Where(o => listOrderID.Contains(o.OrderID) && (!string.IsNullOrEmpty(o.ProductID) || !string.IsNullOrEmpty(o.Remark))).ToList();
 
                     /* get product db */
                     var listProductID = listOrderDetail.Select(o => o.ProductID).ToList();
@@ -49,8 +53,8 @@ namespace CMS_Shared.CMSReports
                     var listOrderExpenseID = listOrderExpense.Select(o => o.ID).ToList();
                     var listOrderDetailEx = listOrderDetail.Where(o => listOrderExpenseID.Contains(o.OrderID)).ToList();
 
-                    expenseData.TotalBill = listOrderExpense.Sum(o => o.TotalBill) ?? 0;
-                    expenseData.TotalItem = (double)(listOrderDetailEx.Sum(o => o.Quantity) ?? 0);
+                    expenseData.TotalBill = listOrderExpense.Where(o => o.Status != (byte)Commons.EStatus.Deleted).Sum(o => o.TotalBill) ?? 0;
+                    expenseData.TotalItem = (double)(listOrderDetailEx.Where(o => o.Status != (byte)Commons.EStatus.Deleted).Sum(o => o.Quantity) ?? 0);
                     expenseData.ListOrder = listOrderExpense.Select(o => new CMS_OrderModels()
                     {
                         Id = o.ID,
@@ -59,6 +63,9 @@ namespace CMS_Shared.CMSReports
                         ReceiptCreatedDate = o.ReceiptCreatedDate ?? Commons.MinDate,
                         TotalBill = o.TotalBill,
                         SubTotal = o.SubTotal,
+                        Status = o.Status,
+                        Remark = o.Remark,
+                        Reason = o.Reason,
                         TotalDiscount = o.TotalDiscount,
                         CustomerId = o.CustomerID,
                         CustomerName = listCustomerDB.Where(c => c.ID == o.CustomerID).Select(c => c.FirstName).FirstOrDefault(),
@@ -91,9 +98,9 @@ namespace CMS_Shared.CMSReports
                     var listOrderRcID = listOrderRc.Select(o => o.ID).ToList();
                     var listOrderDetailRc = listOrderDetail.Where(o => listOrderRcID.Contains(o.OrderID)).ToList();
 
-                    receiptData.TotalBill = listOrderRc.Sum(o => o.TotalBill) ?? 0;
-                    receiptData.TotalDiscount = listOrderRc.Sum(o => o.TotalDiscount) ?? 0;
-                    receiptData.TotalItem = (double)(listOrderDetailRc.Sum(o => o.Quantity) ?? 0);
+                    receiptData.TotalBill = listOrderRc.Where(o => o.Status != (byte)Commons.EStatus.Deleted).Sum(o => o.TotalBill) ?? 0;
+                    receiptData.TotalDiscount = listOrderRc.Where(o => o.Status != (byte)Commons.EStatus.Deleted).Sum(o => o.TotalDiscount) ?? 0;
+                    receiptData.TotalItem = (double)(listOrderDetailRc.Where(o => o.Status != (byte)Commons.EStatus.Deleted).Sum(o => o.Quantity) ?? 0);
                     receiptData.ListOrder = listOrderRc.Select(o => new CMS_OrderModels()
                     {
                         Id = o.ID,
@@ -103,6 +110,9 @@ namespace CMS_Shared.CMSReports
                         TotalBill = o.TotalBill,
                         SubTotal = o.SubTotal,
                         TotalDiscount = o.TotalDiscount,
+                        Status = o.Status,
+                        Remark = o.Remark,
+                        Reason = o.Reason,
                         CustomerName = listCustomerDB.Where(c => c.ID == o.CustomerID).Select(c => c.FirstName).FirstOrDefault(),
                         Phone = listCustomerDB.Where(c => c.ID == o.CustomerID).Select(c => c.Phone).FirstOrDefault(),
                         Email = listCustomerDB.Where(c => c.ID == o.CustomerID).Select(c => c.Email).FirstOrDefault(),
@@ -112,8 +122,8 @@ namespace CMS_Shared.CMSReports
                     foreach (var order in receiptData.ListOrder)
                     {
                         order.Items = listOrderDetailRc.Where(o => o.OrderID == order.Id)
-                            .GroupJoin(listProduct, od => od.ProductID, p => p.ID, (od, p) => new {od, p=p.FirstOrDefault()})
-                            .Select(o=> new CMS_ItemModels()
+                            .GroupJoin(listProduct, od => od.ProductID, p => p.ID, (od, p) => new { od, p = p.FirstOrDefault() })
+                            .Select(o => new CMS_ItemModels()
                             {
                                 ID = o.od.ID,
                                 ProductID = o.od.ProductID,
@@ -158,7 +168,9 @@ namespace CMS_Shared.CMSReports
             CMS_ReportModels data = new CMS_ReportModels();
             try
             {
-                data = GetReportData(request.From, request.To);
+                data = GetReportData(request.From, request.To, request.IsIncludeDelete);
+
+                /* receipt order */
                 if (data.ReportReceipt.ListOrder != null && data.ReportReceipt.ListOrder.Any())
                 {
                     int row = 4;
@@ -202,10 +214,14 @@ namespace CMS_Shared.CMSReports
                     //end Columns Name header  
                     row++;
                     int _firstRow = row;
+                    
                     //List item in data
-
                     foreach (var item in data.ReportReceipt.ListOrder)
                     {
+                        if (item.Status == (byte)Commons.EStatus.Deleted)
+                        {
+                            wsReceipt.Cells[row, 1, row, totalCols].Style.Font.Strike = true;
+                        }
                         wsReceipt.Cells[row, 1].Value = item.ReceiptNo + " (" + item.OrderNo + ")"; ;
                         wsReceipt.Cells[row, 2].Value = item.ReceiptCreatedDate.ToString("dd/MM/yyyy");
                         wsReceipt.Cells[row, 3].Value = item.EmployeeName;
@@ -230,36 +246,44 @@ namespace CMS_Shared.CMSReports
                                 wsReceipt.Cells[row, 1, row, totalCols].Style.Border.Left.Style = ExcelBorderStyle.Thin;
                                 wsReceipt.Cells[row, 1, row, totalCols].Style.Border.Right.Style = ExcelBorderStyle.Thin;
                                 wsReceipt.Cells[row, 1, row, totalCols].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                                if (item.Status == (byte)Commons.EStatus.Deleted)
+                                    wsReceipt.Cells[row, 8, row, totalCols].Style.Font.Strike = true;
                                 row++;
                             }
-                            wsReceipt.Cells[row, 11].Value = "Giảm giá";
-                            //wsReceipt.Row(row).Style.Font.Bold = true;
-                            wsReceipt.Cells[row, 11, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                            wsReceipt.Cells[row, 11, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
-                            wsReceipt.Cells[row, 12].Value = string.Format("{0:0,0 VNĐ}", item.TotalDiscount);
-                            wsReceipt.Cells[row, 8, row, 10].Merge = true;
-                            wsReceipt.Cells[_firstChild, 1, row, 7].Merge = true;
-                            row++;
-
-                            /*  */
-                            wsReceipt.Cells[row, 11].Value = "Tổng";
-                            wsReceipt.Row(row).Style.Font.Bold = true;
-                            wsReceipt.Cells[row, 11, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                            wsReceipt.Cells[row, 11, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
-                            wsReceipt.Cells[row, 12].Value = string.Format("{0:0,0 VNĐ}", item.TotalBill);
-                            wsReceipt.Cells[row, 8, row, 10].Merge = true;
-                            wsReceipt.Cells[_firstChild, 1, row, 7].Merge = true;
-                            row++;
-
                         }
+
+                        wsReceipt.Cells[row, 11].Value = "Giảm giá";
+                        //wsReceipt.Row(row).Style.Font.Bold = true;
+                        wsReceipt.Cells[row, 11, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        wsReceipt.Cells[row, 11, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
+                        wsReceipt.Cells[row, 12].Value = string.Format("{0:0,0 VNĐ}", item.TotalDiscount);
+                        wsReceipt.Cells[row, 8, row, 10].Merge = true;
+                        wsReceipt.Cells[_firstChild, 1, row, 7].Merge = true;
+                        if (item.Status == (byte)Commons.EStatus.Deleted)
+                            wsReceipt.Cells[row, 11, row, totalCols].Style.Font.Strike = true;
+                        row++;
+
+                        /*  */
+                        wsReceipt.Cells[row, 11].Value = "Tổng";
+                        wsReceipt.Row(row).Style.Font.Bold = true;
+                        wsReceipt.Cells[row, 11, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        wsReceipt.Cells[row, 11, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
+                        wsReceipt.Cells[row, 12].Value = string.Format("{0:0,0 VNĐ}", item.TotalBill);
+                        wsReceipt.Cells[row, 8, row, 10].Merge = true;
+                        wsReceipt.Cells[_firstChild, 1, row, 7].Merge = true;
+                        var range = wsReceipt.Cells[_firstChild, 1, row, 7];
+                        wsReceipt.Cells[range.Start.Address].Value = item.Reason;
+                        if (item.Status == (byte)Commons.EStatus.Deleted)
+                            wsReceipt.Cells[row, 11, row, totalCols].Style.Font.Strike = true;
+                        row++;
                     }
 
                     /* sum total */
-                    wsExpense.Cells[row, 11].Value = "Tổng Tiền";
-                    wsExpense.Row(row).Style.Font.Bold = true;
-                    wsExpense.Cells[row, 11, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                    wsExpense.Cells[row, 11, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
-                    wsExpense.Cells[row, 12].Value = string.Format("{0:0,0 VNĐ}", data.ReportReceipt.TotalBill);
+                    wsReceipt.Cells[row, 11].Value = "Tổng Tiền";
+                    wsReceipt.Row(row).Style.Font.Bold = true;
+                    wsReceipt.Cells[row, 11, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    wsReceipt.Cells[row, 11, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
+                    wsReceipt.Cells[row, 12].Value = string.Format("{0:0,0 VNĐ}", data.ReportReceipt.TotalBill);
 
                     wsReceipt.Cells[_firstRow, 1, row - 1, totalCols].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
                     wsReceipt.Cells[_firstRow, 1, row - 1, totalCols].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
@@ -293,10 +317,11 @@ namespace CMS_Shared.CMSReports
                     wsReceipt.Cells.Style.WrapText = true;
                 }
 
+                /* expense order */
                 if (data.ReportExpense.ListOrder != null && data.ReportExpense.ListOrder.Any())
                 {
                     int row = 4;
-                    
+
                     /* sum total */
                     wsExpense.Cells[row, 1].Value = "Tổng Tiền";
                     wsExpense.Row(row).Style.Font.Bold = true;
@@ -340,6 +365,8 @@ namespace CMS_Shared.CMSReports
 
                     foreach (var item in data.ReportExpense.ListOrder)
                     {
+                        if (item.Status == (byte)Commons.EStatus.Deleted)
+                            wsExpense.Cells[row, 1, row, totalCols].Style.Font.Strike = true;
                         wsExpense.Cells[row, 1].Value = item.ReceiptNo + " (" + item.OrderNo + ")";
                         wsExpense.Cells[row, 2].Value = item.ReceiptCreatedDate.ToString("dd/MM/yyyy");
                         wsExpense.Cells[row, 3].Value = item.EmployeeName;
@@ -364,19 +391,24 @@ namespace CMS_Shared.CMSReports
                                 wsExpense.Cells[row, 1, row, totalCols].Style.Border.Left.Style = ExcelBorderStyle.Thin;
                                 wsExpense.Cells[row, 1, row, totalCols].Style.Border.Right.Style = ExcelBorderStyle.Thin;
                                 wsExpense.Cells[row, 1, row, totalCols].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+
+                                if (item.Status == (byte)Commons.EStatus.Deleted)
+                                    wsExpense.Cells[row, 1, row, totalCols].Style.Font.Strike = true;
                                 row++;
                             }
-                            wsExpense.Cells[row, 11].Value = "Tổng";
-                            wsExpense.Row(row).Style.Font.Bold = true;
-                            wsExpense.Cells[row, 11, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                            wsExpense.Cells[row, 11, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
-                            wsExpense.Cells[row, 12].Value = string.Format("{0:0,0 VNĐ}", item.TotalBill);
-                            wsExpense.Cells[row, 8, row, 10].Merge = true;
-                            wsExpense.Cells[_firstChild, 1, row, 7].Merge = true;
                         }
+                        wsExpense.Cells[row, 11].Value = "Tổng";
+                        wsExpense.Row(row).Style.Font.Bold = true;
+                        wsExpense.Cells[row, 11, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        wsExpense.Cells[row, 11, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
+                        wsExpense.Cells[row, 12].Value = string.Format("{0:0,0 VNĐ}", item.TotalBill);
+                        wsExpense.Cells[row, 8, row, 10].Merge = true;
+                        wsExpense.Cells[_firstChild, 1, row, 7].Merge = true;
+                        if (item.Status == (byte)Commons.EStatus.Deleted)
+                            wsExpense.Cells[row, 1, row, totalCols].Style.Font.Strike = true;
                         row++;
                     }
-                    
+
                     /* sum total */
                     wsExpense.Cells[row, 11].Value = "Tổng Tiền";
                     wsExpense.Row(row).Style.Font.Bold = true;

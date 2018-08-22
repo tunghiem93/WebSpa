@@ -1,6 +1,7 @@
 ﻿using CMS_Common;
 using CMS_DTO.CMSReport;
 using CMS_Shared.CMSReports;
+using CMS_Web.Web.App_Start;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ using System.Web.Mvc;
 
 namespace CMS_Web.Areas.Admin.Controllers
 {
+    [NuAuth]
     public class CMSReportManagementsController : Controller
     {
         CMSReportFactory _fac = null;
