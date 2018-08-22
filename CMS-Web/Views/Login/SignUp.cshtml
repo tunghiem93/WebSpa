@@ -100,16 +100,16 @@
                                         <p class="form-row form-row form-row-last address-field validate-required validate-postcode" id="billing_postcode_field">
                                             <label for="billing_postcode" class="">
                                                 Postcode
-                                                <abbr class="required" title="required">*</abbr>
+                                                @*<abbr class="required" title="required">*</abbr>*@
                                             </label>
                                             @Html.TextBoxFor(model => model.Postcode, new { @class = "form-control input-text", @id = "Postcode", @placeholder = "*Postcode", })
                                             @Html.ValidationMessageFor(model => model.Postcode, null, new { @class = "label label-danger", })
                                         </p>
                                         <div class="clear"></div>
-                                        <p class="form-row form-row-wide create-account">
+                                        @*<p class="form-row form-row-wide create-account">
                                             <input class="input-checkbox" id="createaccount" type="checkbox" name="createaccount" value="1" />
                                             <label for="createaccount" class="checkbox">Tạo tài khoản?</label>
-                                        </p>
+                                        </p>*@
                                         <div class="create-account">
                                             <p class="form-row form-row validate-required" id="account_password_field">
                                                 <label for="account_password" class="">
