@@ -47,7 +47,7 @@ function getListOrder()
                 _Price = parseFloat(_Price) + parseFloat(item.Price * item.Quantity);
             });
             _Price = parseFloat(_Price, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").replace(".00", "").toString() + " đ";
-            $('#top-cart-count').text("Giỏ hàng [" + _Quantity+"] sản phẩm");
+            $('#top-cart-count').text("Giỏ hàng [" + _Quantity+"]");
             $('#top-cart-total .amount').text(_Price)
            
         }
