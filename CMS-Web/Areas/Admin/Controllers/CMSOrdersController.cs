@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CMS_Shared.Utilities;
 
 namespace CMS_Web.Areas.Admin.Controllers
 {
@@ -138,12 +139,14 @@ namespace CMS_Web.Areas.Admin.Controllers
                     if(Order.DiscountType == (byte)CMS_Common.Commons.EValueType.Percent)
                     {
                         model.TotalDiscount =(model.TotalPrice * (Order.DiscountValue / 100));
+                        model.TotalDiscount = CommonHelper.RoundingOption4(model.TotalDiscount);
                     }
                     else
                     {
                         model.TotalDiscount = Order.DiscountValue;
                     }
-                    model.TotalPrice = model.SubTotalPrice - model.TotalDiscount;
+                    model.TotalPrice = CommonHelper.RoundingOption4(model.SubTotalPrice - model.TotalDiscount);
+                    
                 }
                 var OrderId = string.Empty;
                 var result = _fac.CreateOrder(model,ref OrderId);

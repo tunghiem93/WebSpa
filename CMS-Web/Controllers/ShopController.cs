@@ -187,13 +187,13 @@ namespace CMS_Web.Controllers
 
                             if (model.DiscountType == (byte)CMS_Common.Commons.EValueType.Percent)
                             {
-                                model.TotalDiscount = (model.TotalPrice * (model.DiscountValue / 100));
+                                model.TotalDiscount = CommonHelper.RoundingOption4(model.TotalPrice * (model.DiscountValue / 100));
                             }
                             else
                             {
                                 model.TotalDiscount = model.DiscountValue;
                             }
-                            model.TotalPrice = model.TotalPrice - model.TotalDiscount;
+                            model.TotalPrice = CommonHelper.RoundingOption4(model.TotalPrice - model.TotalDiscount);
                         }
                     }
                     var OrderId = string.Empty;

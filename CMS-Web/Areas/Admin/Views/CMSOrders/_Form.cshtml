@@ -298,6 +298,7 @@
                     if ($scope.DiscountType == 0)//percent
                     {
                         $scope.TotalPrice = $scope.TotalPrice - ($scope.TotalPrice * ($scope.DiscountValue / 100));
+                        $scope.TotalPrice = Math.round($scope.TotalPrice * 0.01) / 0.01;
                     }
                     else {
                         $scope.TotalPrice = $scope.TotalPrice - $scope.DiscountValue;
@@ -318,6 +319,7 @@
                 $.each($scope.Items, function (index, item) {
                     $scope.TotalPrice += item.TotalPrice;
                     $scope.SubTotal += item.TotalPrice;
+                    $scope.TotalPrice = Math.round($scope.TotalPrice * 0.01) / 0.01;
                 });
             }
         }
@@ -365,6 +367,7 @@
                     if ($scope.DiscountType == 0)//percent
                     {
                         $scope.TotalPrice = $scope.TotalPrice - ($scope.TotalPrice * ($scope.DiscountValue / 100));
+                        $scope.TotalPrice = Math.round($scope.TotalPrice * 0.01) / 0.01;
                     }
                     else {
                         $scope.TotalPrice = $scope.TotalPrice - $scope.DiscountValue;
@@ -396,6 +399,7 @@
                     if ($scope.DiscountType == 0)//percent
                     {
                         $scope.TotalPrice = $scope.TotalPrice - ($scope.TotalPrice * ($scope.DiscountValue / 100));
+                        $scope.TotalPrice = Math.round($scope.TotalPrice * 0.01) / 0.01;
                     }
                     else {
                         $scope.TotalPrice = $scope.TotalPrice - $scope.DiscountValue;
@@ -403,6 +407,8 @@
                 }
             }
         }
+
+        
 
         $scope.SaveOrder = function () {
             $('.se-pre-con').show();
@@ -443,4 +449,6 @@
             });
         }
     }]);
+
+
 </script>

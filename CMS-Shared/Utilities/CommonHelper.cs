@@ -155,6 +155,32 @@ namespace CMS_Shared.Utilities
             return "NO_" +((long)R.Next(0, 100000) * (long)R.Next(0, 100000)).ToString().PadLeft(10, '0');
         }
 
+        ///<summary>
+        ////* 1000~1400 => 1000 || 1500~1900 => 1500 */
+        ///</summary>
+        public static double RoundingOption4(double number, double x = 0.01)
+        {
+            int xX = (int)(number * x);
+            int p1 = xX % 10;
+            xX -= p1;
+            switch (p1)
+            {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4: p1 = 0; break;
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                case 9: p1 = 5; break;
+            }
+            xX += p1;
+
+            return (double)xX / x;
+        }
+
         public static string GenerateOrderNo(string _storeID, byte mode, byte orderType)
         {
             string no = string.Empty;
