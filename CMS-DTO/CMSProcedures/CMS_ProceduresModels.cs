@@ -39,6 +39,7 @@ namespace CMS_DTO.CMSProcedures
         public double Price { get; set; }
         public string CategoryId { get; set; }
         public string CategoryName { get; set; }
+        public int CateSequence { get; set; }
         public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
         public DateTime CreatedDate { get; set; }

@@ -261,6 +261,7 @@ namespace CMS_Shared.CMSProcedures
                             ProductTypeCode = o.p.TypeCode,
                             CategoryId = o.p.CategoryID,
                             CategoryName = o.c.Name,
+                            CateSequence = o.c.Sequence,
                             ProceduresName = o.p.Name,
                             ProductCode = o.p.ProductCode,
                             BarCode = o.p.BarCode,

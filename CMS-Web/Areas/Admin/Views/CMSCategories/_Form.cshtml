@@ -31,12 +31,12 @@
         </div>
     </div>
     @*<div class="form-group">
-        <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Mã thể loại</label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            @Html.TextBoxFor(model => model.CategoryCode, new { @class = "form-control", @placeholder = "Mã thể loại", @autocomplete = "off" })
-            @Html.ValidationMessageFor(model => model.CategoryCode, null, new { @class = "label label-danger" })
-        </div>
-    </div>*@
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Mã thể loại</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.TextBoxFor(model => model.CategoryCode, new { @class = "form-control", @placeholder = "Mã thể loại", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.CategoryCode, null, new { @class = "label label-danger" })
+            </div>
+        </div>*@
 
     <div class="form-group">
         <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Tên thể loại</label>
@@ -72,6 +72,14 @@
             <label class="radio-inline">
                 @Html.RadioButtonFor(model => model.ProductTypeCode, "3", new { @class = "icheck", @name = "Dịch Vụ" }) Dịch Vụ (liệu trình)
             </label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Thứ tự hiển thị</label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.TextBoxFor(model => model.Sequence, new { @class = "form-control", @placeholder = "1", @autocomplete = "off" })
+            @Html.ValidationMessageFor(model => model.Sequence, null, new { @class = "label label-danger" })
         </div>
     </div>
 

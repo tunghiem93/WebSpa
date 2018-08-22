@@ -27,7 +27,7 @@ namespace CMS_Web.Controllers
                 var data = _facProce.GetList();
                 if (data != null && data.Any())
                 {
-                    models.ListProcedures = data.GroupBy(o => new { o.CategoryId, o.CategoryName }).Select(s => new CMS_ProceduresModels {
+                    models.ListProcedures = data.GroupBy(o => new { o.CategoryId, o.CategoryName, o.CateSequence }).OrderBy(o=> o.Key.CateSequence).Select(s => new CMS_ProceduresModels {
                         CategoryId = s.Key.CategoryId,
                         CategoryName = s.Key.CategoryName,
                         ListProceduresDTOChild = data.OrderBy(o => o.ProceduresName).Where(w => w.CategoryId == s.Key.CategoryId).ToList(),

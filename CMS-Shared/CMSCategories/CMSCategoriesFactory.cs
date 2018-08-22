@@ -171,7 +171,7 @@ namespace CMS_Shared.CMSCategories
                     if (productType > 0)
                         query = query.Where(o => o.ProductTypeCode == productType);
 
-                    var data = query.Where(o => o.Status != (byte)Commons.EStatus.Deleted)
+                    var data = query.Where(o => o.Status != (byte)Commons.EStatus.Deleted).OrderBy(o=> o.Sequence)
                         .Select(x => new CMSCategoriesModels
                         {
                             Id = x.ID,
@@ -221,6 +221,7 @@ namespace CMS_Shared.CMSCategories
                                                             p => p.CategoryID,
                                                             (c, p) => new { c, p })
                                                   .Where(o => o.c.Status != (byte)Commons.EStatus.Deleted /*&& o.c.ProductTypeCode == (int)Commons.EProductType.Product*/)
+                                                  .OrderBy(o=> o.c.Sequence)
                                                   .Select(o => new CMS_CategoryViewModels
                                                   {
                                                       Id = o.c.ID,
