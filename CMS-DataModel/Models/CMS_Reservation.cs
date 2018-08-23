@@ -26,6 +26,8 @@ namespace CMS_DataModel.Models
 
         [StringLength(100)]
         public string CustomerID { get; set; }
+        [StringLength(100)]
+        public string CustomerName { get; set; }
 
         [StringLength(100)]
         public string TableID { get; set; }
