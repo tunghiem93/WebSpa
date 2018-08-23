@@ -35,7 +35,7 @@
                                 Tên đăng nhập hoặc email
                                 <span class="required">*</span>
                             </label>
-                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control input-text", @id = "username", @placeholder = "*Tên đăng nhập", @type = "email", })
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control input-text", @id = "username", @placeholder = "Tên đăng nhập", @type = "email", })
                             @Html.ValidationMessageFor(model => model.Email, null, new { @class = "label label-danger", @style = "color: red; "})
                         </p>
                         <p class="form-row form-row-wide">
@@ -43,7 +43,7 @@
                                 Mật khẩu
                                 <span class="required">*</span>
                             </label>
-                            @Html.PasswordFor(model => model.Password, new { @class = "form-control input-text", @id = "password", @placeholder = "*Mật khẩu", @type = "password" })
+                            @Html.PasswordFor(model => model.Password, new { @class = "form-control input-text", @id = "password", @placeholder = "Mật khẩu", @type = "password" })
                         </p>
                         <p class="form-row">
                             <input type="hidden" id="_wpnonce" name="_wpnonce" value="e8f5622d97" />

@@ -28,6 +28,7 @@ namespace CMS_DTO.CMSCustomer
         [Required(ErrorMessage = "Xin hãy xác nhận lại mật khẩu!")]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
+        [Required(ErrorMessage = "Xin hãy nhập số điện thoại!")]
         [RegularExpression("([0-9]+)", ErrorMessage = "Xin hãy nhập số điện thoại!")]
         public string Phone { get; set; }
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
