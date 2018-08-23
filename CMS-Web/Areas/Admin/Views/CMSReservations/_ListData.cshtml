@@ -34,10 +34,9 @@
                             <th class="text-center">
                                 Khách hàng
                             </th>
-                            <th class="text-center"> Thể loại </th>
+                            <th class="text-center"> Liệu trình </th>
                             <th class="text-center"> Ngày </th>
                             <th class="text-center"> Bắt đầu </th>
-                            <th class="text-center"> Kết thúc </th>
                             <th class="text-center"> Tùy chỉnh </th>
                         </tr>
                     </thead>
@@ -50,27 +49,13 @@
                                     <td class="text-center">
                                         @item.CustomerName
                                     </td>
-                                    <td> @item.CategoryName </td>
+                                    <td> @item.ProductName </td>
+                                    <td class="text-center">
+                                        @item.BookDay
+                                    </td>
                                     <td class="text-center">
                                         @item.From
                                     </td>
-                                    <td class="text-center">
-                                        @item.To
-                                    </td>
-                                    @{
-                                        if (item.IsActive)
-                                        {
-                                            <td class="text-center">
-                                                <span class="label label-sm label-success"> @item.sStatus </span>
-                                            </td>
-                                        }
-                                        else
-                                        {
-                                            <td class="text-center">
-                                                <span class="label label-sm label-danger"> @item.sStatus </span>
-                                            </td>
-                                        }
-                                    }
                                     <td class="text-center">
                                         <a href="javascript:void(0)"
                                            onclick='ShowView("@Url.Action("View","CMSReservations",new { Id=item.Id})")'
@@ -139,10 +124,9 @@
         // set the initial value
         "pageLength": 25,
         "columnDefs": [
-            { "orderable": false, "targets": [5] },
+            { "orderable": false, "targets": [4] },
             { "width": "3%", "targets": [0] },
             { "width": "8%", "targets": [1] },
-            { "width": "5%", "targets": [4] },
             { "width": "3%", "targets": [2, 3] },
         ],
         //"responsive": true,

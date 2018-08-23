@@ -5,6 +5,7 @@ using CMS_Shared;
 using CMS_Shared.CMSCategories;
 using CMS_Shared.CMSCustomers;
 using CMS_Shared.CMSEmployees;
+using CMS_Shared.CMSProducts;
 using CMS_Shared.CMSRole;
 using System;
 using System.Collections.Generic;
@@ -56,6 +57,23 @@ namespace CMS_Web.Areas.Admin.Controllers
                 {
                     Value = x.Id,
                     Text = x.CategoryName,
+                }).ToList();
+            }
+            return data;
+        }
+
+        public List<SelectListItem> GetListProductSelectItem(byte type = 0)
+        {
+            var _factory = new CMSProductFactory();
+            List<SelectListItem> data = null;
+
+            var listCate = _factory.GetList(type);
+            if (listCate != null)
+            {
+                data = listCate.Select(x => new SelectListItem
+                {
+                    Value = x.Id,
+                    Text = x.ProductName,
                 }).ToList();
             }
             return data;

@@ -297,6 +297,7 @@ namespace CMS_Shared.CMSProducts
 
                     var data = query.Where(o => o.Status != (byte)Commons.EStatus.Deleted)
                         .Join(cxt.CMS_Categories, p => p.CategoryID, c => c.ID, (p, c) => new { p, c })
+                        .OrderBy(o => o.p.Name)
                         .Select(o => new CMS_ProductsModels
                         {
                             Id = o.p.ID,

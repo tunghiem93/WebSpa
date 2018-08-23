@@ -17,14 +17,6 @@
     </div>
 
     <div class="form-group">
-        <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Email</label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "Email", @autocomplete = "off", @type = "email" })
-            @Html.ValidationMessageFor(model => model.Email, null, new { @class = "label label-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
         <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Số điện thoại</label>
         <div class="col-md-6 col-sm-6 col-xs-12">
             @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", @placeholder = "Số điện thoại", @autocomplete = "off" })
@@ -33,29 +25,21 @@
     </div>
 
     <div class="form-group">
-        <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Địa chỉ</label>
+        <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Liệu trình</label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            @Html.TextBoxFor(model => model.Address, new { @class = "form-control", @placeholder = "Địa chỉ", @autocomplete = "off" })
-            @Html.ValidationMessageFor(model => model.Address, null, new { @class = "label label-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Thể loại</label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            @Html.DropDownListFor(model => model.CategoryID,
-                    new SelectList(ViewBag.Category, "Value", "Text", Model.CategoryID), "Vui lòng chọn thể loại",
+            @Html.DropDownListFor(model => model.ProductID,
+                    new SelectList(ViewBag.Product, "Value", "Text", Model.ProductID), "Vui lòng chọn liệu trình",
                     new
                     {
                         @class = "form-control select2_multiple",
                         @id = "CategoryDdl",
                         @style = "width:100%;"
                     })
-            @Html.ValidationMessageFor(model => model.CategoryID, null, new { @class = "label label-danger" })
+            @Html.ValidationMessageFor(model => model.ProductID, null, new { @class = "label label-danger" })
         </div>
     </div>
 
-    <div class="form-group">
+    @*<div class="form-group">
         <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Nhân viên</label>
         <div class="col-md-6 col-sm-6 col-xs-12">
             @Html.DropDownListFor(model => model.EmployeeID,
@@ -68,7 +52,7 @@
                     })
             @Html.ValidationMessageFor(model => model.EmployeeID, null, new { @class = "label label-danger" })
         </div>
-    </div>
+    </div>*@
 
     <div class="form-group">
         <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Ngày đặt</label>
@@ -93,27 +77,6 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Thời gian kết thúc</label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            @Html.DropDownListFor(model => model.To,
-                    new SelectList(ViewBag.To, "Value", "Text", Model.To), "Vui lòng chọn thời gian",
-                    new
-                    {
-                        @class = "form-control select2_multiple",
-                        @id = "ToDdl",
-                        @style = "width:100%;"
-                    })
-            @Html.ValidationMessageFor(model => model.To, null, new { @class = "label label-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Trạng thái</label>
-        <div class="col-md-1 col-sm-1 col-xs-12">
-            <label class="radio-inline">@Html.CheckBoxFor(model => model.IsActive, new { @class = "icheck" })</label>
-        </div>
-    </div>
 </div>
 <script src="@Url.Content("~/Scripts/InputCustom.js")"></script>
 <script type="text/javascript">
@@ -133,7 +96,7 @@
             });
         
         $("#CategoryDdl").select2({
-            placeholder: "Vui lòng chọn thể loại",
+            placeholder: "Vui lòng chọn liệu trình",
             //allowClear: true
         });
 

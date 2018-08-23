@@ -1,4 +1,5 @@
-﻿using CMS_DTO.CMSReservation;
+﻿using CMS_Common;
+using CMS_DTO.CMSReservation;
 using CMS_Shared.CMSReservation;
 using CMS_Web.Web.App_Start;
 using System;
@@ -18,7 +19,7 @@ namespace CMS_Web.Areas.Admin.Controllers
         public CMSReservationsController()
         {
             _fac = new CMSReservationFactory();
-            ViewBag.Category = GetListCateSelectItem();
+            ViewBag.Product = GetListProductSelectItem((byte)Commons.EProductType.Procudure);
             ViewBag.Employee = GetListEmployeeSelectItem();
             ViewBag.From = GetListFromTime();
             ViewBag.To = GetListToTime();
@@ -32,11 +33,8 @@ namespace CMS_Web.Areas.Admin.Controllers
 
         public ActionResult LoadGrid()
         {
-            var model = new List<CMS_ReservationViewModels>(); // _fac.GetList();
-            model.ForEach(x =>
-            {
-                x.sStatus = x.IsActive ? "Kích hoạt" : "Chưa kích hoạt";
-            });
+            var model = new List<CMS_ReservationViewModels>();
+            model = _fac.GetList();
             return PartialView("_ListData", model);
         }
 
@@ -49,7 +47,8 @@ namespace CMS_Web.Areas.Admin.Controllers
         public CMS_ReservationViewModels GetDetail(string Id)
         {
             CMS_ReservationViewModels model = new CMS_ReservationViewModels();
-            return model; // _fac.GetDetail(Id);
+            model = _fac.GetDetail(Id);
+            return model;
         }
 
         [HttpPost]
@@ -65,7 +64,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                 var msg = "";
                 model.CreatedBy = CurrentUser.UserId;
                 model.UpdatedBy = CurrentUser.UserId;
-                var result = true; // _fac.CreateOrUpdate(model, ref msg);
+                var result = _fac.CreateOrUpdate(model, ref msg);
                 if (result)
                 {
                     return RedirectToAction("Index");
@@ -102,7 +101,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                 var msg = "";
                 model.CreatedBy = CurrentUser.UserId;
                 model.UpdatedBy = CurrentUser.UserId;
-                var result = true; // _fac.CreateOrUpdate(model, ref msg);
+                var result = _fac.CreateOrUpdate(model, ref msg);
                 if (result)
                 {                    
                     return RedirectToAction("Index");
@@ -143,7 +142,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                     return PartialView("_Delete", model);
                 }                
                 var msg = "";
-                var result = true; // _fac.Delete(model.Id, ref msg);
+                var result = _fac.Delete(model.Id, ref msg);
                 if (result)
                 {
                     return RedirectToAction("Index");
