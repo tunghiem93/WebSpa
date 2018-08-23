@@ -4,6 +4,7 @@ using CMS_DTO.CMSSession;
 using CMS_Shared;
 using CMS_Shared.CMSCategories;
 using CMS_Shared.CMSCustomers;
+using CMS_Shared.CMSEmployees;
 using CMS_Shared.CMSRole;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,40 @@ namespace CMS_Web.Areas.Admin.Controllers
                 {
                     Value = x.Id,
                     Text = x.CategoryName,
+                }).ToList();
+            }
+            return data;
+        }
+
+        public List<SelectListItem> GetListCateSelectItem()
+        {
+            var _factory = new CMSCategoriesFactory();
+            List<SelectListItem> data = null;
+
+            var listCate = _factory.GetList();
+            if (listCate != null)
+            {
+                data = listCate.Select(x => new SelectListItem
+                {
+                    Value = x.Id,
+                    Text = x.CategoryName,
+                }).ToList();
+            }
+            return data;
+        }
+
+        public List<SelectListItem> GetListEmployeeSelectItem()
+        {
+            var _factory = new CMSEmployeeFactory();
+            List<SelectListItem> data = null;
+
+            var listEmp = _factory.GetList();
+            if (listEmp != null)
+            {
+                data = listEmp.Select(x => new SelectListItem
+                {
+                    Value = x.Id,
+                    Text = x.Name,
                 }).ToList();
             }
             return data;
@@ -130,6 +165,44 @@ namespace CMS_Web.Areas.Admin.Controllers
                     Text = x.Name,
                 }).ToList();
             }
+            return data;
+        }
+
+        public List<SelectListItem> GetListFromTime()
+        {
+            List<SelectListItem> data = new List<SelectListItem>()
+            {
+                 new SelectListItem() {Text = "9 am", Value= "9" },
+                 new SelectListItem() {Text = "10 am", Value= "10" },
+                 new SelectListItem() {Text = "11 am", Value= "11" },
+                 new SelectListItem() {Text = "12 pm", Value= "12" },
+                 new SelectListItem() {Text = "1 pm", Value= "13" },
+                 new SelectListItem() {Text = "2 pm", Value= "14" },
+                 new SelectListItem() {Text = "3 pm", Value= "15" },
+                 new SelectListItem() {Text = "4 pm", Value= "16" },
+                 new SelectListItem() {Text = "5 pm", Value= "17" },
+                 new SelectListItem() {Text = "6 pm", Value= "18" },
+                 new SelectListItem() {Text = "7 pm", Value= "19" },
+            };
+            return data;
+        }
+
+        public List<SelectListItem> GetListToTime()
+        {
+            List<SelectListItem> data = new List<SelectListItem>()
+            {
+                new SelectListItem() {Text = "9 am", Value= "9" },
+                 new SelectListItem() {Text = "10 am", Value= "10" },
+                 new SelectListItem() {Text = "11 am", Value= "11" },
+                 new SelectListItem() {Text = "12 pm", Value= "12" },
+                 new SelectListItem() {Text = "1 pm", Value= "13" },
+                 new SelectListItem() {Text = "2 pm", Value= "14" },
+                 new SelectListItem() {Text = "3 pm", Value= "15" },
+                 new SelectListItem() {Text = "4 pm", Value= "16" },
+                 new SelectListItem() {Text = "5 pm", Value= "17" },
+                 new SelectListItem() {Text = "6 pm", Value= "18" },
+                 new SelectListItem() {Text = "7 pm", Value= "19" },
+            };
             return data;
         }
     }

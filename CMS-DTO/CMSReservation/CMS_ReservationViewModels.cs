@@ -36,12 +36,16 @@ namespace CMS_DTO.CMSReservation
         public DateTime CreatedDate { get; set; }
         public string sStatus { get; set; }
         public bool IsActive { get; set; }
+        public string EmployeeID { get; set; }
+        public string EmployeeName { get; set; }
         public List<CustomerModels> ListCustomer { get; set; }
         public List<CMSCategoriesModels> ListCategories { get; set; }
         public List<CMS_EmployeeModels> ListEmployees { get; set; }
 
         public CMS_ReservationViewModels()
         {
+            BookDay = DateTime.Now;
+            IsActive = true;
             ListCustomer = new List<CustomerModels>();
             ListCategories = new List<CMSCategoriesModels>();
             ListEmployees = new List<CMS_EmployeeModels>();
