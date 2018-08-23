@@ -2,6 +2,8 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
 <div class="wrapper">
     <div class="inner-wrapper">
         <div id="main">
@@ -18,7 +20,7 @@
             <div class="container">
                 <section id="primary" class="content-full-width">
                     <div class="dt-sc-reservation">
-                        @using (@Html.BeginForm("Index", "Reservation", FormMethod.Post, new { @class = "form-horizontal create-form", @enctype = "multipart/form-data", @style = "" }))
+                        @using (@Html.BeginForm("Book", "Reservation", FormMethod.Post, new { @class = "form-horizontal create-form", @enctype = "multipart/form-data", @style = "" }))
                         {
                             <div class="title">
                                 <h6>
@@ -101,128 +103,36 @@
                             </div>
                             <div class="column dt-sc-one-fourth first">
                                 <p>Bạn sẵn sàng</p>
-                                <p>
-                                    @Html.TextBoxFor(model => model.BookDay, new { @class = "form-control datepicker1  has-feedback-left", @placeholder = "Ngày" })
-                                    @Html.ValidationMessageFor(model => model.BookDay, null, new { @class = "label label-danger" })
-                                    <input type="text" id="datepicker" class="hasDatepicker" name="date" value="" />
-                                </p>
+                                <p style="">
+                                    @Html.TextBoxFor(model => model.BookDay, new { id = "datepicker", @class = "", @placeholder = "Ngày", @style = "height: 50px !important; margin-top: 15px;" })
+                                </p>                                
                             </div>
                             <div class="column dt-sc-three-fourth">
                                 <div class="column dt-sc-one-half first">
                                     <p>Bắt đầu :</p>
-                                    <select name="start-time" class='start-time'>
-                                        <option value="00:00">12:00 am</option>
-                                        <option value="01:00">1:00 am</option>
-                                        <option value="02:00">2:00 am</option>
-                                        <option value="03:00">3:00 am</option>
-                                        <option value="04:00">4:00 am</option>
-                                        <option value="05:00">5:00 am</option>
-                                        <option value="06:00">6:00 am</option>
-                                        <option value="07:00">7:00 am</option>
-                                        <option value="08:00" selected="selected">8:00 am</option>
-                                        <option value="09:00">9:00 am</option>
-                                        <option value="10:00">10:00 am</option>
-                                        <option value="11:00">11:00 am</option>
-                                        <option value="12:00">12:00 pm</option>
-                                        <option value="13:00">1:00 pm</option>
-                                        <option value="14:00">2:00 pm</option>
-                                        <option value="15:00">3:00 pm</option>
-                                        <option value="16:00">4:00 pm</option>
-                                        <option value="17:00">5:00 pm</option>
-                                        <option value="18:00">6:00 pm</option>
-                                        <option value="19:00">7:00 pm</option>
-                                        <option value="20:00">8:00 pm</option>
-                                        <option value="21:00">9:00 pm</option>
-                                        <option value="22:00">10:00 pm</option>
-                                        <option value="23:00">11:00 pm</option>
-                                    </select>
+                                    @Html.DropDownListFor(model => model.From,
+                                        new SelectList(ViewBag.ListFromTime, "Value", "Text", Model.From),"Bắt đầu",
+                                        new
+                                        {
+                                            @class = "start-time",
+                                            @style = "width:100%;"
+                                        })
                                 </div>
                                 <div class="column dt-sc-one-half">
                                     <p> Kết thúc:</p>
-                                    <select name="end-time" class='end-time'>
-                                        <option value="09:00">9:00 am</option>
-                                        <option value="10:00">10:00 am</option>
-                                        <option value="11:00">11:00 am</option>
-                                        <option value="12:00">12:00 pm</option>
-                                        <option value="13:00">1:00 pm</option>
-                                        <option value="14:00">2:00 pm</option>
-                                        <option value="15:00">3:00 pm</option>
-                                        <option value="16:00">4:00 pm</option>
-                                        <option value="17:00">5:00 pm</option>
-                                        <option value="18:00">6:00 pm</option>
-                                        <option value="19:00">7:00 pm</option>
-                                        <option value="20:00">8:00 pm</option>
-                                        <option value="21:00">9:00 pm</option>
-                                        <option value="22:00">10:00 pm</option>
-                                        <option value="23:00">11:00 pm</option>
-                                        <option value="23:59">12:00 am</option>
-                                    </select>
+                                    @Html.DropDownListFor(model => model.To,
+                                        new SelectList(ViewBag.ListToTime, "Value", "Text", Model.To),"kết thúc",
+                                        new
+                                        {
+                                            @class = "end-time",
+                                            @style = "width:100%;"
+                                        })
                                 </div>
                             </div>
-                            @*<div class="dt-sc-hr-invisible-small"></div>
-                                <div class="clear"></div>
-                                <p>
-                                    <a id="available-times" href="#" class="dt-sc-button small show-time">Show Time</a>
-                                </p>
-                                <div class="clear"></div>
-                                <div class="dt-sc-hr-invisible"></div>
-                                <div class="clear"></div>
-                                <div class="available-times"></div>
-                                <div class="dt-sc-hr-invisible"></div>
-                                <div id="personal-info" class="clear"></div>
-                                <div class="personal-info hidden">
-                                    <div class="title">
-                                        <h6>
-                                            <span> 03 </span> Personal Info
-                                        </h6>
-                                    </div>
-                                    <div class="dt-sc-hr-invisible-small"></div>
-                                    <div class="clear"></div>
-                                    <div class="column dt-sc-one-half first">
-                                        <p>
-                                            <input type="text" name="name" value="" placeholder="Name">
-                                        </p>
-                                    </div>
-                                    <div class="column dt-sc-one-half">
-                                        <p>
-                                            <input type="email" name="email" value="" required placeholder="Email">
-                                        </p>
-                                    </div>
-                                    <div class="column dt-sc-one-half first">
-                                        <p>
-                                            <input type="text" name="phone" value="" required placeholder="Phone">
-                                        </p>
-                                    </div>
-                                    <div class="column dt-sc-one-half">
-                                        <div class="choose-payment hidden">
-                                            <select name="payment_type">
-                                                <option value="">Choose Payment</option>
-                                                <option value="local">Pay At Arrival</option>
-                                                <option value="paypal">Paypal Express Checkout</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <textarea name="note" placeholder="Note"></textarea>
-                                    <div class="column dt-sc-one-half first">
-                                        <p>
-                                            <input type="text" name="captcha" required placeholder="Captcha">
-                                        </p>
-                                        <input type="hidden" name="hiddencaptcha" readonly="readonly" value="2146" />
-                                    </div>
-                                    <div class="column dt-sc-one-half">
-                                        <p>
-                                            <span class="dt-sc-captcha">
-                                                2
-                                                <sup>1</sup> 4
-                                                <sub>6</sub>
-                                            </span>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="clear"></div>
-                                <p>
-                                    <a href='#' class='dt-sc-button small schedule-it' style='display:none;'>Schedule It</a>
-                                </p>*@
+
+                            <div class="title" style="">
+                                <input type="submit" value="Đặt" style="float: inherit !important; " />
+                            </div>
                         }
                     </div>
                 </section>
@@ -230,23 +140,12 @@
         </div>
     </div>
 </div>
+
 <!-- Cache served by breeze CACHE - Last modified: Fri, 20 Jul 2018 09:57:47 GMT -->
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 <script>
     $(document).ready(function () {
-        $('.datepicker1').daterangepicker({
-            singleDatePicker: true,
-            calender_style: "picker_2",
-            maxDate: new Date(),
-            //==========
-            showDropdowns: true,
-            locale: {
-                format: 'DD/MM/YYYY',
-                daysOfWeek: ['CN', 'Hai', 'Ba', 'Tư', 'Năm', 'Sáu', 'Bảy'],
-                monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12']
-            }
-        }, function (start, end, label) {
-        });
+        
     });
 
 </script>

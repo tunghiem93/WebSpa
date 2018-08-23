@@ -63,5 +63,43 @@ namespace CMS_Web.Controllers
             }
             return null;
         }
+
+        public List<SelectListItem> GetListFromTime()
+        {
+            List<SelectListItem> data = new List<SelectListItem>()
+            {
+                 new SelectListItem() {Text = "9 am", Value= "9" },
+                 new SelectListItem() {Text = "10 am", Value= "10" },
+                 new SelectListItem() {Text = "11 am", Value= "11" },
+                 new SelectListItem() {Text = "12 pm", Value= "12" },
+                 new SelectListItem() {Text = "1 pm", Value= "13" },
+                 new SelectListItem() {Text = "2 pm", Value= "14" },
+                 new SelectListItem() {Text = "3 pm", Value= "15" },
+                 new SelectListItem() {Text = "4 pm", Value= "16" },
+                 new SelectListItem() {Text = "5 pm", Value= "17" },
+                 new SelectListItem() {Text = "6 pm", Value= "18" },
+                 new SelectListItem() {Text = "7 pm", Value= "19" },
+            };
+            return data;
+        }
+
+        public List<SelectListItem> GetListToTime()
+        {
+            List<SelectListItem> data = new List<SelectListItem>()
+            {
+                new SelectListItem() {Text = "9 am", Value= "9" },
+                 new SelectListItem() {Text = "10 am", Value= "10" },
+                 new SelectListItem() {Text = "11 am", Value= "11" },
+                 new SelectListItem() {Text = "12 pm", Value= "12" },
+                 new SelectListItem() {Text = "1 pm", Value= "13" },
+                 new SelectListItem() {Text = "2 pm", Value= "14" },
+                 new SelectListItem() {Text = "3 pm", Value= "15" },
+                 new SelectListItem() {Text = "4 pm", Value= "16" },
+                 new SelectListItem() {Text = "5 pm", Value= "17" },
+                 new SelectListItem() {Text = "6 pm", Value= "18" },
+                 new SelectListItem() {Text = "7 pm", Value= "19" },
+            };
+            return data;
+        }
     }
 }

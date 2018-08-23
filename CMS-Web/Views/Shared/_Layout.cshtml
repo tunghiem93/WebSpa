@@ -14,8 +14,7 @@
 
     <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1' />
     <script type='text/javascript' src="@Url.Content("~/Libraries/plugins/jquery.min.js")"></script>
-    
-    
+
     <link href="@Url.Content("~/Content/cache/breeze-minification/css/breeze_de341f499d515bd714f550e8af8fe23a.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/cache/breeze-minification/css/breeze_78c385beb21471d90489ae0d8907ddf7.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/cache/breeze-minification/css/breeze_41145aabea38ea8e660a38748d735711.css")" rel="stylesheet" />
@@ -85,11 +84,13 @@
             background: none !important;
             padding: 0 !important;
         }
-        .fb_customer_chat_bubble_pop_in{
+
+        .fb_customer_chat_bubble_pop_in {
             margin-bottom: 60px !important;
         }
     </style>
 
+    <link href="@Url.Content("~/Content/jquery-ui.min.css")" id='jquery-ui-datepicker-css' rel="stylesheet" type='text/css' media='all' />
     <link href="@Url.Content("~/Content/ls-google-fonts-css.css")" id='ls-google-fonts-css' rel="stylesheet" type='text/css' media='all' />
     <link href="@Url.Content("~/Content/mytheme-google-fonts-css.css")" id='ls-google-fonts-css' rel="stylesheet" type='text/css' media='all' />
     <script src="@Url.Content("~/Scripts/jquery.js")"></script>
@@ -109,7 +110,7 @@
     <link rel='shortlink' href='' />
     <link rel="alternate" type="application/json+oembed" href="" />
     <link rel="alternate" type="text/xml+oembed" href="" />
-    <meta property="fb:app_id" content="373876889758306"/>
+    <meta property="fb:app_id" content="373876889758306" />
 </head>
 
 <body class="home page-template page-template-tpl-fullwidth page-template-tpl-fullwidth-php page page-id-105 page-parent">
@@ -196,6 +197,10 @@
     <script src="@Url.Content("~/Scripts/wp-embed.min.js")"></script>
     <script src="@Url.Content("~/Scripts/comment-reply.min.js")"></script>
     <script type="text/javascript">window.NREUM || (NREUM = {}); NREUM.info = { "beacon": "bam.nr-data.net", "licenseKey": "095ddbfebf", "applicationID": "46457724", "transactionName": "YVJSZBBSDEIFURVRWVgYZUILHAtfAFcZFkZeRw==", "queueTime": 0, "applicationTime": 19, "atts": "TRVRElhIH0w=", "errorBeacon": "bam.nr-data.net", "agent": "" }</script>
+
+    <script type='text/javascript' src='@Url.Content("~/Scripts/datepicker.min.js")'></script>
+    <script type='text/javascript'>jQuery(document).ready(function (jQuery) { jQuery.datepicker.setDefaults({ "closeText": "Close", "currentText": "Today", "monthNames": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"], "monthNamesShort": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], "nextText": "Next", "prevText": "Previous", "dayNames": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], "dayNamesShort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], "dayNamesMin": ["S", "M", "T", "W", "T", "F", "S"], "dateFormat": "MM d, yy", "firstDay": 1, "isRTL": false }); });</script>
+    <script type='text/javascript' src='@Url.Content("~/Scripts/reservation.js")'></script>
     <script src="@Url.Content("~/Scripts/InitCookie.js")"></script>
     <script>
     $(document).ready(function () {

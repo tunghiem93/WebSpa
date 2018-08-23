@@ -12,7 +12,9 @@ namespace CMS_DTO.CMSReservation
 {
     public class CMS_ReservationViewModels
     {
+        public string Id { get; set; }
         public string CustomerID { get; set; }
+        [Required(ErrorMessage = "Vui lòng nhập tên")]
         public string CustomerName { get; set; }
         public string CategoryID { get; set; }
         public string CategoryName { get; set; }
@@ -21,15 +23,19 @@ namespace CMS_DTO.CMSReservation
         public string Email { get; set; }
         [RegularExpression("([0-9]+)", ErrorMessage = "Vui lòng nhập số")]
         public string Phone { get; set; }
+        [Required(ErrorMessage = "Vui lòng nhập địa chỉ")]
         public string Address { get; set; }
-        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime BookDay { get; set; }
+        public string From { get; set; }
+        public string To { get; set; }
         public string Description { get; set; }
         public string CreatedBy { get; set; }
         public DateTime UpdatedDate { get; set; }
         public string UpdatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public string sStatus { get; set; }
+        public bool IsActive { get; set; }
         public List<CustomerModels> ListCustomer { get; set; }
         public List<CMSCategoriesModels> ListCategories { get; set; }
         public List<CMS_EmployeeModels> ListEmployees { get; set; }
