@@ -188,11 +188,13 @@ jQuery(document).ready(function() {
 				  $width = jQuery(this).parents(".dt-sc-images-carousel-wrapper").data('width');
 
 			jQuery(this).carouFredSel({
-				  responsive:true,
-				  auto:false,
+                responsive: true,
+                auto: true,
 				  width:'100%',
 				  height: 'variable',
-				  scroll:1,
+                  scroll: {
+                      items: 1, duration: 1000
+                  },
 				  items:{ 
 				  	width:$width,
 				  	height: 'variable',
