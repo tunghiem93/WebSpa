@@ -110,6 +110,9 @@ span.psw {
 #id01 .caroufredsel_wrapper {
     margin-top:3% !important;
 }
+#id01 .caroufredsel_wrapper {
+    width: 100% !important;
+}
 @-webkit-keyframes animatezoom {
     from {
         -webkit-transform: scale(0)

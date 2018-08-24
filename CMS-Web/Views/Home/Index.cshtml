@@ -337,11 +337,9 @@
                     <h2>KHUYẾN MÃI ĐẶC BIỆT TRONG NGÀY HÔM NAY</h2>
                   @*  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>*@
                 </div>
-
-                <div class="container">
-                    
-                    <div class='dt-sc-images-carousel-wrapper' data-min='1' data-max='2' data-width='520'>
-                        <ul class='dt-sc-images-carousel'>
+                <div class="container" style="width:100%;padding:0px;">
+                    <div class='dt-sc-images-carousel-wrapper' data-min='1' data-max='2' data-width='520' style="width:100%;">
+                        <ul class='dt-sc-images-carousel' style="width:100%;">
                             @if (Model.LstDiscount != null && Model.LstDiscount.Any())
                             {
                                 foreach (var item in Model.LstDiscount)
