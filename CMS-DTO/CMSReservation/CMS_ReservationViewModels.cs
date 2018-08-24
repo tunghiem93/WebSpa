@@ -16,14 +16,17 @@ namespace CMS_DTO.CMSReservation
         public string CustomerID { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập tên")]
         public string CustomerName { get; set; }
+        [Required(ErrorMessage = "Vui lòng chọn liệu trình")]
         public string ProductID { get; set; }
         public string ProductName { get; set; }
         [RegularExpression("([0-9]+)", ErrorMessage = "Vui lòng nhập số")]
+        [Required(ErrorMessage = "Vui lòng nhập số điện thoại")]
         public string Phone { get; set; }
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime BookDay { get; set; }
-        public string From { get; set; }
-        public string Description { get; set; }
+        [DataType(DataType.Time), DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
+        public TimeSpan FromTime { get; set; }
+        public string Remark { get; set; }
         public string CreatedBy { get; set; }
         public DateTime UpdatedDate { get; set; }
         public string UpdatedBy { get; set; }

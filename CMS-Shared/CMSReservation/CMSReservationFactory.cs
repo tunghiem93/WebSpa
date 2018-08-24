@@ -26,8 +26,8 @@ namespace CMS_Shared.CMSReservation
                             ID = Guid.NewGuid().ToString(),
                             CustomerName = model.CustomerName,
                             Mobile = model.Phone,
-                            Date = model.BookDay,
-                            Remark = model.Description,
+                            Date = model.BookDay.Date.AddMinutes(model.FromTime.TotalMinutes),
+                            Remark = model.Remark,
                             StoreID = model.StoreID,
 
                             Status = (byte)Commons.EStatus.Actived,
@@ -59,8 +59,8 @@ namespace CMS_Shared.CMSReservation
                         {
                             e.CustomerName = model.CustomerName;
                             e.Mobile = model.Phone;
-                            e.Date = model.BookDay;
-                            e.Remark = model.Description;
+                            e.Date = model.BookDay.Date.AddMinutes(model.FromTime.TotalMinutes);
+                            e.Remark = model.Remark;
                             e.ModifiedUser = model.CreatedBy;
                             e.LastModified = DateTime.Now;
 
@@ -144,11 +144,13 @@ namespace CMS_Shared.CMSReservation
                             CustomerName = o.r.CustomerName,
                             Phone = o.r.Mobile,
                             BookDay = o.r.Date,
-                            Description = o.r.Remark,
+                            //FromTime = o.r.Date-o.r.Date.Date,
+                            Remark = o.r.Remark,
                             ProductID = o.d.ProductID,
                             ProductName = o.d.ProductName,
                         }).FirstOrDefault();
 
+                    data.FromTime = data.BookDay - data.BookDay.Date;
                     result = data;
 
                     NSLog.Logger.Info("ResponseReservationGetDetail", result);
@@ -174,15 +176,16 @@ namespace CMS_Shared.CMSReservation
 
                     var data = query.Where(o => o.Status != (byte)Commons.EStatus.Deleted).OrderByDescending(o => o.Date)
                         .Join(cxt.CMS_ReservationDetail, r => r.ID, d => d.ReservationID, (r, d) => new { r, d })
+                        .Join(cxt.CMS_Products, r=> r.d.ProductID, p=> p.ID, (r,p)=> new { r.r, r.d, p })
                         .Select(o => new CMS_ReservationViewModels
                         {
                             Id = o.r.ID,
                             CustomerName = o.r.CustomerName,
                             Phone = o.r.Mobile,
                             BookDay = o.r.Date,
-                            Description = o.r.Remark,
+                            Remark = o.r.Remark,
                             ProductID = o.d.ProductID,
-                            ProductName = o.d.ProductName,
+                            ProductName = o.p.Name,
                         }).ToList();
 
                     /* response data */

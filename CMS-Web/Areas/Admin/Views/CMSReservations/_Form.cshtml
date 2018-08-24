@@ -5,11 +5,14 @@
     Html.EnableUnobtrusiveJavaScript(true);
     var _ID = Model.Id;
 }
-@Html.HiddenFor(model =>model.Id)
+@Html.HiddenFor(model => model.Id)
 
 <div class="row form-horizontal form-label-left" style="margin-bottom:15px;">
     <div class="form-group">
-        <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Khách hàng</label>
+        <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">
+            Khách hàng                                                    
+            <abbr class="required" title="required">*</abbr>
+        </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
             @Html.TextBoxFor(model => model.CustomerName, new { @class = "form-control", @placeholder = "Tên khách hàng", @autocomplete = "off" })
             @Html.ValidationMessageFor(model => model.CustomerName, null, new { @class = "label label-danger" })
@@ -17,7 +20,10 @@
     </div>
 
     <div class="form-group">
-        <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Số điện thoại</label>
+        <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">
+            Số điện thoại
+            <abbr class="required" title="required">*</abbr>
+        </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
             @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", @placeholder = "Số điện thoại", @autocomplete = "off" })
             @Html.ValidationMessageFor(model => model.Phone, null, new { @class = "label label-danger" })
@@ -25,7 +31,9 @@
     </div>
 
     <div class="form-group">
-        <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Liệu trình</label>
+        <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Liệu trình
+            <abbr class="required" title="required">*</abbr>
+        </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
             @Html.DropDownListFor(model => model.ProductID,
                     new SelectList(ViewBag.Product, "Value", "Text", Model.ProductID), "Vui lòng chọn liệu trình",
@@ -40,19 +48,19 @@
     </div>
 
     @*<div class="form-group">
-        <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Nhân viên</label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            @Html.DropDownListFor(model => model.EmployeeID,
-                    new SelectList(ViewBag.Employee, "Value", "Text", Model.EmployeeID), "Vui lòng chọn nhân viên",
-                    new
-                    {
-                        @class = "form-control select2_multiple",
-                        @id = "EmployeeDdl",
-                        @style = "width:100%;"
-                    })
-            @Html.ValidationMessageFor(model => model.EmployeeID, null, new { @class = "label label-danger" })
-        </div>
-    </div>*@
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Nhân viên</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.DropDownListFor(model => model.EmployeeID,
+                        new SelectList(ViewBag.Employee, "Value", "Text", Model.EmployeeID), "Vui lòng chọn nhân viên",
+                        new
+                        {
+                            @class = "form-control select2_multiple",
+                            @id = "EmployeeDdl",
+                            @style = "width:100%;"
+                        })
+                @Html.ValidationMessageFor(model => model.EmployeeID, null, new { @class = "label label-danger" })
+            </div>
+        </div>*@
 
     <div class="form-group">
         <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Ngày đặt</label>
@@ -65,15 +73,18 @@
     <div class="form-group">
         <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Thời gian bắt đầu</label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            @Html.DropDownListFor(model => model.From,
-                    new SelectList(ViewBag.From, "Value", "Text", Model.From), "Vui lòng chọn thời gian",
-                    new
-                    {
-                        @class = "form-control select2_multiple",
-                        @id = "FromDdl",
-                        @style = "width:100%;"
-                    })
-            @Html.ValidationMessageFor(model => model.From, null, new { @class = "label label-danger" })
+            @*<input type="time" name="@Model.FromTime" id="@Model.FromTime">*@
+            @Html.TextBoxFor(model => model.FromTime, new { @class = "form-control ", type = "time" })
+
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Ghi chú</label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.TextAreaFor(model => model.Remark, new { @class = "form-control", @placeholder = "Ghi chú", @autocomplete = "off" })
+            @Html.ValidationMessageFor(model => model.Remark, null, new { @class = "label label-danger" })
         </div>
     </div>
 
@@ -84,7 +95,7 @@
         $('.datepicker1').daterangepicker({
             singleDatePicker: true,
             calender_style: "picker_2",
-            maxDate: new Date(),
+            minDate: new Date(),
             //==========
             showDropdowns: true,
             locale: {
@@ -93,8 +104,8 @@
                 monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12']
             }
         }, function (start, end, label) {
-            });
-        
+        });
+
         $("#CategoryDdl").select2({
             placeholder: "Vui lòng chọn liệu trình",
             //allowClear: true
@@ -115,4 +126,5 @@
             //allowClear: true
         });
     })
+
 </script>
