@@ -24,6 +24,8 @@ namespace CMS_DTO.CMSCustomer
         public string PostCode { get; set; }
         public string Country { get; set; }
         public string City { get; set; }
+        public string Fb_ID { get; set; }
+        public string Picture { get; set; }
         public ClientLoginModel()
         {
             IsRemember = true;

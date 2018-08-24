@@ -148,6 +148,29 @@ namespace CMS_Shared.CMSCustomers
             return result;
         }
 
+
+        public bool CheckExistLoginSosial(string Id)
+        {
+            bool result = true;
+            try
+            {
+                using (var cxt = new CMS_Context())
+                {
+                    var data = cxt.CMS_Customer.Where(o => o.ID == Id).FirstOrDefault();
+                    if (data == null)
+                    {
+                        result = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                NSLog.Logger.Error("ErrorCheckExistLoginSosial", ex);
+            }
+            return result;
+        }
+
         public CustomerModels GetDetail(string Id)
         {
             NSLog.Logger.Info("CustomersGetDetail", Id);

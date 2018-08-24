@@ -2,9 +2,11 @@
 using CMS_DTO.CMSSession;
 using CMS_Shared.CMSCustomers;
 using CMS_Shared.Utilities;
+using Facebook;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,6 +17,17 @@ namespace CMS_Web.Controllers
     public class LoginController : Controller
     {
         private CMSCustomersFactory _factory = null;
+        private Uri RediredtUri
+        {
+            get
+            {
+                var uriBuilder = new UriBuilder(Request.Url);
+                uriBuilder.Query = null;
+                uriBuilder.Fragment = null;
+                uriBuilder.Path = Url.Action("FacebookCallback");
+                return uriBuilder.Uri;
+            }
+        }
         public LoginController()
         {
             _factory = new CMSCustomersFactory();
@@ -181,6 +194,121 @@ namespace CMS_Web.Controllers
                 NSLog.Logger.Error("Profile_Error:", ex);
             }
             return View(model);
+        }
+
+        [AllowAnonymous]
+        public ActionResult LoginFacebook()
+        {
+            var fb = new FacebookClient();
+            var loginUrl = fb.GetLoginUrl(new
+            {
+                client_id = ConfigurationManager.AppSettings["FbAppId"],
+                client_secret = ConfigurationManager.AppSettings["FbAppSecret"],
+                redirect_uri = RediredtUri.AbsoluteUri,
+                response_type = "code",
+                scope = "email"
+            });
+            return Redirect(loginUrl.AbsoluteUri);
+        }        
+
+        public ActionResult FacebookCallback(string code)
+        {
+            var fb = new FacebookClient();
+            dynamic result = fb.Post("oauth/access_token", new
+            {
+                client_id = ConfigurationManager.AppSettings["FbAppId"],
+                client_secret = ConfigurationManager.AppSettings["FbAppSecret"],
+                redirect_uri = RediredtUri.AbsoluteUri,
+                code = code
+            });
+            var accessToken = result.access_token;
+            Session["AccessToken"] = accessToken;
+            fb.AccessToken = accessToken;
+            dynamic me = fb.Get("me?fields=link,first_name,currency,last_name,email,gender,locale,timezone,verified,picture,age_range");
+            string email = me.email;
+            string first_name = me.first_name;
+            string last_name = me.last_name;
+            string picture = me.picture.data.url;
+            string fb_id = me.id;
+            FormsAuthentication.SetAuthCookie(email, false);
+            ClientLoginModel model = new ClientLoginModel();
+            model.Email = email;
+            model.FirstName = first_name;
+            model.LastName = last_name;
+            model.Picture = picture;
+            model.Fb_ID = fb_id;
+
+            bool IsCheck = _factory.CheckExistLoginSosial(model.Fb_ID);
+            if (IsCheck)
+            {
+                var resultLogin = _factory.Login(model);
+                if (resultLogin != null)
+                {
+                    UserSession userSession = new UserSession();
+                    userSession.Email = result.Email;
+                    userSession.UserName = result.DisplayName;
+                    userSession.IsAdminClient = result.IsAdmin;
+                    userSession.FirstName = result.FirstName;
+                    userSession.LastName = result.LastName;
+                    userSession.Phone = result.Phone;
+                    userSession.Address = result.Address;
+                    userSession.UserId = result.Id;
+                    userSession.PostCode = result.PostCode;
+                    userSession.Country = result.Country;
+                    userSession.City = result.City;
+                    Session.Add("UserClient", userSession);
+                    string myObjectJson = JsonConvert.SerializeObject(userSession);  //new JavaScriptSerializer().Serialize(userSession);
+                    HttpCookie cookie = new HttpCookie("UserClientCookie");
+                    cookie.Expires = DateTime.Now.AddMonths(1);
+                    cookie.Value = Server.UrlEncode(myObjectJson);
+                    HttpContext.Response.Cookies.Add(cookie);
+                }
+                else
+                {
+                    ModelState.AddModelError("Email", "Thông tin tài khoản không chính xác");
+                    return View(model);
+                }
+            }
+            else
+            {
+                CustomerModels modelFB = new CustomerModels();
+                modelFB.ID = fb_id;
+                modelFB.FirstName = first_name;
+                modelFB.LastName = last_name;
+                modelFB.Email = email;
+                modelFB.ImageURL = picture;
+                string msg = "";
+                string cusId = "";
+                var resultSignUp = _factory.CreateOrUpdate(modelFB, ref cusId, ref msg);
+                if (resultSignUp)
+                {
+                    var data = _factory.GetDetail(cusId);
+                    UserSession userSession = new UserSession();
+                    userSession.Email = data.Email;
+                    userSession.UserName = data.FirstName + " " + data.LastName;
+                    userSession.FirstName = data.FirstName;
+                    userSession.LastName = data.LastName;
+                    userSession.Phone = data.Phone;
+                    userSession.Address = data.Address;
+                    userSession.UserId = data.ID;
+                    userSession.PostCode = data.Postcode;
+                    userSession.Country = data.Country;
+                    userSession.City = data.City;
+                    Session.Add("UserClient", userSession);
+                    string myObjectJson = JsonConvert.SerializeObject(userSession);  //new JavaScriptSerializer().Serialize(userSession);
+                    HttpCookie cookie = new HttpCookie("UserClientCookie");
+                    cookie.Expires = DateTime.Now.AddMonths(1);
+                    cookie.Value = Server.UrlEncode(myObjectJson);
+                    HttpContext.Response.Cookies.Add(cookie);
+                }
+                else
+                {
+                    ModelState.AddModelError("Email", "");
+                    return View(model);
+                }
+            }
+            return RedirectToAction("Index", "Home");
+
         }
     }
 }
