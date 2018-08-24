@@ -27,9 +27,26 @@ namespace CMS_DTO.CMSSession
         public string Country { get; set; }
         public string City { get; set; }
         public List<CMS_PermissionModels> ListPermision { get; set; }
-
+        /// <summary>
+        /// Properties Language for Model
+        /// </summary>
+        public string LanguageId { get; set; }
+        public Dictionary<string, string> ListLanguageText { get; set; }
         public UserSession()
         {
+            ListLanguageText = new Dictionary<string, string>();
+
+        }
+        public string GetLanguageTextFromKey(string _key)
+        {
+            if (_key == null)
+                return "";
+            string value = _key;
+            if (ListLanguageText != null && ListLanguageText.Count > 0)
+            {
+                value = !ListLanguageText.ContainsKey(_key) ? _key : ListLanguageText[_key];
+            }
+            return value;
         }
     }
 }
