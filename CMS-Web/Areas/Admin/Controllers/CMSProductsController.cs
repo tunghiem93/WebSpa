@@ -28,6 +28,8 @@ namespace CMS_Web.Areas.Admin.Controllers
         // GET: Admin/CMSCategories
         public ActionResult Index()
         {
+            if (HttpContext.Session != null && HttpContext.Session["Upload"] != null)
+                HttpContext.Session.Remove("Upload");
             return View();
         }
 
@@ -43,6 +45,8 @@ namespace CMS_Web.Areas.Admin.Controllers
 
         public ActionResult Create()
         {
+            if (HttpContext.Session != null && HttpContext.Session["Upload"] != null)
+                HttpContext.Session.Remove("Upload");
             CMS_ProductsModels model = new CMS_ProductsModels();
             return PartialView("_Create", model);
         }
@@ -62,7 +66,9 @@ namespace CMS_Web.Areas.Admin.Controllers
                 var data = new List<CMS_ImagesModels>();
                 if (model.PictureUpload.Length > 0 && model.PictureUpload.Any() && model.PictureUpload[0] != null)
                 {
-                    foreach (HttpPostedFileBase File in model.PictureUpload)
+                    var _FileUpload = Session["Upload"] as SessionUpload;
+                    var tempUpload = _FileUpload.ListProduct;
+                    foreach (HttpPostedFileBase File in tempUpload)
                     {
                         if (model.ListImages != null && model.ListImages.Any())
                         {
@@ -149,6 +155,8 @@ namespace CMS_Web.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Edit(string Id)
         {
+            if (HttpContext.Session != null && HttpContext.Session["Upload"] != null)
+                HttpContext.Session.Remove("Upload");
             var model = _factory.GetDetail(Id);
             return PartialView("_Edit", model);
         }
@@ -168,7 +176,9 @@ namespace CMS_Web.Areas.Admin.Controllers
                 var data = new List<CMS_ImagesModels>();
                 if (model.PictureUpload.Length > 0 && model.PictureUpload.Any() && model.PictureUpload[0] != null)
                 {
-                    foreach (HttpPostedFileBase File in model.PictureUpload)
+                    var _FileUpload = Session["Upload"] as SessionUpload;
+                    var tempUpload = _FileUpload.ListProduct;
+                    foreach (HttpPostedFileBase File in tempUpload)
                     {
                         if (model.ListImages != null && model.ListImages.Any())
                         {
@@ -306,19 +316,38 @@ namespace CMS_Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public PartialViewResult AddImageItem(int OffSet, int Length)
+        public PartialViewResult AddImageItem()
         {
-
             List<CMS_ImagesModels> model = new List<CMS_ImagesModels>();
-            var _OffSet = OffSet;
-            for (int i = 0; i < Length; i++)
+            var _OffSet = Convert.ToInt32(Request["OffSet"]);
+            if (Request.Files.Count > 0)
             {
-                model.Add(new CMS_ImagesModels
+                HttpFileCollectionBase files = Request.Files;
+                for (var i = 0; i < files.Count; i++)
                 {
-                    OffSet = _OffSet,
-                    IsDeleted = false
-                });
-                _OffSet = _OffSet + 1;
+                    HttpPostedFileBase file = files[i];
+                    model.Add(new CMS_ImagesModels
+                    {
+                        OffSet = _OffSet,
+                        IsDeleted = false,
+                        PictureUpload = file,
+                    });
+                    _OffSet = _OffSet + 1;
+
+                    if (Session["Upload"] == null)
+                    {
+                        SessionUpload _sUpload = new SessionUpload();
+                        _sUpload.ListProduct.Add(file);
+                        Session.Add("Upload", _sUpload);
+                    }
+                    else
+                    {
+                        var _Upload = Session["Upload"] as SessionUpload;
+                        _Upload.ListProduct.Add(file);
+                        Session.Add("Upload", _Upload);
+                    }
+                }
+
             }
             return PartialView("_ListItem", model);
         }

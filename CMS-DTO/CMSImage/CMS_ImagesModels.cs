@@ -19,4 +19,13 @@ namespace CMS_DTO.CMSImage
         public byte[] PictureByte { get; set; }
         public string ProductId { get; set; }
     }
+    public class SessionUpload
+    {
+        public List<HttpPostedFileBase> ListProduct { get; set; }
+
+        public SessionUpload()
+        {
+            ListProduct = new List<HttpPostedFileBase>();
+        }
+    }
 }

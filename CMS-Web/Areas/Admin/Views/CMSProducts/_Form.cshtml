@@ -70,7 +70,7 @@
             <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight">Thể loại</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 @Html.DropDownListFor(model => model.CategoryId,
-                    new SelectList(ViewBag.Category, "Value", "Text", Model.CategoryId),"Vui lòng chọn thể loại",
+                    new SelectList(ViewBag.Category, "Value", "Text", Model.CategoryId), "Vui lòng chọn thể loại",
                     new
                     {
                         @class = "form-control select2_multiple",
@@ -154,33 +154,37 @@
         $('[id=upload_file]').click();
     }
 
-    function preview_image(e) {
-        var _Files = document.getElementById("upload_file").files;
-        var filesLength = _Files.length;
+    function preview_image(e)
+    {
+        var formData = new FormData();
+        //get file
+        var File = document.getElementById("upload_file").files;
+        //get offset
         var _OffSet = $('.ng-image-product').length;
-
+        for (var i = 0; i < File.length; i++) {
+            formData.append(File[i].name, File[i]);
+        }
+        formData.append("OffSet", _OffSet);
+        var filesLength = File.length;
         var ListImage = [];
         var ListName = [];
         for (var i = 0; i < filesLength; i++) {
-            var _file = _Files[i];
+            var _file = File[i];
             ListName.push(_file.name);
             var oFReader = new FileReader();
             oFReader.onload = function (oFREvent) {
                 ListImage.push(oFREvent.target.result)
             };
-            oFReader.readAsDataURL(_Files[i]);
+            oFReader.readAsDataURL(File[i]);
         }
-
         setTimeout(function () {
-            $.ajax({
+                    $.ajax({
                 url: '@Url.Action("AddImageItem", "CMSProducts")',
-                type: 'POST',
-                data: {
-                    OffSet: _OffSet,
-                    Length: filesLength
-                },
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data: formData,
                 dataType: 'html',
-                traditional: true,
                 beforeSend: function () {
                     $('.se-pre-con').show();
                 },
