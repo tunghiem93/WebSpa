@@ -20,12 +20,15 @@
                     {
                         for (int i = 0; i < Model.Items.Count; i++)
                         {
-                            <tr class="odd gradeX">
-                                <td class="text-center"> @Model.Items[i].ProductName </td>
-                                <td class="text-center"> @Model.Items[i].Price </td>
-                                <td class="text-center"> @Model.Items[i].Quantity </td>
-                                <td class="text-center"> @string.Format("{0:0,0 VNĐ}", Model.Items[i].TotalPrice)</td>
-                            </tr>
+                            if (!string.IsNullOrEmpty(Model.Items[i].ProductName))
+                            {
+                                <tr class="odd gradeX">
+                                    <td class="text-center"> @Model.Items[i].ProductName </td>
+                                    <td class="text-center"> @Model.Items[i].Price </td>
+                                    <td class="text-center"> @Model.Items[i].Quantity </td>
+                                    <td class="text-center"> @string.Format("{0:0,0 VNĐ}", Model.Items[i].TotalPrice)</td>
+                                </tr>
+                            }
                         }
                     }
                 </tbody>

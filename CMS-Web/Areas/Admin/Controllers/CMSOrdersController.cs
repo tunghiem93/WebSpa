@@ -123,9 +123,10 @@ namespace CMS_Web.Areas.Admin.Controllers
                         Phone = Order.Phone,
                         Id = Order.Id
                     },
+                    TotalPrice = Order.TotalPrice,
+                    TotalDiscount = Order.TotalDiscount,
+                    SubTotalPrice = Order.SubTotal,
                     ListItem = Order.Items,
-                    TotalPrice = Order.Items != null ? Order.Items.Sum(o => o.TotalPrice) : 0,
-                    SubTotalPrice = Order.Items != null ? Order.Items.Sum(o => o.TotalPrice) : 0,
                     IsTemp = false //admin
                 };
                 if(model != null && model.ListItem != null && model.ListItem.Any() && !string.IsNullOrEmpty(Order.DiscountID))
@@ -136,16 +137,6 @@ namespace CMS_Web.Areas.Admin.Controllers
                         DiscountType = Order.DiscountType,
                         DiscountValue = Order.DiscountValue
                     });
-                    if(Order.DiscountType == (byte)CMS_Common.Commons.EValueType.Percent)
-                    {
-                        model.TotalDiscount =(model.TotalPrice * (Order.DiscountValue / 100));
-                        model.TotalDiscount = CommonHelper.RoundingOption4(model.TotalDiscount);
-                    }
-                    else
-                    {
-                        model.TotalDiscount = Order.DiscountValue;
-                    }
-                    //model.TotalPrice = CommonHelper.RoundingOption4(model.SubTotalPrice - model.TotalDiscount);
                 }
                 var OrderId = string.Empty;
                 var result = _fac.CreateOrder(model,ref OrderId);

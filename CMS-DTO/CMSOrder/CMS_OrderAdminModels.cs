@@ -26,6 +26,7 @@ namespace CMS_DTO.CMSOrder
         public string DiscountCode { get; set; }
         public float TotalPrice { get; set; }
         public float SubTotal { get; set; }
+        public float TotalDiscount { get; set; }
         public List<CMS_ItemModels> Items { get; set; }
         public List<CMS_CustomerAnonymousModels> Customers { get; set; }
         public List<CMS_DiscountModels> Discounts { get; set; }

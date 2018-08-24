@@ -13,14 +13,14 @@ namespace CMS_DTO.CMSDiscount
     {
         public string Id { get; set; }
         public string StoreID { get; set; }
-        [MaxLength(50,ErrorMessage ="Tên giảm giá tối đa 50 kí tự")]
+        [MaxLength(50, ErrorMessage = "Tên giảm giá tối đa 50 kí tự")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập mã giảm giá")]
         [MaxLength(50, ErrorMessage = "Mã giảm giá tối đa 50 kí tự")]
         public string DiscountCode { get; set; }
         public string Description { get; set; }
         public double Value { get; set; }
-        public string ValueText { get { return Value.ToString() + (IsPercent ? "%" : " VNĐ"); } }
+        public string ValueText { get { return IsPercent ? Value.ToString() + "%" : string.Format("{0:0,0 VNĐ}", Value); } }
         public bool IsAllowOpenValue { get; set; }
         public bool IsActive { get; set; }
         public string sStatus { get; set; }
