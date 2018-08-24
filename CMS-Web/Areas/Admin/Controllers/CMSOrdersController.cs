@@ -145,8 +145,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                     {
                         model.TotalDiscount = Order.DiscountValue;
                     }
-                    model.TotalPrice = CommonHelper.RoundingOption4(model.SubTotalPrice - model.TotalDiscount);
-                    
+                    //model.TotalPrice = CommonHelper.RoundingOption4(model.SubTotalPrice - model.TotalDiscount);
                 }
                 var OrderId = string.Empty;
                 var result = _fac.CreateOrder(model,ref OrderId);

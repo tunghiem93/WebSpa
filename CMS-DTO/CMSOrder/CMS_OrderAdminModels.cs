@@ -24,6 +24,8 @@ namespace CMS_DTO.CMSOrder
         public float DiscountValue { get; set; }
         public byte DiscountType { get; set; }
         public string DiscountCode { get; set; }
+        public float TotalPrice { get; set; }
+        public float SubTotal { get; set; }
         public List<CMS_ItemModels> Items { get; set; }
         public List<CMS_CustomerAnonymousModels> Customers { get; set; }
         public List<CMS_DiscountModels> Discounts { get; set; }

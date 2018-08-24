@@ -5,7 +5,7 @@
     Html.EnableUnobtrusiveJavaScript(true);
     var _ID = Model.Id;
 }
-@Html.HiddenFor(model =>model.Id)
+@Html.HiddenFor(model => model.Id)
 <style>
     * {
         box-sizing: border-box;
@@ -71,7 +71,7 @@
 
     .list-group-item:hover {
         background-color: #e9e9e9;
-        cursor:pointer;
+        cursor: pointer;
     }
 </style>
 <div class="row form-horizontal form-label-left" style="margin-bottom:15px;">
@@ -117,7 +117,7 @@
                 <input type="hidden" ng-model="DiscountValue" />
                 <input type="hidden" ng-model="ValueText" />
                 <div class="input-group">
-                    
+
                     <input type="text" class="form-control" placeholder="Mã giảm giá" autocomplete="off" ng-model="DiscountCode" ng-keyup="completeDiscount(DiscountCode)" />
                     <span class="input-group-addon" style="cursor:pointer;" ng-click="removeDiscount();"><i class="glyphicon glyphicon-remove"></i></span>
 
@@ -162,6 +162,8 @@
             </form>
         </div>
         <div class="form-group">
+            <input type="hidden" ng-model="TotalPrice" />
+            <input type="hidden" ng-model="SubTotal" />
             <table class="table table-striped table-bordered table-hover dt-responsive" id="sample_4">
                 <thead>
                     <tr>
@@ -189,7 +191,7 @@
                         </td>
                     </tr>
                 </tbody>
-                <tfoot ng-if="TotalPrice !=undefined && TotalPrice != 0 ">
+                <tfoot ng-if="TotalPrice !=undefined">
                     <tr>
                         <td class="text-right" colspan="4">SubTotal</td>
                         <td class="text-center">{{SubTotal | currency :"": 0}} đ</td>
@@ -302,6 +304,8 @@
                     }
                     else {
                         $scope.TotalPrice = $scope.TotalPrice - $scope.DiscountValue;
+                        if ($scope.TotalPrice < 0)
+                            $scope.TotalPrice = 0;
                     }
                 }
             }
@@ -371,10 +375,12 @@
                     }
                     else {
                         $scope.TotalPrice = $scope.TotalPrice - $scope.DiscountValue;
+                        if ($scope.TotalPrice < 0)
+                            $scope.TotalPrice = 0;
                     }
                 }
             }
-            
+
             /* reset value */
             $scope.ProductPrice = 0;
             $scope.ProductId = "";
@@ -386,7 +392,7 @@
         $scope.deleteItem = function (item)
         {
             var index = $scope.Items.indexOf(item);
-            $scope.Items.splice(index, 1);  
+            $scope.Items.splice(index, 1);
             $scope.TotalPrice = 0;
             $scope.SubTotal = 0;
             if ($scope.Items != null && $scope.Items != undefined) {
@@ -403,12 +409,14 @@
                     }
                     else {
                         $scope.TotalPrice = $scope.TotalPrice - $scope.DiscountValue;
+                        if ($scope.TotalPrice < 0)
+                            $scope.TotalPrice = 0;
                     }
                 }
             }
         }
 
-        
+
 
         $scope.SaveOrder = function () {
             $('.se-pre-con').show();
