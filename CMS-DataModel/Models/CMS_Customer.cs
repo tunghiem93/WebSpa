@@ -17,6 +17,12 @@ namespace CMS_DataModel.Models
         [StringLength(100)]
         public string ID { get; set; }
 
+        [StringLength(100)]
+        public string FbID { get; set; }
+
+        [StringLength(100)]
+        public string GoogleID { get; set; }
+
         [StringLength(20)]
         public string IC { get; set; }
 
