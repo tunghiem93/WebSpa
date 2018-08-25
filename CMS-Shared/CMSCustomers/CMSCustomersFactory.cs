@@ -18,22 +18,18 @@ namespace CMS_Shared.CMSCustomers
             var Result = true;
             using (var cxt = new CMS_Context())
             {
-                var _isExits = cxt.CMS_Customer.Any(x => x.Email.Equals(model.Email) && x.IsActive.HasValue && x.Status != (byte)Commons.EStatus.Deleted);
+                var _isExits = cxt.CMS_Customer.Where(x => x.Email.Equals(model.Email) && x.IsActive.HasValue && x.Status != (byte)Commons.EStatus.Deleted && x.ID != model.ID).FirstOrDefault();
                 try
                 {
                     if (string.IsNullOrEmpty(model.ID)) /* insert */
                     {
-                        if (_isExits)
-                        {
-                            msg = "Địa chỉ email đã tồn tại";
-                            Result = false;
-                        }
-                        else
+                        if (_isExits == null)
                         {
                             Id = Guid.NewGuid().ToString();
                             var e = new CMS_Customer
                             {
                                 ID = Id,
+                                FbID = model.FbID,
                                 FirstName = model.FirstName,
                                 LastName = model.LastName,
                                 IsActive = model.IsActive,
@@ -61,14 +57,36 @@ namespace CMS_Shared.CMSCustomers
                                 ValidTo = Commons.MinDate,
                             };
                             cxt.CMS_Customer.Add(e);
-                        }                        
+                            
+                        }
+                        else
+                        {
+                            if (!string.IsNullOrEmpty(model.FbID))
+                            {
+                                if (string.IsNullOrEmpty(_isExits.FbID)) /* update fb ID */
+                                {
+                                    Id = _isExits.ID;
+                                    _isExits.FbID = model.FbID;
+                                }
+                                else
+                                {
+                                    msg = "Địa chỉ email đã tồn tại";
+                                    Result = false;
+                                }
+                            }                          
+                            else
+                            {
+                                msg = "Địa chỉ email đã tồn tại";
+                                Result = false;
+                            }
+                        }
                     }
                     else /* updated */
                     {
                         var e = cxt.CMS_Customer.Find(model.ID);
                         if (e != null)
                         {
-                            if (e.Email.Equals(model.Email) || !_isExits)
+                            if (e.Email.Equals(model.Email) || _isExits == null)
                             {
                                 e.FirstName = model.FirstName;
                                 e.LastName = model.LastName;
@@ -94,7 +112,7 @@ namespace CMS_Shared.CMSCustomers
                             {
                                 msg = "Địa chỉ email đã tồn tại";
                                 Result = false;
-                            }                            
+                            }
                         }
                         else
                         {
@@ -113,7 +131,7 @@ namespace CMS_Shared.CMSCustomers
                 }
             }
             return Result;
-        }        
+        }
 
         public bool Delete(string Id, ref string msg)
         {
@@ -156,7 +174,7 @@ namespace CMS_Shared.CMSCustomers
             {
                 using (var cxt = new CMS_Context())
                 {
-                    var data = cxt.CMS_Customer.Where(o => o.ID == Id).FirstOrDefault();
+                    var data = cxt.CMS_Customer.Where(o => (o.FbID == Id || o.GoogleID == Id) && o.Status == (byte)Commons.EStatus.Actived).FirstOrDefault();
                     if (data == null)
                     {
                         result = false;
@@ -261,9 +279,9 @@ namespace CMS_Shared.CMSCustomers
             {
                 using (var cxt = new CMS_Context())
                 {
-                    var data = cxt.CMS_Customer.Where(x => x.Email.Equals(model.Email) &&
-                                                         x.Password.Equals(model.Password) &&
-                                                         x.IsActive.Value) 
+                    var data = cxt.CMS_Customer.Where(x => x.Email.Equals(model.Email)
+                                                        && ((x.Password.Equals(model.Password) || (!string.IsNullOrEmpty(model.Fb_ID) && x.FbID == model.Fb_ID)))
+                                                        && x.IsActive.Value)
                                               .Select(x => new ClientLoginModel
                                               {
                                                   Email = x.Email,
@@ -275,9 +293,9 @@ namespace CMS_Shared.CMSCustomers
                                                   Phone = x.Phone,
                                                   Id = x.ID,
                                                   PostCode = x.HomeZipCode,
-                                                  Address  = x.HomeStreet,
+                                                  Address = x.HomeStreet,
                                                   Country = x.HomeCountry,
-                                                  City =  x.HomeCity,
+                                                  City = x.HomeCity,
                                               })
                                               .FirstOrDefault();
                     return data;
@@ -302,7 +320,7 @@ namespace CMS_Shared.CMSCustomers
                     var emp = cxt.CMS_Customer.Where(o => o.Email.ToLower().Trim() == email.ToLower().Trim() && o.Status == (byte)Commons.EStatus.Actived).FirstOrDefault();
                     if (emp != null)
                     {
-                        if (emp.IsActive??true)
+                        if (emp.IsActive ?? true)
                         {
                             string newPass = CommonHelper.GenerateCode(1, new List<string>(), 8).FirstOrDefault();
 

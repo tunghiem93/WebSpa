@@ -331,10 +331,10 @@ namespace CMS_Shared.Utilities
                 body += "</tr>";
                 body += "<tr>";
                 body += "<td class='label-payment' style='text-transform: uppercase;padding: 8px;line-height: 1.42857;vertical-align: top;border-top: 1px solid #e7ecf1;text-align: left;background-color: #a0ca50 !important;color:#FFF'><b>Vận chuyển</b></td>";
-                body += "<td colspan='4' class='total-payment text-center' style='color: #ff0000;border-top: 1px solid #e7ecf1;text-align:center'>Phí vận chuyển sẽ được ước tính khi bạn nhập địa chỉ.</td>";
+                body += "<td colspan='4' class='total-payment text-center' style='color: #ff0000;border-top: 1px solid #e7ecf1;text-align:center'>Sẽ được thông báo sau.</td>";
                 body += "</tr>";
                 body += "<tr>";
-                body += "<td class='text-right label-payment' style='text-transform: uppercase;padding: 8px;line-height: 1.42857;vertical-align: top;border-top: 1px solid #e7ecf1;text-align: left;background-color: #a0ca50 !important;color:#FFF'><b>Thành tiền</b></td>";
+                body += "<td class='text-right label-payment' style='text-transform: uppercase;padding: 8px;line-height: 1.42857;vertical-align: top;border-top: 1px solid #e7ecf1;text-align: left;background-color: #a0ca50 !important;color:#FFF'><b>Thành tiền (tạm tính)</b></td>";
                 body += "<td colspan='4' class='total-payment' style='color: #ff0000;border-top: 1px solid #e7ecf1;text-align:center'>" + model.TotalBill.Value.ToString("#,0") + " đ</td>";
                 body += "</tr>";
                 body += "</tfoot>";

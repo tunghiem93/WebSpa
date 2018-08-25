@@ -245,17 +245,17 @@ namespace CMS_Web.Controllers
                 if (resultLogin != null)
                 {
                     UserSession userSession = new UserSession();
-                    userSession.Email = result.Email;
-                    userSession.UserName = result.DisplayName;
-                    userSession.IsAdminClient = result.IsAdmin;
-                    userSession.FirstName = result.FirstName;
-                    userSession.LastName = result.LastName;
-                    userSession.Phone = result.Phone;
-                    userSession.Address = result.Address;
-                    userSession.UserId = result.Id;
-                    userSession.PostCode = result.PostCode;
-                    userSession.Country = result.Country;
-                    userSession.City = result.City;
+                    userSession.Email = resultLogin.Email;
+                    userSession.UserName = resultLogin.DisplayName;
+                    userSession.IsAdminClient = resultLogin.IsAdmin;
+                    userSession.FirstName = resultLogin.FirstName;
+                    userSession.LastName = resultLogin.LastName;
+                    userSession.Phone = resultLogin.Phone;
+                    userSession.Address = resultLogin.Address;
+                    userSession.UserId = resultLogin.Id;
+                    userSession.PostCode = resultLogin.PostCode;
+                    userSession.Country = resultLogin.Country;
+                    userSession.City = resultLogin.City;
                     Session.Add("UserClient", userSession);
                     string myObjectJson = JsonConvert.SerializeObject(userSession);  //new JavaScriptSerializer().Serialize(userSession);
                     HttpCookie cookie = new HttpCookie("UserClientCookie");
@@ -272,7 +272,7 @@ namespace CMS_Web.Controllers
             else
             {
                 CustomerModels modelFB = new CustomerModels();
-                modelFB.ID = fb_id;
+                modelFB.FbID = fb_id;
                 modelFB.FirstName = first_name;
                 modelFB.LastName = last_name;
                 modelFB.Email = email;
