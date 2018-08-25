@@ -19,7 +19,7 @@ namespace CMS_DTO.CMSReport
         public CMS_ReportExpensetModels ReportExpense { get; set; }
         public CMS_ReportModels()
         {
-            From = DateTime.Now.AddDays(- 1);
+            From = DateTime.Now;
             To = DateTime.Now;
         }
     }
