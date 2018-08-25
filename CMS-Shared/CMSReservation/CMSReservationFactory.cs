@@ -32,8 +32,8 @@ namespace CMS_Shared.CMSReservation
 
                             Status = (byte)Commons.EStatus.Actived,
                             CreatedDate = DateTime.Now,
-                            CreatedUser = model.CreatedBy,
-                            ModifiedUser = model.CreatedBy,
+                            CreatedUser = string.IsNullOrEmpty(model.CreatedBy)? model.CustomerName: model.CreatedBy,
+                            ModifiedUser = string.IsNullOrEmpty(model.CreatedBy) ? model.CustomerName : model.CreatedBy,
                             LastModified = DateTime.Now,
                         };
                         cxt.CMS_Reservation.Add(e);
@@ -46,8 +46,8 @@ namespace CMS_Shared.CMSReservation
                             ProductName = model.ProductName,
                             Status = (byte)Commons.EStatus.Actived,
                             CreatedDate = DateTime.Now,
-                            CreatedUser = model.CreatedBy,
-                            ModifiedUser = model.CreatedBy,
+                            CreatedUser = string.IsNullOrEmpty(model.CreatedBy) ? model.CustomerName : model.CreatedBy,
+                            ModifiedUser = string.IsNullOrEmpty(model.CreatedBy) ? model.CustomerName : model.CreatedBy,
                             LastModified = DateTime.Now,
                         };
                         cxt.CMS_ReservationDetail.Add(reDtl);
@@ -69,7 +69,7 @@ namespace CMS_Shared.CMSReservation
                             {
                                 reDtl.ProductID = model.ProductID;
                                 reDtl.ProductName = model.ProductName;
-                                reDtl.ModifiedUser = model.CreatedBy;
+                                reDtl.ModifiedUser = string.IsNullOrEmpty(model.CreatedBy) ? model.CustomerName : model.CreatedBy;
                                 reDtl.LastModified = DateTime.Now;
                             }
                         }

@@ -50,7 +50,8 @@ namespace CMS_Web.Controllers
         {
             try
             {
-                var result = true; // _fac.CreateOrUpdate(model);
+                var msg = "";
+                var result = _fac.CreateOrUpdate(model, ref msg);
                 if (result)
                 {
                     return RedirectToAction("Index", "Home");
