@@ -92,8 +92,10 @@ namespace CMS_Shared.CMSOrders
                                     Quantity = (decimal)item.Quantity,
                                     Description = string.IsNullOrEmpty(model.Customer.Description) ? item.Description : model.Customer.Description,
                                     CreatedDate = DateTime.Now,
-                                    CreatedUser = string.IsNullOrEmpty(model.CreatedUser) ? model.Customer.Id : model.CreatedUser,
-                                    ModifiedUser = string.IsNullOrEmpty(model.ModifiedUser) ? model.Customer.Id : model.ModifiedUser,
+                                    // CreatedUser = string.IsNullOrEmpty(model.CreatedUser) ? model.Customer.Id : model.CreatedUser,
+                                    // ModifiedUser = string.IsNullOrEmpty(model.ModifiedUser) ? model.Customer.Id : model.ModifiedUser,
+                                    CreatedUser = model.IsTemp ? model.Customer.Id : (string.IsNullOrEmpty(item.EmployeeName) ? model.CreatedUser : item.EmployeeName),
+                                    ModifiedUser = model.IsTemp ? model.Customer.Id : (string.IsNullOrEmpty(item.EmployeeName) ? model.ModifiedUser : item.EmployeeName),
                                     LastModified = DateTime.Now,
                                     DiscountID = item.DiscountID,
                                     DiscountValue = item.DiscountValue,
@@ -223,6 +225,7 @@ namespace CMS_Shared.CMSOrders
                                                     DiscountType = x.DiscountType,
                                                     DiscountValue = (float)x.DiscountValue,
                                                     Description = x.Description,
+                                                    EmployeeName = r.o.IsTemp ? "" : x.CreatedUser,
                                                 }).ToList()
                                             }).FirstOrDefault();
                     NSLog.Logger.Info("GetDetailOrder_Response : ", data);

@@ -11,6 +11,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CMS_Shared.Utilities;
+using CMS_Shared.CMSEmployees;
 
 namespace CMS_Web.Areas.Admin.Controllers
 {
@@ -21,13 +22,14 @@ namespace CMS_Web.Areas.Admin.Controllers
         private CMSProductFactory _facPro;
         private CMSCustomersFactory _facCus;
         private CMSDiscountFactory _facDiscount;
-
+        private CMSEmployeeFactory _facEmp;
         public CMSOrdersController()
         {
             _fac = new CMSOrderFactory();
             _facPro = new CMSProductFactory();
             _facCus = new CMSCustomersFactory();
             _facDiscount = new CMSDiscountFactory();
+            _facEmp = new CMSEmployeeFactory();
         }
         // GET: Admin/CMSOrders
         public ActionResult Index()
@@ -98,6 +100,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                 PostCode = o.Postcode
             }).OrderBy(o => o.Name).ToList();
             model.Discounts = _facDiscount.GetList();
+            model.Employees = _facEmp.GetList();
             return PartialView("_Create", model);
         }
         [HttpPost]

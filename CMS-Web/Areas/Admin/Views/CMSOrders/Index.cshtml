@@ -177,6 +177,7 @@
                                     <th class="text-center"> Giá </th>
                                     <th class="text-center">Số lượng</th>
                                     <th class="text-center"> Thành tiền </th>
+                                    <th class="text-center">Nhân viên</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -189,19 +190,20 @@
                                         {{item.Quantity}}
                                     </td>
                                     <td class="text-center">{{item.TotalPrice | currency :"": 0}} đ</td>
+                                    <td>{{item.EmployeeName}}</td>
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td class="text-right" colspan="3">SubTotal</td>
+                                    <td class="text-right" colspan="4">SubTotal</td>
                                     <td class="text-center">{{Order.SubTotal | currency :"": 0}} đ</td>
                                 </tr>
                                 <tr ng-if="Order.TotalDiscount != null">
-                                    <td class="text-right" colspan="3">Giảm giá</td>
+                                    <td class="text-right" colspan="4">Giảm giá</td>
                                     <td class="text-center">{{Order.TotalDiscount | currency :"": 0}} đ</td>
                                 </tr>
                                 <tr>
-                                    <td class="text-right" colspan="3">Tổng tiền</td>
+                                    <td class="text-right" colspan="4">Tổng tiền</td>
                                     <td class="text-center">{{Order.TotalBill | currency :"": 0}} đ</td>
                                 </tr>
                             </tfoot>
