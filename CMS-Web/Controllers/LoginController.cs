@@ -266,7 +266,7 @@ namespace CMS_Web.Controllers
                 else
                 {
                     ModelState.AddModelError("Email", "Thông tin tài khoản không chính xác");
-                    return View(model);
+                    return RedirectToAction("Index", "Home");
                 }
             }
             else
@@ -304,7 +304,7 @@ namespace CMS_Web.Controllers
                 else
                 {
                     ModelState.AddModelError("Email", "");
-                    return View(model);
+                    return RedirectToAction("Index", "Home");
                 }
             }
             return RedirectToAction("Index", "Home");
