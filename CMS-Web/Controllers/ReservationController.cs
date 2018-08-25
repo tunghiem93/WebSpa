@@ -7,6 +7,7 @@ using CMS_Shared.CMSReservation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -50,6 +51,11 @@ namespace CMS_Web.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    return View("Index", model);
+                }
                 var msg = "";
                 var result = _fac.CreateOrUpdate(model, ref msg);
                 if (result)

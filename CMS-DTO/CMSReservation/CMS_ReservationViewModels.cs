@@ -25,7 +25,7 @@ namespace CMS_DTO.CMSReservation
         public string Phone { get; set; }
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime BookDay { get; set; }
-        [DataType(DataType.Time), DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Time), DisplayFormat(DataFormatString = "{0:hh:mm}", ApplyFormatInEditMode = true)]
         public TimeSpan FromTime { get; set; }
         public string Remark { get; set; }
         public string CreatedBy { get; set; }
