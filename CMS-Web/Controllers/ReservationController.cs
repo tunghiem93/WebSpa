@@ -47,14 +47,17 @@ namespace CMS_Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Book(CMS_ReservationViewModels model)
+        public ActionResult Index(CMS_ReservationViewModels model)
         {
             try
             {
                 if (!ModelState.IsValid)
                 {
+                    model.ListProducts = _facProduct.GetList((byte)CMS_Common.Commons.EProductType.Procudure);
+                    model.ListCustomer = _facCus.GetList();
+                    model.ListEmployees = _facEmp.GetList();
                     Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                    return View("Index", model);
+                    return View(model);
                 }
                 var msg = "";
                 var result = _fac.CreateOrUpdate(model, ref msg);

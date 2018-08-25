@@ -20,6 +20,15 @@
         vertical-align: baseline;
         border-radius: .25em;
     }
+    .output {
+        font: 1rem 'Fira Sans', sans-serif;
+    }
+
+    .hours {
+        font-size: .7em;
+        color: #999;
+    }
+
 </style>
 
 <div class="wrapper">
@@ -38,7 +47,7 @@
             <div class="container">
                 <section id="primary" class="content-full-width">
                     <div class="dt-sc-reservation">
-                        @using (@Html.BeginForm("Book", "Reservation", FormMethod.Post, new { @class = "form-horizontal create-form", @enctype = "multipart/form-data", @style = "" }))
+                        @using (@Html.BeginForm("Index", "Reservation", FormMethod.Post, new { @class = "form-horizontal create-form", @enctype = "multipart/form-data", @style = "" }))
                         {
                             <div class="form-group">
                                 <p class="validate-required">
@@ -47,7 +56,7 @@
                                         <abbr class="required" title="required">*</abbr>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        @Html.TextBoxFor(model => model.CustomerName, new { @class = "form-control", @placeholder = "Tên khách hàng", @autocomplete = "off" })
+                                        @Html.TextBoxFor(model => model.CustomerName, new { @class = "form-control", @placeholder = "Tên khách hàng", @autocomplete = "off", })
                                         @Html.ValidationMessageFor(model => model.CustomerName, null, new { @class = "label label-danger" })
                                     </div>
                                 </p>
@@ -94,20 +103,20 @@
                                 <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Thời gian bắt đầu</label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     @*<input type="time" name="@Model.FromTime" id="@Model.FromTime">*@
-                                    @Html.TextBoxFor(model => model.FromTime, new { @class = "form-control ", type = "time" })
+                                    @Html.TextBoxFor(model => model.FromTime, "{0:hh\\:mm}", new { @class = "form-control ", type = "time", @id = "appt-time", @name = "appt-time", @min = "9:00", @max = "19:00" })
 
                                 </div>
                             </div>
 
                             @*<div class="form-group">
-                                <form>
-                                    <label for="appt-time">Choose an appointment time (opening hours 12:00 to 18:00): </label>
-                                    <input id="FromTime" type="time"
-                                           min="12:00" max="18:00"
-                                           name="FromTime">
-                                    <span class="validity"></span>
-                                </form>
-                            </div>*@
+                <form>
+                    <label for="appt-time">Choose an appointment time (opening hours 12:00 to 18:00): </label>
+                    <input id="FromTime" type="time"
+                           min="12:00" max="18:00"
+                           name="FromTime">
+                    <span class="validity"></span>
+                </form>
+            </div>*@
 
                             <div class="form-group">
                                 <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Ghi chú</label>
@@ -120,6 +129,7 @@
                             <div class="title" style="">
                                 <input type="submit" value="Đặt" style="float: inherit !important; " />
                             </div>
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         }
                     </div>
                 </section>
