@@ -65,7 +65,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Ngày đặt</label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    @Html.TextBoxFor(model => model.BookDay, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Ngày đặt", @autocomplete = "off" })
+                                    @Html.TextBoxFor(model => model.BookDay, new { @id = "datepicker", @class = "form-control datepicker", @placeholder = "Ngày đặt", @autocomplete = "off" })
                                     @Html.ValidationMessageFor(model => model.BookDay, null, new { @class = "label label-danger" })
                                 </div>
                             </div>
