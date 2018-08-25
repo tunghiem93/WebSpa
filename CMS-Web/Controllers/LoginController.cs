@@ -310,5 +310,27 @@ namespace CMS_Web.Controllers
             return RedirectToAction("Index", "Home");
 
         }
+
+        [HttpGet]
+        public JsonResult ForgetPassword(string Email)
+        {
+            var msg = "";
+            try
+            {
+                var result = true; // _factory.ForgotPassword(Email, ref msg);
+                if (result)
+                    msg = "Mật khẩu của bạn đã được cấp mới . Vui lòng kiểm tra E-mail.";
+
+            }
+            catch (Exception ex)
+            {
+                NSLog.Logger.Error("ForgetPassword:", ex);
+            }
+            var obj = new
+            {
+                message = msg
+            };
+            return Json(obj, JsonRequestBehavior.AllowGet);
+        }
     }
 }
