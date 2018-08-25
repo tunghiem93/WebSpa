@@ -1,6 +1,7 @@
 ﻿using CMS_DTO.CMSCategories;
 using CMS_DTO.CMSCustomer;
 using CMS_DTO.CMSEmployee;
+using CMS_DTO.CMSProduct;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -34,7 +35,7 @@ namespace CMS_DTO.CMSReservation
         public string EmployeeID { get; set; }
         public string EmployeeName { get; set; }
         public List<CustomerModels> ListCustomer { get; set; }
-        public List<CMSCategoriesModels> ListCategories { get; set; }
+        public List<CMS_ProductsModels> ListProducts { get; set; }
         public List<CMS_EmployeeModels> ListEmployees { get; set; }
         public string StoreID { get; set; }
         public CMS_ReservationViewModels()
@@ -42,7 +43,7 @@ namespace CMS_DTO.CMSReservation
             BookDay = DateTime.Now;
             StoreID = "Spa";
             ListCustomer = new List<CustomerModels>();
-            ListCategories = new List<CMSCategoriesModels>();
+            ListProducts = new List<CMS_ProductsModels>();
             ListEmployees = new List<CMS_EmployeeModels>();
         }
     }

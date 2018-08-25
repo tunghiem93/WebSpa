@@ -2,6 +2,7 @@
 using CMS_Shared.CMSCategories;
 using CMS_Shared.CMSCustomers;
 using CMS_Shared.CMSEmployees;
+using CMS_Shared.CMSProducts;
 using CMS_Shared.CMSReservation;
 using System;
 using System.Collections.Generic;
@@ -14,14 +15,14 @@ namespace CMS_Web.Controllers
     public class ReservationController : HQController
     {
         private CMSReservationFactory _fac;
-        private CMSCategoriesFactory _facCate;
+        private CMSProductFactory _facProduct;
         private CMSEmployeeFactory _facEmp;
         private CMSCustomersFactory _facCus;
 
         public ReservationController()
         {
             _fac = new CMSReservationFactory();
-            _facCate = new CMSCategoriesFactory();
+            _facProduct = new CMSProductFactory();
             _facEmp = new CMSEmployeeFactory();
             _facCus = new CMSCustomersFactory();
             ViewBag.ListFromTime = GetListFromTime();
@@ -33,8 +34,8 @@ namespace CMS_Web.Controllers
             var model = new CMS_ReservationViewModels();
             try
             {
+                model.ListProducts = _facProduct.GetList((byte)CMS_Common.Commons.EProductType.Procudure);
                 model.ListCustomer = _facCus.GetList();
-                model.ListCategories = _facCate.GetList().Where(o => o.ProductTypeCode == (int)CMS_Common.Commons.EProductType.Procudure).ToList();
                 model.ListEmployees = _facEmp.GetList();
             }
             catch (Exception ex)
