@@ -22,111 +22,69 @@
                     <div class="dt-sc-reservation">
                         @using (@Html.BeginForm("Book", "Reservation", FormMethod.Post, new { @class = "form-horizontal create-form", @enctype = "multipart/form-data", @style = "" }))
                         {
-                            <div class="title">
-                                <h6>
-                                    <span> 01 </span> Thông tin cá nhân
-                                </h6>
-                            </div>
-                            <div class="column dt-sc-one-half first">
-                                <p>Tên</p>
-                                <p>
-                                    @Html.TextBoxFor(model => model.CustomerName, new { @class = "form-control input-text", @id = "username", @placeholder = "*Tên", })
-                                    @Html.ValidationMessageFor(model => model.CustomerName, null, new { @class = "label label-danger", @style = "color: red; " })
-                                    @*<input type="text" id="" class="" name="name" value="" />*@
-                                </p>
-                            </div>
-
-                            <div class="column dt-sc-one-half">
-                                <p>Email</p>
-                                <p>
-                                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control input-text", @id = "email", @placeholder = "*Email", @type = "email", })
-                                    @Html.ValidationMessageFor(model => model.Email, null, new { @class = "label label-danger", @style = "color: red; " })
-                                    @*<input type="text" id="" class="" name="email" value="" />*@
-                                </p>
-                            </div>
-
-                            <div class="column dt-sc-one-half first">
-                                <p>Số điện thoại</p>
-                                <p>
-                                    @Html.TextBoxFor(model => model.Phone, new { @class = "form-control input-text", @id = "phone", @placeholder = "*Số điện thoại", })
-                                    @Html.ValidationMessageFor(model => model.Phone, null, new { @class = "label label-danger", @style = "color: red; " })
-                                    @*<input type="text" id="" class="" name="phone" value="" />*@
-                                </p>
-                            </div>
-
-                            <div class="column dt-sc-one-half">
-                                <p>Địa chỉ</p>
-                                <p>
-                                    @Html.TextBoxFor(model => model.Address, new { @class = "form-control input-text", @id = "address", @placeholder = "*Địa chỉ", })
-                                    @Html.ValidationMessageFor(model => model.Address, null, new { @class = "label label-danger", @style = "color: red; " })
-                                    @*<input type="text" id="" class="" name="Address" value="" />*@
-                                </p>
-                            </div>
-
-                            <div class="title" style="margin-top: 10px; ">
-                                <h6>
-                                    <span> 02 </span> Lựa chọn dịch vụ và nhân viên
-                                </h6>
-                            </div>
-                            <div class="column dt-sc-one-half first">
-                                <p>Dịch vụ</p>
-                                <select name="services" class="dt-select-service">
-                                    <option value="">Chọn</option>
-                                    @if (Model != null && Model.ListCategories != null && Model.ListCategories.Any())
-                                    {
-                                        foreach (var item in Model.ListCategories)
-                                        {
-                                            <option value='@item.Id'>@item.CategoryName</option>
-                                        }
-                                    }
-                                </select>
-                            </div>
-                            <div class="column dt-sc-one-half">
-                                <p>Nhân viên</p>
-                                <select name="staff" class="dt-select-staff">
-                                    <option value="">Chọn</option>
-                                    @if (Model != null && Model.ListEmployees != null && Model.ListEmployees.Any())
-                                    {
-                                        foreach (var item in Model.ListEmployees)
-                                        {
-                                            <option value='@item.Id'>@item.Name</option>
-                                        }
-                                    }
-                                </select>
-                            </div>
-                            <div class="dt-sc-hr-invisible"></div>
-                            <div class="clear"></div>
-                            <div class="title">
-                                <h6>
-                                    <span> 03 </span> Lựa chọn thời gian
-                                </h6>
-                            </div>
-                            <div class="column dt-sc-one-fourth first">
-                                <p>Bạn sẵn sàng</p>
-                                <p style="">
-                                    @Html.TextBoxFor(model => model.BookDay, new { id = "datepicker", @class = "", @placeholder = "Ngày", @style = "height: 50px !important; margin-top: 15px;" })
-                                </p>                                
-                            </div>
-                            <div class="column dt-sc-three-fourth">
-                                <div class="column dt-sc-one-half first">
-                                    <p>Bắt đầu :</p>
-                                    @Html.DropDownListFor(model => model.From,
-                                        new SelectList(ViewBag.ListFromTime, "Value", "Text", Model.From),"Bắt đầu",
-                                        new
-                                        {
-                                            @class = "start-time",
-                                            @style = "width:100%;"
-                                        })
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">
+                                    Khách hàng
+                                    <abbr class="required" title="required">*</abbr>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    @Html.TextBoxFor(model => model.CustomerName, new { @class = "form-control", @placeholder = "Tên khách hàng", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.CustomerName, null, new { @class = "label label-danger" })
                                 </div>
-                                <div class="column dt-sc-one-half">
-                                    <p> Kết thúc:</p>
-                                    @Html.DropDownListFor(model => model.To,
-                                        new SelectList(ViewBag.ListToTime, "Value", "Text", Model.To),"kết thúc",
-                                        new
-                                        {
-                                            @class = "end-time",
-                                            @style = "width:100%;"
-                                        })
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">
+                                    Số điện thoại
+                                    <abbr class="required" title="required">*</abbr>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", @placeholder = "Số điện thoại", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.Phone, null, new { @class = "label label-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">
+                                    Liệu trình
+                                    <abbr class="required" title="required">*</abbr>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    @Html.DropDownListFor(model => model.ProductID,
+                                            new SelectList(Model.ListProducts, "Id", "ProductName", Model.ProductID), "Vui lòng chọn liệu trình",
+                                            new
+                                            {
+                                                @class = "form-control select2_multiple",
+                                                @id = "CategoryDdl",
+                                                @style = "width:100%;"
+                                            })
+                                    @Html.ValidationMessageFor(model => model.ProductID, null, new { @class = "label label-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Ngày đặt</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    @Html.TextBoxFor(model => model.BookDay, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Ngày đặt", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.BookDay, null, new { @class = "label label-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Thời gian bắt đầu</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    @*<input type="time" name="@Model.FromTime" id="@Model.FromTime">*@
+                                    @Html.TextBoxFor(model => model.FromTime, new { @class = "form-control ", type = "time" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Ghi chú</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    @Html.TextAreaFor(model => model.Remark, new { @class = "form-control", @placeholder = "Ghi chú", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.Remark, null, new { @class = "label label-danger" })
                                 </div>
                             </div>
 
@@ -145,7 +103,19 @@
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 <script>
     $(document).ready(function () {
-        
+        $('.datepicker1').daterangepicker({
+            singleDatePicker: true,
+            calender_style: "picker_2",
+            minDate: new Date(),
+            //==========
+            showDropdowns: true,
+            locale: {
+                format: 'DD/MM/YYYY',
+                daysOfWeek: ['CN', 'Hai', 'Ba', 'Tư', 'Năm', 'Sáu', 'Bảy'],
+                monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12']
+            }
+        }, function (start, end, label) {
+        });
     });
 
 </script>
