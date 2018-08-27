@@ -44,6 +44,8 @@ namespace CMS_Shared.CMSReports
 
                     /* get list emp db */
                     var listEmployeeID = listOrder.Select(o => o.Cashier).ToList();
+                    listEmployeeID.AddRange(listOrderDetail.Select(o => o.EmployeeID).ToList());
+                    listEmployeeID = listEmployeeID.Distinct().ToList();
                     var listEmployeeDb = db.CMS_Employee.Where(o => listEmployeeID.Contains(o.ID)).ToList();
 
                     /* get expense data */
@@ -86,12 +88,13 @@ namespace CMS_Shared.CMSReports
                                 Quantity = (double)(o.od.Quantity ?? 1),
                                 Price = o.od.Price ?? 0,
                                 TotalPrice = ((double)o.od.Price * (double)o.od.Quantity),
-                                DiscountValue = o.od.DiscountValue,
+                                DiscountAmount = (float)o.od.DiscountAmount,
+                                EmployeeName = listEmployeeDb.Where(e => e.ID == o.od.EmployeeID).Select(e => e.Name).FirstOrDefault(),
                             }).ToList();
                     }
                     data.ReportExpense = expenseData;
 
-                    /* get expense data */
+                    /* get receipt data */
                     var receiptData = new CMS_ReportReceiptModels();
 
                     var listOrderRc = listOrder.Where(o => o.OrderType == (byte)Commons.EOrderType.Normal).ToList();
@@ -131,7 +134,8 @@ namespace CMS_Shared.CMSReports
                                 Quantity = (double)(o.od.Quantity ?? 1),
                                 Price = o.od.Price ?? 0,
                                 TotalPrice = ((double)o.od.Price * (double)o.od.Quantity),
-                                DiscountValue = o.od.DiscountValue,
+                                DiscountAmount = (float)o.od.DiscountAmount,
+                                EmployeeName = listEmployeeDb.Where(e => e.ID == o.od.EmployeeID).Select(e => e.Name).FirstOrDefault(),
                             }).ToList();
                     }
                     data.ReportReceipt = receiptData;
@@ -151,7 +155,7 @@ namespace CMS_Shared.CMSReports
             ExcelPackage pck = new ExcelPackage();
             ExcelWorksheet wsReceipt = pck.Workbook.Worksheets.Add("Báo cáo thu");
             ExcelWorksheet wsExpense = pck.Workbook.Worksheets.Add("Báo cáo chi");
-            int totalCols = 12;
+            int totalCols = 13;
             CreateReportHeader(wsReceipt, wsExpense, totalCols, "BÁO CÁO THU CHI", request.From, request.To);
             // Format hedaer report Receipt 
             wsReceipt.Cells[1, 1, 3, totalCols].Style.Border.Top.Style = ExcelBorderStyle.Thin;
@@ -193,10 +197,11 @@ namespace CMS_Shared.CMSReports
                     wsReceipt.Cells[row, 6].Value = "Email";
                     wsReceipt.Cells[row, 7].Value = "Địa chỉ";
                     wsReceipt.Cells[row, 8].Value = "Tên mặt hàng";
-                    wsReceipt.Cells[row, 9].Value = "Số lượng";
-                    wsReceipt.Cells[row, 10].Value = "Giá";
-                    wsReceipt.Cells[row, 11].Value = "Giá trị giảm giá";
-                    wsReceipt.Cells[row, 12].Value = "Tổng giá";
+                    wsReceipt.Cells[row, 9].Value = "Tên Nhân viên";
+                    wsReceipt.Cells[row, 10].Value = "Số lượng";
+                    wsReceipt.Cells[row, 11].Value = "Giá";
+                    wsReceipt.Cells[row, 12].Value = "Giá trị giảm giá";
+                    wsReceipt.Cells[row, 13].Value = "Tổng giá";
                     wsReceipt.Row(row).Height = 15;
                     wsReceipt.Row(row).Style.Font.Bold = true;
 
@@ -214,7 +219,7 @@ namespace CMS_Shared.CMSReports
                     //end Columns Name header  
                     row++;
                     int _firstRow = row;
-                    
+
                     //List item in data
                     foreach (var item in data.ReportReceipt.ListOrder)
                     {
@@ -235,10 +240,11 @@ namespace CMS_Shared.CMSReports
                             foreach (var itemChild in item.Items)
                             {
                                 wsReceipt.Cells[row, 8].Value = itemChild.ProductName;
-                                wsReceipt.Cells[row, 9].Value = itemChild.Quantity;
-                                wsReceipt.Cells[row, 10].Value = string.Format("{0:0,0 VNĐ}", itemChild.Price);
-                                wsReceipt.Cells[row, 11].Value = itemChild.DiscountValue;
-                                wsReceipt.Cells[row, 12].Value = string.Format("{0:0,0 VNĐ}", itemChild.TotalPrice);
+                                wsReceipt.Cells[row, 9].Value = itemChild.EmployeeName;
+                                wsReceipt.Cells[row, 10].Value = itemChild.Quantity;
+                                wsReceipt.Cells[row, 11].Value = string.Format("{0:0,0 VNĐ}", itemChild.Price);
+                                wsReceipt.Cells[row, 12].Value = string.Format("{0:0,0 VNĐ}", itemChild.DiscountAmount);
+                                wsReceipt.Cells[row, 13].Value = string.Format("{0:0,0 VNĐ}", itemChild.TotalPrice);
                                 wsReceipt.Cells[row, 1, row, totalCols].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
                                 wsReceipt.Cells[row, 1, row, totalCols].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                                 // format border
@@ -252,38 +258,38 @@ namespace CMS_Shared.CMSReports
                             }
                         }
 
-                        wsReceipt.Cells[row, 11].Value = "Giảm giá";
+                        wsReceipt.Cells[row, 12].Value = "Giảm giá";
                         //wsReceipt.Row(row).Style.Font.Bold = true;
-                        wsReceipt.Cells[row, 11, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                        wsReceipt.Cells[row, 11, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
-                        wsReceipt.Cells[row, 12].Value = string.Format("{0:0,0 VNĐ}", item.TotalDiscount);
-                        wsReceipt.Cells[row, 8, row, 10].Merge = true;
+                        wsReceipt.Cells[row, 12, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        wsReceipt.Cells[row, 12, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
+                        wsReceipt.Cells[row, 13].Value = string.Format("{0:0,0 VNĐ}", item.TotalDiscount);
+                        wsReceipt.Cells[row, 8, row, 11].Merge = true;
                         wsReceipt.Cells[_firstChild, 1, row, 7].Merge = true;
                         if (item.Status == (byte)Commons.EStatus.Deleted)
-                            wsReceipt.Cells[row, 11, row, totalCols].Style.Font.Strike = true;
+                            wsReceipt.Cells[row, 12, row, totalCols].Style.Font.Strike = true;
                         row++;
 
                         /*  */
-                        wsReceipt.Cells[row, 11].Value = "Tổng";
+                        wsReceipt.Cells[row, 12].Value = "Tổng";
                         wsReceipt.Row(row).Style.Font.Bold = true;
-                        wsReceipt.Cells[row, 11, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                        wsReceipt.Cells[row, 11, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
-                        wsReceipt.Cells[row, 12].Value = string.Format("{0:0,0 VNĐ}", item.TotalBill);
-                        wsReceipt.Cells[row, 8, row, 10].Merge = true;
+                        wsReceipt.Cells[row, 12, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        wsReceipt.Cells[row, 12, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
+                        wsReceipt.Cells[row, 13].Value = string.Format("{0:0,0 VNĐ}", item.TotalBill);
+                        wsReceipt.Cells[row, 8, row, 11].Merge = true;
                         wsReceipt.Cells[_firstChild, 1, row, 7].Merge = true;
                         var range = wsReceipt.Cells[_firstChild, 1, row, 7];
                         wsReceipt.Cells[range.Start.Address].Value = item.Reason;
                         if (item.Status == (byte)Commons.EStatus.Deleted)
-                            wsReceipt.Cells[row, 11, row, totalCols].Style.Font.Strike = true;
+                            wsReceipt.Cells[row, 12, row, totalCols].Style.Font.Strike = true;
                         row++;
                     }
 
                     /* sum total */
-                    wsReceipt.Cells[row, 11].Value = "Tổng Tiền";
+                    wsReceipt.Cells[row, 12].Value = "Tổng Tiền";
                     wsReceipt.Row(row).Style.Font.Bold = true;
-                    wsReceipt.Cells[row, 11, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                    wsReceipt.Cells[row, 11, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
-                    wsReceipt.Cells[row, 12].Value = string.Format("{0:0,0 VNĐ}", data.ReportReceipt.TotalBill);
+                    wsReceipt.Cells[row, 12, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    wsReceipt.Cells[row, 12, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
+                    wsReceipt.Cells[row, 13].Value = string.Format("{0:0,0 VNĐ}", data.ReportReceipt.TotalBill);
 
                     wsReceipt.Cells[_firstRow, 1, row - 1, totalCols].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
                     wsReceipt.Cells[_firstRow, 1, row - 1, totalCols].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
@@ -340,10 +346,11 @@ namespace CMS_Shared.CMSReports
                     wsExpense.Cells[row, 6].Value = "Email";
                     wsExpense.Cells[row, 7].Value = "Địa chỉ";
                     wsExpense.Cells[row, 8].Value = "Tên mặt hàng";
-                    wsExpense.Cells[row, 9].Value = "Số lượng";
-                    wsExpense.Cells[row, 10].Value = "Giá";
-                    wsExpense.Cells[row, 11].Value = "Giá trị giảm giá";
-                    wsExpense.Cells[row, 12].Value = "Tổng giá";
+                    wsExpense.Cells[row, 9].Value = "Tên nhân viên";
+                    wsExpense.Cells[row, 10].Value = "Số lượng";
+                    wsExpense.Cells[row, 11].Value = "Giá";
+                    wsExpense.Cells[row, 12].Value = "Giá trị giảm giá";
+                    wsExpense.Cells[row, 13].Value = "Tổng giá";
                     wsExpense.Row(row).Height = 15;
                     wsExpense.Row(row).Style.Font.Bold = true;
 
@@ -380,10 +387,11 @@ namespace CMS_Shared.CMSReports
                             foreach (var itemChild in item.Items)
                             {
                                 wsExpense.Cells[row, 8].Value = itemChild.ProductName;
-                                wsExpense.Cells[row, 9].Value = itemChild.Quantity;
-                                wsExpense.Cells[row, 10].Value = string.Format("{0:0,0 VNĐ}", itemChild.Price);
-                                wsExpense.Cells[row, 11].Value = itemChild.DiscountValue;
-                                wsExpense.Cells[row, 12].Value = string.Format("{0:0,0 VNĐ}", itemChild.TotalPrice);
+                                wsExpense.Cells[row, 9].Value = itemChild.EmployeeName;
+                                wsExpense.Cells[row, 10].Value = itemChild.Quantity;
+                                wsExpense.Cells[row, 11].Value = string.Format("{0:0,0 VNĐ}", itemChild.Price);
+                                wsExpense.Cells[row, 12].Value = string.Format("{0:0,0 VNĐ}", itemChild.DiscountAmount); 
+                                wsExpense.Cells[row, 13].Value = string.Format("{0:0,0 VNĐ}", itemChild.TotalPrice);
                                 wsExpense.Cells[row, 1, row, totalCols].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
                                 wsExpense.Cells[row, 1, row, totalCols].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                                 // format border
@@ -397,12 +405,12 @@ namespace CMS_Shared.CMSReports
                                 row++;
                             }
                         }
-                        wsExpense.Cells[row, 11].Value = "Tổng";
+                        wsExpense.Cells[row, 12].Value = "Tổng";
                         wsExpense.Row(row).Style.Font.Bold = true;
-                        wsExpense.Cells[row, 11, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                        wsExpense.Cells[row, 11, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
-                        wsExpense.Cells[row, 12].Value = string.Format("{0:0,0 VNĐ}", item.TotalBill);
-                        wsExpense.Cells[row, 8, row, 10].Merge = true;
+                        wsExpense.Cells[row, 12, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        wsExpense.Cells[row, 12, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
+                        wsExpense.Cells[row, 13].Value = string.Format("{0:0,0 VNĐ}", item.TotalBill);
+                        wsExpense.Cells[row, 8, row, 11].Merge = true;
                         wsExpense.Cells[_firstChild, 1, row, 7].Merge = true;
                         if (item.Status == (byte)Commons.EStatus.Deleted)
                             wsExpense.Cells[row, 1, row, totalCols].Style.Font.Strike = true;
@@ -410,11 +418,11 @@ namespace CMS_Shared.CMSReports
                     }
 
                     /* sum total */
-                    wsExpense.Cells[row, 11].Value = "Tổng Tiền";
+                    wsExpense.Cells[row, 12].Value = "Tổng Tiền";
                     wsExpense.Row(row).Style.Font.Bold = true;
-                    wsExpense.Cells[row, 11, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                    wsExpense.Cells[row, 11, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
-                    wsExpense.Cells[row, 12].Value = string.Format("{0:0,0 VNĐ}", data.ReportExpense.TotalBill);
+                    wsExpense.Cells[row, 12, row, totalCols].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    wsExpense.Cells[row, 12, row, totalCols].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(217, 217, 217));
+                    wsExpense.Cells[row, 13].Value = string.Format("{0:0,0 VNĐ}", data.ReportExpense.TotalBill);
 
                     wsExpense.Cells[_firstRow, 1, row - 1, totalCols].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
                     wsExpense.Cells[_firstRow, 1, row - 1, totalCols].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;

@@ -66,7 +66,7 @@ namespace CMS_Shared.CMSOrders
                             TotalBill = model.TotalPrice,
                             SubTotal = model.SubTotalPrice,
                             TotalDiscount = model.TotalDiscount,
-                            Cashier = model.IsTemp ? model.CreatedUser : "",
+                            Cashier = model.IsTemp ? "" : model.CreatedUser,
                             CreatedDate = DateTime.Now,
                             LastModified = DateTime.Now,
                             CreatedUser = string.IsNullOrEmpty(model.CreatedUser) ? model.Customer.Id : model.CreatedUser,
