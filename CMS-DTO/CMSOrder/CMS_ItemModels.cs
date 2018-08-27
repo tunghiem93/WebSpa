@@ -18,6 +18,8 @@ namespace CMS_DTO.CMSOrder
         public double DiscountValue { get; set; }
         public byte DiscountType { get; set; }
         public string Description { get; set; }
+        public string EmployeeID { get; set; }
         public string EmployeeName { get; set; }
+        public float DiscountAmount { get; set; }
     }
 }

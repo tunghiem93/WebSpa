@@ -92,14 +92,16 @@ namespace CMS_Shared.CMSOrders
                                     Quantity = (decimal)item.Quantity,
                                     Description = string.IsNullOrEmpty(model.Customer.Description) ? item.Description : model.Customer.Description,
                                     CreatedDate = DateTime.Now,
-                                    // CreatedUser = string.IsNullOrEmpty(model.CreatedUser) ? model.Customer.Id : model.CreatedUser,
-                                    // ModifiedUser = string.IsNullOrEmpty(model.ModifiedUser) ? model.Customer.Id : model.ModifiedUser,
-                                    CreatedUser = model.IsTemp ? model.Customer.Id : (string.IsNullOrEmpty(item.EmployeeName) ? model.CreatedUser : item.EmployeeName),
-                                    ModifiedUser = model.IsTemp ? model.Customer.Id : (string.IsNullOrEmpty(item.EmployeeName) ? model.ModifiedUser : item.EmployeeName),
+                                    CreatedUser = string.IsNullOrEmpty(model.CreatedUser) ? model.Customer.Id : model.CreatedUser,
+                                    ModifiedUser = string.IsNullOrEmpty(model.ModifiedUser) ? model.Customer.Id : model.ModifiedUser,
+                                    //CreatedUser = model.IsTemp ? model.Customer.Id : (string.IsNullOrEmpty(item.EmployeeID) ? model.CreatedUser : item.EmployeeID),
+                                    //ModifiedUser = model.IsTemp ? model.Customer.Id : (string.IsNullOrEmpty(item.EmployeeID) ? model.ModifiedUser : item.EmployeeID),
+                                    EmployeeID = item.EmployeeID,
                                     LastModified = DateTime.Now,
                                     DiscountID = item.DiscountID,
                                     DiscountValue = item.DiscountValue,
                                     DiscountType = item.DiscountType,
+                                    DiscountAmount = item.DiscountAmount,
                                     Status = active,
                                 });
                             }
@@ -225,9 +227,18 @@ namespace CMS_Shared.CMSOrders
                                                     DiscountType = x.DiscountType,
                                                     DiscountValue = (float)x.DiscountValue,
                                                     Description = x.Description,
-                                                    EmployeeName = r.o.IsTemp ? "" : x.CreatedUser,
+                                                    EmployeeID = x.EmployeeID,
+                                                    EmployeeName = x.CMS_Employees != null ? x.CMS_Employees.Name : "",
                                                 }).ToList()
                                             }).FirstOrDefault();
+
+                    //var listEmployeeID = data.Items.Select(o => o.EmployeeID).ToList();
+                    //var listEmp = db.CMS_Employee.Where(o => listEmployeeID.Contains(o.ID)).ToList();
+                    //data.Items.ForEach(o =>
+                    //{
+                    //    o.EmployeeName = listEmp.Where(e => e.ID == o.EmployeeID).Select(e => e.Name).FirstOrDefault();
+                    //});
+
                     NSLog.Logger.Info("GetDetailOrder_Response : ", data);
                 }
             }
@@ -344,7 +355,7 @@ namespace CMS_Shared.CMSOrders
                 using (var db = new CMS_Context())
                 {
                     var Order = db.CMS_Order.Find(OrderId);
-                    if(Order != null)
+                    if (Order != null)
                     {
                         Order.ReceiptNo = CommonHelper.GenerateReceiptNo(Order.StoreID, (byte)Commons.EStatus.Actived, (byte)Commons.EOrderType.Normal);
                         Order.LastModified = DateTime.Now;
@@ -352,7 +363,7 @@ namespace CMS_Shared.CMSOrders
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 result = false;
                 NSLog.Logger.Error("CheckOut_Order:", ex);

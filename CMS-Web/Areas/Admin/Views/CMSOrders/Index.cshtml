@@ -174,10 +174,10 @@
                                     <th class="text-center">
                                         Tên sản phẩm
                                     </th>
+                                    <th class="text-center">Nhân viên</th>
                                     <th class="text-center"> Giá </th>
                                     <th class="text-center">Số lượng</th>
                                     <th class="text-center"> Thành tiền </th>
-                                    <th class="text-center">Nhân viên</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -185,12 +185,13 @@
                                     <td class="text-center">
                                         {{item.ProductName}}
                                     </td>
+                                    <td>{{item.EmployeeName}}</td>
                                     <td class="text-center"> {{item.Price | currency :"": 0}} đ</td>
                                     <td class="text-center">
                                         {{item.Quantity}}
                                     </td>
                                     <td class="text-center">{{item.TotalPrice | currency :"": 0}} đ</td>
-                                    <td>{{item.EmployeeName}}</td>
+                                    
                                 </tr>
                             </tbody>
                             <tfoot>
@@ -198,7 +199,7 @@
                                     <td class="text-right" colspan="4">SubTotal</td>
                                     <td class="text-center">{{Order.SubTotal | currency :"": 0}} đ</td>
                                 </tr>
-                                <tr ng-if="Order.TotalDiscount != null">
+                                <tr ng-if="Order.TotalDiscount > 0">
                                     <td class="text-right" colspan="4">Giảm giá</td>
                                     <td class="text-center">{{Order.TotalDiscount | currency :"": 0}} đ</td>
                                 </tr>

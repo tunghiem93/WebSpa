@@ -17,7 +17,7 @@ namespace CMS_Shared.CMSEmployees
             var Result = true;
             using (var cxt = new CMS_Context())
             {
-                var _isExits = cxt.CMS_Employee.Any(x => x.Email.Equals(model.Employee_Email) && x.IsActive.HasValue);
+                var _isExits = cxt.CMS_Employee.Any(x => x.Email.Equals(model.Email) && x.IsActive.HasValue);
                 try
                 {
                     if (string.IsNullOrEmpty(model.Id)) /* insert */
@@ -35,10 +35,10 @@ namespace CMS_Shared.CMSEmployees
                                 ID = Id,
                                 Name = model.Name,
                                 RoleID = model.RoleID,
-                                Email = model.Employee_Email,
+                                Email = model.Email,
                                 Password = model.Password,
                                 IsActive = model.IsActive,
-                                Phone = model.Employee_Phone,
+                                Phone = model.Phone,
                                 PinCode = model.PinCode,
                                 Gender = model.Gender,
                                 Marital = model.Marital,
@@ -66,14 +66,14 @@ namespace CMS_Shared.CMSEmployees
                         var e = cxt.CMS_Employee.Find(model.Id);
                         if (e != null)
                         {
-                            if (e.Email.Equals(model.Employee_Email) || !_isExits)
+                            if (e.Email.Equals(model.Email) || !_isExits)
                             {
                                 e.Name = model.Name;
                                 e.RoleID = model.RoleID;
-                                e.Email = model.Employee_Email;
+                                e.Email = model.Email;
                                 //Password = model.Password,
                                 e.IsActive = model.IsActive;
-                                e.Phone = model.Employee_Phone;
+                                e.Phone = model.Phone;
                                 e.PinCode = model.PinCode;
                                 e.Gender = model.Gender;
                                 e.Marital = model.Marital;
@@ -166,10 +166,10 @@ namespace CMS_Shared.CMSEmployees
                             Id = o.ID,
                             Name = o.Name,
                             RoleID = o.RoleID,
-                            Employee_Email = o.Email,
+                            Email = o.Email,
                             Password = o.Password,
                             IsActive = o.IsActive?? true,
-                            Employee_Phone = o.Phone,
+                            Phone = o.Phone,
                             PinCode = o.PinCode,
                             Gender = o.Gender,
                             Marital = o.Marital,
@@ -211,10 +211,10 @@ namespace CMS_Shared.CMSEmployees
                         {
                             Id = o.ID,
                             Name = o.Name,
-                            Employee_Email = o.Email,
+                            Email = o.Email,
                             Password = o.Password,
                             IsActive = o.IsActive ?? true,
-                            Employee_Phone = o.Phone,
+                            Phone = o.Phone,
                             PinCode = o.PinCode,
                             Gender = o.Gender,
                             Marital = o.Marital,

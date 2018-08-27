@@ -16,13 +16,13 @@ namespace CMS_DTO.CMSEmployee
         [MaxLength(50, ErrorMessage = "Họ tên tối đa 50 kí tự")]
         public string Name { get; set; }
         public string RoleID { get; set; }
-        public string Employee_Address { get; set; }
+        public string Address { get; set; }
         [RegularExpression("([0-9]+)", ErrorMessage = "Vui lòng nhập số")]
-        public string Employee_Phone { get; set; }
+        public string Phone { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập e-mail")]
         [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail không hợp lệ")]
-        public string Employee_Email { get; set; }
-        public string Employee_IDCard { get; set; }
+        public string Email { get; set; }
+        public string IDCard { get; set; }
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime BirthDate { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập mật khẩu")]
