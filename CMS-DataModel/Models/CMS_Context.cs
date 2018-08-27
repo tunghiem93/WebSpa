@@ -200,6 +200,11 @@ namespace CMS_DataModel.Models
                 .WithOptional(e => e.CMS_Products)
                 .HasForeignKey(e => e.ProductID);
 
+            modelBuilder.Entity<CMS_Employee>()
+                .HasMany(e => e.CMS_OrderDetail)
+                .WithOptional(e => e.CMS_Employees)
+                .HasForeignKey(e => e.EmployeeID);
+
             modelBuilder.Entity<CMS_Products>()
                 .HasMany(e => e.CMS_ProductDetail)
                 .WithRequired(e => e.CMS_Products)

@@ -12,6 +12,7 @@ namespace CMS_DataModel.Models
         public CMS_Employee()
         {
             CMS_EmployeeWorking = new HashSet<CMS_EmployeeWorking>();
+            CMS_OrderDetail = new HashSet<CMS_OrderDetail>();
         }
 
         [StringLength(100)]
@@ -82,5 +83,8 @@ namespace CMS_DataModel.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMS_EmployeeWorking> CMS_EmployeeWorking { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CMS_OrderDetail> CMS_OrderDetail { get; set; }
     }
 }

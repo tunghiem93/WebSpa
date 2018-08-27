@@ -44,6 +44,7 @@ namespace CMS_DataModel.Models
         public byte? State { get; set; }
 
         public double DiscountAmount { get; set; }
+        public string EmployeeID { get; set; }
 
         public byte Status { get; set; }
 
@@ -77,6 +78,8 @@ namespace CMS_DataModel.Models
         public virtual CMS_OrderDetail CMS_OrderDetail2 { get; set; }
 
         public virtual CMS_Products CMS_Products { get; set; }
+
+        public virtual CMS_Employee CMS_Employees { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMS_RefundDetail> CMS_RefundDetail { get; set; }
