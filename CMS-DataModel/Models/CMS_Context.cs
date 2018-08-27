@@ -10,6 +10,10 @@ namespace CMS_DataModel.Models
         public CMS_Context()
             : base("name=CMS_Context")
         {
+            Database.SetInitializer<CMS_Context>(new ContextHandler());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<CMS_Context, Migrations.Configuration>(useSuppliedContext: true));
+
+            this.Configuration.ProxyCreationEnabled = false;
         }
 
         public virtual DbSet<CMS_BusinessDayLog> CMS_BusinessDayLog { get; set; }
