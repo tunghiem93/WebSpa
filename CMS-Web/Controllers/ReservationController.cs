@@ -63,7 +63,7 @@ namespace CMS_Web.Controllers
                 var result = _fac.CreateOrUpdate(model, ref msg);
                 if (result)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return Json("SuccessMsg", JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
