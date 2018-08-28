@@ -44,102 +44,108 @@
                     </div>
                 </div>
             </section>
-            <div class="container" id="idFormReservation" >
-                <section id="primary" class="content-full-width">
-                    <div class="dt-sc-reservation">
-                        @using (@Html.BeginForm("Index", "Reservation", FormMethod.Post, new { @class = "form-horizontal create-form", @enctype = "multipart/form-data", @style = "" }))
-                        {
-                            <div class="form-group">
-                                <p class="validate-required">
+            @if (!Model.IsSuccess)
+            {
+                <div class="container" id="idFormReservation">
+                    <section id="primary" class="content-full-width">
+                        <div class="dt-sc-reservation">
+                            @using (@Html.BeginForm("Index", "Reservation", FormMethod.Post, new { @class = "form-horizontal create-form", @enctype = "multipart/form-data", @style = "" }))
+                            {
+                                <div class="form-group">
+                                    <p class="validate-required">
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">
+                                            Khách hàng
+                                            <abbr class="required" title="required">*</abbr>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            @Html.TextBoxFor(model => model.CustomerName, new { @class = "form-control", @placeholder = "Tên khách hàng", @autocomplete = "off", })
+                                            @Html.ValidationMessageFor(model => model.CustomerName, null, new { @class = "label label-danger" })
+                                        </div>
+                                    </p>
+                                </div>
+
+                                <div class="form-group">
                                     <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">
-                                        Khách hàng
+                                        Số điện thoại
                                         <abbr class="required" title="required">*</abbr>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        @Html.TextBoxFor(model => model.CustomerName, new { @class = "form-control", @placeholder = "Tên khách hàng", @autocomplete = "off", })
-                                        @Html.ValidationMessageFor(model => model.CustomerName, null, new { @class = "label label-danger" })
+                                        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", @placeholder = "Số điện thoại", @autocomplete = "off" })
+                                        @Html.ValidationMessageFor(model => model.Phone, null, new { @class = "label label-danger" })
                                     </div>
-                                </p>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">
-                                    Số điện thoại
-                                    <abbr class="required" title="required">*</abbr>
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", @placeholder = "Số điện thoại", @autocomplete = "off" })
-                                    @Html.ValidationMessageFor(model => model.Phone, null, new { @class = "label label-danger" })
                                 </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">
-                                    Liệu trình
-                                    <abbr class="required" title="required">*</abbr>
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    @Html.DropDownListFor(model => model.ProductID,
-                                            new SelectList(Model.ListProducts, "Id", "ProductName", Model.ProductID), "Vui lòng chọn liệu trình",
-                                            new
-                                            {
-                                                @class = "form-control select2_multiple",
-                                                @id = "CategoryDdl",
-                                                @style = "width:100%;"
-                                            })
-                                    @Html.ValidationMessageFor(model => model.ProductID, null, new { @class = "label label-danger" })
+                                <div class="form-group">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">
+                                        Liệu trình
+                                        <abbr class="required" title="required">*</abbr>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        @Html.DropDownListFor(model => model.ProductID,
+                                                new SelectList(Model.ListProducts, "Id", "ProductName", Model.ProductID), "Vui lòng chọn liệu trình",
+                                                new
+                                                {
+                                                    @class = "form-control select2_multiple",
+                                                    @id = "CategoryDdl",
+                                                    @style = "width:100%;"
+                                                })
+                                        @Html.ValidationMessageFor(model => model.ProductID, null, new { @class = "label label-danger" })
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Ngày đặt</label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    @Html.TextBoxFor(model => model.BookDay, new { @id = "datepicker", @class = "form-control datepicker", @placeholder = "Ngày đặt", @autocomplete = "off" })
-                                    @Html.ValidationMessageFor(model => model.BookDay, null, new { @class = "label label-danger" })
+                                <div class="form-group">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Ngày đặt</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        @Html.TextBoxFor(model => model.BookDay, new { @id = "datepicker", @class = "form-control datepicker", @placeholder = "Ngày đặt", @autocomplete = "off" })
+                                        @Html.ValidationMessageFor(model => model.BookDay, null, new { @class = "label label-danger" })
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Thời gian bắt đầu</label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    @*<input type="time" name="@Model.FromTime" id="@Model.FromTime">*@
-                                    @Html.TextBoxFor(model => model.FromTime, "{0:hh\\:mm}", new { @class = "form-control ", type = "time", @id = "appt-time", @name = "appt-time", @min = "9:00", @max = "19:00" })
+                                <div class="form-group">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Thời gian bắt đầu</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        @*<input type="time" name="@Model.FromTime" id="@Model.FromTime">*@
+                                        @Html.TextBoxFor(model => model.FromTime, "{0:hh\\:mm}", new { @class = "form-control ", type = "time", @id = "appt-time", @name = "appt-time", @min = "9:00", @max = "19:00" })
 
+                                    </div>
                                 </div>
-                            </div>
 
-                            @*<div class="form-group">
-                <form>
-                    <label for="appt-time">Choose an appointment time (opening hours 12:00 to 18:00): </label>
-                    <input id="FromTime" type="time"
-                           min="12:00" max="18:00"
-                           name="FromTime">
-                    <span class="validity"></span>
-                </form>
-            </div>*@
+                                @*<div class="form-group">
+                                <form>
+                                    <label for="appt-time">Choose an appointment time (opening hours 12:00 to 18:00): </label>
+                                    <input id="FromTime" type="time"
+                                           min="12:00" max="18:00"
+                                           name="FromTime">
+                                    <span class="validity"></span>
+                                </form>
+                            </div>*@
 
-                            <div class="form-group">
-                                <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Ghi chú</label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    @Html.TextAreaFor(model => model.Remark, new { @class = "form-control", @placeholder = "Ghi chú", @autocomplete = "off" })
-                                    @Html.ValidationMessageFor(model => model.Remark, null, new { @class = "label label-danger" })
+                                <div class="form-group">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Ghi chú</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        @Html.TextAreaFor(model => model.Remark, new { @class = "form-control", @placeholder = "Ghi chú", @autocomplete = "off" })
+                                        @Html.ValidationMessageFor(model => model.Remark, null, new { @class = "label label-danger" })
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="title" style="">
-                                <input type="submit" value="Đặt" style="float: inherit !important; " />
-                            </div>
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        }
-                    </div>
-                </section>
-            </div>
-            <div class="container" id="idFormSuccsess" style="display: none; padding-top: 15px;">
-                <p id="SuccessMsg" style="text-align: center; color: #d77d31;"></p>
-                <button class="btn">
-                    <i class="fa fa-long-arrow-left"></i>&nbsp; Quay lại trang chủ
-                </button>
-            </div>
+                                <div class="title" style="">
+                                    <input type="submit" value="Đặt" style="float: inherit !important; " />
+                                </div>
+                            }
+                        </div>
+                    </section>
+                </div>
+            }
+
+            @if (Model.IsSuccess)
+            {
+                <div class="container" style="padding-top: 15px;">
+                    <p style="text-align: center; color: #d77d31;">Cám ơn quý khách đã thăm quan Spa chúng tôi!</p>
+                    <a class="btn" href="@Url.Action("Index", "Home")">
+                        <i class="fa fa-long-arrow-left"></i>&nbsp; Quay lại trang chủ
+                    </a>
+                </div>
+            }
         </div>
     </div>
 </div>
@@ -148,27 +154,5 @@
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 <script>
     $(document).ready(function () {
-    });
-    $('.create-form').submit(function () {
-        $.ajax({
-            url: $(this).attr('action'),
-            type: "POST",
-            //data: $(this).serialize(),
-            data: new FormData(this),
-            processData: false,
-            contentType: false,
-            beforeSend: function () {
-            },
-            complete: function () {
-            },
-            success: function () {
-                $('#SuccessMsg').text('Cám ơn quý khách đã thăm quan Spa chúng tôi!');
-                $('#idFormReservation').hide();
-                $('#idFormSuccsess').show();
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-            }
-        });
-        return false;
     });
 </script>

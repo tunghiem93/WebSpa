@@ -38,8 +38,11 @@ namespace CMS_DTO.CMSReservation
         public List<CMS_ProductsModels> ListProducts { get; set; }
         public List<CMS_EmployeeModels> ListEmployees { get; set; }
         public string StoreID { get; set; }
+        public bool IsSuccess { get; set; }
+
         public CMS_ReservationViewModels()
         {
+            IsSuccess = false;
             BookDay = DateTime.Now;
             StoreID = "Spa";
             ListCustomer = new List<CustomerModels>();
