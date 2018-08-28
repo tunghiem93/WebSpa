@@ -342,6 +342,10 @@ namespace CMS_Web.Controllers
             model.Picture = picture;
             model.Fb_ID = id;
 
+            var obj = new
+            {
+                message = 1
+            };
             bool IsCheck = _factory.CheckExistLoginSosial(id);
             if (IsCheck)
             {
@@ -369,8 +373,8 @@ namespace CMS_Web.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("Email", "Thông tin tài khoản không chính xác");
-                    return RedirectToAction("Index", "Home");
+                    obj = new { message = 2 };
+                    return Json(obj, JsonRequestBehavior.AllowGet);
                 }
             }
             else
@@ -407,12 +411,11 @@ namespace CMS_Web.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("Email", "");
-                    return RedirectToAction("Index", "Home");
+                    obj = new { message = 3 };
+                    return Json(obj, JsonRequestBehavior.AllowGet);
                 }
-            }
-            return RedirectToAction("Index", "Home");
-
+            }            
+            return Json(obj, JsonRequestBehavior.AllowGet);
         }
     }
 }

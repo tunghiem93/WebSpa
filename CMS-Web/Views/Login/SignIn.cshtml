@@ -37,7 +37,7 @@
                                         <span class="">*</span>
                                     </label>
                                     @Html.TextBoxFor(model => model.Email, new { @class = "form-control input-text", @id = "username", @placeholder = "Tên đăng nhập", @type = "email", })
-                                    @Html.ValidationMessageFor(model => model.Email, null, new { @class = "label label-danger", @style = "color: red; " })
+                                    @Html.ValidationMessageFor(model => model.Email, null, new { @class = "label label-danger", @style = "color: red; ", @id = "msgInfo" })
                                 </p>
                                 <p class="form-row form-row-wide">
                                     <label for="password">
@@ -191,58 +191,63 @@
                     },
                     function (data) {
                         //jQuery('.loading').hide();
-                        //var val = data;
-                        //if (val == 1) {
-                        //    jQuery('#msgInfo').html('<span style=\'color:blue;\'>Đăng ký thành công</span>');
-                        //    jQuery('.loading').show();
-                        //    jQuery.post('/Handler.ashx',
-                        //        {
-                        //            Action: "login",
-                        //            Email: Email,
-                        //            Password: Password,
-                        //        },
-                        //        function (data) {
-                        //            jQuery('.loading').hide();
-                        //            var val = data;
-                        //            if (val == 1) {
-                        //                window.location.href = '/';
-                        //            }
-                        //            else
-                        //                jQuery('#msgInfo').html('<span style=\'color:red;\'>Đăng nhập không thành công</span>');
-                        //        })
-                        //        .fail(function () {
-                        //            jQuery('.loading').hide();
-                        //            jQuery('#msgInfo').html('<span style=\'color:red;\'>Đăng nhập không thành công</span>');
-                        //        });
-                        //}
-                        //else if (val == 2) {//IsCheckExists= true
-                        //    jQuery('#msgInfo').html('<span style=\'color:red;\'>Email đã có người sử dụng</span>');
-                        //    jQuery.post('/Handler.ashx',
-                        //        {
-                        //            Action: "login02",
-                        //            Email: Email
-                        //        },
-                        //        function (data) {
-                        //            jQuery('.loading').hide();
-                        //            var val = data;
-                        //            if (val == 1) {
-                        //                window.location.href = '/article/can-tho-nail-pikesville--1855719674.html';
-                        //            }
-                        //            else
-                        //                jQuery('#msgInfo').html('<span style=\'color:red;\'>Đăng nhập không thành công</span>');
-                        //        })
-                        //        .fail(function () {
-                        //            jQuery('.loading').hide();
-                        //            jQuery('#msgInfo').html('<span style=\'color:red;\'>Đăng nhập không thành công</span>');
-                        //        });
-                        //    return false;
-                        //}
+                        var val = data;
+                        if (val.message == 1) {
+                            window.location.href = '/';
+                            //jQuery('#msgInfo').html('<span style=\'color:blue;\'>Đăng ký thành công</span>');
+                            //jQuery('.loading').show();
+                            //jQuery.post('/Handler.ashx',
+                            //    {
+                            //        Action: "login",
+                            //        Email: Email,
+                            //        Password: Password,
+                            //    },
+                            //    function (data) {
+                            //        jQuery('.loading').hide();
+                            //        var val = data;
+                            //        if (val == 1) {
+                            //            window.location.href = '/';
+                            //        }
+                            //        else
+                            //            jQuery('#msgInfo').html('<span style=\'color:red;\'>Đăng nhập không thành công</span>');
+                            //    })
+                            //    .fail(function () {
+                            //        jQuery('.loading').hide();
+                            //        jQuery('#msgInfo').html('<span style=\'color:red;\'>Đăng nhập không thành công</span>');
+                            //    });
+                        }
+                        else if (val.message == 2) {//IsCheckExists= true
+                            $('#msgInfo').text("Đăng nhập không thành công!");
+                            $('#msgInfo').show();
+                            //jQuery('#msgInfo').html('<span style=\'color:red;\'>Email đã có người sử dụng</span>');
+                            //jQuery.post('/Handler.ashx',
+                            //    {
+                            //        Action: "login02",
+                            //        Email: Email
+                            //    },
+                            //    function (data) {
+                            //        jQuery('.loading').hide();
+                            //        var val = data;
+                            //        if (val == 1) {
+                            //            window.location.href = '/article/can-tho-nail-pikesville--1855719674.html';
+                            //        }
+                            //        else
+                            //            jQuery('#msgInfo').html('<span style=\'color:red;\'>Đăng nhập không thành công</span>');
+                            //    })
+                            //    .fail(function () {
+                            //        jQuery('.loading').hide();
+                            //        jQuery('#msgInfo').html('<span style=\'color:red;\'>Đăng nhập không thành công</span>');
+                            //    });
+                            return false;
+                        }
                         //else
                         //    jQuery('#msgInfo').html('<span style=\'color:red;\'>Đăng ký thất bại</span>');
                     })
                     .fail(function () {
-                        jQuery('.loading').hide();
-                        jQuery('#msgInfo').html('<span style=\'color:red;\'>Đăng ký thất bại</span>');
+                        $('#msgInfo').text("Đăng nhập không thành công!");
+                        $('#msgInfo').show();
+                        //jQuery('.loading').hide();
+                        //jQuery('#msgInfo').html('<span style=\'color:red;\'>Đăng ký thất bại</span>');
                     });
 
             }, function (error) {
