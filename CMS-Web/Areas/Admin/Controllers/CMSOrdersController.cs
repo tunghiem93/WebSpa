@@ -203,7 +203,7 @@ namespace CMS_Web.Areas.Admin.Controllers
             try
             {
                 NSLog.Logger.Info("Checkout_Request:", id);
-                var result = _fac.CheckOut(id);
+                var result = _fac.CheckOut(id, CurrentUser.UserId);
                 if (!result)
                     status = 500;
             }

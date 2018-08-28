@@ -346,7 +346,7 @@ namespace CMS_Shared.CMSOrders
             return result;
         }
 
-        public bool CheckOut(string OrderId)
+        public bool CheckOut(string OrderId, string createdUser)
         {
             var result = true;
             try
@@ -359,6 +359,9 @@ namespace CMS_Shared.CMSOrders
                     {
                         Order.ReceiptNo = CommonHelper.GenerateReceiptNo(Order.StoreID, (byte)Commons.EStatus.Actived, (byte)Commons.EOrderType.Normal);
                         Order.LastModified = DateTime.Now;
+                        Order.ModifiedUser = createdUser;
+                        Order.Cashier = createdUser;
+                        Order.ReceiptCreatedDate = DateTime.Now;
                         db.SaveChanges();
                     }
                 }
