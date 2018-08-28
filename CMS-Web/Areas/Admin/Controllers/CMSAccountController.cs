@@ -1,4 +1,5 @@
-﻿using CMS_DTO.CMSSession;
+﻿using CMS_DTO.CMSRole;
+using CMS_DTO.CMSSession;
 using CMS_DTO.Models;
 using CMS_Shared.Factory;
 using CMS_Web.Web.App_Start;
@@ -58,6 +59,10 @@ namespace CMS_Web.Areas.Admin.Controllers
                 var actionName = values["action"];
                 var areaName = values["area"];
             }
+            else
+            {
+                mController = "Home";
+            }
 
             if (isAjax)
                 //return PartialView("_Login", model);
@@ -95,7 +100,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                         Session.Add("User", userSession);
                         //
                         if (!string.IsNullOrEmpty(mController))
-                            return RedirectToAction("Index", mController, new { area = "Admin" });
+                            return RedirectToAction("Index", "Home"/*mController*/, new { area = "Admin" });
                         if (returnUrl == null)
                             return RedirectToAction("Index", "Home", new { area = "Admin" });
                         else
@@ -118,10 +123,32 @@ namespace CMS_Web.Areas.Admin.Controllers
             }
         }
 
+        private string CheckPermission(List<CMS_PermissionModels> listPermission, string mController)
+        {
+            var ret = "";
+            try
+            {
+                var moduleCode = (int)CMS_Common.Commons.EModuleCode.HOME;
+                switch(mController)
+                {
+                    case "CMSCustomers":
+                        {
+
+                        }
+                        break;
+                    default:
+                        ret = "Home";
+                        break;
+                }
+            }
+            catch (Exception ex) { };
+            return ret;
+        }
+
         public ActionResult Logout()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            if(HttpContext.Session != null && HttpContext.Session["User"] != null)
+            if (HttpContext.Session != null && HttpContext.Session["User"] != null)
                 HttpContext.Session.Remove("User");
             return RedirectToAction("Index", "CMSAccount");
         }
