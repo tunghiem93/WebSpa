@@ -324,7 +324,7 @@ namespace CMS_Shared.CMSCustomers
                         {
                             string newPass = CommonHelper.GenerateCode(1, new List<string>(), 8).FirstOrDefault();
 
-                            CommonHelper.SendContentMail(email, "New password: " + newPass, "", "Forgot password");
+                            CommonHelper.SendContentMail(email, "New password: " + newPass, "", "[Lamode Beauté Home Spa] Forgot password");
 
                             emp.Password = CommonHelper.Encrypt(newPass);
                             emp.LastModified = DateTime.Now;

@@ -317,7 +317,7 @@ namespace CMS_Web.Controllers
             var msg = "";
             try
             {
-                var result = true; // _factory.ForgotPassword(Email, ref msg);
+                var result = _factory.ForgotPassword(Email, ref msg);
                 if (result)
                     msg = "Mật khẩu của bạn đã được cấp mới . Vui lòng kiểm tra E-mail.";
 
