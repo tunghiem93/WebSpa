@@ -71,12 +71,22 @@
                 </li>
             }
 
-            @if (listIsView.Contains((int)CMS_Common.Commons.EModuleCode.NEWS))
+            @if (listIsView.Contains((int)CMS_Common.Commons.EModuleCode.ORDER))
             {
                 <li class="nav-item">
-                    <a href="@Url.Action("Index","CMSNews")" class="nav-link nav-toggle">
+                    <a href="@Url.Action("Index","CMSOrders")" class="nav-link nav-toggle">
                         <i class="fa fa-dot-circle-o"></i>
-                        <span class="title">Tin Tức</span>
+                        <span class="title">Đơn hàng</span>
+                    </a>
+                </li>
+            }
+
+            @if (listIsView.Contains((int)CMS_Common.Commons.EModuleCode.ORDER))
+            {
+                <li class="nav-item">
+                    <a href="@Url.Action("Index","CMSStocks")" class="nav-link nav-toggle">
+                        <i class="fa fa-dot-circle-o"></i>
+                        <span class="title">Phiếu chi</span>
                     </a>
                 </li>
             }
@@ -111,36 +121,36 @@
                 </li>
             }
 
-            @if (listIsView.Contains((int)CMS_Common.Commons.EModuleCode.ORDER))
+            @if (listIsView.Contains((int)CMS_Common.Commons.EModuleCode.RESERVATION))
             {
                 <li class="nav-item">
-                    <a href="@Url.Action("Index","CMSOrders")" class="nav-link nav-toggle">
+                    <a href="@Url.Action("Index","CMSReservations")" class="nav-link nav-toggle">
                         <i class="fa fa-dot-circle-o"></i>
-                        <span class="title">Đơn hàng</span>
+                        <span class="title">Lịch hẹn</span>
                     </a>
                 </li>
             }
 
-            <li class="nav-item">
-                <a href="@Url.Action("Index","CMSReservations")" class="nav-link nav-toggle">
-                    <i class="fa fa-dot-circle-o"></i>
-                    <span class="title">Lịch hẹn</span>
-                </a>
-            </li>
+            @if (listIsView.Contains((int)CMS_Common.Commons.EModuleCode.REPORT))
+            {
+                <li class="nav-item">
+                    <a href="@Url.Action("Index","CMSReportManagements")" class="nav-link nav-toggle">
+                        <i class="fa fa-dot-circle-o"></i>
+                        <span class="title">Báo cáo</span>
+                    </a>
+                </li>
+            }
 
-            <li class="nav-item">
-                <a href="@Url.Action("Index","CMSStocks")" class="nav-link nav-toggle">
-                    <i class="fa fa-dot-circle-o"></i>
-                    <span class="title">Phiếu chi</span>
-                </a>
-            </li>
 
-            <li class="nav-item">
-                <a href="@Url.Action("Index","CMSReportManagements")" class="nav-link nav-toggle">
-                    <i class="fa fa-dot-circle-o"></i>
-                    <span class="title">Báo cáo</span>
-                </a>
-            </li>
+            @if (listIsView.Contains((int)CMS_Common.Commons.EModuleCode.NEWS))
+            {
+                <li class="nav-item">
+                    <a href="@Url.Action("Index","CMSNews")" class="nav-link nav-toggle">
+                        <i class="fa fa-dot-circle-o"></i>
+                        <span class="title">Tin Tức</span>
+                    </a>
+                </li>
+            }
 
         </ul>
         <!-- END SIDEBAR MENU -->

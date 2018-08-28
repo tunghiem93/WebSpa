@@ -17,11 +17,12 @@ namespace CMS_Shared.CMSEmployees
             var Result = true;
             using (var cxt = new CMS_Context())
             {
-                var _isExits = cxt.CMS_Employee.Any(x => x.Email.Equals(model.Email) && x.IsActive.HasValue);
                 try
                 {
                     if (string.IsNullOrEmpty(model.Id)) /* insert */
                     {
+                        var _isExits = cxt.CMS_Employee.Any(x => x.Email.Equals(model.Email) && x.IsActive.HasValue && x.Status == (byte)Commons.EStatus.Actived);
+
                         if (_isExits)
                         {
                             msg = "Địa chỉ email đã tồn tại";
@@ -66,12 +67,14 @@ namespace CMS_Shared.CMSEmployees
                         var e = cxt.CMS_Employee.Find(model.Id);
                         if (e != null)
                         {
-                            if (e.Email.Equals(model.Email) || !_isExits)
+                            var _isExits = cxt.CMS_Employee.Any(x => x.Email.Equals(model.Email) && x.Status != (byte)Commons.EStatus.Actived && x.IsActive.HasValue && x.ID == model.Id);
+
+                            if (!_isExits)
                             {
                                 e.Name = model.Name;
                                 e.RoleID = model.RoleID;
                                 e.Email = model.Email;
-                                //Password = model.Password,
+                                e.Password = model.Password;
                                 e.IsActive = model.IsActive;
                                 e.Phone = model.Phone;
                                 e.PinCode = model.PinCode;

@@ -4,9 +4,14 @@
 
 @{
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
-}
-@{
     ViewBag.Title = "Trang chủ";
+
+    var user = Session["User"] as CMS_DTO.CMSSession.UserSession;
+    bool isAction = false;
+    if (user != null)
+    {
+        isAction = user.ListPermision.Where(o => o.IsAction && o.ModuleCode == (int)CMS_Common.Commons.EModuleCode.HOME).Select(o => o.IsAction).FirstOrDefault();
+    }
 }
 
 <div role="main">
@@ -16,16 +21,21 @@
             <div id="div-silder">
                 <fieldset>
                     <legend>SILDER (900 X 450)</legend>
-                    <div class="row text-right" style="margin-right:0px !important">
-                        <ul class="header-buttons pull-right list-inline">
-                            <li>
-                                <a href="javascript:void(0);" class="btn btn-success" id="btn-edit-save" onclick="SubmitForm('.form-edit-silder')">
-                                    <i class="fa fa-save"></i>
-                                    &nbsp;Lưu
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+
+                    @if (isAction)
+                    {
+                        <div class="row text-right" style="margin-right:0px !important">
+                            <ul class="header-buttons pull-right list-inline">
+                                <li>
+                                    <a href="javascript:void(0);" class="btn btn-success" id="btn-edit-save" onclick="SubmitForm('.form-edit-silder')">
+                                        <i class="fa fa-save"></i>
+                                        &nbsp;Lưu
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+
                     @using (@Html.BeginForm("UploadSilder", "Home", FormMethod.Post, new { @class = "form-horizontal form-edit-silder", @enctype = "multipart/form-data" }))
                     {
                         <div class="div-partial-silder">
@@ -39,21 +49,26 @@
                 <fieldset>
                     <legend>THÔNG TIN CÔNG TY</legend>
 
-                    <div class="row text-right" style="margin-right:0px !important">
-                        <ul class="header-buttons pull-right list-inline">
-                            <li>
-                                <a href="javascript:void(0);" class="btn btn-success" id="btn-edit-save" onclick="SubmitForm('.form-edit-com')">
-                                    <i class="fa fa-save"></i>
-                                    &nbsp;Lưu
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                    @if (isAction)
+                    {
+                        <div class="row text-right" style="margin-right:0px !important">
+                            <ul class="header-buttons pull-right list-inline">
+                                <li>
+                                    <a href="javascript:void(0);" class="btn btn-success" id="btn-edit-save" onclick="SubmitForm('.form-edit-com')">
+                                        <i class="fa fa-save"></i>
+                                        &nbsp;Lưu
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+
+
                     @using (@Html.BeginForm("UpdateCompanyInfo", "Home", FormMethod.Post, new { @class = "form-horizontal form-edit-com", @enctype = "multipart/form-data" }))
                     {
-                       <div class="div-partial-company">
-                           @Html.Partial("_CompanyInfo", Model)
-                       </div>
+                        <div class="div-partial-company">
+                            @Html.Partial("_CompanyInfo", Model)
+                        </div>
                     }
                 </fieldset>
 
@@ -70,7 +85,7 @@
     }
 
     $(".form-edit-silder").submit(function (e) {
-        
+
         $.ajax({
             url: $(this).attr('action'),
             type: "POST",
@@ -82,7 +97,7 @@
             },
             success: function (content) {
                 $(".div-partial-silder").html(content);
-                
+
             },
             complete: function () {
                 $('.se-pre-con').hide();
@@ -94,7 +109,7 @@
     });
 
     $(".form-edit-com").submit(function (e) {
-        
+
         $.ajax({
             url: $(this).attr('action'),
             type: "POST",
@@ -105,14 +120,14 @@
                 $('.se-pre-con').show();
             },
             success: function (content) {
-                
+
                 $('.div-partial-company').html(content);
             },
             complete: function () {
                 $('.se-pre-con').hide();
             },
             error: function (jqXHR, textStatus, errorThrown) {
-              
+
             }
         });
         e.preventDefault();

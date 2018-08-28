@@ -91,6 +91,7 @@ namespace CMS_Common
             ORDER = 600,
             NEWS = 700,
             HOME = 800,
+            RESERVATION = 900,
         }
 
         public enum EOrderType
