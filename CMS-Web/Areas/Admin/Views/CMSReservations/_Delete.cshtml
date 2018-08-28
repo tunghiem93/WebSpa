@@ -35,6 +35,8 @@
                                 <br />
                                 @Html.HiddenFor(model => model.Id)
                                 @Html.HiddenFor(model => model.CustomerName)
+                                @Html.HiddenFor(model => model.ProductID)
+                                @Html.HiddenFor(model => model.Phone)
                                 @Html.ValidationMessageFor(model => model.CustomerName, null, new { @class = "label" })
                             </div>
                         </div>
