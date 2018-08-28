@@ -4,7 +4,6 @@
 }
 
 <style>
-    
 </style>
 
 <!DOCTYPE html>
@@ -31,47 +30,51 @@
                         <h2>Đăng nhập</h2>
                         @using (@Html.BeginForm("SignIn", "Login", FormMethod.Post, new { @class = "form-horizontal create-form", @enctype = "multipart/form-data", @style = "" }))
                         {
-                        <div id="idCustomerLoginForm">
-                            <p class="form-row form-row-wide">
-                                <label for="username">
-                                    Tên đăng nhập hoặc email
-                                    <span class="required">*</span>
-                                </label>
-                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control input-text", @id = "username", @placeholder = "Tên đăng nhập", @type = "email", })
-                                @Html.ValidationMessageFor(model => model.Email, null, new { @class = "label label-danger", @style = "color: red; " })
-                            </p>
-                            <p class="form-row form-row-wide">
-                                <label for="password">
-                                    Mật khẩu
-                                    <span class="required">*</span>
-                                </label>
-                                @Html.PasswordFor(model => model.Password, new { @class = "form-control input-text", @id = "password", @placeholder = "Mật khẩu", @type = "password" })
-                            </p>
-                            <p class="form-row">
-                                <input type="hidden" id="_wpnonce" name="_wpnonce" value="e8f5622d97" />
-                                <input type="hidden" name="_wp_http_referer" value="/shop/my-account/" />
-                                <input type="submit" class="button" name="login" value="Đăng nhập" />
-                                <label for="rememberme" class="inline">
-                                    <input name="rememberme" type="checkbox" id="rememberme" value="forever" /> Ghi nhớ mật khẩu
-                                </label>
-                            </p>
-                            <p class="lost_password">
-                                <a href="javascript:void(0)" id="idRecoverPassword">Quên mật khẩu?</a>
-                            </p>
-                            <div class="">
-                                <a class="btn btn-facebook" href="@Url.Action("LoginFacebook", "Login")" style="padding: 7px 15px; ">
-                                    <i class="fa fa-facebook"></i>
-                                    Đăng nhập bằng Facebook
-                                </a>
+                            <div id="idCustomerLoginForm">
+                                <p class="form-row form-row-wide">
+                                    <label for="username">
+                                        Tên đăng nhập hoặc email
+                                        <span class="required">*</span>
+                                    </label>
+                                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control input-text", @id = "username", @placeholder = "Tên đăng nhập", @type = "email", })
+                                    @Html.ValidationMessageFor(model => model.Email, null, new { @class = "label label-danger", @style = "color: red; " })
+                                </p>
+                                <p class="form-row form-row-wide">
+                                    <label for="password">
+                                        Mật khẩu
+                                        <span class="required">*</span>
+                                    </label>
+                                    @Html.PasswordFor(model => model.Password, new { @class = "form-control input-text", @id = "password", @placeholder = "Mật khẩu", @type = "password" })
+                                </p>
+                                <p class="form-row">
+                                    <input type="hidden" id="_wpnonce" name="_wpnonce" value="e8f5622d97" />
+                                    <input type="hidden" name="_wp_http_referer" value="/shop/my-account/" />
+                                    <input type="submit" class="button" name="login" value="Đăng nhập" />
+                                    <label for="rememberme" class="inline">
+                                        <input name="rememberme" type="checkbox" id="rememberme" value="forever" /> Ghi nhớ mật khẩu
+                                    </label>
+                                </p>
+                                <p class="lost_password">
+                                    <a href="javascript:void(0)" id="idRecoverPassword">Quên mật khẩu?</a>
+                                </p>
+                                <div class="form-group">
+                                    <a class="btn btn-facebook" href="@Url.Action("LoginFacebook", "Login")" style="padding: 7px 15px; ">
+                                        <i class="fa fa-facebook"></i>
+                                        Đăng nhập bằng Facebook
+                                    </a>&nbsp;
+                                    <a class="btn btn-google" href="javascript:void(0)" id="btnLoginGoogle" style="padding: 7px 15px; ">
+                                        <i class="fa fa-google-plus"></i>
+                                        Đăng nhập bằng Google+
+                                    </a>
+                                </div>
                             </div>
-                        </div>
 
                             <div id="idRecoverPasswordForm" style="display: none;">
                                 <h2>Cập nhập mật khẩu</h2>
                                 <p>Chúng tôi sẽ gửi thông tin xuống địa chỉ Email bạn cung cấp.</p>
                                 <input type="hidden" name="form_type" value="recover_customer_password"><input type="hidden" name="utf8" value="✓">
                                 <label for="RecoverEmail" class="label-login">Địa chỉ Email</label>
-                                <input type="email" class="form-control" id="RecoverEmail" placeholder="*Địa chỉ Email" required />
+                                <input type="email" class="form-control" id="RecoverEmail" placeholder="*Địa chỉ Email" />
                                 <label class="label label-danger" id="lblError"></label>
                                 <p>
                                     <input type="button" onclick="ResetPassword();" class="btn btn-outline" value="Đồng ý" style="float: left;">
@@ -82,15 +85,15 @@
                                         Quay lại đăng nhập
                                     </span>
                                 </button>
-                            </div>                            
+                            </div>
                         }
-                        </div>                    
+                    </div>
                     <div class="social-bookmark"></div>
                     <div class="social-share"></div>
                 </div>
             </section>
         </div>
-    </div>    
+    </div>
 </body>
 </html>
 
@@ -138,3 +141,110 @@
         }
     }
 </script>
+
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+<script src="https://apis.google.com/js/api:client.js"></script>
+<script>
+    var googleUser = {};
+    var startApp = function () {
+        gapi.load('auth2', function () {
+            // Retrieve the singleton for the GoogleAuth library and set up the client.
+            auth2 = gapi.auth2.init({
+                client_id: '402289582147-l9hmpdta15fhc9c4bnl54itr2uf53puq.apps.googleusercontent.com',
+                secret_key: 'K3HYm-PJ8Ui0CrjK9FXeLPOr',  
+                cookiepolicy: 'single_host_origin',
+                // Request scopes in addition to 'profile' and 'email' //profile email
+                //scope: 'additional_scope'
+            });
+            //jQuery('#btnLoginGoogle')
+            attachSignin(document.getElementById('btnLoginGoogle'));
+        });
+    };
+
+    function attachSignin(element) {
+        //alert(element);
+        //console.log(element.id);
+        auth2.attachClickHandler(element, {},
+            function (googleUser) {
+                var profile = googleUser.getBasicProfile();
+                //===========
+                var FirstName = profile["ofa"];
+                var LastName = profile["wea"];
+                var FullName = profile["ig"];
+                var Email = profile["U3"];
+                var Picture = profile["Paa"];
+                var Google_ID = profile["Eea"];
+                //jQuery('#msgInfo').html('');
+                //jQuery('.loading').show();
+                jQuery.post('/Login/GoogleLogin',
+                    {
+                        id: Google_ID,
+                        firstname: FirstName,
+                        lastname: LastName,
+                        fullname: FullName,
+                        email: Email,
+                        picture: Picture,
+                    },
+                    function (data) {
+                        //jQuery('.loading').hide();
+                        //var val = data;
+                        //if (val == 1) {
+                        //    jQuery('#msgInfo').html('<span style=\'color:blue;\'>Đăng ký thành công</span>');
+                        //    jQuery('.loading').show();
+                        //    jQuery.post('/Handler.ashx',
+                        //        {
+                        //            Action: "login",
+                        //            Email: Email,
+                        //            Password: Password,
+                        //        },
+                        //        function (data) {
+                        //            jQuery('.loading').hide();
+                        //            var val = data;
+                        //            if (val == 1) {
+                        //                window.location.href = '/';
+                        //            }
+                        //            else
+                        //                jQuery('#msgInfo').html('<span style=\'color:red;\'>Đăng nhập không thành công</span>');
+                        //        })
+                        //        .fail(function () {
+                        //            jQuery('.loading').hide();
+                        //            jQuery('#msgInfo').html('<span style=\'color:red;\'>Đăng nhập không thành công</span>');
+                        //        });
+                        //}
+                        //else if (val == 2) {//IsCheckExists= true
+                        //    jQuery('#msgInfo').html('<span style=\'color:red;\'>Email đã có người sử dụng</span>');
+                        //    jQuery.post('/Handler.ashx',
+                        //        {
+                        //            Action: "login02",
+                        //            Email: Email
+                        //        },
+                        //        function (data) {
+                        //            jQuery('.loading').hide();
+                        //            var val = data;
+                        //            if (val == 1) {
+                        //                window.location.href = '/article/can-tho-nail-pikesville--1855719674.html';
+                        //            }
+                        //            else
+                        //                jQuery('#msgInfo').html('<span style=\'color:red;\'>Đăng nhập không thành công</span>');
+                        //        })
+                        //        .fail(function () {
+                        //            jQuery('.loading').hide();
+                        //            jQuery('#msgInfo').html('<span style=\'color:red;\'>Đăng nhập không thành công</span>');
+                        //        });
+                        //    return false;
+                        //}
+                        //else
+                        //    jQuery('#msgInfo').html('<span style=\'color:red;\'>Đăng ký thất bại</span>');
+                    })
+                    .fail(function () {
+                        jQuery('.loading').hide();
+                        jQuery('#msgInfo').html('<span style=\'color:red;\'>Đăng ký thất bại</span>');
+                    });
+
+            }, function (error) {
+                console.log(JSON.stringify(error, undefined, 2));
+            });
+    }
+</script>
+<script>startApp();</script>
+
