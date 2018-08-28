@@ -51,7 +51,7 @@ namespace CMS_Web.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
+                if (!ModelState.IsValid || model.IsSuccess == true)
                 {
                     model.ListProducts = _facProduct.GetList((byte)CMS_Common.Commons.EProductType.Procudure);
                     model.ListCustomer = _facCus.GetList();
@@ -63,8 +63,9 @@ namespace CMS_Web.Controllers
                 var result = _fac.CreateOrUpdate(model, ref msg);
                 if (result)
                 {
+                    model = new CMS_ReservationViewModels();
                     model.IsSuccess = true;
-                    return View(model);
+                    return RedirectToAction("Success");
                 }
                 else
                 {
@@ -77,6 +78,11 @@ namespace CMS_Web.Controllers
                 NSLog.Logger.Error("Reservation Index", ex);
                 return new HttpStatusCodeResult(400, ex.Message);
             }
+        }
+
+        public ActionResult Success()
+        {
+            return View();
         }
     }
 }

@@ -1,0 +1,40 @@
+﻿@model CMS_DTO.CMSReservation.CMS_ReservationViewModels
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.HiddenFor(model => model.Id)
+
+<div class="wrapper">
+    <div class="inner-wrapper">
+        <div id="main">
+            <section class='title-section'>
+                <div class="title-wrapper">
+                    <div class="container">
+                        <div class="border-title aligncenter">
+                            <h1>Đặt chỗ</h1>
+                            <p style="text-align: center; color: #d77d31;">Quý khách đã đặt lịch thành công!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="container" style="padding-top: 15px;">
+                <p style="text-align: center;">
+                    Chúng tôi sẽ liên hệ lại quý khách để xác nhận lịch hẹn trong thời gian sớm nhất. Hoặc quý khách có thể liên hệ trực tiếp qua số điện thoại: 0932 015 818.
+                </p>
+                <p style="text-align: center; color: #d77d31;">
+                    Cám ơn quý khách đã tham quan Spa chúng tôi!
+                </p>
+                <a class="btn" href="@Url.Action("Index", "Home")">
+                    <i class="fa fa-long-arrow-left"></i>&nbsp; Quay lại trang chủ
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Cache served by breeze CACHE - Last modified: Fri, 20 Jul 2018 09:57:47 GMT -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script>
+    $(document).ready(function () {
+    });
+</script>
