@@ -34,7 +34,7 @@
                                 <p class="form-row form-row-wide">
                                     <label for="username">
                                         Tên đăng nhập hoặc email
-                                        <span class="required">*</span>
+                                        <span class="">*</span>
                                     </label>
                                     @Html.TextBoxFor(model => model.Email, new { @class = "form-control input-text", @id = "username", @placeholder = "Tên đăng nhập", @type = "email", })
                                     @Html.ValidationMessageFor(model => model.Email, null, new { @class = "label label-danger", @style = "color: red; " })
@@ -42,7 +42,7 @@
                                 <p class="form-row form-row-wide">
                                     <label for="password">
                                         Mật khẩu
-                                        <span class="required">*</span>
+                                        <span class="">*</span>
                                     </label>
                                     @Html.PasswordFor(model => model.Password, new { @class = "form-control input-text", @id = "password", @placeholder = "Mật khẩu", @type = "password" })
                                 </p>
@@ -75,16 +75,20 @@
                                 <input type="hidden" name="form_type" value="recover_customer_password"><input type="hidden" name="utf8" value="✓">
                                 <label for="RecoverEmail" class="label-login">Địa chỉ Email</label>
                                 <input type="email" class="form-control" id="RecoverEmail" placeholder="*Địa chỉ Email" />
-                                <label class="label label-danger" id="lblError"></label>
-                                <p>
-                                    <input type="button" onclick="ResetPassword();" class="btn btn-outline" value="Đồng ý" style="float: left;">
-                                </p>
-                                <button type="button" id="idHideRecoverPasswordLink" class="text-link btn btn-outline-inverse" style="float: left">
-                                    <span>
-                                        <i class="fa fa-long-arrow-left"></i>&nbsp;
-                                        Quay lại đăng nhập
-                                    </span>
-                                </button>
+                                <label class="label label-danger" id="lblError" style="color: red; "></label>
+                                <div class="form-group">
+                                    <p>
+                                        <input type="button" onclick="ResetPassword();" class="btn btn-outline" value="Đồng ý" style="float: left;">
+                                    </p>
+                                    <p>
+                                        <button type="button" id="idHideRecoverPasswordLink" class="text-link btn btn-outline-inverse" style="float: left">
+                                            <span>
+                                                <i class="fa fa-long-arrow-left"></i>&nbsp;
+                                                Quay lại đăng nhập
+                                            </span>
+                                        </button>
+                                    </p>
+                                </div>                                
                             </div>
                         }
                     </div>
