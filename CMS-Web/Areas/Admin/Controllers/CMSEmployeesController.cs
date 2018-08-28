@@ -31,6 +31,7 @@ namespace CMS_Web.Areas.Admin.Controllers
         public ActionResult LoadGrid()
         {
             var model = _factory.GetList();
+            model = model.Where(o => !o.IsSupperAdmin).ToList();
             model.ForEach(x =>
             {
                 x.sStatus = x.IsActive ? "Kích hoạt" : "Chưa kích hoạt";
