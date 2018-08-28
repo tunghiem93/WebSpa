@@ -63,11 +63,12 @@ namespace CMS_Web.Controllers
                 var result = _fac.CreateOrUpdate(model, ref msg);
                 if (result)
                 {
-                    return Json("SuccessMsg", JsonRequestBehavior.AllowGet);
+                    model.IsSuccess = true;
+                    return View(model);
                 }
                 else
                 {
-                    ModelState.AddModelError("CustomerName", "Thông tin đặt chỗ không thành công!");
+                    model.IsSuccess = false;
                     return View(model);
                 }
             }
