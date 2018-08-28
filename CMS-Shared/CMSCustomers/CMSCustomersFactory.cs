@@ -57,7 +57,7 @@ namespace CMS_Shared.CMSCustomers
                                 ValidTo = Commons.MinDate,
                             };
                             cxt.CMS_Customer.Add(e);
-                            
+
                         }
                         else
                         {
@@ -73,7 +73,20 @@ namespace CMS_Shared.CMSCustomers
                                     msg = "Địa chỉ email đã tồn tại";
                                     Result = false;
                                 }
-                            }                          
+                            }
+                            else if (!string.IsNullOrEmpty(model.GoogleID))
+                            {
+                                if (string.IsNullOrEmpty(_isExits.GoogleID)) /* update google id */
+                                {
+                                    Id = _isExits.ID;
+                                    _isExits.GoogleID = model.GoogleID;
+                                }
+                                else
+                                {
+                                    msg = "Địa chỉ email đã tồn tại";
+                                    Result = false;
+                                }
+                            }
                             else
                             {
                                 msg = "Địa chỉ email đã tồn tại";
@@ -279,9 +292,11 @@ namespace CMS_Shared.CMSCustomers
             {
                 using (var cxt = new CMS_Context())
                 {
-                    var data = cxt.CMS_Customer.Where(x => x.Email.Equals(model.Email)
-                                                        && ((x.Password.Equals(model.Password) || (!string.IsNullOrEmpty(model.Fb_ID) && x.FbID == model.Fb_ID)))
-                                                        && x.IsActive.Value)
+                    var data = cxt.CMS_Customer.Where(x => ((x.Email.Equals(model.Email) && x.Password == model.Password)
+                                                                || (!string.IsNullOrEmpty(model.Fb_ID) && (x.FbID == model.Fb_ID || x.GoogleID == model.Fb_ID)))
+                                                        && x.IsActive.Value
+                                                        && x.Status == (byte)Commons.EStatus.Actived
+                                                        )
                                               .Select(x => new ClientLoginModel
                                               {
                                                   Email = x.Email,

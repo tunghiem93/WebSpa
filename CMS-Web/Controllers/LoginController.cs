@@ -339,8 +339,10 @@ namespace CMS_Web.Controllers
             FormsAuthentication.SetAuthCookie(email, false);
             ClientLoginModel model = new ClientLoginModel();
             model.Email = email;
+            model.Picture = picture;
+            model.Fb_ID = id;
 
-            bool IsCheck = _factory.CheckExistLoginSosial(model.Fb_ID);
+            bool IsCheck = _factory.CheckExistLoginSosial(id);
             if (IsCheck)
             {
                 var resultLogin = _factory.Login(model);
@@ -374,6 +376,9 @@ namespace CMS_Web.Controllers
             else
             {
                 CustomerModels modelFB = new CustomerModels();
+                modelFB.FbID = id;
+                modelFB.FirstName = firstname;
+                modelFB.LastName = lastname;
                 modelFB.Email = email;
                 modelFB.ImageURL = picture;
                 string msg = "";

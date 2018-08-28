@@ -14,6 +14,7 @@ namespace CMS_DTO.CMSCustomer
     {
         public string ID { get; set; }
         public string FbID { get; set; }
+        public string GoogleID { get; set; }
         //[Required(ErrorMessage = "Làm ơn nhập tên đầy đủ!")]
         public string Name { get { return (this.FirstName + " " + this.LastName); } }
         //[Required(ErrorMessage = "Xin hãy nhập họ của bạn!")]
