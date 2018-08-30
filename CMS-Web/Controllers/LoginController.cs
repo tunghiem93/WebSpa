@@ -380,7 +380,7 @@ namespace CMS_Web.Controllers
             else
             {
                 CustomerModels modelFB = new CustomerModels();
-                modelFB.FbID = id;
+                modelFB.GoogleID = id;
                 modelFB.FirstName = firstname;
                 modelFB.LastName = lastname;
                 modelFB.Email = email;
