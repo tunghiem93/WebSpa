@@ -417,5 +417,90 @@ namespace CMS_Web.Controllers
             }            
             return Json(obj, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public ActionResult FacebookLogin(string id, string firstname, string lastname, string fullname, string email, string picture)
+        {
+            FormsAuthentication.SetAuthCookie(email, false);
+            ClientLoginModel model = new ClientLoginModel();
+            model.Email = email;
+            model.Picture = picture;
+            model.Fb_ID = id;
+
+            var obj = new
+            {
+                message = 1
+            };
+            bool IsCheck = _factory.CheckExistLoginSosial(id);
+            if (IsCheck)
+            {
+                var resultLogin = _factory.Login(model);
+                if (resultLogin != null)
+                {
+                    UserSession userSession = new UserSession();
+                    userSession.Email = resultLogin.Email;
+                    userSession.UserName = resultLogin.DisplayName;
+                    userSession.IsAdminClient = resultLogin.IsAdmin;
+                    userSession.FirstName = resultLogin.FirstName;
+                    userSession.LastName = resultLogin.LastName;
+                    userSession.Phone = resultLogin.Phone;
+                    userSession.Address = resultLogin.Address;
+                    userSession.UserId = resultLogin.Id;
+                    userSession.PostCode = resultLogin.PostCode;
+                    userSession.Country = resultLogin.Country;
+                    userSession.City = resultLogin.City;
+                    Session.Add("UserClient", userSession);
+                    string myObjectJson = JsonConvert.SerializeObject(userSession);  //new JavaScriptSerializer().Serialize(userSession);
+                    HttpCookie cookie = new HttpCookie("UserClientCookie");
+                    cookie.Expires = DateTime.Now.AddMonths(1);
+                    cookie.Value = Server.UrlEncode(myObjectJson);
+                    HttpContext.Response.Cookies.Add(cookie);
+                }
+                else
+                {
+                    obj = new { message = 2 };
+                    return Json(obj, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                CustomerModels modelFB = new CustomerModels();
+                modelFB.FbID = id;
+                modelFB.FirstName = firstname;
+                modelFB.LastName = lastname;
+                modelFB.Email = email;
+                modelFB.ImageURL = picture;
+                string msg = "";
+                string cusId = "";
+                var resultSignUp = _factory.CreateOrUpdate(modelFB, ref cusId, ref msg);
+                if (resultSignUp)
+                {
+                    var data = _factory.GetDetail(cusId);
+                    UserSession userSession = new UserSession();
+                    userSession.Email = data.Email;
+                    userSession.UserName = data.FirstName + " " + data.LastName;
+                    userSession.FirstName = data.FirstName;
+                    userSession.LastName = data.LastName;
+                    userSession.Phone = data.Phone;
+                    userSession.Address = data.Address;
+                    userSession.UserId = data.ID;
+                    userSession.PostCode = data.Postcode;
+                    userSession.Country = data.Country;
+                    userSession.City = data.City;
+                    Session.Add("UserClient", userSession);
+                    string myObjectJson = JsonConvert.SerializeObject(userSession);  //new JavaScriptSerializer().Serialize(userSession);
+                    HttpCookie cookie = new HttpCookie("UserClientCookie");
+                    cookie.Expires = DateTime.Now.AddMonths(1);
+                    cookie.Value = Server.UrlEncode(myObjectJson);
+                    HttpContext.Response.Cookies.Add(cookie);
+                }
+                else
+                {
+                    obj = new { message = 3 };
+                    return Json(obj, JsonRequestBehavior.AllowGet);
+                }
+            }
+            return Json(obj, JsonRequestBehavior.AllowGet);
+        }
     }
 }
