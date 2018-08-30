@@ -39,9 +39,9 @@ namespace CMS_Shared.Utilities
                     }
                 }
             }
-            catch(Exception ex) { };
+            catch (Exception ex) { };
             return ret;
-            
+
         }
 
         public static string Decrypt(string cipher)
@@ -99,32 +99,32 @@ namespace CMS_Shared.Utilities
             bool isOk = false;
             try
             {
-               
-                    string email = ConfigurationManager.AppSettings["LamodeMail"];
-                    string passWord = ConfigurationManager.AppSettings["LamodePass"];
-                    string smtpServer = "smtp.gmail.com";
-                    if (email != "" && passWord != "")
-                    {
-                        MailMessage mail = new MailMessage(email, EmailTo);
-                        mail.Subject = Subject;
-                        mail.Body = Content;
-                        mail.IsBodyHtml = true;
-                        if (!string.IsNullOrEmpty(imgUrl))
-                            mail.Body = string.Format("<div><img src='{0}'/><div>", imgUrl);
 
-                        SmtpClient client = new SmtpClient();
-                        client.Port = 587;
-                        client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                        client.UseDefaultCredentials = false;
-                        client.Credentials = new NetworkCredential(email, passWord);
-                        client.Host = smtpServer;
-                        client.Timeout = 10000;
-                        client.EnableSsl = true;
-                        if (!string.IsNullOrEmpty(attachment))
-                            mail.Attachments.Add(new System.Net.Mail.Attachment(attachment));
-                        client.Send(mail);
-                        isOk = true;
-                    }
+                string email = ConfigurationManager.AppSettings["LamodeMail"];
+                string passWord = ConfigurationManager.AppSettings["LamodePass"];
+                string smtpServer = "smtp.gmail.com";
+                if (email != "" && passWord != "")
+                {
+                    MailMessage mail = new MailMessage(email, EmailTo);
+                    mail.Subject = Subject;
+                    mail.Body = Content;
+                    mail.IsBodyHtml = true;
+                    if (!string.IsNullOrEmpty(imgUrl))
+                        mail.Body = string.Format("<div><img src='{0}'/><div>", imgUrl);
+
+                    SmtpClient client = new SmtpClient();
+                    client.Port = 587;
+                    client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    client.UseDefaultCredentials = false;
+                    client.Credentials = new NetworkCredential(email, passWord);
+                    client.Host = smtpServer;
+                    client.Timeout = 10000;
+                    client.EnableSsl = true;
+                    if (!string.IsNullOrEmpty(attachment))
+                        mail.Attachments.Add(new System.Net.Mail.Attachment(attachment));
+                    client.Send(mail);
+                    isOk = true;
+                }
             }
             catch (Exception ex)
             {
@@ -152,7 +152,7 @@ namespace CMS_Shared.Utilities
         public static string RandomNumberOrder()
         {
             Random R = new Random();
-            return "NO_" +((long)R.Next(0, 100000) * (long)R.Next(0, 100000)).ToString().PadLeft(10, '0');
+            return "NO_" + ((long)R.Next(0, 100000) * (long)R.Next(0, 100000)).ToString().PadLeft(10, '0');
         }
 
         ///<summary>
@@ -193,7 +193,7 @@ namespace CMS_Shared.Utilities
                     if (orderType == (byte)Commons.EOrderType.Expense)
                         prefix = "EX";
                     prefix += DateTime.Now.ToString("yyyyMMdd") + "-";
-                    
+
                     int nextNum = startNo;
                     int currentNum = 0;
                     string currentOrderNo = _db.CMS_Order.Where(o => o.StoreID == _storeID && o.OrderNo.Contains(prefix) && !string.IsNullOrEmpty(o.OrderNo)).OrderByDescending(o => o.OrderNo).Select(o => o.OrderNo).FirstOrDefault();
@@ -260,7 +260,7 @@ namespace CMS_Shared.Utilities
             return result;
         }
 
-        public static bool ContactAdmin(CMS_ContactModels _ctInfo )
+        public static bool ContactAdmin(CMS_ContactModels _ctInfo)
         {
             var ret = false;
             try
@@ -272,11 +272,11 @@ namespace CMS_Shared.Utilities
 
                 /* send mail to customer */
                 if (!string.IsNullOrEmpty(_ctInfo.Email))
-                    SendContentMail(_ctInfo.Email, _ctInfo.GetContactInfo(), _ctInfo.Name, "[Lamode Home]" + " thanks for contacting us "  + _ctInfo.Subject);
+                    SendContentMail(_ctInfo.Email, _ctInfo.GetContactInfo(), _ctInfo.Name, "[Lamode Home]" + " thanks for contacting us " + _ctInfo.Subject);
 
                 ret = true;
             }
-            catch(Exception ex) { }
+            catch (Exception ex) { }
             return ret;
         }
 
@@ -285,14 +285,13 @@ namespace CMS_Shared.Utilities
             string body = string.Empty;
             try
             {
-                body += "<div class='payment-order clearfix'>";
-                body += "<h3>Mã đơn hàng của bạn: <b>#" + model.OrderNo + "</b></h3>";
+                body += "<div class='payment-order'  style = 'margin: 50px 50px 50px 50px;'>";
+                body += "<h3 style  = 'text-align: center'>Mã đơn hàng: <b style='color: #ff0000;'>#" + model.OrderNo + "</b></h3>";
                 body += "<p><b>Ngày đặt:</b> <i>" + model.CreatedDate.ToString("dd/MM/yyyy hh:mm tt") + "</i></p>";
                 body += "<p><b>Tên khách hàng:</b> <i>" + model.CustomerName + "</i></p>";
                 body += "<p><b>Số điện thoại:</b> <i>" + model.Phone + "</i></p>";
                 body += "<p><b>Email:</b> <i>" + model.Email + "</i></p>";
                 body += "<p><b>Địa chỉ:</b> <i>" + model.Address + "</i></p>";
-                body += "<p><b>Phương thức thanh toán:</b> <i></i></p>";
                 body += "<h1 class='page-heading' style= 'font-size: 16px;color: #958457;margin-bottom: 5px;'>Thông tin đơn hàng</h1>";
                 body += "<table class='table' style='width: 100%;margin-bottom: 20px;max-width: 100%;border-collapse: collapse;border-spacing: 0;'>";
                 body += "<thead style='background-color: #a0ca50 !important;color:#FFF'>";
@@ -300,8 +299,8 @@ namespace CMS_Shared.Utilities
                 body += "<th style='padding: 15px;vertical-align: bottom;border-bottom: 2px solid #e7ecf1;line-height: 1.42857;'>STT</th>";
                 body += "<th style='padding: 15px;vertical-align: bottom;border-bottom: 2px solid #e7ecf1;line-height: 1.42857;'>SẢN PHẨM</th>";
                 body += "<th style='padding: 15px;vertical-align: bottom;border-bottom: 2px solid #e7ecf1;line-height: 1.42857;'>GIÁ</th>";
-                body += "<th style='padding: 15px;vertical-align: bottom;border-bottom: 2px solid #e7ecf1;line-height: 1.42857;'>SỐ LƯỢNG</th>";
-                body += "<th style='padding: 15px;vertical-align: bottom;border-bottom: 2px solid #e7ecf1;line-height: 1.42857;'>THÀNH TIỀN</th>";
+                body += "<th style='padding: 15px;vertical-align: bottom;border-bottom: 2px solid #e7ecf1;line-height: 1.42857;'>SL</th>";
+                body += "<th style='padding: 15px;vertical-align: bottom;border-bottom: 2px solid #e7ecf1;line-height: 1.42857;'>T.TIỀN</th>";
                 body += "</tr>";
                 body += "</thead>";
                 body += " <tbody>";
@@ -312,13 +311,13 @@ namespace CMS_Shared.Utilities
                     {
                         body += "<tr>";
                         body += " <td style='padding: 8px;line-height: 1.42857;vertical-align: top;border-top: 1px solid #e7ecf1;text-align:center;'>" + Index + "</td>";
-                        body += "<td style='padding: 8px;line-height: 1.42857;vertical-align: top;border-top: 1px solid #e7ecf1;text-align:center;'>";
+                        body += "<td style='padding: 8px;line-height: 1.42857;vertical-align: top;border-top: 1px solid #e7ecf1;text-align:left;'>";
                         body += "<span>" + item.ProductName + "</span>";
                         body += " <p class='note'></p>";
                         body += "</td>";
-                        body += "<td style='padding: 8px;line-height: 1.42857;vertical-align: top;border-top: 1px solid #e7ecf1;text-align:center;'>" + item.Price.ToString("#,0") + " đ</td>";
+                        body += "<td style='padding: 8px;line-height: 1.42857;vertical-align: top;border-top: 1px solid #e7ecf1;text-align:center;'>" + item.Price.ToString("#,0") + "đ</td>";
                         body += "<td style='padding: 8px;line-height: 1.42857;vertical-align: top;border-top: 1px solid #e7ecf1;text-align:center;'>" + item.Quantity + "</td>";
-                        body += "<td style='padding: 8px;line-height: 1.42857;vertical-align: top;border-top: 1px solid #e7ecf1;text-align:center;'>" + item.TotalPrice.ToString("#,0") + " đ</td>";
+                        body += "<td style='padding: 8px;line-height: 1.42857;vertical-align: top;border-top: 1px solid #e7ecf1;text-align:right;'>" + item.TotalPrice.ToString("#,0") + "đ</td>";
                         body += "</tr>";
                         Index = Index + 1;
                     }
@@ -326,19 +325,32 @@ namespace CMS_Shared.Utilities
                 body += "</tbody>";
                 body += "<tfoot>";
                 body += "<tr>";
-                body += "<td class='label-payment' style='text-transform: uppercase;padding: 8px;line-height: 1.42857;vertical-align: top;border-top: 1px solid #e7ecf1;text-align: left;background-color: #a0ca50 !important;color:#FFF'><b>Thành tiền (Chưa VAT)</b></td>";
-                body += "<td colspan='4' class='total-payment text-center' style='color: #ff0000;border-top: 1px solid #e7ecf1;text-align:center'>" + model.SubTotal.Value.ToString("#,0") + " đ</td>";
+                body += "<td colspan='4' class='label-payment' style='text-transform: uppercase;padding: 8px;line-height: 1.42857;vertical-align: top;border-top: 1px solid #e7ecf1;text-align: right;!important;'><b>Thành tiền</b></td>";
+                body += "<td class='total-payment text-center' style='color: #ff0000;border-top: 1px solid #e7ecf1; padding: 8px; text-align:right'>" + model.SubTotal.Value.ToString("#,0") + "đ</td>";
                 body += "</tr>";
-                body += "<tr>";
-                body += "<td class='label-payment' style='text-transform: uppercase;padding: 8px;line-height: 1.42857;vertical-align: top;border-top: 1px solid #e7ecf1;text-align: left;background-color: #a0ca50 !important;color:#FFF'><b>Vận chuyển</b></td>";
-                body += "<td colspan='4' class='total-payment text-center' style='color: #ff0000;border-top: 1px solid #e7ecf1;text-align:center'>Sẽ được thông báo sau.</td>";
-                body += "</tr>";
-                body += "<tr>";
-                body += "<td class='text-right label-payment' style='text-transform: uppercase;padding: 8px;line-height: 1.42857;vertical-align: top;border-top: 1px solid #e7ecf1;text-align: left;background-color: #a0ca50 !important;color:#FFF'><b>Thành tiền (tạm tính)</b></td>";
-                body += "<td colspan='4' class='total-payment' style='color: #ff0000;border-top: 1px solid #e7ecf1;text-align:center'>" + model.TotalBill.Value.ToString("#,0") + " đ</td>";
-                body += "</tr>";
+
+                if (model.TotalDiscount > 0)
+                {
+                    body += "<tr>";
+                    body += "<td colspan='4' class='label-payment' style='text-transform: uppercase;padding: 8px;line-height: 1.42857;vertical-align: top;border-top: 1px solid #e7ecf1;text-align: right;!important;'><b>Khuyến mãi</b></td>";
+                    body += "<td class='total-payment text-center' style='color: #ff0000;border-top: 1px solid #e7ecf1; padding: 8px; text-align:right'>" + model.TotalDiscount.Value.ToString("#,0") + "đ</td>";
+                    body += "</tr>";
+                }
+
+                if (model.TotalBill != model.SubTotal)
+                {
+                    body += "<tr>";
+                    body += "<td colspan='4' class='label-payment' style='text-transform: uppercase;padding: 8px;line-height: 1.42857;vertical-align: top;border-top: 1px solid #e7ecf1;text-align: right;!important;'><b>Tiền cần thanh toán</b></td>";
+                    body += "<td class='total-payment' style='color: #ff0000;border-top: 1px solid #e7ecf1; padding: 8px; text-align:right'>" + model.TotalBill.Value.ToString("#,0") + "đ</td>";
+                    body += "</tr>";
+                }
+
                 body += "</tfoot>";
                 body += "</table>";
+                body += "<p><b>Địa chỉ:</b> <i>181 / 29 Âu Dương Lân, P.2, Q.8, HCM</i></p>";
+                body += "<p><b>Số điện thoại:</b> <i>(+84) 0993.5555.99</i></p>";
+                body += "<p><b>Facebook:</b> <i>fb.com/LamodeHomeSpa</i></p>";
+                body += "<p style='color: #ff0000;border-top: 1px solid #e7ecf1;text-align:center'><b>Xin cảm ơn quý khách, hẹn gặp lại!</b></p>";
                 body += "<br clear=\"all\">";
                 body += "</div>";
             }

@@ -12,6 +12,7 @@ using System.Web;
 using System.Web.Mvc;
 using CMS_Shared.Utilities;
 using CMS_Shared.CMSEmployees;
+using CMS_Common;
 
 namespace CMS_Web.Areas.Admin.Controllers
 {
@@ -182,6 +183,7 @@ namespace CMS_Web.Areas.Admin.Controllers
         public ActionResult Print(string Id)
         {
             var model = new CMS_OrderModels();
+            var pathReceipt = Commons._PublicImages + "Receipt/" + Id + ".pdf";
             try
             {
                 model = _fac.GetDetailOrder(Id);
@@ -189,12 +191,18 @@ namespace CMS_Web.Areas.Admin.Controllers
                 {
                     model.sCreatedDate = model.CreatedDate.ToString("dd/MM/yyyy hh:mm tt");
                 }
+
+                var path = Server.MapPath("~/Uploads/Receipt/" + model.Id + ".pdf");
+                PrintHelper.Print(model, path);
+
             }
             catch (Exception ex)
             {
                 NSLog.Logger.Error("getDetail_Order:", ex);
             }
-            return View("Print", model);
+            return Redirect(pathReceipt);
+
+            //return View("Print", model);
         }
 
         public JsonResult Checkout(string id)
