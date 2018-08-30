@@ -350,7 +350,10 @@ namespace CMS_Shared.Utilities
                 body += "<p><b>Địa chỉ:</b> <i>181 / 29 Âu Dương Lân, P.2, Q.8, HCM</i></p>";
                 body += "<p><b>Số điện thoại:</b> <i>(+84) 0993.5555.99</i></p>";
                 body += "<p><b>Facebook:</b> <i>fb.com/LamodeHomeSpa</i></p>";
-                body += "<p style='color: #ff0000;border-top: 1px solid #e7ecf1;text-align:center'><b>Xin cảm ơn quý khách, hẹn gặp lại!</b></p>";
+                body += "<p style='color: #ff0000;border-top: 1px solid #e7ecf1;text-align:center'><i>Lamode xin cảm ơn quý khách đã tin tưởng và ủng hộ!</i></p>";
+                body += "<div style = 'margin: auto; width: 50%'>";
+                body += "<img class='img1' src='https://lamodehome.com/Images/LogoFull.png' alt='logo' style = 'display: block; margin - left: auto; margin - right: auto;'/>";
+                body += "</div>";
                 body += "<br clear=\"all\">";
                 body += "</div>";
             }
