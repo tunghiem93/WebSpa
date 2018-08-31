@@ -109,6 +109,24 @@
             </div>
         </div>
 
+        <!--Description-->
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Mô tả</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <textarea class="form-control" placeholder="Mô tả đơn hàng" ng-model="Description"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Giảm trực tiếp</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="VNĐ" autocomplete="off" ng-model="DirectDiscountValue" ng-keyup="completeDiscountDirect(DirectDiscountValue)" ng- />
+                    <span class="input-group-addon" style="cursor:pointer;" ng-click="removeDiscountDirect();"><i class="glyphicon glyphicon-remove"></i></span>
+                </div>
+            </div>
+        </div>
+
         <div class="form-group">
             <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Mã giảm giá</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -117,10 +135,8 @@
                 <input type="hidden" ng-model="DiscountValue" />
                 <input type="hidden" ng-model="ValueText" />
                 <div class="input-group">
-
                     <input type="text" class="form-control" placeholder="Mã giảm giá" autocomplete="off" ng-model="DiscountCode" ng-keyup="completeDiscount(DiscountCode)" />
                     <span class="input-group-addon" style="cursor:pointer;" ng-click="removeDiscount();"><i class="glyphicon glyphicon-remove"></i></span>
-
                 </div>
                 <ul class="list-group">
                     <li class="list-group-item" ng-repeat="discounttdata in filterDiscount" ng-click="fillTextboxDiscount(discounttdata)">{{discounttdata.DiscountCode}}</li>
@@ -129,13 +145,7 @@
             </div>
         </div>
 
-        <!--Description-->
-        <div class="form-group">
-            <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Mô tả</label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <textarea class="form-control" placeholder="Mô tả đơn hàng" ng-model="Description"></textarea>
-            </div>
-        </div>
+
     </fieldset>
 
     <fieldset>
@@ -157,8 +167,8 @@
                     <input type="text" class="form-control" restrict-to="[0-9]" placeholder="Số lượng" ng-model="Qty" ng-init="Qty = 1" autocomplete="off" id="txtQty" />
                 </div>
                 @*<div class="col-md-2 col-sm-2 col-xs-12">
-                    <button type="button" class="btn btn-primary" ng-click="fnAddItem();" ng-disabled="OrderFrm.productName.$invalid">Thêm</button>
-                </div>*@
+                        <button type="button" class="btn btn-primary" ng-click="fnAddItem();" ng-disabled="OrderFrm.productName.$invalid">Thêm</button>
+                    </div>*@
             </div>
             <div class="form-group">
                 <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Nhân viên</label>
@@ -172,7 +182,6 @@
                 <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Mã giảm giá</label>
                 <div class="col-md-2 col-sm-2 col-xs-12">
                     <div class="input-group">
-
                         <input type="text" class="form-control" placeholder="Mã giảm giá" autocomplete="off" ng-model="DiscountItemCode" ng-keyup="completeDiscountItem(DiscountItemCode)" />
                         <span class="input-group-addon" style="cursor:pointer;" ng-click="removeDiscountItem();"><i class="glyphicon glyphicon-remove"></i></span>
                     </div>
@@ -180,7 +189,6 @@
                         <li class="list-group-item" ng-repeat="discounttdata in filterDiscountItem" ng-click="fillTextboxDiscountItem(discounttdata)">{{discounttdata.DiscountCode}}</li>
                     </ul>
                 </div>
-                
 
                 <div class="col-md-2 col-sm-2 col-xs-12">
                     <button type="button" class="btn btn-primary" ng-click="fnAddItem();" ng-disabled="OrderFrm.productName.$invalid">Thêm</button>
@@ -226,13 +234,13 @@
                         <td class="text-right" colspan="5">SubTotal</td>
                         <td class="text-center">{{SubTotal | currency :"": 0}} đ</td>
                     </tr>
-                    <tr ng-if="TotalDiscount > 0 ">
+                    <tr ng-if="TotalDiscount  > 0 ">
                         <td class="text-right" colspan="5">Giảm giá</td>
-                        <td class="text-center">{{TotalDiscount | currency :"": 0}} đ</td>
+                        <td class="text-center">{{(TotalDiscount) | currency :"": 0}} đ</td>
                     </tr>
                     <tr>
                         <td class="text-right" colspan="5">Tổng tiền</td>
-                        <td class="text-center">{{TotalPrice | currency :"": 0}} đ</td>
+                        <td class="text-center">{{(TotalPrice) | currency :"": 0}} đ</td>
                     </tr>
                 </tfoot>
             </table>
@@ -264,6 +272,40 @@
         $scope.customerList = JSON.parse('@Html.Raw(Json.Encode(Model.Customers))');
         $scope.discountList = JSON.parse('@Html.Raw(Json.Encode(Model.Discounts))');
         $scope.employeeList = JSON.parse('@Html.Raw(Json.Encode(Model.Employees))');
+
+
+        $scope.ReCalculateOrder = function () {
+            $scope.TotalPrice = 0;
+            $scope.SubTotal = 0;
+            $scope.TotalDiscount = 0;
+            $scope.TotalDiscount += parseInt($scope.DirectDiscountValue,10);
+            if ($scope.Items != null && $scope.Items != undefined) {
+                $.each($scope.Items, function (index, item) {
+                    $scope.TotalPrice += item.TotalPrice;
+                    $scope.SubTotal += (item.Quantity * item.Price);
+                    if (item.DiscountAmount > 0) {
+                        $scope.TotalDiscount += item.DiscountAmount;
+                    }
+                });
+
+                if ($scope.DiscountValue != undefined) {
+                    if ($scope.DiscountType == 0)//percent
+                    {
+                        $scope.TotalDiscount += ($scope.TotalPrice * ($scope.DiscountValue / 100));
+                        $scope.TotalDiscount = Math.round($scope.TotalDiscount * 0.01) / 0.01;
+                    }
+                    else {
+                        $scope.TotalDiscount += $scope.DiscountValue;
+                    }
+                }
+                $scope.TotalDiscount = Math.round($scope.TotalDiscount * 0.01) / 0.01;
+                $scope.TotalPrice = $scope.SubTotal - $scope.TotalDiscount;
+                $scope.TotalPrice = Math.round($scope.TotalPrice * 0.01) / 0.01;
+                if ($scope.TotalPrice < 0)
+                    $scope.TotalPrice = 0;
+            }
+        }
+
         /*autocomplete employees */
         $scope.completeEmployee = function (string) {
             var output = [];
@@ -332,6 +374,17 @@
             $scope.filterDiscount = output;
         }
 
+
+        $scope.completeDiscountDirect = function (discountValue) {
+            $scope.ReCalculateOrder();
+        }
+
+        $scope.removeDiscountDirect = function () {
+            $scope.DirectDiscountValue = null;
+            $scope.ReCalculateOrder();
+        }
+
+
         $scope.completeDiscountItem = function (string) {
             var output = [];
             if (string == undefined || string === "") {
@@ -355,32 +408,9 @@
             $scope.ValueText = obj.ValueText;
             $scope.filterDiscount = null;
 
-            $scope.TotalPrice = 0;
-            $scope.SubTotal = 0;
-            $scope.TotalDiscount = 0;
-            if ($scope.Items != null && $scope.Items != undefined) {
-                $.each($scope.Items, function (index, item) {
-                    $scope.TotalPrice += item.TotalPrice;
-                    $scope.SubTotal += (item.Quantity * item.Price);
-                    $scope.TotalDiscount += item.DiscountAmount;
-                });
+            /* recalculate order */
+            $scope.ReCalculateOrder();
 
-                if ($scope.DiscountValue != undefined) {
-                    if ($scope.DiscountType == 0)//percent
-                    {
-                        $scope.TotalDiscount += ($scope.TotalPrice * ($scope.DiscountValue / 100));
-                        $scope.TotalDiscount = Math.round($scope.TotalDiscount * 0.01) / 0.01;
-                    }
-                    else {
-                        $scope.TotalDiscount += $scope.DiscountValue;
-                    }
-
-                    $scope.TotalPrice = $scope.SubTotal - $scope.TotalDiscount;
-                    $scope.TotalPrice = Math.round($scope.TotalPrice * 0.01) / 0.01;
-                    if ($scope.TotalPrice < 0)
-                        $scope.TotalPrice = 0;
-                }
-            }
         }
 
         $scope.fillTextboxDiscountItem = function (obj) {
@@ -397,36 +427,9 @@
             $scope.DiscountType = null;
             $scope.DiscountValue = null;
             $scope.ValueText = null;
-            $scope.TotalPrice = 0;
-            $scope.SubTotal = 0;
-            $scope.TotalDiscount = 0;
 
-            $scope.TotalPrice = 0;
-            $scope.SubTotal = 0;
-            $scope.TotalDiscount = 0;
-            if ($scope.Items != null && $scope.Items != undefined) {
-                $.each($scope.Items, function (index, item) {
-                    $scope.TotalPrice += item.TotalPrice;
-                    $scope.SubTotal += (item.Quantity * item.Price);
-                    $scope.TotalDiscount += item.DiscountAmount;
-                });
-
-                if ($scope.DiscountValue != undefined) {
-                    if ($scope.DiscountType == 0)//percent
-                    {
-                        $scope.TotalDiscount += ($scope.TotalPrice * ($scope.DiscountValue / 100));
-                        $scope.TotalDiscount = Math.round($scope.TotalDiscount * 0.01) / 0.01;
-                    }
-                    else {
-                        $scope.TotalDiscount += $scope.DiscountValue;
-                    }
-
-                    $scope.TotalPrice = $scope.SubTotal - $scope.TotalDiscount;
-                    $scope.TotalPrice = Math.round($scope.TotalPrice * 0.01) / 0.01;
-                    if ($scope.TotalPrice < 0)
-                        $scope.TotalPrice = 0;
-                }
-            }
+            /* recalculate order */
+            $scope.ReCalculateOrder();
         }
 
         $scope.removeDiscountItem = function () {
@@ -492,35 +495,8 @@
                 DiscountAmount: discountItem,
             });
 
-            /* calculate sub total, discount, total */
-            $scope.TotalPrice = 0;
-            $scope.SubTotal = 0;
-            $scope.TotalDiscount = 0;
-            if ($scope.Items != null && $scope.Items != undefined)
-            {
-                $.each($scope.Items, function (index, item) {
-                    $scope.TotalPrice += item.TotalPrice;
-                    $scope.SubTotal += (item.Quantity * item.Price);
-                    $scope.TotalDiscount += item.DiscountAmount;
-                });
-
-                if ($scope.DiscountValue != undefined)
-                {
-                    if ($scope.DiscountType == 0)//percent
-                    {
-                        $scope.TotalDiscount += ($scope.TotalPrice * ($scope.DiscountValue / 100));
-                        $scope.TotalDiscount = Math.round($scope.TotalDiscount * 0.01) / 0.01;
-                    }
-                    else {
-                        $scope.TotalDiscount += $scope.DiscountValue;
-                    }
-
-                    $scope.TotalPrice = $scope.SubTotal - $scope.TotalDiscount;
-                    $scope.TotalPrice = Math.round($scope.TotalPrice * 0.01) / 0.01;
-                    if ($scope.TotalPrice < 0)
-                        $scope.TotalPrice = 0;
-                }
-            }
+            /* recalculate order */
+            $scope.ReCalculateOrder();
 
             /* reset value */
             $scope.ProductPrice = 0;
@@ -542,36 +518,14 @@
         {
             var index = $scope.Items.indexOf(item);
             $scope.Items.splice(index, 1);
-            $scope.TotalPrice = 0;
-            $scope.SubTotal = 0;
-            $scope.TotalDiscount = 0;
-            if ($scope.Items != null && $scope.Items != undefined) {
-                $.each($scope.Items, function (index, item) {
-                    $scope.TotalPrice += item.TotalPrice;
-                    $scope.SubTotal += (item.Quantity * item.Price);
-                    $scope.TotalDiscount += item.DiscountAmount;
-                });
 
-                if ($scope.DiscountValue != undefined) {
-                    if ($scope.DiscountType == 0)//percent
-                    {
-                        $scope.TotalDiscount += ($scope.TotalPrice * ($scope.DiscountValue / 100));
-                        $scope.TotalDiscount = Math.round($scope.TotalDiscount * 0.01) / 0.01;
-                    }
-                    else {
-                        $scope.TotalDiscount += $scope.DiscountValue;
-                    }
-
-                    $scope.TotalPrice = $scope.SubTotal - $scope.TotalDiscount;
-                    $scope.TotalPrice = Math.round($scope.TotalPrice * 0.01) / 0.01;
-                    if ($scope.TotalPrice < 0)
-                        $scope.TotalPrice = 0;
-                }
-            }
+            /* recalculate order */
+            $scope.ReCalculateOrder();
         }
-        
+
         $scope.SaveOrder = function () {
             $('.se-pre-con').show();
+
             var _order = {
                 Id: $scope.Id,
                 FirstName: $scope.FirstName,
@@ -609,8 +563,9 @@
                 function errorCallback(response) {
                     $('.se-pre-con').hide();
                     alert('e')
-            });
+                });
         }
+
     }]);
 
 

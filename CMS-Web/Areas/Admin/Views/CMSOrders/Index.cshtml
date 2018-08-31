@@ -90,7 +90,7 @@
                                                ng-click="DeleteOrder($index)"
                                                class="btn btn-danger btn-xs delete details"><i class="fa fa-trash-o"></i>&nbsp;Xóa</a>
 
-                                            
+
                                             @*<a href="javascript:void(0)"
                                                    onclick='ShowView("@Url.Action("Edit","CMSCategories",new { Id=item.Id})")'
                                                    class="btn btn-info btn-xs edit details"><i class="fa fa-edit"></i>&nbsp;Cập nhập</a>&nbsp;&nbsp;
@@ -191,7 +191,7 @@
                                         {{item.Quantity}}
                                     </td>
                                     <td class="text-center">{{item.TotalPrice | currency :"": 0}} đ</td>
-                                    
+
                                 </tr>
                             </tbody>
                             <tfoot>
@@ -261,7 +261,7 @@
         // set the initial value
         "pageLength": 25,
         "columnDefs": [
-            //{ "orderable": false, "targets": [0, 5] },
+            { "orderable": false, "targets": [1, 2, 3, 4, 5] },
             { "width": "3%", "targets": [0] },
             { "width": "3%", "targets": [1] },
             { "width": "8%", "targets": [5] },
