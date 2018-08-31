@@ -14,13 +14,15 @@ namespace CMS_DTO.CMSProcedures
     {
         public string Id { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập mã sản phẩm")]
-        [MaxLength(20, ErrorMessage = "Mã sản phẩm tối đa 50 kí tự")]
+        [MaxLength(20, ErrorMessage = "Mã sản phẩm tối đa 20 kí tự")]
         public string ProductCode { get; set; }
         public string BarCode { get; set; }
         [DataType(DataType.Upload)]
         public HttpPostedFileBase PictureUpload { get; set; }
         public byte[] PictureByte { get; set; }
         public string ImageUrl { get; set; }
+        [Required(ErrorMessage = "Vui lòng nhập tên dịch vụ")]
+        [MaxLength(100, ErrorMessage = "Mã sản phẩm tối đa 100 kí tự")]
         public string ProceduresName { get; set; }
         [AllowHtml]
         public string Description { get; set; }
@@ -36,7 +38,10 @@ namespace CMS_DTO.CMSProcedures
         public string SpaTreatment { get; set; }
         public string Effect { get; set; }
         public string Duration { get; set; }
+        [Required(ErrorMessage = "Vui lòng nhập giá dịch vụ")]
+        [Range(0, Int64.MaxValue, ErrorMessage = "Giá dịch vụ phải lớn hơn 0")]
         public double Price { get; set; }
+        [Required(ErrorMessage = "Vui lòng chọn thể loại")]
         public string CategoryId { get; set; }
         public string CategoryName { get; set; }
         public int CateSequence { get; set; }

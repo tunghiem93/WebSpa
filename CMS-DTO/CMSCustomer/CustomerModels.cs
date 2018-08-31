@@ -21,13 +21,10 @@ namespace CMS_DTO.CMSCustomer
         public string FirstName { get; set; }
         [Required(ErrorMessage = "Xin hãy nhập tên!")]
         public string LastName { get; set; }
-        [Required(ErrorMessage = "Xin hãy nhập email")]
         [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail không hợp lệ")]
         public string Email { get; set; }
-        [Required(ErrorMessage = "Xin hãy nhập mật khẩu")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-        [Required(ErrorMessage = "Xin hãy xác nhận lại mật khẩu!")]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
         [Required(ErrorMessage = "Xin hãy nhập số điện thoại!")]
@@ -36,7 +33,6 @@ namespace CMS_DTO.CMSCustomer
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime BirthDate { get; set; }
         public bool Gender { get; set; }
-        [Required(ErrorMessage = "Xin hãy nhập địa chỉ!")]
         public string Address { get; set; }
         public bool MaritalStatus { get; set; }
         public string Postcode { get; set; }

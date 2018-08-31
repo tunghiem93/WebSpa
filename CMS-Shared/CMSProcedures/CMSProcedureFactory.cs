@@ -70,6 +70,12 @@ namespace CMS_Shared.CMSProcedures
                                 LastModified = DateTime.Now,
                             };
                             cxt.CMS_Products.Add(e);
+
+                            if (cxt.SaveChanges() <= 0)
+                            {
+                                Result = false;
+                                msg = "System error!";
+                            }
                         }
                         else
                         {
@@ -122,7 +128,12 @@ namespace CMS_Shared.CMSProcedures
                                 proCheck.ModifiedUser = model.UpdatedBy;
                                 proCheck.LastModified = DateTime.Now;
 
-                                cxt.SaveChanges();
+
+                                if (cxt.SaveChanges() <= 0)
+                                {
+                                    Result = false;
+                                    msg = "System error!";
+                                }
                             }
                             else
                             {

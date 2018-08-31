@@ -44,7 +44,7 @@
         </div>
 
         <div class="form-group">
-            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Tên</label>
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Tên <abbr class="required" title="required">*</abbr></label>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", @placeholder = "Tên nhân viên", @autocomplete = "off" })
                 @Html.ValidationMessageFor(model => model.LastName, null, new { @class = "label label-danger" })
@@ -52,7 +52,7 @@
         </div>
 
         <div class="form-group">
-            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Email</label>
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Email </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "Địa chỉ email", @autocomplete = "off" })
                 @Html.ValidationMessageFor(model => model.Email, null, new { @class = "label label-danger" })
@@ -60,7 +60,7 @@
         </div>
 
         <div class="form-group">
-            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Điện thoại</label>
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Điện thoại <abbr class="required" title="required">*</abbr></label>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", @placeholder = "Điện thoại", @autocomplete = "off" })
                 @Html.ValidationMessageFor(model => model.Phone, null, new { @class = "label label-danger" })
