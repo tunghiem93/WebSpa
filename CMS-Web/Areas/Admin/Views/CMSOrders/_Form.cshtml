@@ -121,7 +121,7 @@
             <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Giảm trực tiếp</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="VNĐ" autocomplete="off" ng-model="DirectDiscountValue" ng-keyup="completeDiscountDirect(DirectDiscountValue)" ng- />
+                    <input type="text" class="form-control" placeholder="nghìn VNĐ" autocomplete="off" ng-model="DirectDiscountValue" ng-keyup="completeDiscountDirect(DirectDiscountValue)" ng- />
                     <span class="input-group-addon" style="cursor:pointer;" ng-click="removeDiscountDirect();"><i class="glyphicon glyphicon-remove"></i></span>
                 </div>
             </div>
@@ -249,6 +249,7 @@
 </div>
 <script src="@Url.Content("~/Scripts/InputCustom.js")"></script>
 <script type="text/javascript">
+
     $(document).ready(function () {
     })
     var app = angular.module("appOrder", []);
@@ -278,7 +279,7 @@
             $scope.TotalPrice = 0;
             $scope.SubTotal = 0;
             $scope.TotalDiscount = 0;
-            $scope.TotalDiscount += parseInt($scope.DirectDiscountValue,10);
+            $scope.TotalDiscount += (parseInt($scope.DirectDiscountValue,10)* 1000);
             if ($scope.Items != null && $scope.Items != undefined) {
                 $.each($scope.Items, function (index, item) {
                     $scope.TotalPrice += item.TotalPrice;
