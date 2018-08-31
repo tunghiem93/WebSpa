@@ -33,7 +33,7 @@ namespace CMS_Web.Controllers
                 var _product = _fac.GetDetail(product_id);
                 if(_product != null)
                 {
-                    var data = _fac.GetList().Where(o => o.ProductTypeCode == (int)CMS_Common.Commons.EProductType.Product).ToList();
+                    var data = _fac.GetList().Where(o => o.ProductTypeCode == (int)CMS_Common.Commons.EProductType.Product && o.IsActive).ToList();
                     if (data != null)
                     {
                         /* get list product by category */

@@ -35,11 +35,12 @@ namespace CMS_Web.Controllers
             var models = new CMS_ShopViewModels();
             try
             {
-                var data =  _fac.GetList().ToList();
+                var data = _fac.GetList();
                 if(data != null)
                 {
-                    models.ProductNew = data.OrderByDescending(x => x.CreatedDate).Skip(0).Take(3).ToList();
+                    models.ProductNew = data.Where(o => o.IsActive).OrderByDescending(x => x.CreatedDate).Skip(0).Take(3).ToList();
                 }
+                
                 var _cate = _facCate.GetListProductCate();
                 models.Products = data;
                 models.Categories = _cate;
