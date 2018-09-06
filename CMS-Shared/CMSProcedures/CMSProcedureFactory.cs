@@ -80,7 +80,7 @@ namespace CMS_Shared.CMSProcedures
                         else
                         {
                             Result = false;
-                            msg = "Duplicate Procedure/Product Code.";
+                            msg = "Trùng mã sản phẩm/liệu trình.";
                         }
 
                     }
@@ -144,7 +144,7 @@ namespace CMS_Shared.CMSProcedures
                         else
                         {
                             Result = false;
-                            msg = "Duplicate Procedure/product Code.";
+                            msg = "Trùng mã sản phẩm/liệu trình.";
                         }
 
                     }

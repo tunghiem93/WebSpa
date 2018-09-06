@@ -89,7 +89,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                     }
                     return RedirectToAction("Index");
                 }
-                ModelState.AddModelError("ProcedureCode", msg);
+                ModelState.AddModelError("ProductCode", msg);
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return PartialView("_Create", model);
             }
