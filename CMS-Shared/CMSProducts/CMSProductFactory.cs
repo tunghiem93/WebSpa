@@ -314,7 +314,7 @@ namespace CMS_Shared.CMSProducts
                             ProductPrice = o.p.Cost,
                             Unit = o.p.Unit ?? 1,
                             Measure = o.p.Measure,
-                            Quantity = (double)o.p.Quantity,
+                            Quantity = (double)(o.p.Quantity??0),
                             Limit = o.p.Limit,
                             ExtraPrice = o.p.ExtraPrice,
                             IsAllowedDiscount = o.p.IsAllowedDiscount,

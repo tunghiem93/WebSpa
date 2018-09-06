@@ -42,6 +42,9 @@
         for (instance in CKEDITOR.instances) {
             CKEDITOR.instances[instance].updateElement();
         }
+
+        $('.currency').val($('.currency').val().replace(/[\D\s\._\-\,]+/g, ""));
+
         $.ajax({
             beforeSend: function () {
                 $('.se-pre-con').show();

@@ -249,50 +249,7 @@
 </div>
 <script src="@Url.Content("~/Scripts/InputCustom.js")"></script>
 <script type="text/javascript">
-    (function ($, undefined) {
-
-        // When ready.
-        $(function () {
-
-            var $input = $('input.currency');
-
-            $input.on("keyup", function (event) {
-
-
-                // When user select text in the document, also abort.
-                var selection = window.getSelection().toString();
-                if (selection !== '') {
-                    return;
-                }
-
-                // When the arrow keys are pressed, abort.
-                if ($.inArray(event.keyCode, [38, 40, 37, 39]) !== -1) {
-                    return;
-                }
-
-
-                var $this = $(this);
-
-                // Get the value.
-                var input = $this.val();
-
-                var input = input.replace(/[\D\s\._\-]+/g, "");
-                input = input ? parseInt(input, 10) : 0;
-
-                $this.val(function () {
-                    return (input === 0) ? "" : input.toLocaleString("en-US");
-                });
-            });
-
-            /**
-             * ==================================
-             * When Form Submitted
-             * ==================================
-             */
-
-
-        });
-    })(jQuery);
+    
     $(document).ready(function () {
     })
     var app = angular.module("appOrder", []);
@@ -322,10 +279,13 @@
             $scope.TotalPrice = 0;
             $scope.SubTotal = 0;
             $scope.TotalDiscount = 0;
-            var tmpDiscountDirect = (parseInt($scope.DirectDiscountValue.replace(/[\D\s\._\-\,]+/g, ""), 10));
-            if (!isNaN(tmpDiscountDirect)) {
-                $scope.TotalDiscount += tmpDiscountDirect;
+            if ($scope.DirectDiscountValue != null) {
+                var tmpDiscountDirect = (parseInt($scope.DirectDiscountValue.replace(/[\D\s\._\-\,]+/g, ""), 10));
+                if (!isNaN(tmpDiscountDirect)) {
+                    $scope.TotalDiscount += tmpDiscountDirect;
+                }
             }
+            
 
             if ($scope.Items != null && $scope.Items != undefined) {
                 $.each($scope.Items, function (index, item) {

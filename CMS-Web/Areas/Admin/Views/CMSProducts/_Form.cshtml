@@ -92,7 +92,7 @@
         <div class="form-group">
             <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Giá <abbr class="required" title="required">*</abbr> </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                @Html.TextBoxFor(model => model.ProductPrice, new { @class = "form-control keyMoney", @placeholder = "Giá sản phẩm", @autocomplete = "off" })
+                @Html.TextBoxFor(model => model.ProductPrice, new { @class = "form-control currency", @placeholder = "Giá sản phẩm", @autocomplete = "off" })
                 @Html.ValidationMessageFor(model => model.ProductPrice, null, new { @class = "label label-danger" })
             </div>
         </div>
