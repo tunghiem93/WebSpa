@@ -43,7 +43,7 @@
             CKEDITOR.instances[instance].updateElement();
         }
 
-        $('.currency').val($('.currency').val().replace(/[\D\s\._\-\,]+/g, ""));
+        //$('.currency').val($('.currency').val().replace(/[\D\s\._\-\,]+/g, ""));
 
         $.ajax({
             url: $(this).attr('action'),
